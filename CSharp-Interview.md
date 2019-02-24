@@ -1009,7 +1009,21 @@ Limits the number of threads that can access a resource or pool of resources con
 1. ConcurrentQueue
 2. ConcurrentStack
 3. ConcurrentDictionary
-4. ConcurrentBag 
+4. ConcurrentBag
+
+#### Lock vs ConcurrentDictionary ####
+<table>
+    <tbody>
+        <tr>
+            <th>Lock</th>
+            <th>ConcurrentDictionary</th>
+        </tr>
+        <tr>
+            <td>A store with a clerk.</td>
+            <td>A vending machine.</td> 
+        </tr>
+    </tbody>
+</table>
 
 #### How can you make a Singleton class thread safe?####
 1. Double-Check Locking
