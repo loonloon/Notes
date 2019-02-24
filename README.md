@@ -13,7 +13,7 @@
             <td>http://www.codinghelmet.com/articles/</td>
         </tr>
         <tr>
-            <td>https://www.dotnetperls.com//</td>
+            <td>https://www.dotnetperls.com/</td>
         </tr> 
     </tbody>
 </table>
@@ -39,3 +39,16 @@
         </tr>
     </tbody>
 </table>
+
+
+#### Fiddle ####
+* https://xsltfiddle.liberty-development.net/
+* https://jsfiddle.net/
+
+#### Convert CSS to inline style ####
+https://www.myintervals.com/emogrifier.php
+
+#### Windbg ####
+* https://gelexgaray.github.io/blog/2016/05/26/windbg-cheatburger-aka-my-windbg-cheat-sheet/
+* https://blogs.msdn.microsoft.com/benjaminperkins/2017/12/21/must-use-must-know-windbg-commands-my-most-used/
+* https://blogs.msdn.microsoft.com/luisdem/2016/07/19/mex-debugging-extension-for-windbg-2/
