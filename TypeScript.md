@@ -6,3 +6,4 @@ https://www.logicbig.com/tutorials/misc/typescript/discriminated-unions.html
 1. Never type
 2. Indexable Types
 3. Difference between the static and instance sides of classes
+4. Constructor functions
