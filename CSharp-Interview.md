@@ -1103,3 +1103,7 @@ Limits the number of threads that can access a resource or pool of resources con
 #### What is HashSet? ####
 * Provides high-performance set operation, can increase the maximum capacity to 2 billion elements on a 64-bit system by setting the enabled attribute of the ```<gcAllowVeryLargeObjects>```.
 * Contains no duplicate elements, and whose elements are in no particular order.
+
+#### What is SynchronizedCollection? ####
+* It was introduced first in .NET 2.0 to provide a thread-safe collection class.
+* It does this via locking so that you essentially have a ```List<T>``` where every access is wrapped in a ```lock``` statement.
