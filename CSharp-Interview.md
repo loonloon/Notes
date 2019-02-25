@@ -130,6 +130,20 @@
     </tbody>
 </table>
 
+#### What is the difference between ```System.Array.Clone()``` and ```System.Array.CopyTo()```? ####
+<table>
+    <tbody>
+        <tr>
+            <th>System.Array.Clone()</th>
+            <th>System.Array.CopyTo()</th>
+        </tr>
+        <tr>
+            <td>Used to create a new array to contain all the elements which are in the original array.</td>
+            <td>Used to copy the elements of one array to other</td>
+        </tr>
+    </tbody>
+</table>
+
 ![arrays](https://user-images.githubusercontent.com/5309726/52907555-dc138880-329e-11e9-9982-eb0d4fffe6cd.png)
 
 #### What is Stack and Heap? ####
@@ -194,7 +208,7 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
         </tr>
         <tr>
             <td>Does not reset stack trace and will get information about original exception.</td>
-            <td>Will reset stack trace, so error will appear from the line where throw(ex) written.</td>
+            <td>Will reset stack trace, so error will appear from the line where throw(ex) written.It makes hard to find the original code line number that has thrown the exception.</td>
         </tr>
     </tbody>
 </table>
@@ -1067,9 +1081,49 @@ Limits the number of threads that can access a resource or pool of resources con
     </tbody>
 </table>
 
-#### How can you make a Singleton class thread safe?####
+#### How can you make a Singleton class thread safe? ####
 1. Double-Check Locking
 2. Static initialization
+
+#### What is the difference between ```IEnumerable``` and ```IQueryable```? ####
+<table>
+    <tbody>
+        <tr>
+            <th>IEnumerable</th>
+            <th>IQueryable</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td> 
+        </tr>
+    </tbody>
+</table>
+
+#### What is the difference between ```Array``` and ```ArrayList```? ####
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Array</th>
+            <th>ArrayList</th>
+        </tr>
+        <tr>
+            <td>Strongly/Weakly Type</td>
+            <td>Strongly</td>
+            <td>Weakly</td> 
+        </tr>
+        <tr>
+            <td>Length</td>
+            <td>Fixed</td>
+            <td>Dynamically expanding internally.</td> 
+        </tr>
+        <tr>
+            <td>Notes</td>
+            <td>-</td>
+            <td>Belongs to the days that C# didn't have generics.It's deprecated in favor of List.</td> 
+        </tr>
+    </tbody>
+</table>
 
 #### What is the difference between List and LinkedList? ####
 <table>
