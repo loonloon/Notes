@@ -825,6 +825,25 @@ Both of them are compiled to System.String in IL (Intermediate Language), so the
     </tbody>
 </table>
 
+#### Difference between ```?``` and ```??``` ####
+<table>
+    <tbody>
+        <tr>
+            <th>?</th>
+            <th>??</th>
+        </tr>
+        <tr>
+            <td>Conditional operator</td>
+            <td>Null-coalescing operator</td>     
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.</td>     
+        </tr>
+        
+    </tbody>
+</table>
+
 #### .NET framework version ####
 ![dotnet-framework](https://user-images.githubusercontent.com/5309726/52908123-10407680-32aa-11e9-9583-9f29fc353e40.png)
 
