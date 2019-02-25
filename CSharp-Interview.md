@@ -839,8 +839,7 @@ Both of them are compiled to System.String in IL (Intermediate Language), so the
         <tr>
             <td>-</td>
             <td>It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.</td>     
-        </tr>
-        
+        </tr> 
     </tbody>
 </table>
 
@@ -1112,8 +1111,29 @@ Limits the number of threads that can access a resource or pool of resources con
             <th>IQueryable</th>
         </tr>
         <tr>
-            <td></td>
-            <td></td> 
+            <td>Namespace</td>
+            <td>System.Collections</td>
+            <td>System.Linq</td> 
+        </tr>
+        <tr>
+            <td>Derives from</td>
+            <td>-</td>
+            <td>IEnumerable</td> 
+        </tr>
+        <tr>
+            <td>How does it work</td>
+            <td>While querying data from database, IEnumerable executes select query on server side, load data in-memory on client side and then filter data.</td>
+            <td>While querying data from database, IQueryable executes select query on server side with all filters.</td> 
+        </tr>
+        <tr>
+            <td>When to use</td>
+            <td>When querying data from in-memory collections like List, Array, etc.</td>
+            <td>When querying data from out-memory (like remote database, service) collections.</td> 
+        </tr>
+        <tr>
+            <td>Best Uses</td>
+            <td>In-memory traversal.</td>
+            <td>Paging</td> 
         </tr>
     </tbody>
 </table>
