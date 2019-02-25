@@ -1028,3 +1028,77 @@ Limits the number of threads that can access a resource or pool of resources con
 #### How can you make a Singleton class thread safe?####
 1. Double-Check Locking
 2. Static initialization
+
+#### What is the difference between List and LinkedList? ####
+<table>
+    <tbody>
+        <tr>
+            <th>List</th>
+            <th>LinkedList</th>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    <li>Basically backed by an array which is usually bigger than the current number of items. The elements are put in an array, and a new array is created when the old one runs out of space.</li>
+                    <li>This is fast for access by index, but slow at removing or inserting elements within the list or at the start.</li>
+                    <li>Adding/removing entries at the end of the list is reasonably cheap.</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Is a doubly-linked list - each node knows its previous entry and its next one.</li>
+                    <li>This is fast for inserting after/before a particular node (or the head/tail), but slow at access by index.</li>
+                </ul>
+            </td> 
+        </tr>
+    </tbody>
+</table>
+
+#### What is the difference between Dictionary and Hashtable? ####
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Dictionary</th>
+            <th>Hashtable</th>
+        </tr>
+        <tr>
+            <td>Generic Type</td>
+            <td>Is generic type.</td>
+            <td>Is non-generic type.</td> 
+        </tr>
+        <tr>
+            <td>Strongly/Weakly Type</td>
+            <td>Strongly, must specify the data types for key and value.</td>
+            <td>Weakly, can add keys and values of any object type.</td> 
+        </tr>
+        <tr>
+            <td>Boxing/Unboxing</td>
+            <td>No</td>
+            <td>Yes, values need to have boxing/unboxing.</td> 
+        </tr>
+        <tr>
+            <td>Access Non Existing Key</td>
+            <td>It gives runtime error.</td>
+            <td>It gives null values.</td> 
+        </tr>
+        <tr>
+            <td>Order of The Stored Values</td>
+            <td>Order is maintains.</td>
+            <td>Order is not maintains, rearrange the items based on their hash code.</td> 
+        </tr>
+        <tr>
+            <td>Performance</td>
+            <td>Faster</td>
+            <td>Slower, values need to have boxing/unboxing.</td> 
+        </tr>
+    </tbody>
+</table>
+
+#### What is ISet? ####
+* Implements ```IEnumerable``` and ```ICollection``` interfacs.
+* Provides sets methods The HashSet<T> and SortedSet<T> classes.
+    
+#### What is HashSet? ####
+* Provides high-performance set operation, can increase the maximum capacity to 2 billion elements on a 64-bit system by setting the enabled attribute of the ```<gcAllowVeryLargeObjects>```.
+* Contains no duplicate elements, and whose elements are in no particular order.
