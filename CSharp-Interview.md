@@ -123,6 +123,10 @@
             <td>Slower</td>
             <td>Faster</td>
         </tr>
+        <tr>
+            <td></td>
+            <td>Can be of different dimensions and sizes, also call as array of arrays.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -167,7 +171,7 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
     </tbody>
 </table>
 
-#### What is the difference between ```continue``` and ```break``` Statement? ####
+#### What is the difference between ```continue``` and ```break``` statement? ####
 <table>
     <tbody>
         <tr>
@@ -177,6 +181,20 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
         <tr>
             <td>It makes the program to exit only the current iteration. It does not break the loop.</td>
             <td>It makes the program to exit the loop</td>
+        </tr>
+    </tbody>
+</table>
+
+#### What is difference between the ```throw``` and ```throw ex```? ####
+<table>
+    <tbody>
+        <tr>
+            <th>throw</th>
+            <th>throw ex</th>
+        </tr>
+        <tr>
+            <td>Does not reset stack trace and will get information about original exception.</td>
+            <td>Will reset stack trace, so error will appear from the line where throw(ex) written.</td>
         </tr>
     </tbody>
 </table>
@@ -581,6 +599,9 @@ animal.RaiseEvent();
     </tbody>
 </table>
 
+####  What is the use of using statement? ####
+The ```using``` block is used to obtain a resource and use it and then automatically dispose of when the execution of block completed.
+
 #### What is the difference between Delegate.Invoke and Delegate.BeginInvoke methods? ####
 <table>
     <tbody>
@@ -897,6 +918,12 @@ Represents a weak reference, which references an object while still allowing tha
         </tr>
     </tbody>
 </table>
+
+#### What is Deadlock? ####
+A deadlock is a situation where a process is not able to complete its execution because two or more processes are waiting for each other to finish.
+
+#### What is Race Condition? ####
+A race condition occurs when two threads access the same resource and are trying to change it at the same time.
 
 #### What is the difference between Thread and Task? ####
 <table>
