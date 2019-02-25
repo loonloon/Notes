@@ -167,10 +167,24 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
     </tbody>
 </table>
 
+#### What is the difference between ```continue``` and ```break``` Statement? ####
+<table>
+    <tbody>
+        <tr>
+            <th>continue</th>
+            <th>break</th>
+        </tr>
+        <tr>
+            <td>It makes the program to exit only the current iteration. It does not break the loop.</td>
+            <td>It makes the program to exit the loop</td>
+        </tr>
+    </tbody>
+</table>
+
 #### What is Extension Method? ####
 Allow an existing type to be extended with new methods without altering the definition of the original type. An extension method is a static method of a static class. 
 
-#### What is Yield? ####
+#### What is ```yield```? ####
 ```
 public class ContactListStore : IStore<ContactModel>
 {
@@ -300,7 +314,7 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
-#### What is the difference between a struct and a class? ####
+#### What is the difference between a ```struct``` and a ```class```? ####
 <table>
     <tbody>
         <tr>
@@ -330,12 +344,12 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
-#### What is the difference between Interface and Abstract Class? ####
+#### What is the difference between ```interface``` and ```abstract``` Class? ####
 <table>
     <tbody>
         <tr>
-            <th>Interface</th>
-            <th>Abstract class</th>
+            <th>interface</th>
+            <th>abstract (class)</th>
         </tr>
         <tr>
             <td>All the methods have to be abstract.</td>
@@ -360,7 +374,7 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
-#### What is the difference between constant and readonly? ####
+#### What is the difference between ```constant``` and ```readonly```? ####
 <table>
     <tbody>
         <tr>
@@ -378,7 +392,7 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
-#### What is the difference between ref, out and in keywords? ####
+#### What is the difference between ```ref```, ```out``` and ```in``` keywords? ####
 <table>
     <tbody>
         <tr>
@@ -430,7 +444,7 @@ void InArgExample(in int number)
 }
 ```
 
-#### What is the difference between string and StringBuilder? ####
+#### What is the difference between ```string``` and ```StringBuilder```? ####
 <table>
     <tbody>
         <tr>
@@ -581,7 +595,7 @@ animal.RaiseEvent();
     </tbody>
 </table>
 
-#### What is the difference between Invoke and BeginInvoke methods? ####
+#### What is the difference between ```Invoke``` and ```BeginInvoke``` methods? ####
 <table>
     <tbody>
         <tr>
@@ -595,10 +609,10 @@ animal.RaiseEvent();
     </tbody>
 </table>
 
-#### What is sealed class? ####
+#### What is ```sealed```class? ####
 Restrict the inheritance feature, once a class is defined as a sealed class, the class cannot be inherited.
 
-#### What are partial classes? ####
+#### What are ```partial``` classes? ####
 * Create a class definition in multiple files but it will be compiled as one class at run time.
 * Doesn’t allowed to create a partial class in different namespace.
 
@@ -652,7 +666,7 @@ partial class Class1
 #### What is the Constructor Chaining? #####
 Child class constructor is mapped to parent class Constructor implicitly by base keyword so when you create an instance of child class to it’ll call parent’s class Constructor.
 
-#### What is thed difference between is and as operator? ####
+#### What is thed difference between ```is``` and ```as``` operator? ####
 <table>
     <tbody>
         <tr>
@@ -724,7 +738,7 @@ Can override methods in derived classes.
 #### What is Multithreading? ####
 Enables your application to have more than one execution path at the same time.
 
-#### What is the difference between string and String? ####
+#### What is the difference between ```string``` and ```String```? ####
 Both of them are compiled to System.String in IL (Intermediate Language), so there is no difference.
 
 <table>
@@ -758,7 +772,7 @@ Both of them are compiled to System.String in IL (Intermediate Language), so the
     </tbody>
 </table>
 
-#### Difference between & and && ####
+#### Difference between ```&``` and ```&&``` ####
 <table>
     <tbody>
         <tr>
