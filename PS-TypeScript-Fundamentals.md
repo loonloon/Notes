@@ -94,3 +94,17 @@ TypeScript is a typed superset (build of top) of JavaScript.
 
 #### Code Hierarchy ####
 ![code-hierarchy](https://user-images.githubusercontent.com/5309726/53578287-57840c80-3bb2-11e9-8075-14578cc4481c.png)
+
+#### Static and Dynamic Typing ####
+<table>
+    <tbody>
+        <tr>
+            <th>Static Typing</th>
+            <th>Dynamic Typing</th>
+        </tr>
+        <tr>
+            <td>The type is associated with variable, and checked at compile-time.</td>
+            <td>The type is associated with the value, and checked at run-time.</td>     
+        </tr>
+    </tbody>
+</table>
