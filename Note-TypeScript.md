@@ -404,11 +404,11 @@ class Location {
     </tbody>
 </table>
 
-https://www.typescriptlang.org/docs/handbook/basic-types.html
+#### Functions ####
 
-https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
+* https://www.typescriptlang.org/docs/handbook/basic-types.html
+* https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
 
 #### Need to revise ####
-3. Difference between the static and instance sides of classes
-4. Constructor functions
-5. Ambient enums
+1. Difference between the static and instance sides of classes
+2. Ambient enums
