@@ -130,6 +130,8 @@
     </tbody>
 </table>
 
+![arrays](https://user-images.githubusercontent.com/5309726/52907555-dc138880-329e-11e9-9982-eb0d4fffe6cd.png)
+
 #### What is the difference between ```System.Array.Clone()``` and ```System.Array.CopyTo()```? ####
 <table>
     <tbody>
@@ -143,8 +145,6 @@
         </tr>
     </tbody>
 </table>
-
-![arrays](https://user-images.githubusercontent.com/5309726/52907555-dc138880-329e-11e9-9982-eb0d4fffe6cd.png)
 
 #### What is Stack and Heap? ####
 <table>
@@ -689,10 +689,10 @@ partial class Class1
         </tr>
         <tr>
             <td>During run time.</td>
-            <td>Defers binding, resolving types, members, and operations from compile time to runtime.</td>     
+            <td>During compile time.</td>     
         </tr>
         <tr>
-            <td>During compile time.</td>
+            <td>Defers binding, resolving types, members, and operations from compile time to runtime.</td>
             <td>Method overloading, same methods name but different type of parameter or may be the number or parameter.</td>     
         </tr>
     </tbody>
@@ -973,8 +973,8 @@ A race condition occurs when two threads access the same resource and are trying
             <td>Can apply chaining on multiple tasks by using ContinueWith.</td> 
         </tr>
           <tr>
-            <td>have to use event signals like AutoResetEvent and ManualResetEvent.</td>
-            <td>Can wait on Tasks without using Signalling. But in Threads we </td> 
+            <td>Have to use event signals like AutoResetEvent and ManualResetEvent.</td>
+            <td>Can wait on Tasks without using Signalling.</td> 
         </tr>
         <tr>
             <td>Not available.</td>
@@ -1107,6 +1107,7 @@ Limits the number of threads that can access a resource or pool of resources con
 <table>
     <tbody>
         <tr>
+            <th></th>
             <th>IEnumerable</th>
             <th>IQueryable</th>
         </tr>
