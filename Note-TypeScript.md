@@ -241,6 +241,7 @@ var me = 'bar'; //No problem, `me` is replaced.
             <td colspan="2">
               <pre lang="typescript">
 //Have the same scoping rules as let, but you can’t re-assign to them.
+//Fortunately, TypeScript allows you to specify that members of an object are "readonly"
 const numLivesForCat = 9;
 const kitty = {
     name: "Aurora",
@@ -299,6 +300,19 @@ clone.p; //ok
 clone.m(); //error!
               </pre>
             </td>     
+        </tr>
+    </tbody>
+</table>
+
+#### Interfaces ####
+<table>
+    <tbody>
+        <tr>
+            <th>readonly</th>
+            <th>const</th>
+        </tr>
+          <td>Use in object properties.</td>
+          <td>Use in object variables.</td>
         </tr>
     </tbody>
 </table>
