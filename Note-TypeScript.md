@@ -220,11 +220,11 @@ function varExample() {
 //Assuming in strict mode
 'use strict';
 let me = 'foo';
-let me = 'bar'; // SyntaxError: Identifier 'me' has already been declared
+let me = 'bar'; //SyntaxError: Identifier 'me' has already been declared
 <br />
 'use strict';
 var me = 'foo';
-var me = 'bar'; // No problem, `me` is replaced.
+var me = 'bar'; //No problem, `me` is replaced.
             </pre>
           </td>
         </tr>
