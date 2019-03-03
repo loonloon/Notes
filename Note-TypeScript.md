@@ -231,7 +231,6 @@ var me = 'bar'; // No problem, `me` is replaced.
     </tbody>
 </table>
 
-### let v const ###
 <table>
     <tbody>
         <tr>
@@ -239,12 +238,31 @@ var me = 'bar'; // No problem, `me` is replaced.
             <th>const</th>
         </tr>
         <tr>
-            <td colspan="2">Have the same scoping rules as let, but you can’t re-assign to them.</td>
+            <td colspan="2">
+              <pre>
+//Have the same scoping rules as let, but you can’t re-assign to them.
+const numLivesForCat = 9;
+const kitty = {
+    name: "Aurora",
+    numLives: numLivesForCat,
+}
+<br />
+// Error
+kitty = {
+    name: "Danielle",
+    numLives: numLivesForCat
+};
+<br />
+// all "okay"
+kitty.name = "Rory";
+kitty.name = "Kitty";
+kitty.numLives--;
+              </pre>
+          </td>
         </tr>
     </tbody>
 </table>
       
-
 https://www.typescriptlang.org/docs/handbook/interfaces.html
 https://www.logicbig.com/tutorials/misc/typescript/discriminated-unions.html
 
