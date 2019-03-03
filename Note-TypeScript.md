@@ -343,7 +343,6 @@ let maximized = s['maximized'];
           <td>Number</td>
           <td>
             <pre lang="typescript">
-//Number
 interface StringArray {
   [index: number]: string;
 }
