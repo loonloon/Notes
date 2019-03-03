@@ -133,7 +133,6 @@ var person = {
   lastName:"J" 
 };
 <br />
-
       </pre>
     </td>
   </tr>
