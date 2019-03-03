@@ -154,6 +154,97 @@ let strLength2: number = (someValue as string).length;
   </tr>
 </table>
 
+#### Variable Declarations ####
+<table>
+    <tbody>
+        <tr>
+            <th>Scoping</th>
+            <th>var</th>
+            <th>let</th>
+        </tr>
+        <tr>
+          <td>Global</td>
+          <td colspan="2">
+            <pre lang="typescript">
+//They are very similar when used like this outside a function block.
+let me = 'go';  //globally scoped
+var i = 'able'; //globally scoped
+<br />
+//Global variables defined with let will not be added 
+//as properties on the global window object.
+console.log(window.me); //undefined
+console.log(window.i); //'able'
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Function</td>
+          <td colspan="2">
+            <pre lang="typescript">
+//They are identical when used like this in a function block.
+function ingWithinEstablishedParameters() {
+    let terOfRecommendation = 'awesome worker!'; //function block scoped
+    var sityCheerleading = 'go!'; //function block scoped
+}
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Block</td>
+          <td colspan="2">
+            <pre lang="typescript">
+//let is only visible in the for() loop and var is visible to the whole function.
+function letExample() {
+    //i is *not* visible out here
+    for( let i = 0; i < 5; i++ ) {
+        //i is only visible in here (and in the for() parentheses)
+        //and there is a separate i variable for each iteration of the loop
+    }
+    //i is *not* visible out here
+}
+<br />
+function varExample() {
+    //j *is* visible out here
+    for( var j = 0; j < 5; j++ ) {
+        //j is visible to the whole function
+    }
+    //j *is* visible out here
+}
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Redeclaration</td>
+          <td colspan="2">
+            <pre lang="typescript">
+//Assuming in strict mode
+'use strict';
+let me = 'foo';
+let me = 'bar'; // SyntaxError: Identifier 'me' has already been declared
+<br />
+'use strict';
+var me = 'foo';
+var me = 'bar'; // No problem, `me` is replaced.
+            </pre>
+          </td>
+        </tr>
+    </tbody>
+</table>
+
+### let v const ###
+<table>
+    <tbody>
+        <tr>
+            <th>let</th>
+            <th>const</th>
+        </tr>
+        <tr>
+            <td colspan="2">Have the same scoping rules as let, but you can’t re-assign to them.</td>
+        </tr>
+    </tbody>
+</table>
+      
+
 https://www.typescriptlang.org/docs/handbook/interfaces.html
 https://www.logicbig.com/tutorials/misc/typescript/discriminated-unions.html
 
