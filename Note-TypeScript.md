@@ -241,7 +241,6 @@ var me = 'bar'; //No problem, `me` is replaced.
             <td colspan="2">
               <pre lang="typescript">
 //Have the same scoping rules as let, but you can’t re-assign to them.
-//Fortunately, TypeScript allows you to specify that members of an object are "readonly"
 const numLivesForCat = 9;
 const kitty = {
     name: "Aurora",
@@ -317,12 +316,99 @@ clone.m(); //error!
     </tbody>
 </table>
 
-https://www.typescriptlang.org/docs/handbook/interfaces.html
-https://www.logicbig.com/tutorials/misc/typescript/discriminated-unions.html
+<table>
+    <tbody>
+        <tr>
+            <th>Indexable Types</th>
+            <th>Examples</th>
+        </tr>
+        <tr>
+          <td>String, all properties should return the same type that the indexer returns.</td>
+          <td>
+            <pre lang="typescript">
+interface States {
+    [state: string]: boolean; //indexer
+    screenName: number; //error
+}
+<br />
+let s: States = {'enabled': true, 'maximized':false};
+<br />
+//false
+let maximized = s['maximized'];
+<br />
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Number</td>
+          <td>
+            <pre lang="typescript">
+//Number
+interface StringArray {
+  [index: number]: string;
+}
+<br />
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+<br />
+//Bob
+let myStr: string = myArray[0];
+            </pre>
+          </td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Interfaces Extending Classes</th>
+        </tr>
+        <tr>
+          <td>
+            <ul>
+              <li>When you create an interface that extends a class with private or protected members, that interface type can only be implemented by that class or a subclass of it.</li>
+              <li>This is useful when you have a large inheritance hierarchy, but want to specify that your code works with only subclasses that have certain properties. The subclasses don’t have to be related besides inheriting from the base class.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <pre lang="typescript">
+class Control {
+    private state: any;
+}
+<br />
+interface SelectableControl extends Control {
+    select(): void;
+}
+<br />
+class Button extends Control implements SelectableControl {
+    select() { }
+}
+<br />
+class TextBox extends Control {
+    select() { }
+}
+<br />
+// Error: Property 'state' is missing in type 'Image'.
+class Image implements SelectableControl {
+    select() { }
+}
+<br />
+class Location {
+
+}
+            </pre>
+          </td>
+        </tr>
+    </tbody>
+</table>
+
+https://www.typescriptlang.org/docs/handbook/basic-types.html
+https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
 
 #### Need to revise ####
-1. Never type
-2. Indexable Types
 3. Difference between the static and instance sides of classes
 4. Constructor functions
 5. Ambient enums
