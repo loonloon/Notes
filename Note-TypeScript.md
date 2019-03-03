@@ -239,7 +239,7 @@ var me = 'bar'; //No problem, `me` is replaced.
         </tr>
         <tr>
             <td colspan="2">
-              <pre>
+              <pre lang="typescript">
 //Have the same scoping rules as let, but you can’t re-assign to them.
 const numLivesForCat = 9;
 const kitty = {
@@ -262,7 +262,47 @@ kitty.numLives--;
         </tr>
     </tbody>
 </table>
-      
+
+<table>
+    <tbody>
+        <tr>
+            <th colspan="2">Spread</th>
+        </tr>
+        <tr>
+          <td colspan="2">The spread operator (in form of ellipsis) can be used to initialize arrays and objects from another array or object. You can also use spread operator for object destructuring.</td>
+        </tr>
+        <tr>
+            <td>Array into another array</td>
+            <td>
+              <pre lang="typescript">
+let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5];
+              </pre>
+            </td>     
+        </tr>
+        <tr>
+            <td>Object into another object</td>
+            <td>
+              <pre lang="typescript">
+class C {
+p = 12;
+  m() {
+  }
+}
+<br />
+let c = new C();
+let clone = { ...c };
+clone.p; //ok
+<br />
+//lose methods when you spread instances of an object
+clone.m(); //error!
+              </pre>
+            </td>     
+        </tr>
+    </tbody>
+</table>
+
 https://www.typescriptlang.org/docs/handbook/interfaces.html
 https://www.logicbig.com/tutorials/misc/typescript/discriminated-unions.html
 
@@ -272,4 +312,3 @@ https://www.logicbig.com/tutorials/misc/typescript/discriminated-unions.html
 3. Difference between the static and instance sides of classes
 4. Constructor functions
 5. Ambient enums
-
