@@ -406,6 +406,7 @@ class Location {
 </table>
 
 https://www.typescriptlang.org/docs/handbook/basic-types.html
+
 https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
 
 #### Need to revise ####
