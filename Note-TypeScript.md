@@ -311,7 +311,7 @@ clone.m(); //error!
             <th>const</th>
         </tr>
           <td>Use in object properties.</td>
-          <td>Use in object variables.</td>
+          <td>Use in variables.</td>
         </tr>
     </tbody>
 </table>
