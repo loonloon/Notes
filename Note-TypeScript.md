@@ -404,7 +404,25 @@ class Location {
     </tbody>
 </table>
 
-#### Functions ####
+#### Generics ####
+<table>
+    <tbody>
+        <tr>
+            <th>Type argument inference</th>
+        </tr>
+          <td>The compiler to set the value of T for us automatically based on the type of the argument we pass in.</td>
+        </tr>
+        </tr>
+          <td><pre lang="typescript">
+//Normally
+let output = identity&lt;string&gt;("myString");
+<br />
+//Type argument inference
+let output = identity("myString");
+          </pre></td>
+        </tr>
+    </tbody>
+</table>
 
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
