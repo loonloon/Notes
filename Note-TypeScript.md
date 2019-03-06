@@ -532,5 +532,35 @@ let nameOfA = Enum[a];
     </tbody>
 </table>
 
+<table>
+    <tbody>
+        <tr>
+            <th>enum</th>
+            <th>const enum</th>
+        </tr>
+        <td><pre lang="typescript">
+enum Color {Red, Green, Blue};
+const enum ConstantColor {Red, Green, Blue}
+<br />
+var blue = Color["Blue"];  //OK
+var constantBlue = ConstantColor["Blue"]; //OK
+<br />
+var cyanString = Color[5]; //OK
+var constCyanString = ConstantColor[5]; //OK
+        </pre></td>
+        <td><pre lang="typescript">
+enum Color {Red, Green, Blue};
+const enum ConstantColor {Red, Green, Blue}
+<br />
+var blue = Color["Blue"];  //OK
+var constantBlue = ConstantColor["Blue"]; //OK
+<br />
+var cyanString = Color[5]; //OK
+var constCyanString = ConstantColor[5]; //Error
+        </pre></td>
+        </tr>
+    </tbody>
+</table>
+
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
