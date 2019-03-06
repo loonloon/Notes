@@ -424,9 +424,113 @@ let output = identity("myString");
     </tbody>
 </table>
 
+<table>
+    <tbody>
+        <tr>
+            <th>Generics Constraints</th>
+        </tr>
+          <td>Create an interface that describes our constraint and use the extends keyword to denote(表示) our constraint.</td>
+        </tr>
+        </tr>
+        <td><pre lang="typescript">
+interface Lengthwise {
+    length: number;
+}
+<br />
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  // Now we know it has a .length property, so no more error
+    console.log(arg.length);
+    return arg;
+}
+<br />
+//Error, number doesn't have a .length property
+loggingIdentity(3);
+<br />
+//Need to pass in values whose type has all the required properties
+loggingIdentity({length: 10, value: 3});
+          </pre></td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Type Parameters in Generic Constraints</th>
+        </tr>
+          <td>Declare a type parameter that is constrained by another type parameter.</td>
+        </tr>
+        </tr>
+        <td><pre lang="typescript">
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key];
+}
+<br />
+let x = { a: 1, b: 2, c: 3, d: 4 };
+<br />
+//okay
+getProperty(x, "a");
+<br />
+// error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
+getProperty(x, "m");
+          </pre></td>
+        </tr>
+    </tbody>
+</table>
+
+#### Enums ####
+<table>
+    <tbody>
+        <tr>
+            <th>Enum Member as Type</th>
+        </tr>
+        <td><pre lang="typescript">
+enum ShapeKind {
+    Circle,
+    Square,
+}
+<br />
+interface Circle {
+    kind: ShapeKind.Circle;
+    radius: number;
+}
+<br />
+interface Square {
+    kind: ShapeKind.Square;
+    sideLength: number;
+}
+<br />
+let c: Circle = {
+    //Error, kind is ShapeKind.Circle type in Circle interface
+    kind: ShapeKind.Square,
+    radius: 100,
+}
+          </pre></td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Reverse mappings</th>
+        </tr>
+        <tr>
+            <td>String enum members do not get a reverse mapping generated at all.</td>
+        </tr>
+        <td><pre lang="typescript">
+enum Enum {
+    A
+}
+<br />
+let a = Enum.A;
+<br/>
+//"A"
+let nameOfA = Enum[a];
+          </pre></td>
+        </tr>
+    </tbody>
+</table>
+
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
-
-#### Need to revise ####
-1. Difference between the static and instance sides of classes
-2. Ambient enums
