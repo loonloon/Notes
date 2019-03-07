@@ -593,5 +593,64 @@ window.onmousedown = function(mouseEvent: any) {
     </tbody>
 </table>
 
+#### Type Compatibility ####
+<table>
+    <tbody>
+      <tr>
+        <th>Structural Subtyping</th>
+        <th>Nominal Typing</th>
+      </tr>
+      <tr>
+        <td>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of <b>relating types based solely on their members</b></td>
+        <td>In nominally-typed languages like C# or Java, the equivalent code would be an error because the Person class does not explicitly describe itself as being an implementer of the Named interface.</td>
+      </tr>
+            <tr>
+        <td colspan="2"><pre lang="typescript">
+                    interface Named {
+                      name: string;
+                  }
+<br />
+                    class Person {
+                        name: string;
+                    }
+<br />
+                    let p: Named;
+<br />
+                    // OK, because of structural typing
+                    p = new Person();
+<br />
+        </pre></td>
+      </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+      <tr>
+        <th>Object</th>
+        <th>Function</th>
+      </tr>
+      <tr>
+        <td>To check whether y can be assigned to x, the compiler checks each property of x to find a corresponding compatible property in y. In this case, y must have a member called name that is a string. It does, so the assignment is allowed.</td>
+        <td>To check if x is assignable to y, we first look at the parameter list. Each parameter in x must have a corresponding parameter in y with a compatible type. Note that the names of the parameters are not considered, only their types. In this case, every parameter of x has a corresponding compatible parameter in y, so the assignment is allowed. <br /><br />The second assignment is an error, because y has a required second parameter that x does not have, so the assignment is disallowed.</td>
+      </tr>
+            <tr>
+        <td><pre lang="typescript">
+let x: Named;
+<br />
+//y's inferred type is { name: string; location: string; }
+let y = { name: "Alice", location: "Seattle" }; 
+        </pre></td>
+        <td><pre lang="typescript">
+let x = (a: number) => 0;
+let y = (b: number, s: string) => 0;
+<br />
+y = x; //OK
+x = y; //Error
+        </pre></td>
+      </tr>
+    </tbody>
+</table>
+
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
