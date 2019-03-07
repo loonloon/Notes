@@ -650,8 +650,57 @@ x = y; //OK
 y = x; //Error, because x() lacks a location property
         </pre></td>
       </tr>
+      <tr>
+        <td>Class</td>
+        <td>Only members of the instance are compared. Static members and constructors do not affect compatibility.</td>
+        <td><pre lang="typescript">
+class Animal {
+    feet: number;
+    constructor(name: string, numFeet: number) { }
+}
+<br />
+class Size {
+    feet: number;
+    constructor(numFeet: number) { }
+}
+<br />
+let a: Animal;
+let s: Size;
+<br />
+a = s;  //OK
+s = a;  //OK
+        </pre></td>
+      </tr>
+      <tr>
+        <td>Private & protected members in classes</td>
+        <td colspan="2">Private and protected members in a class affect their compatibility. When an instance of a class is checked for compatibility, if the target type contains a private member, then the source type must also contain a private member that originated from the same class. <br /><br /> Likewise, the same applies for an instance with a protected member. This allows a class to be assignment compatible with its super class, but not with classes from a different inheritance hierarchy which otherwise have the same shape.</td>
+      </tr>
+      <tr>
+        <td>Generics</td>
+        <td>Type parameters only affect the resulting type <b>when consumed as part of the type of a member</b>.</td>
+        <td><pre lang="typescript">
+interface Empty<T> {
+}
+<br />
+let x: Empty<number>;
+let y: Empty<string>;
+<br />
+x = y;  //OK, because y matches structure of x
+<br />
+interface NotEmpty<T> {
+    data: T;
+}
+<br />
+let x: NotEmpty<number>;
+let y: NotEmpty<string>;
+<br />
+x = y;  //Error, because x and y are not compatible
+        </pre></td>
+      </tr>
     </tbody>
 </table>
+
+#### Advanced Types ####
 
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
