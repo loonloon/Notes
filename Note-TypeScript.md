@@ -562,5 +562,36 @@ var constCyanString = ConstantColor[5]; //Error
     </tbody>
 </table>
 
+#### Type Inference ####
+<table>
+    <tbody>
+        <tr>
+            <td>The inference (推理) takes place when initializing variables and members, setting parameter default values, and determining function return types.</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Contextual Type</th>
+        </tr>
+        <tr>
+            <td>Contextual typing occurs when the type of an expression is implied by its location. For example: the TypeScript type checker used the type of the Window.onmousedown function to infer the type of the function expression on the right hand side of the assignment.</td>
+        </tr>
+        <tr>
+          <td><pre lang="typescript">
+window.onmousedown = function(mouseEvent) {
+    console.log(mouseEvent.clickTime); //Error during compile time
+};
+<br />
+window.onmousedown = function(mouseEvent: any) {
+    console.log(mouseEvent.clickTime);  //No Error during compile time
+};
+          </pre></td>
+       </tr>
+    </tbody>
+</table>
+
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
