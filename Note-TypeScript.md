@@ -623,20 +623,18 @@ x = y;
 <table>
     <tbody>
       <tr>
-        <th>Object</th>
-        <th>Function</th>
-      </tr>
-      <tr>
-        <td>To check whether y can be assigned to x, the compiler checks each property of x to find a corresponding compatible property in y. In this case, y must have a member called name that is a string. It does, so the assignment is allowed.</td>
-        <td>To check if x is assignable to y, we first look at the parameter list. Each parameter in x must have a corresponding parameter in y with a compatible type. Note that the names of the parameters are not considered, only their types. In this case, every parameter of x has a corresponding compatible parameter in y, so the assignment is allowed. <br /><br />The second assignment is an error, because y has a required second parameter that x does not have, so the assignment is disallowed.</td>
-      </tr>
-            <tr>
+        <td>Object</td>
+        <td>To check whether y can be assigned to <b>x</b>, the compiler checks each property of <b>x</b> to find a corresponding compatible property in <b>y</b>. In this case, <b>y</b> must have a member called name that is a string. It does, so the assignment is allowed.</td>
         <td><pre lang="typescript">
 let x: Named;
 <br />
 //y's inferred type is { name: string; location: string; }
 let y = { name: "Alice", location: "Seattle" }; 
         </pre></td>
+      </tr>
+      <tr>
+        <td>Function</td>
+        <td>To check if <b>x</b> is assignable to <b>y</b>, we first look at the parameter list. Each parameter in <b>x</b> must have a corresponding parameter in <b>y</b> with a compatible type. Note that the names of the parameters are not considered, only their types. In this case, every parameter of <b>x</b> has a corresponding compatible parameter in <b>y</b>, so the assignment is allowed. <br /><br />The second assignment is an error, because <b>y</b> has a required second parameter that <b>x</b> does not have, so the assignment is disallowed.</td>
         <td><pre lang="typescript">
 let x = (a: number) => 0;
 let y = (b: number, s: string) => 0;
