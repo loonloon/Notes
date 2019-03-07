@@ -606,19 +606,15 @@ window.onmousedown = function(mouseEvent: any) {
       </tr>
             <tr>
         <td colspan="2"><pre lang="typescript">
-                    interface Named {
-                      name: string;
-                  }
+interface Named {
+    name: string;
+}
 <br />
-                    class Person {
-                        name: string;
-                    }
+let x: Named;
 <br />
-                    let p: Named;
-<br />
-                    // OK, because of structural typing
-                    p = new Person();
-<br />
+// y's inferred type is { name: string; location: string; }
+let y = { name: "Alice", location: "Seattle" };
+x = y;
         </pre></td>
       </tr>
     </tbody>
@@ -647,6 +643,13 @@ let y = (b: number, s: string) => 0;
 <br />
 y = x; //OK
 x = y; //Error
+<br />
+//different properties in object literal as return type
+let x = () => ({name: "Alice"});
+let y = () => ({name: "Alice", location: "Seattle"});
+<br />
+x = y; //OK
+y = x; //Error, because x() lacks a location property
         </pre></td>
       </tr>
     </tbody>
