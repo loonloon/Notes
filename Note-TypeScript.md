@@ -1,57 +1,57 @@
 #### Basic Types ####
 <table>
-  <tr>
-    <th>Data Type</th>
-    <th>Description</th>
-    <th>Examples</th>
-  </tr>
-  <tr>
-    <td>Boolean</td>
-    <td>Floating point values (hexadecimal, decimal, binary and octal)</td>
-    <td>
-      <pre lang="typescript">let isDone: boolean = false;</pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Number</td>
-    <td>Logical values: true or false</td>
-    <td>
-      <pre lang="typescript">
+   <tr>
+      <th>Data Type</th>
+      <th>Description</th>
+      <th>Examples</th>
+   </tr>
+   <tr>
+      <td>Boolean</td>
+      <td>Floating point values (hexadecimal, decimal, binary and octal)</td>
+      <td>
+         <pre lang="typescript">let isDone: boolean = false;</pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Number</td>
+      <td>Logical values: true or false</td>
+      <td>
+         <pre lang="typescript">
 let decimal: number = 6;
 let hex: number = 0xf00d;
 let binary: number = 0b1010;
 let octal: number = 0o744;
      </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>String</td>
-    <td>Textual data</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>String</td>
+      <td>Textual data</td>
+      <td>
+         <pre lang="typescript">
 let fullName: string = `Bob Bobbington`;
 let age: number = 37;
 let sentence: string = `Hello, my name is ${ fullName }.
      </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Array</td>
-    <td></td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Array</td>
+      <td></td>
+      <td>
+         <pre lang="typescript">
 let list: number[] = [1, 2, 3];
 <br />
 //Generic array type
 let list: Array<number> = [1, 2, 3]
      </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Tuple</td>
-    <td>A data structure consisting of multiple type.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Tuple</td>
+      <td>A data structure consisting of multiple type.</td>
+      <td>
+         <pre lang="typescript">
 //Declare a tuple type
 let x: [string, number];
 <br />
@@ -61,37 +61,37 @@ x = ["hello", 10]; //OK
 //Initialize it incorrectly
 x = [10, "hello"]; //Error
      </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Enum</td>
-    <td>Friendly names to sets of numeric values, By default, enums begin numbering their members starting at 0.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Enum</td>
+      <td>Friendly names to sets of numeric values, By default, enums begin numbering their members starting at 0.</td>
+      <td>
+         <pre lang="typescript">
 enum Color {Red, Green, Blue}
 let c: Color = Color.Green;
 <br />
 //Displays 'Green' as its value is 2 above
 let colorName: string = Color[2];
      </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Any</td>
-    <td>Opt-out of type-checking and let the values pass through compile-time checks.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Any</td>
+      <td>Opt-out of type-checking and let the values pass through compile-time checks.</td>
+      <td>
+         <pre lang="typescript">
 let notSure: any = 4;
 notSure = "maybe a string instead";
 notSure = false;
       </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Void</td>
-    <td>The return type of functions that do not return a value.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Void</td>
+      <td>The return type of functions that do not return a value.</td>
+      <td>
+         <pre lang="typescript">
 function warnUser(): void {
     console.log("This is my warning message");
 }
@@ -99,34 +99,34 @@ function warnUser(): void {
 //Only assign undefined or null to variables
 let unusable: void = undefined;
       </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Null and Undefined</td>
-    <td>Are subtypes of all other types.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Null and Undefined</td>
+      <td>Are subtypes of all other types.</td>
+      <td>
+         <pre lang="typescript">
 let u: undefined = undefined;
 let n: null = null;
       </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Never</td>
-    <td>Are subtypes of all other types, no type is a subtype of, or assignable to, never (except never itself).</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Never</td>
+      <td>Are subtypes of all other types, no type is a subtype of, or assignable to, never (except never itself).</td>
+      <td>
+         <pre lang="typescript">
 function error(message: string): never {
     throw new Error(message);
 }
       </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Object</td>
-    <td>Represents the non-primitive type.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Object</td>
+      <td>Represents the non-primitive type.</td>
+      <td>
+         <pre lang="typescript">
 //Object literal notation
 var person = { 
   firstName:"Tom",
@@ -134,13 +134,13 @@ var person = {
 };
 <br />
       </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>Type assertions</td>
-    <td>Like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler.</td>
-    <td>
-      <pre lang="typescript">
+      </td>
+   </tr>
+   <tr>
+      <td>Type assertions</td>
+      <td>Like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler.</td>
+      <td>
+         <pre lang="typescript">
 let someValue: any = "this is a string";
 <br />
 //Angle-bracket
@@ -150,21 +150,21 @@ let strLength: number = (<string>someValue).length;
 let strLength2: number = (someValue as string).length;
 <br />
       </pre>
-    </td>
-  </tr>
+      </td>
+   </tr>
 </table>
 
 #### Variable Declarations ####
 <table>
-    <tbody>
-        <tr>
-            <th>Scoping</th>
-            <th>var</th>
-            <th>let</th>
-        </tr>
-        <tr>
-          <td>Global</td>
-          <td colspan="2">
+   <tbody>
+      <tr>
+         <th>Scoping</th>
+         <th>var</th>
+         <th>let</th>
+      </tr>
+      <tr>
+         <td>Global</td>
+         <td colspan="2">
             <pre lang="typescript">
 //They are very similar when used like this outside a function block.
 let me = 'go';  //globally scoped
@@ -175,11 +175,11 @@ var i = 'able'; //globally scoped
 console.log(window.me); //undefined
 console.log(window.i); //'able'
             </pre>
-          </td>
-        </tr>
-        <tr>
-          <td>Function</td>
-          <td colspan="2">
+         </td>
+      </tr>
+      <tr>
+         <td>Function</td>
+         <td colspan="2">
             <pre lang="typescript">
 //They are identical when used like this in a function block.
 function ingWithinEstablishedParameters() {
@@ -187,11 +187,11 @@ function ingWithinEstablishedParameters() {
     var sityCheerleading = 'go!'; //function block scoped
 }
             </pre>
-          </td>
-        </tr>
-        <tr>
-          <td>Block</td>
-          <td colspan="2">
+         </td>
+      </tr>
+      <tr>
+         <td>Block</td>
+         <td colspan="2">
             <pre lang="typescript">
 //let is only visible in the for() loop and var is visible to the whole function.
 function letExample() {
@@ -211,11 +211,11 @@ function varExample() {
     //j *is* visible out here
 }
             </pre>
-          </td>
-        </tr>
-        <tr>
-          <td>Redeclaration</td>
-          <td colspan="2">
+         </td>
+      </tr>
+      <tr>
+         <td>Redeclaration</td>
+         <td colspan="2">
             <pre lang="typescript">
 //Assuming in strict mode
 'use strict';
@@ -226,20 +226,19 @@ let me = 'bar'; //SyntaxError: Identifier 'me' has already been declared
 var me = 'foo';
 var me = 'bar'; //No problem, `me` is replaced.
             </pre>
-          </td>
-        </tr>
-    </tbody>
+         </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>let</th>
-            <th>const</th>
-        </tr>
-        <tr>
-            <td colspan="2">
-              <pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>let</th>
+         <th>const</th>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <pre lang="typescript">
 //Have the same scoping rules as let, but you can’t re-assign to them.
 const numLivesForCat = 9;
 const kitty = {
@@ -258,33 +257,32 @@ kitty.name = "Rory";
 kitty.name = "Kitty";
 kitty.numLives--;
               </pre>
-          </td>
-        </tr>
-    </tbody>
+         </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th colspan="2">Spread</th>
-        </tr>
-        <tr>
-          <td colspan="2">The spread operator (in form of ellipsis) can be used to initialize arrays and objects from another array or object. You can also use spread operator for object destructuring.</td>
-        </tr>
-        <tr>
-            <td>Array into another array</td>
-            <td>
-              <pre lang="typescript">
+   <tbody>
+      <tr>
+         <th colspan="2">Spread</th>
+      </tr>
+      <tr>
+         <td colspan="2">The spread operator (in form of ellipsis) can be used to initialize arrays and objects from another array or object. You can also use spread operator for object destructuring.</td>
+      </tr>
+      <tr>
+         <td>Array into another array</td>
+         <td>
+            <pre lang="typescript">
 let first = [1, 2];
 let second = [3, 4];
 let bothPlus = [0, ...first, ...second, 5];
               </pre>
-            </td>     
-        </tr>
-        <tr>
-            <td>Object into another object</td>
-            <td>
-              <pre lang="typescript">
+         </td>
+      </tr>
+      <tr>
+         <td>Object into another object</td>
+         <td>
+            <pre lang="typescript">
 class C {
 p = 12;
   m() {
@@ -298,33 +296,32 @@ clone.p; //ok
 //lose methods when you spread instances of an object
 clone.m(); //error!
               </pre>
-            </td>     
-        </tr>
-    </tbody>
+         </td>
+      </tr>
+   </tbody>
 </table>
 
 #### Interfaces ####
 <table>
-    <tbody>
-        <tr>
-            <th>readonly</th>
-            <th>const</th>
-        </tr>
-          <td>Use in object properties.</td>
-          <td>Use in variables.</td>
-        </tr>
-    </tbody>
+   <tbody>
+      <tr>
+         <th>readonly</th>
+         <th>const</th>
+      </tr>
+      <td>Use in object properties.</td>
+      <td>Use in variables.</td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>Indexable Types</th>
-            <th>Examples</th>
-        </tr>
-        <tr>
-          <td>String, all properties should return the same type that the indexer returns.</td>
-          <td>
+   <tbody>
+      <tr>
+         <th>Indexable Types</th>
+         <th>Examples</th>
+      </tr>
+      <tr>
+         <td>String, all properties should return the same type that the indexer returns.</td>
+         <td>
             <pre lang="typescript">
 interface States {
     [state: string]: boolean; //indexer
@@ -337,11 +334,11 @@ let s: States = {'enabled': true, 'maximized':false};
 let maximized = s['maximized'];
 <br />
             </pre>
-          </td>
-        </tr>
-        <tr>
-          <td>Number</td>
-          <td>
+         </td>
+      </tr>
+      <tr>
+         <td>Number</td>
+         <td>
             <pre lang="typescript">
 interface StringArray {
   [index: number]: string;
@@ -353,26 +350,25 @@ myArray = ["Bob", "Fred"];
 //Bob
 let myStr: string = myArray[0];
             </pre>
-          </td>
-        </tr>
-    </tbody>
+         </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>Interfaces Extending Classes</th>
-        </tr>
-        <tr>
-          <td>
+   <tbody>
+      <tr>
+         <th>Interfaces Extending Classes</th>
+      </tr>
+      <tr>
+         <td>
             <ul>
-              <li>When you create an interface that extends a class with private or protected members, that interface type can only be implemented by that class or a subclass of it.</li>
-              <li>This is useful when you have a large inheritance hierarchy, but want to specify that your code works with only subclasses that have certain properties. The subclasses don’t have to be related besides inheriting from the base class.</li>
+               <li>When you create an interface that extends a class with private or protected members, that interface type can only be implemented by that class or a subclass of it.</li>
+               <li>This is useful when you have a large inheritance hierarchy, but want to specify that your code works with only subclasses that have certain properties. The subclasses don’t have to be related besides inheriting from the base class.</li>
             </ul>
-          </td>
-        </tr>
-        <tr>
-          <td>
+         </td>
+      </tr>
+      <tr>
+         <td>
             <pre lang="typescript">
 class Control {
     private state: any;
@@ -399,40 +395,42 @@ class Location {
 
 }
             </pre>
-          </td>
-        </tr>
-    </tbody>
+         </td>
+      </tr>
+   </tbody>
 </table>
 
 #### Generics ####
 <table>
-    <tbody>
-        <tr>
-            <th>Type argument inference</th>
-        </tr>
-          <td>The compiler to set the value of T for us automatically based on the type of the argument we pass in.</td>
-        </tr>
-        </tr>
-          <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>Type argument inference</th>
+      </tr>
+      <td>The compiler to set the value of T for us automatically based on the type of the argument we pass in.</td>
+      </tr>
+      </tr>
+      <td>
+         <pre lang="typescript">
 //Normally
 let output = identity&lt;string&gt;("myString");
 <br />
 //Type argument inference
 let output = identity("myString");
-          </pre></td>
-        </tr>
-    </tbody>
+          </pre>
+      </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>Generics Constraints</th>
-        </tr>
-          <td>Create an interface that describes our constraint and use the extends keyword to denote(表示) our constraint.</td>
-        </tr>
-        </tr>
-        <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>Generics Constraints</th>
+      </tr>
+      <td>Create an interface that describes our constraint and use the extends keyword to denote(表示) our constraint.</td>
+      </tr>
+      </tr>
+      <td>
+         <pre lang="typescript">
 interface Lengthwise {
     length: number;
 }
@@ -448,20 +446,21 @@ loggingIdentity(3);
 <br />
 //Need to pass in values whose type has all the required properties
 loggingIdentity({length: 10, value: 3});
-          </pre></td>
-        </tr>
-    </tbody>
+          </pre>
+      </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>Type Parameters in Generic Constraints</th>
-        </tr>
-          <td>Declare a type parameter that is constrained by another type parameter.</td>
-        </tr>
-        </tr>
-        <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>Type Parameters in Generic Constraints</th>
+      </tr>
+      <td>Declare a type parameter that is constrained by another type parameter.</td>
+      </tr>
+      </tr>
+      <td>
+         <pre lang="typescript">
 function getProperty<T, K extends keyof T>(obj: T, key: K) {
     return obj[key];
 }
@@ -473,18 +472,20 @@ getProperty(x, "a");
 <br />
 // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
 getProperty(x, "m");
-          </pre></td>
-        </tr>
-    </tbody>
+          </pre>
+      </td>
+      </tr>
+   </tbody>
 </table>
 
 #### Enums ####
 <table>
-    <tbody>
-        <tr>
-            <th>Enum Member as Type</th>
-        </tr>
-        <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>Enum Member as Type</th>
+      </tr>
+      <td>
+         <pre lang="typescript">
 enum ShapeKind {
     Circle,
     Square,
@@ -505,20 +506,21 @@ let c: Circle = {
     kind: ShapeKind.Square,
     radius: 100,
 }
-          </pre></td>
-        </tr>
-    </tbody>
+          </pre>
+      </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>Reverse mappings</th>
-        </tr>
-        <tr>
-            <td>String enum members do not get a reverse mapping generated at all.</td>
-        </tr>
-        <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>Reverse mappings</th>
+      </tr>
+      <tr>
+         <td>String enum members do not get a reverse mapping generated at all.</td>
+      </tr>
+      <td>
+         <pre lang="typescript">
 enum Enum {
     A
 }
@@ -527,18 +529,19 @@ let a = Enum.A;
 <br/>
 //"A"
 let nameOfA = Enum[a];
-          </pre></td>
-        </tr>
-    </tbody>
+          </pre>
+      </td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>enum</th>
-            <th>const enum</th>
-        </tr>
-        <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>enum</th>
+         <th>const enum</th>
+      </tr>
+      <td>
+         <pre lang="typescript">
 enum Color {Red, Green, Blue};
 const enum ConstantColor {Red, Green, Blue}
 <br />
@@ -547,8 +550,10 @@ var constantBlue = ConstantColor["Blue"]; //OK
 <br />
 var cyanString = Color[5]; //OK
 var constCyanString = ConstantColor[5]; //OK
-        </pre></td>
-        <td><pre lang="typescript">
+        </pre>
+      </td>
+      <td>
+         <pre lang="typescript">
 enum Color {Red, Green, Blue};
 const enum ConstantColor {Red, Green, Blue}
 <br />
@@ -557,30 +562,31 @@ var constantBlue = ConstantColor["Blue"]; //OK
 <br />
 var cyanString = Color[5]; //OK
 var constCyanString = ConstantColor[5]; //Error
-        </pre></td>
-        </tr>
-    </tbody>
+        </pre>
+      </td>
+      </tr>
+   </tbody>
 </table>
 
 #### Type Inference ####
 <table>
-    <tbody>
-        <tr>
-            <td>The inference (推理) takes place when initializing variables and members, setting parameter default values, and determining function return types.</td>
-        </tr>
-    </tbody>
+   <tbody>
+      <tr>
+         <td>The inference (推理) takes place when initializing variables and members, setting parameter default values, and determining function return types.</td>
+      </tr>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
-        <tr>
-            <th>Contextual Type</th>
-        </tr>
-        <tr>
-            <td>Contextual typing occurs when the type of an expression is implied by its location. For example: the TypeScript type checker used the type of the Window.onmousedown function to infer the type of the function expression on the right hand side of the assignment.</td>
-        </tr>
-        <tr>
-          <td><pre lang="typescript">
+   <tbody>
+      <tr>
+         <th>Contextual Type</th>
+      </tr>
+      <tr>
+         <td>Contextual typing occurs when the type of an expression is implied by its location. For example: the TypeScript type checker used the type of the Window.onmousedown function to infer the type of the function expression on the right hand side of the assignment.</td>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
 window.onmousedown = function(mouseEvent) {
     console.log(mouseEvent.clickTime); //Error during compile time
 };
@@ -588,24 +594,26 @@ window.onmousedown = function(mouseEvent) {
 window.onmousedown = function(mouseEvent: any) {
     console.log(mouseEvent.clickTime);  //No Error during compile time
 };
-          </pre></td>
-       </tr>
-    </tbody>
+          </pre>
+         </td>
+      </tr>
+   </tbody>
 </table>
 
 #### Type Compatibility ####
 <table>
-    <tbody>
+   <tbody>
       <tr>
-        <th>Structural Subtyping</th>
-        <th>Nominal Typing</th>
+         <th>Structural Subtyping</th>
+         <th>Nominal Typing</th>
       </tr>
       <tr>
-        <td>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of <b>relating types based solely on their members</b></td>
-        <td>In nominally-typed languages like C# or Java, the equivalent code would be an error because the Person class does not explicitly describe itself as being an implementer of the Named interface.</td>
+         <td>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of <b>relating types based solely on their members</b></td>
+         <td>In nominally-typed languages like C# or Java, the equivalent code would be an error because the Person class does not explicitly describe itself as being an implementer of the Named interface.</td>
       </tr>
-            <tr>
-        <td colspan="2"><pre lang="typescript">
+      <tr>
+         <td colspan="2">
+            <pre lang="typescript">
 interface Named {
     name: string;
 }
@@ -615,27 +623,30 @@ let x: Named;
 // y's inferred type is { name: string; location: string; }
 let y = { name: "Alice", location: "Seattle" };
 x = y;
-        </pre></td>
+        </pre>
+         </td>
       </tr>
-    </tbody>
+   </tbody>
 </table>
-
 <table>
-    <tbody>
+   <tbody>
       <tr>
-        <td>Object</td>
-        <td>To check whether y can be assigned to <b>x</b>, the compiler checks each property of <b>x</b> to find a corresponding compatible property in <b>y</b>. In this case, <b>y</b> must have a member called name that is a string. It does, so the assignment is allowed.</td>
-        <td><pre lang="typescript">
+         <td>Object</td>
+         <td>To check whether y can be assigned to <b>x</b>, the compiler checks each property of <b>x</b> to find a corresponding compatible property in <b>y</b>. In this case, <b>y</b> must have a member called name that is a string. It does, so the assignment is allowed.</td>
+         <td>
+            <pre lang="typescript">
 let x: Named;
 <br />
 //y's inferred type is { name: string; location: string; }
 let y = { name: "Alice", location: "Seattle" }; 
-        </pre></td>
+        </pre>
+         </td>
       </tr>
       <tr>
-        <td>Function</td>
-        <td>To check if <b>x</b> is assignable to <b>y</b>, we first look at the parameter list. Each parameter in <b>x</b> must have a corresponding parameter in <b>y</b> with a compatible type. Note that the names of the parameters are not considered, only their types. In this case, every parameter of <b>x</b> has a corresponding compatible parameter in <b>y</b>, so the assignment is allowed. <br /><br />The second assignment is an error, because <b>y</b> has a required second parameter that <b>x</b> does not have, so the assignment is disallowed.</td>
-        <td><pre lang="typescript">
+         <td>Function</td>
+         <td>To check if <b>x</b> is assignable to <b>y</b>, we first look at the parameter list. Each parameter in <b>x</b> must have a corresponding parameter in <b>y</b> with a compatible type. Note that the names of the parameters are not considered, only their types. In this case, every parameter of <b>x</b> has a corresponding compatible parameter in <b>y</b>, so the assignment is allowed. <br /><br />The second assignment is an error, because <b>y</b> has a required second parameter that <b>x</b> does not have, so the assignment is disallowed.</td>
+         <td>
+            <pre lang="typescript">
 let x = (a: number) => 0;
 let y = (b: number, s: string) => 0;
 <br />
@@ -648,12 +659,14 @@ let y = () => ({name: "Alice", location: "Seattle"});
 <br />
 x = y; //OK
 y = x; //Error, because x() lacks a location property
-        </pre></td>
+        </pre>
+         </td>
       </tr>
       <tr>
-        <td>Class</td>
-        <td>Only members of the instance are compared. Static members and constructors do not affect compatibility.</td>
-        <td><pre lang="typescript">
+         <td>Class</td>
+         <td>Only members of the instance are compared. Static members and constructors do not affect compatibility.</td>
+         <td>
+            <pre lang="typescript">
 class Animal {
     feet: number;
     constructor(name: string, numFeet: number) { }
@@ -669,16 +682,18 @@ let s: Size;
 <br />
 a = s;  //OK
 s = a;  //OK
-        </pre></td>
+        </pre>
+         </td>
       </tr>
       <tr>
-        <td>Private & protected members in classes</td>
-        <td colspan="2">Private and protected members in a class affect their compatibility. When an instance of a class is checked for compatibility, if the target type contains a private member, then the source type must also contain a private member that originated from the same class. <br /><br /> Likewise, the same applies for an instance with a protected member. This allows a class to be assignment compatible with its super class, but not with classes from a different inheritance hierarchy which otherwise have the same shape.</td>
+         <td>Private & protected members in classes</td>
+         <td colspan="2">Private and protected members in a class affect their compatibility. When an instance of a class is checked for compatibility, if the target type contains a private member, then the source type must also contain a private member that originated from the same class. <br /><br /> Likewise, the same applies for an instance with a protected member. This allows a class to be assignment compatible with its super class, but not with classes from a different inheritance hierarchy which otherwise have the same shape.</td>
       </tr>
       <tr>
-        <td>Generics</td>
-        <td>Type parameters only affect the resulting type <b>when consumed as part of the type of a member</b>.</td>
-        <td><pre lang="typescript">
+         <td>Generics</td>
+         <td>Type parameters only affect the resulting type <b>when consumed as part of the type of a member</b>.</td>
+         <td>
+            <pre lang="typescript">
 interface Empty<T> {
 }
 <br />
@@ -695,25 +710,26 @@ let x: NotEmpty<number>;
 let y: NotEmpty<string>;
 <br />
 x = y;  //Error, because x and y are not compatible
-        </pre></td>
+        </pre>
+         </td>
       </tr>
-    </tbody>
+   </tbody>
 </table>
 
 #### Advanced Types ####
-
 <table>
-    <tbody>
+   <tbody>
       <tr>
-        <td>Intersection</td>
-        <td>Union</td>
+         <td>Intersection</td>
+         <td>Union</td>
       </tr>
       <tr>
-        <td>Combines multiple types into one.</td>
-        <td>Combines multiple types, but only allow one. E.g either A or B</td>
+         <td>Combines multiple types into one.</td>
+         <td>Can be one of several types.</td>
       </tr>
       <tr>
-        <td><pre lang="typescript">
+         <td>
+            <pre lang="typescript">
 interface X {
   c: string;
   d: string;
@@ -735,8 +751,10 @@ q.c = 3; //Error
 <br />
 p.c = 'text'; //Error
 q.c = 'text'; //Error
-        </pre></td>
-        <td><pre lang="typescript">
+        </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
 interface IStudent {
     id: string;
     age: number;
@@ -758,9 +776,246 @@ p = 3; //Error
 p = {
     companyId: 'cid993'
 };
-        </pre></td>
+        </pre>
+         </td>
       </tr>
-    </tbody>
+   </tbody>
+</table>
+<table>
+   <tbody>
+      <tr>
+         <td>User-Defined Type Guards</td>
+         <td>Examples</td>
+      </tr>
+      <tr>
+         <td>type assertion</td>
+         <td>
+            <pre lang="typescript">
+let pet = getSmallPet();
+<br />
+//Each of these property accesses will cause an error
+if (pet.swim) {
+    pet.swim();
+}
+else if (pet.fly) {
+    pet.fly();
+}
+<br />
+//OK
+let pet = getSmallPet();
+<br />
+if ((<Fish>pet).swim) {
+    (<Fish>pet).swim();
+}
+else {
+    (<Bird>pet).fly();
+}
+        </pre>
+         </td>
+      </tr>
+      <tr>
+         <td>is</td>
+         <td>
+            <pre lang="typescript">
+//Not working when the return type is boolean
+function isFish(pet: Fish | Bird): pet is Fish {
+    return (<Fish>pet).swim !== undefined;
+}
+<br />
+//Both calls to 'swim' and 'fly' are now okay.
+if (isFish(pet)) {
+    pet.swim();
+}
+else {
+    pet.fly();
+}
+        </pre>
+         </td>
+      </tr>
+      <tr>
+         <td>typeof</td>
+         <td>
+            <pre lang="typescript">
+function isNumber(x: any): x is number {
+    return typeof x === "number";
+}
+<br />
+function isString(x: any): x is string {
+    return typeof x === "string";
+}
+<br />
+function padLeft(value: string, padding: string | number) {
+    if (isNumber(padding)) {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (isString(padding)) {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+        </pre>
+         </td>
+      </tr>
+      <tr>
+         <td>instanceof</td>
+         <td>
+            <pre lang="typescript">
+            interface Padder {
+            getPaddingString(): string
+            }
+            <br />
+            class SpaceRepeatingPadder implements Padder {
+            constructor(private numSpaces: number) { }
+            getPaddingString() {
+            return Array(this.numSpaces + 1).join(" ");
+            }
+            }
+            <br />
+            class StringPadder implements Padder {
+            constructor(private value: string) { }
+            getPaddingString() {
+            return this.value;
+            }
+            }
+            <br />
+            //Type is 'SpaceRepeatingPadder | StringPadder'
+            function getRandomPadder() {
+            return Math.random() < 0.5 ?
+            new SpaceRepeatingPadder(4) :
+            new StringPadder("  ");
+            }
+            <br />
+            let padder: Padder = getRandomPadder();
+            <br />
+            if (padder instanceof SpaceRepeatingPadder) {
+            padder; // type narrowed to 'SpaceRepeatingPadder'
+            }
+            if (padder instanceof StringPadder) {
+            padder; // type narrowed to 'StringPadder'
+            }
+         </td>
+      </tr>
+   </tbody>
+</table>
+<table>
+   <tbody>
+      <tr>
+         <th colspan="2">Type Aliases</th>
+         <th></th>
+      </tr>
+      <tr>
+         <td colspan="2">create a new name for a type. Type aliases are sometimes similar to interfaces.</td>
+      </tr>
+      <tr>
+         <th>Type Aliases</th>
+         <th>Interfaces</th>
+      </tr>
+      <tr>
+         <td>Interfaces create a new name that is used everywhere. Type aliases don’t create a new name — for instance, error messages won’t use the alias name.</td>
+         <td>Type aliases cannot be extended or implemented from (nor (也不) can they extend/implement other types).</td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <pre lang="typescript">
+type Alias = { num: number }
+<br />
+interface Interface {
+    num: number;
+}
+<br />
+//hovering over "Alias" in an editor will show that it returns object literal type
+declare function aliased(arg: Alias): Alias;
+//hovering over "interfaced" in an editor will show that it returns an Interface
+declare function interfaced(arg: Interface): Interface;
+       </pre>
+         </td>
+      </tr>
+   </tbody>
+</table>
+<table>
+   <tbody>
+      <tr>
+         <th colspan="2">Discriminated (判别) Unions</th>
+         <th></th>
+      </tr>
+      <tr>
+         <td colspan="2">
+            You can combine singleton types, union types, type guards, and type aliases to build an advanced pattern called discriminated unions, also known as tagged unions or algebraic data types. There are three ingredients:
+            <ul>
+               <li>Types that have a common, singleton type property — the discriminant.</li>
+               <li>A type alias that takes the union of those types — the union.</li>
+               <li>Type guards on the common property.</li>
+            </ul>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+interface Square {
+    kind: "square"; //Discriminant or tag
+    size: number;
+}
+<br />
+interface Rectangle {
+    kind: "rectangle"; //Discriminant or tag
+    width: number;
+    height: number;
+}
+<br />
+interface Circle {
+    kind: "circle"; //Discriminant or tag
+    radius: number;
+}
+<br />
+type Shape = Square | Rectangle | Circle; //Union
+<br />
+function area(s: Shape) {
+    switch (s.kind) {
+        case "square": return s.size * s.size;
+        case "rectangle": return s.height * s.width;
+        case "circle": return Math.PI * s.radius ** 2;
+    }
+}
+       </pre>
+         </td>
+      </tr>
+   </tbody>
+</table>
+<table>
+   <tbody>
+      <tr>
+         <th>Polymorphic (多态) `is` types</th>
+      </tr>
+      <tr>
+         <td>A polymorphic this type represents a type that is the subtype of the containing class or interface. This is called F-bounded polymorphism. This makes hierarchical fluent interfaces much easier to express.
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+class BasicCalculator {
+    public constructor(protected value: number = 0) { }
+    public currentValue(): number {
+        return this.value;
+    }
+    public add(operand: number): this {
+        this.value += operand;
+        return this;
+    }
+    public multiply(operand: number): this {
+        this.value *= operand;
+        return this;
+    }
+}
+<br />
+let v = new BasicCalculator(2)
+            .multiply(5)
+            .add(1)
+            .currentValue();
+       </pre>
+         </td>
+      </tr>
+   </tbody>
 </table>
 
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
