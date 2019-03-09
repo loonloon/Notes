@@ -702,5 +702,66 @@ x = y;  //Error, because x and y are not compatible
 
 #### Advanced Types ####
 
+<table>
+    <tbody>
+      <tr>
+        <td>Intersection</td>
+        <td>Union</td>
+      </tr>
+      <tr>
+        <td>Combines multiple types into one.</td>
+        <td>Combines multiple types, but only allow one. E.g Either a or b</td>
+      </tr>
+      <tr>
+        <td><pre lang="typescript">
+interface X {
+  c: string;
+  d: string;
+}
+<br />
+interface Y {
+  c: number;
+  e: string
+}
+<br />
+type XY = X & Y;
+type YX = Y & X;
+<br />
+let p: XY;
+let q: XY;
+<br />
+p.c = 4; //Error
+q.c = 3; //Error
+<br />
+p.c = 'text'; //Error
+q.c = 'text'; //Error
+        </pre></td>
+        <td><pre lang="typescript">
+interface IStudent {
+    id: string;
+    age: number;
+}
+<br />
+interface IWorker {
+    companyId: string;
+}
+<br />
+type IUnionType = IStudent | IWorker;
+<br />
+let p: IUnionType = {
+    id: 'ID3241',
+    age: 21
+};
+<br />
+p = 3; //Error
+<br />
+p = {
+    companyId: 'cid993'
+};
+        </pre></td>
+      </tr>
+    </tbody>
+</table>
+
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
