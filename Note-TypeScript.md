@@ -1017,6 +1017,8 @@ let v = new BasicCalculator(2)
       </tr>
    </tbody>
 </table>
+      
+#### Symbols ####
 
 * https://www.typescriptlang.org/docs/handbook/basic-types.html
 * https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
