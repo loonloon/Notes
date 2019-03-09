@@ -710,7 +710,7 @@ x = y;  //Error, because x and y are not compatible
       </tr>
       <tr>
         <td>Combines multiple types into one.</td>
-        <td>Combines multiple types, but only allow one. E.g Either a or b</td>
+        <td>Combines multiple types, but only allow one. E.g either A or B</td>
       </tr>
       <tr>
         <td><pre lang="typescript">
