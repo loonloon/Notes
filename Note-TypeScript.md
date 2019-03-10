@@ -1,3 +1,6 @@
+* https://www.typescriptlang.org/docs/handbook/basic-types.html
+* https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
+
 #### Basic Types ####
 <table>
    <tr>
@@ -1019,6 +1022,105 @@ let v = new BasicCalculator(2)
 </table>
       
 #### Symbols ####
+TBC
 
-* https://www.typescriptlang.org/docs/handbook/basic-types.html
-* https://www.logicbig.com/tutorials/misc/typescript/getting-started.html
+#### Iterators and Generators ####
+<table>
+   <tbody>
+      <tr>
+         <th colspan="2">Iterables</th>
+      </tr>
+      <tr>
+         <td colspan="2">An object is deemed (认为) iterable if it has an implementation for the Symbol.iterator property. Some built-in types like Array, Map, Set, String, Int32Array, Uint32Array, etc. have their Symbol.iterator property already implemented. Symbol.iterator function on an object is responsible for returning the list of values to iterate on.
+         </td>
+      </tr>
+      <tr>
+         <th>for..of</th>
+         <th>for..in</th>
+      </tr>
+      <tr>
+         <td>Returns a list of <b>values</b> of the numeric properties of the object being iterated.</td>
+         <td>Returns a list of <b>keys</b> on the object being iterated.</td>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+let list = [4, 5, 6];
+<br />
+for (let i of list) {
+   console.log(i); //"4", "5", "6"
+}
+<br />
+let pets = new Set(["Cat", "Dog", "Hamster"]);
+pets["species"] = "mammals";
+<br />
+for (let pet of pets) {
+    console.log(pet); //"Cat", "Dog", "Hamster"
+}
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+let list = [4, 5, 6];
+<br />
+for (let i in list) {
+   console.log(i); //"0", "1", "2",
+}
+<br />
+let pets = new Set(["Cat", "Dog", "Hamster"]);
+pets["species"] = "mammals";
+<br />
+for (let pet in pets) {
+   console.log(pet); //"species"
+}
+            </pre>
+         </td>
+      </tr>
+   </tbody>
+</table>
+
+#### Modules ####
+<table>
+   <tbody>
+      <tr>
+         <th>Default Export</th>
+         <th>Named Export</th>
+      </tr>
+      <tr>
+         <td>Can only have one default export per file.</td>
+         <td>Can multiple exports per file.</td>
+      </tr>
+      <tr>
+         <td><pre lang="typescript">
+export default class MyClass { /* ... */ }
+         </pre></td>
+         <td><pre lang="typescript">
+export class MyClass { /* ... */ }
+export class MyOtherClass { /* ... */ }      
+         </pre></td>
+      </tr>
+      <tr>
+         <td>Can give it any name you like.</td>
+         <td>The name specified in the braces needs to match the name of the export.</td>
+      </tr>
+      <tr>
+         <td>If you default export a class and rename that class, it will only rename the class in that file and not any of the other references in other files.</td>
+         <td>With named exports it will rename the class and all the references to that class in all the other files.</td>
+      </tr>        
+      <tr>
+         <td><pre lang="typescript">
+import MyClassAlias from "./MyClass";
+<br />
+//default working with Named Export
+import { default as MyClass} from "./MyClass"
+         </pre></td>
+         <td><pre lang="typescript">
+import { MyClass } from "./MyClass";
+<br />
+//Rename
+import { MyClass as MyOtherClass } from "./MyClass";
+<br />
+         </pre></td>
+      </tr>
+   </tbody>
+</table>
