@@ -1124,3 +1124,201 @@ import { MyClass as MyOtherClass } from "./MyClass";
       </tr>
    </tbody>
 </table>
+
+<table>
+   <tbody>
+      <tr>
+         <th colspan="2">export default</th>
+      </tr>
+      <tr>
+         <th>calculator.ts</th>
+         <th>compiled.js </th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+export default class Calculator {
+    public add(num1, num2) {
+        return num1 + num2;
+    }
+}
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+var Calculator = /** @class */ (function () {
+    function Calculator() {}
+    Calculator.prototype.add = function (num1, num2) {
+        return num1 + num2;
+    };
+    return Calculator;
+}());
+exports["default"] = Calculator;
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <th colspan="2">import ... from "module"</th>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <ul>
+               <li>A default export can be imported with any name.</li>
+               <li>Functionally equivalent to import * as Calculator from "./calculator"; and then instantiating it using new Calculator.default().
+</li>
+            </ul>
+         </td>
+      </tr>
+      <tr>
+         <th>importer.ts</th>
+         <th>compiled.js </th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+import Calculator from "./calculator";
+<br />
+let calc = new Calculator();
+<br />
+console.log(calc.add(2, 2));
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+exports.__esModule = true;
+<br />
+var calculator = require("./calculator");
+var calc = new calculator["default"]();
+<br />
+console.log(calc.add(2, 2));
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <th colspan="2">export = ...</th>
+      </tr>
+      <tr>
+         <th>calculator.ts</th>
+         <th>compiled.js </th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+export = class Calculator {
+    public add(num1, num2) {
+        return num1 + num2;
+    }
+}  
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+module.exports = /** @class */ (function () {
+function Calculator() {}
+Calculator.prototype.add = function (num1, num2) {
+ return num1 + num2;
+ };
+ return Calculator;
+}());
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <th colspan="2">import ... = require("module")</th>
+      </tr>
+      <tr>
+         <td colspan="2">This syntax is only used when importing a CommonJS module.</td>
+      </tr>
+      <tr>
+         <th>importer.ts</th>
+         <th>compiled.js </th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+import Calculator = require("./calculator");
+<br />
+let calc = new Calculator();
+<br />
+console.log(calc.add(2, 2));
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+exports.__esModule = true;
+<br />
+var Calculator = require("./calculator");
+var calc = new Calculator();
+<br />
+console.log(calc.add(2, 2));
+            </pre>
+         </td>
+      </tr>     
+      <tr>
+         <th colspan="2">export ... (Named Export)</th>
+      </tr>
+      <tr>
+         <th>calculator.ts</th>
+         <th>compiled.js </th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+export class Calculator {
+    public add(num1, num2) {
+        return num1 + num2;
+    }
+}              
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+exports.__esModule = true;
+var Calculator = /** @class */ (function () {
+    function Calculator() {}
+    Calculator.prototype.add = function (num1, num2) {
+        return num1 + num2;
+    };
+    return Calculator;
+}());
+exports.Calculator = Calculator;
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <th colspan="2">import { ... } from "module"</th>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <ul>
+               <li>Named exports are useful to export several values.</li>
+               <li>During the import, you must use the same name of the corresponding object.</li>
+            </ul>
+         </td>
+      </tr>
+      <tr>
+         <th>importer.ts</th>
+         <th>compiled.js </th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+import { Calculator } from "./calculator";
+<br />
+let calc = new Calculator();
+<br />
+console.log(calc.add(2, 2));
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+exports.__esModule = true;
+<br />
+var calculator = require("./calculator");
+var calc = new calculator.Calculator();
+console.log(calc.add(2, 2));
+            </pre>
+         </td>
+      </tr>
+   </tbody>
+</table>
