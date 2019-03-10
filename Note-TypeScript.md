@@ -1194,6 +1194,11 @@ console.log(calc.add(2, 2));
             </pre>
          </td>
       </tr>
+   </tbody>
+</table>
+
+<table>
+   <tbody>
       <tr>
          <th colspan="2">export = ...</th>
       </tr>
@@ -1253,8 +1258,13 @@ var calc = new Calculator();
 console.log(calc.add(2, 2));
             </pre>
          </td>
-      </tr>     
-      <tr>
+      </tr>
+   </tbody>
+</table>
+
+<table>
+   <tbody>
+       <tr>
          <th colspan="2">export ... (Named Export)</th>
       </tr>
       <tr>
