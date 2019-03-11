@@ -1332,3 +1332,56 @@ console.log(calc.add(2, 2));
       </tr>
    </tbody>
 </table>
+
+#### Decorators ####
+https://www.spectory.com/blog/A%20deep%20dive%20into%20TypeScript%20decorators
+
+<table>
+   <tr>
+      <th colspan="2">Decorators</th>
+   </tr>
+   <tr>
+      <td colspan="2">A Decorator is a special kind of declaration that can be attached to a class declaration, method, accessor, property, or parameter. Decorators use the form @expression, where expression must evaluate to a function that will be called at runtime with information about the decorated declaration.</td>
+   </tr>
+   <tr>
+      <td>Class</td>
+      <td><pre lang="typescript">
+      </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Method</td>
+      <td><pre lang="typescript">
+function log(target, key, descriptor) {
+console.log(`${key} was called!`);
+}
+<br />
+class P {
+@log
+foo() {
+console.log(‘Do something’);
+}
+}
+<br />
+const p = new P();
+p.foo();
+<br />
+// printed to console :
+// foo was called!
+// Do something
+      </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Property</td>
+      <td><pre lang="typescript">
+      </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Parameter</td>
+      <td><pre lang="typescript">
+      </pre>
+      </td>
+   </tr>
+</table>
