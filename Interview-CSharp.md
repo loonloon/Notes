@@ -1064,7 +1064,7 @@ public static void PrintSomething(int number)
 ```
 
 #### What is Mutex? ####
-Limits the number of threads that can access a resource or pool of resources concurrently.
+A Mutex is like a lock, but it can work across multiple processes.
 
 #### What are Concurrent Collection Classes? ####
 1. ConcurrentQueue
