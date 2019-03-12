@@ -1338,6 +1338,48 @@ https://www.spectory.com/blog/A%20deep%20dive%20into%20TypeScript%20decorators
 
 <table>
    <tr>
+      <th colspan="2">What is Aspect-oriented Programing (AOP)?</th>
+   </tr>
+   <tr>
+      <td colspan="2">
+         AOP is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself.
+<br />
+<br />
+         The biggest advantage of using AOP is the separation of irrelevant code from the main functionality of the method to a different place. The <b>best example is logging or authorization</b>. Instead of doing it inside the function which makes it clunky, we pull it out and only declare that the function is doing it. In addition, we can change it in a single place rather than in all the code base.</td>
+   </tr>
+   <tr>
+      <th>Without AOP</th>
+      <th>With AOP</th>
+   </tr>
+   <tr>
+      <td><pre lang="typescript">
+function add(x, y) {
+    log("foo was called!");
+<br />
+    If(!validate(arguments)) {
+        throw (...)
+    }
+<br />
+    If(!authorized()) {
+        throw ()
+    }
+<br />
+    return x + y;
+}
+      </pre></td>
+      <td><pre lang="typescript">
+@log
+@validate
+@authorize
+function add(x, y) {
+return x + y;
+}
+      </pre></td>
+   </tr>
+</table>
+
+<table>
+   <tr>
       <th colspan="2">Decorators</th>
    </tr>
    <tr>
@@ -1346,6 +1388,27 @@ https://www.spectory.com/blog/A%20deep%20dive%20into%20TypeScript%20decorators
    <tr>
       <td>Class</td>
       <td><pre lang="typescript">
+function classDecorator<T extends {new(...args:any[]):{}}>(constructor:T) {
+    return class extends constructor {
+        newProperty = "new property";
+        hello = "override";
+    }
+}
+<br />
+@classDecorator
+class Greeter {
+    property = "property";
+    hello: string;
+    constructor(m: string) {
+        this.hello = m;
+    }
+}
+<br />
+console.log(new Greeter("world"));
+<br />
+//printed to console :
+//foo was called!
+//{ hello: "override", newProperty: "new property", property: "property"  }
       </pre>
       </td>
    </tr>
@@ -1353,28 +1416,81 @@ https://www.spectory.com/blog/A%20deep%20dive%20into%20TypeScript%20decorators
       <td>Method</td>
       <td><pre lang="typescript">
 function log(target, key, descriptor) {
-console.log(`${key} was called!`);
+    console.log(`${key} was called!`);
 }
 <br />
 class P {
-@log
-foo() {
-console.log(‘Do something’);
-}
+    @log
+    foo() {
+        console.log("Do something");
+    }
 }
 <br />
+console.log("Before instantiation");
 const p = new P();
 p.foo();
 <br />
-// printed to console :
-// foo was called!
-// Do something
+//printed to console :
+//foo was called!
+//Before instantiation
+//Do something
+<br />
+//target:
+//- The constructor function of the class for a static member
+//- The prototype of the class for an instance member.
+//key: The name of the member.
+//descriptor: The Property Descriptor for the member.
       </pre>
       </td>
    </tr>
    <tr>
       <td>Property</td>
       <td><pre lang="typescript">
+function calcCircleParams(target: any, key: string) {
+    //Property value.
+    let _val = this[key];
+<br />
+    //Property getter.
+    const getter = function () {
+        return _val;
+    };
+<br />
+    //Property setter.
+    const setter = function (newVal) {
+        _val = newVal;
+        this['Area'] = _val * _val * Math.PI;
+        this['Circumference'] = 2 * _val * Math.PI;
+    };
+<br />
+    //Delete property.
+    if (delete this[key]) {
+        // Create new property with getter and setter
+        Object.defineProperty(target, key, {
+            get: getter,
+            set: setter,
+            enumerable: true,
+            configurable: true
+        });
+    }
+}
+<br />
+class Circle {
+    @calcCircleParams
+    public Radius: Number;
+    public Area: Number;
+    public Circumference: Number;
+    constructor() {
+    }
+}
+<br />
+let c = new Circle();
+c.Radius = 3;
+//Radius: 3, Area: 28.274333882308138, Circumference: 18.84955592153876
+console.log(`Radius: ${c.Radius}, Area: ${c.Area}, Circumference: ${c.Circumference}`); 
+<br />
+c.Radius = 5;
+//Radius: 5, Area: 78.53981633974483, Circumference: 31.41592653589793
+console.log(`Radius: ${c.Radius}, Area: ${c.Area}, Circumference: ${c.Circumference}`); 
       </pre>
       </td>
    </tr>
