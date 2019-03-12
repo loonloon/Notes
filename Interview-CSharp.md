@@ -969,7 +969,7 @@ A race condition occurs when two threads access the same resource and are trying
         </tr>
         <tr>
             <td>Not available.</td>
-            <td>Child Tasks can propagate their exceptions to to parent Task and All child exceptions are available in AggregateException class.</td> 
+            <td>Child Tasks can propagate their exceptions to to parent Task and all child exceptions are available in AggregateException class.</td> 
         </tr>
         <tr>
             <td>Not available.</td>
