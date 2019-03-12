@@ -938,19 +938,6 @@ Represents a weak reference, which references an object while still allowing tha
 * FileStreams are ~10 times faster than memory-mapped files for sequential I/O.
 * Memory-mapped files are ~10 times faster than FileStreams for random I/O.
 
-<table>
-    <tbody>
-        <tr>
-            <th>Short Weak Reference</th>
-            <th>Long Weak Reference</th>
-        </tr>
-        <tr>
-            <td>The target of a short weak reference becomes null when the object is reclaimed by garbage collection.</td>
-            <td>A long weak reference is retained after the object's Finalize method has been called. This allows the object to be recreated, but the state of the object remains unpredictable.</td> 
-        </tr>
-    </tbody>
-</table>
-
 #### What is Deadlock? ####
 A deadlock is a situation where a process is not able to complete its execution because two or more processes are waiting for each other to finish.
 
