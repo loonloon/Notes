@@ -1383,7 +1383,11 @@ return x + y;
       <th colspan="2">Decorators</th>
    </tr>
    <tr>
-      <td colspan="2">A Decorator is a special kind of declaration that can be attached to a class declaration, method, accessor, property, or parameter. Decorators use the form @expression, where expression must evaluate to a function that will be called at runtime with information about the decorated declaration.</td>
+      <td colspan="2">A Decorator is a special kind of declaration that can be attached to a class declaration, method, accessor, property, or parameter. Decorators use the form @expression, where expression must evaluate to a function that will be called at runtime with information about the decorated declaration.
+         <br />
+         <br />
+         https://www.spectory.com/blog/A%20deep%20dive%20into%20TypeScript%20decorators
+      </td>
    </tr>
    <tr>
       <td>Class</td>
@@ -1497,6 +1501,42 @@ console.log(`Radius: ${c.Radius}, Area: ${c.Area}, Circumference: ${c.Circumfere
    <tr>
       <td>Parameter</td>
       <td><pre lang="typescript">
+function required(target: any, key: string, index: number) {
+    var metadataKey = `__required_${key}_parameters`;
+    if (Array.isArray(target[metadataKey])) {
+        target[metadataKey].push(index);
+    }
+    else {
+        target[metadataKey] = [index];
+    }
+}
+<br />
+function validate(target, key, descriptor) {
+    var originalMethod = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+        var metadataKey = `__required_${key}_parameters`;
+        var indices = target[metadataKey];
+        for (var i = 0; i < args.length; i++) {
+            if (arguments[i] == undefined) {
+                throw 'missing required parameter'
+            }
+        }
+        var result = originalMethod.apply(this, args);
+        return result;
+    }
+    return descriptor;
+}
+<br />
+class Calculator {
+    @validate
+    add(@required a: number, @required b: number) {
+        return a + b;
+    }
+}
+<br />
+const c = new Calculator();
+console.log(`result is: ${c.add(2, 3)}`); //result is: 5
+console.log(`result is: ${c.add(2, undefined)}`); //throw 'missing required parameter'
       </pre>
       </td>
    </tr>
