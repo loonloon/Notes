@@ -863,39 +863,39 @@ function padLeft(value: string, padding: string | number) {
          <td>instanceof</td>
          <td>
             <pre lang="typescript">
-            interface Padder {
-            getPaddingString(): string
-            }
-            <br />
-            class SpaceRepeatingPadder implements Padder {
-            constructor(private numSpaces: number) { }
-            getPaddingString() {
-            return Array(this.numSpaces + 1).join(" ");
-            }
-            }
-            <br />
-            class StringPadder implements Padder {
-            constructor(private value: string) { }
-            getPaddingString() {
-            return this.value;
-            }
-            }
-            <br />
-            //Type is 'SpaceRepeatingPadder | StringPadder'
-            function getRandomPadder() {
-            return Math.random() < 0.5 ?
-            new SpaceRepeatingPadder(4) :
-            new StringPadder("  ");
-            }
-            <br />
-            let padder: Padder = getRandomPadder();
-            <br />
-            if (padder instanceof SpaceRepeatingPadder) {
-            padder; // type narrowed to 'SpaceRepeatingPadder'
-            }
-            if (padder instanceof StringPadder) {
-            padder; // type narrowed to 'StringPadder'
-            }
+interface Padder {
+    getPaddingString(): string
+}
+<br />
+class SpaceRepeatingPadder implements Padder {
+    constructor(private numSpaces: number) { }
+    getPaddingString() {
+        return Array(this.numSpaces + 1).join(" ");
+    }
+}
+<br />
+class StringPadder implements Padder {
+    constructor(private value: string) { }
+    getPaddingString() {
+        return this.value;
+    }
+}
+<br />
+//Type is 'SpaceRepeatingPadder | StringPadder'
+function getRandomPadder() {
+    return Math.random() < 0.5 ?
+        new SpaceRepeatingPadder(4) :
+        new StringPadder("  ");
+}
+<br />
+let padder: Padder = getRandomPadder();
+<br />
+if (padder instanceof SpaceRepeatingPadder) {
+    padder; // type narrowed to 'SpaceRepeatingPadder'
+}
+if (padder instanceof StringPadder) {
+    padder; // type narrowed to 'StringPadder'
+}
          </td>
       </tr>
    </tbody>
