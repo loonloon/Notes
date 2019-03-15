@@ -1030,7 +1030,7 @@ class SomePartialPoint implements PartialPoint {
          <td colspan="2">
             <pre lang="typescript">
 //These two declarations become:
-//interface Point { x: number; y: number; }
+interface Point { x: number; y: number; }
 interface Point { x: number; }
 interface Point { y: number; }
 <br />
