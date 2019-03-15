@@ -316,6 +316,7 @@ clone.m(); //error!
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -357,6 +358,7 @@ let myStr: string = myArray[0];
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -424,6 +426,7 @@ let output = identity("myString");
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -454,6 +457,7 @@ loggingIdentity({length: 10, value: 3});
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -514,6 +518,7 @@ let c: Circle = {
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -537,6 +542,7 @@ let nameOfA = Enum[a];
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -579,6 +585,7 @@ var constCyanString = ConstantColor[5]; //Error
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -631,6 +638,7 @@ x = y;
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -900,6 +908,7 @@ if (padder instanceof StringPadder) {
       </tr>
    </tbody>
 </table>
+      
 <table>
    <tbody>
       <tr>
@@ -1040,6 +1049,7 @@ const point: Point = { x: 1, y: 2 };
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -1088,6 +1098,7 @@ function area(s: Shape) {
       </tr>
    </tbody>
 </table>
+
 <table>
    <tbody>
       <tr>
@@ -1480,6 +1491,12 @@ return x + y;
 }
       </pre></td>
    </tr>
+</table>
+
+<table>
+   <tr>
+      <th>Declaration Merging</th>
+   </tr>   
 </table>
 
 <table>
