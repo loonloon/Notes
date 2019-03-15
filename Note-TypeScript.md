@@ -891,10 +891,10 @@ function getRandomPadder() {
 let padder: Padder = getRandomPadder();
 <br />
 if (padder instanceof SpaceRepeatingPadder) {
-    padder; // type narrowed to 'SpaceRepeatingPadder'
+    padder; //type narrowed to 'SpaceRepeatingPadder'
 }
 if (padder instanceof StringPadder) {
-    padder; // type narrowed to 'StringPadder'
+    padder; //type narrowed to 'StringPadder'
 }
          </td>
       </tr>
@@ -1014,7 +1014,7 @@ class SomePoint2 implements Point2 {
 }
 <br />
 type PartialPoint = { x: number; } | { y: number; };
-
+<br />
 //FIX ME: can not implement a union type
 class SomePartialPoint implements PartialPoint {
   x: 1;
