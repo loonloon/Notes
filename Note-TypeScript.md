@@ -943,7 +943,7 @@ declare function interfaced(arg: Interface): Interface;
       </tr>
       <tr>
          <td colspan="2">
-            You can combine singleton types, union types, type guards, and type aliases to build an advanced pattern called discriminated unions, also known as tagged unions or algebraic data types. There are three ingredients:
+            You can combine singleton types, union types, type guards, and type aliases to build an advanced pattern called <b>discriminated unions</b>, also known as <b>tagged unions</b> or <b>algebraic data types</b>. There are three ingredients:
             <ul>
                <li>Types that have a common, singleton type property — the discriminant.</li>
                <li>A type alias that takes the union of those types — the union.</li>
