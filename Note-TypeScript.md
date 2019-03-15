@@ -904,33 +904,138 @@ function padLeft(value: string, padding: string | number) {
    <tbody>
       <tr>
          <th colspan="2">Type Aliases</th>
-         <th></th>
       </tr>
       <tr>
-         <td colspan="2">create a new name for a type. Type aliases are sometimes similar to interfaces.</td>
+         <td colspan="2"><b>Objects / Functions</b> - Both can be used to describe the shape of an object or a function signature. But the syntax differs.</td>
       </tr>
       <tr>
          <th>Type Aliases</th>
          <th>Interfaces</th>
       </tr>
       <tr>
-         <td>Interfaces create a new name that is used everywhere. Type aliases don’t create a new name — for instance, error messages won’t use the alias name.</td>
-         <td>Type aliases cannot be extended or implemented from (nor (也不) can they extend/implement other types).</td>
+         <td>
+            <pre lang="typescript">
+type Point = {
+  x: number;
+  y: number;
+};
+<br />
+type SetPoint = (x: number, y: number) => void;            
+            </pre>
+         </td>
+         <td>
+            <pre lang="typescript">
+interface Point {
+  x: number;
+  y: number;
+}
+<br />
+interface SetPoint {
+  (x: number, y: number): void;
+}
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2"><b>Other Types</b> - Unlike an interface, the type alias can also be used for other types such as primitives, unions, and tuples.</td>
+      </tr>
+      <tr>
+         <th>Type Aliases</th>
+         <th>Interfaces</th>
+      </tr>
+      <tr>
+         <td>
+            <pre lang="typescript">
+//primitive
+type Name = string;
+<br />
+//object
+type PartialPointX = { x: number; };
+type PartialPointY = { y: number; };
+<br />
+//union
+type PartialPoint = PartialPointX | PartialPointY;
+<br />
+//tuple
+type Data = [number, string];      
+            </pre>
+         </td>
+         <td>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2"><b>Extend</b> - Both can be extended, but again, the syntax differs. Additionally, note that an interface and type alias are not mutually exclusive. An interface can extend a type alias, and vice versa.</td>
       </tr>
       <tr>
          <td colspan="2">
             <pre lang="typescript">
-type Alias = { num: number }
+//Interface extends interface
+interface PartialPointX { x: number; }
+interface Point extends PartialPointX { y: number; }
 <br />
-interface Interface {
-    num: number;
+//Type alias extends type alias
+type PartialPointX = { x: number; };
+type Point = PartialPointX & { y: number; };
+<br />
+//Interface extends type alias
+type PartialPointX = { x: number; };
+interface Point extends PartialPointX { y: number; }
+<br />
+//Type alias extends interface
+interface PartialPointX { x: number; }
+type Point = PartialPointX & { y: number; };
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2"><b>Implements</b> - A class can implement an interface or type alias, both in the same exact way. Note however that a class and interface are considered static blueprints. Therefore, they can not implement / extend a type alias that names a union type.</td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <pre lang="typescript">
+interface Point {
+  x: number;
+  y: number;
 }
 <br />
-//hovering over "Alias" in an editor will show that it returns object literal type
-declare function aliased(arg: Alias): Alias;
-//hovering over "interfaced" in an editor will show that it returns an Interface
-declare function interfaced(arg: Interface): Interface;
-       </pre>
+class SomePoint implements Point {
+  x: 1;
+  y: 2;
+}
+<br />
+type Point2 = {
+  x: number;
+  y: number;
+};
+<br />
+class SomePoint2 implements Point2 {
+  x: 1;
+  y: 2;
+}
+<br />
+type PartialPoint = { x: number; } | { y: number; };
+
+//FIX ME: can not implement a union type
+class SomePartialPoint implements PartialPoint {
+  x: 1;
+  y: 2;
+}
+            </pre>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2"><b>Declaration merging</b> - Unlike a type alias, an interface can be defined multiple times, and will be treated as a single interface (with members of all declarations being merged).</td>
+      </tr>
+      <tr>
+         <td colspan="2">
+            <pre lang="typescript">
+//These two declarations become:
+//interface Point { x: number; y: number; }
+interface Point { x: number; }
+interface Point { y: number; }
+<br />
+const point: Point = { x: 1, y: 2 };
+            </pre>
          </td>
       </tr>
    </tbody>
@@ -938,11 +1043,10 @@ declare function interfaced(arg: Interface): Interface;
 <table>
    <tbody>
       <tr>
-         <th colspan="2">Discriminated (判别) Unions</th>
-         <th></th>
+         <th>Discriminated (判别) Unions</th>
       </tr>
       <tr>
-         <td colspan="2">
+         <td>
             You can combine singleton types, union types, type guards, and type aliases to build an advanced pattern called <b>discriminated unions</b>, also known as <b>tagged unions</b> or <b>algebraic data types</b>. There are three ingredients:
             <ul>
                <li>Types that have a common, singleton type property — the discriminant.</li>
