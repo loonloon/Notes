@@ -558,7 +558,7 @@ var blue = Color["Blue"];  //OK
 var constantBlue = ConstantColor["Blue"]; //OK
 <br />
 var cyanString = Color[5]; //OK
-var constCyanString = ConstantColor[5]; //OK
+var constCyanString = ConstantColor[5]; //Error
         </pre>
       </td>
       </tr>
@@ -609,21 +609,6 @@ window.onmousedown = function(mouseEvent: any) {
          <td>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of <b>relating types based solely on their members</b></td>
          <td>In nominally-typed languages like C# or Java, the equivalent code would be an error because the Person class does not explicitly describe itself as being an implementer of the Named interface.</td>
       </tr>
-      <tr>
-         <td colspan="2">
-            <pre lang="typescript">
-interface Named {
-    name: string;
-}
-<br />
-let x: Named;
-<br />
-// y's inferred type is { name: string; location: string; }
-let y = { name: "Alice", location: "Seattle" };
-x = y;
-        </pre>
-         </td>
-      </tr>
    </tbody>
 </table>
 
@@ -634,10 +619,15 @@ x = y;
          <td>To check whether y can be assigned to <b>x</b>, the compiler checks each property of <b>x</b> to find a corresponding compatible property in <b>y</b>. In this case, <b>y</b> must have a member called name that is a string. It does, so the assignment is allowed.</td>
          <td>
             <pre lang="typescript">
+interface Named {
+    name: string;
+}
+<br />
 let x: Named;
 <br />
-//y's inferred type is { name: string; location: string; }
-let y = { name: "Alice", location: "Seattle" }; 
+// y's inferred type is { name: string; location: string; }
+let y = { name: "Alice", location: "Seattle" };
+x = y;
         </pre>
          </td>
       </tr>
@@ -1451,6 +1441,12 @@ console.log(calc.add(2, 2));
    </tbody>
 </table>
 
+<table>
+   <tr>
+      <th>Declaration Merging</th>
+   </tr>   
+</table>
+
 #### Decorators ####
 https://www.spectory.com/blog/A%20deep%20dive%20into%20TypeScript%20decorators
 
@@ -1494,12 +1490,6 @@ return x + y;
 }
       </pre></td>
    </tr>
-</table>
-
-<table>
-   <tr>
-      <th>Declaration Merging</th>
-   </tr>   
 </table>
 
 <table>
