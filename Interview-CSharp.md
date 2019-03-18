@@ -127,6 +127,35 @@
             <td></td>
             <td>Can be of different dimensions and sizes, also call as array of arrays.</td>
         </tr>
+        <tr>
+            <td>
+                <pre lang="csharp">
+const int Size = 50;
+private int[,] multiArray;
+<br />
+void Init()
+{
+    this.multiArray = new int[Size, Size];
+}
+                </pre>
+            </td>
+            <td>
+                <pre lang="csharp">
+const int Size = 50;
+private int[][] jaggedArray;
+<br />
+void Init()
+{
+    this.jaggedArray = new int[Size][];
+<br />
+    for(var i = 0; i < Size; i++)
+    {
+        this.jaggedArray[i] = new int[Size][];
+    }
+}
+                </pre>
+            </td>
+        </tr>
     </tbody>
 </table>
 
