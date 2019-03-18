@@ -249,13 +249,13 @@ const kitty = {
     numLives: numLivesForCat,
 }
 <br />
-// Error
+//Error
 kitty = {
     name: "Danielle",
     numLives: numLivesForCat
 };
 <br />
-// all "okay"
+//all "OK"
 kitty.name = "Rory";
 kitty.name = "Kitty";
 kitty.numLives--;
