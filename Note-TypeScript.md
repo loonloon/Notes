@@ -1443,8 +1443,105 @@ console.log(calc.add(2, 2));
 
 <table>
    <tr>
-      <th>Declaration Merging</th>
-   </tr>   
+      <th colspan="2">Declaration Merging</th>
+      <th></th>
+   </tr>
+   <tr>
+      <td colspan="2">Understanding this concept will give you an advantage when working with existing JavaScript.The compiler merges two separate declarations declared with the same name into a single definition</td>
+   </tr>
+   <tr>
+      <td>Merging Interfaces</td>
+      <td>
+         <pre lang="typescript">
+interface Cloner {
+    clone(animal: Animal): Animal;
+}
+<br />
+interface Cloner {
+    clone(animal: Sheep): Sheep;
+}
+<br />
+interface Cloner {
+    clone(animal: Dog): Dog;
+    clone(animal: Cat): Cat;
+}
+<br />
+//Result
+//A later interface will have a higher precedence than the first
+interface Cloner {
+    clone(animal: Dog): Dog;
+    clone(animal: Cat): Cat;
+    clone(animal: Sheep): Sheep;
+    clone(animal: Animal): Animal;
+}
+<br />
+interface Document {
+    createElement(tagName: any): Element;
+}
+<br />
+interface Document {
+    createElement(tagName: "div"): HTMLDivElement;
+    createElement(tagName: "span"): HTMLSpanElement;
+}
+<br />
+interface Document {
+    createElement(tagName: string): HTMLElement;
+    createElement(tagName: "canvas"): HTMLCanvasElement;
+}
+<br />
+//Result
+//string argument function will bubbled toward the top of its merged overload list
+interface Document {
+    createElement(tagName: "canvas"): HTMLCanvasElement;
+    createElement(tagName: "div"): HTMLDivElement;
+    createElement(tagName: "span"): HTMLSpanElement;
+    createElement(tagName: string): HTMLElement;
+    createElement(tagName: any): Element;
+}
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Merging Namespaces</td>
+      <td>
+         <pre lang="typescript">
+namespace Animals {
+    export class Zebra { }
+}
+<br />
+namespace Animals {
+    export interface Legged { numberOfLegs: number; }
+    export class Dog { }
+}
+<br />
+//Result
+namespace Animals {
+    export interface Legged { numberOfLegs: number; }
+    export class Zebra { }
+    export class Dog { }
+}
+<br />
+namespace Animal {
+    let haveMuscles = true;
+    export function animalsHaveMuscles() {
+        return haveMuscles;
+    }
+}
+<br />
+namespace Animal {
+    export function doAnimalsHaveMuscles() {
+        return haveMuscles;  // Error, because haveMuscles is not accessible here
+    }
+}
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Merging Classes</td>
+      <td>
+         Classes can not merge with other classes or with variables.
+      </td>
+   </tr>
 </table>
 
 #### Decorators ####
