@@ -150,7 +150,7 @@ void Init()
 <br />
     for(var i = 0; i < Size; i++)
     {
-        this.jaggedArray[i] = new int[Size][];
+        this.jaggedArray[i] = new int[Size];
     }
 }
                 </pre>
