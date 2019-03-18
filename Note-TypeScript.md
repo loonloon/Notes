@@ -474,10 +474,10 @@ function getProperty<T, K extends keyof T>(obj: T, key: K) {
 <br />
 let x = { a: 1, b: 2, c: 3, d: 4 };
 <br />
-//okay
+//OK
 getProperty(x, "a");
 <br />
-// error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
+//Error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
 getProperty(x, "m");
           </pre>
       </td>
@@ -549,7 +549,7 @@ let nameOfA = Enum[a];
          <th>enum</th>
          <th>const enum</th>
       </tr>
-      <td>
+      <td colspan="2">
          <pre lang="typescript">
 enum Color {Red, Green, Blue};
 const enum ConstantColor {Red, Green, Blue}
@@ -559,18 +559,6 @@ var constantBlue = ConstantColor["Blue"]; //OK
 <br />
 var cyanString = Color[5]; //OK
 var constCyanString = ConstantColor[5]; //OK
-        </pre>
-      </td>
-      <td>
-         <pre lang="typescript">
-enum Color {Red, Green, Blue};
-const enum ConstantColor {Red, Green, Blue}
-<br />
-var blue = Color["Blue"];  //OK
-var constantBlue = ConstantColor["Blue"]; //OK
-<br />
-var cyanString = Color[5]; //OK
-var constCyanString = ConstantColor[5]; //Error
         </pre>
       </td>
       </tr>
