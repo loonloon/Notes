@@ -54,7 +54,7 @@ bool success = stock.TryGetValue("apple", out psStock);
 
 #### Using `TryUpdate()` #### 
 - to avoid overwriting the actions of another thread, but require to pass in old value.
-- Below example ensure the data will not be corrupted, but the value still invali in mutltithreading environment.
+- Below example ensure the data will not be corrupted, but the value still invalid in mutltithreading environment.
 ```
 int temp = stock["apple"];
 bool success = stock.TryUpdate("apple", temp + 1, temp);
