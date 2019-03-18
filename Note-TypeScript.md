@@ -828,17 +828,32 @@ else {
          <td>is</td>
          <td>
             <pre lang="typescript">
-//Not working when the return type is boolean
-function isFish(pet: Fish | Bird): pet is Fish {
-    return (<Fish>pet).swim !== undefined;
+//TypeScript will narrow the type to string
+function isString(input: any): input is string {
+    return typeof input === "string";
 }
 <br />
-//Both calls to 'swim' and 'fly' are now okay.
-if (isFish(pet)) {
-    pet.swim();
+function example(foo: any) {
+    if (isString(foo)) {
+        console.log("it is a string" + foo);
+        console.log(foo.length); //OK
+        console.log(foo.toExponential(2)); //Compile Error
+    }   
+    console.log(foo.toFixed(2)); //Runtime Error
 }
-else {
-    pet.fly();
+<br />
+example("hello world");
+<br />
+function isString(test: any): boolean {
+    return typeof test === "string";
+}
+<br />
+function example(foo: any) {
+    if (isString(foo)) {
+        console.log("it is a string" + foo);
+        console.log(foo.length);
+        console.log(foo.toExponential(2)); //runtime error
+    }
 }
         </pre>
          </td>
