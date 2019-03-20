@@ -3,3 +3,5 @@
 * What is Babel?
 * Import vs Require
 * What is React Component?
+* Inline Styling with JSX
+* Class vs ClassName
