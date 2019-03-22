@@ -113,6 +113,7 @@
 </table>
 
 #### Retangular / Multidimentional, Jagged Array ####
+* https://stackoverflow.com/questions/37717724/2d-array-vs-array-of-arrays-in-tight-loop-performance-c-sharp
 <table>
     <tbody>
         <tr>
