@@ -125,12 +125,22 @@
           <td>1.98xx</td>
         </tr>
       </table>
+        * Use as instead of is
     </dd>
+    <dt>P/Invoke</dt>
+    <dd>Can reduce some of the cost by disabling some security checks on P/Inoke method declarations.</dd>
+    <dt>Delegates</dt>
+    <dd>
+        <pre lang="typescript">
+private delegate int MathOp(int x, int y);
+private static int Add(int x, int y) { return x + y }
+private static int DoOperation(MathOp op, int x, int y) { return op(x, y); }
+        </pre>
+    </dd>
+    <dt>Exceptios</dt>
+    <dd></dd>
 </dl>
 
-* P/Invoke
-* Delegates
-* Exceptios
 * dynamic
 * Reflection
 * Code Generation
