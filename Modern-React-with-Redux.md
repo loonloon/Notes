@@ -52,3 +52,9 @@
 * Avoid conditional in render function, instead create helper function
 
 #### Episode 7 ####
+* Controlled vs Uncontrolled component
+  * In a controlled component, form data is handled by (store in) a React component. The alternative is uncontrolled components, where form data is handled by (store in) the DOM itself.
+* What is 'this' used for in a class?
+  * https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
+ * How to solve 'this' content?
+ * Communicating child to parent
