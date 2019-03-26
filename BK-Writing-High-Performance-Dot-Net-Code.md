@@ -167,7 +167,42 @@ for(var i = 0; i < 10; i++)
         * If a common interface is not possible, then see the Code Generation to execute dynamically loaded assemblies much faster than reflection.
     </dd>
     <dt>Code Generation</dt>
-    <dd></dd>
+    <dd>
+        <table>
+            <tr>
+                <th>Create Instance</th>
+                <th>Performance</th>
+            </tr>
+            <tr>
+                <td>Direct ctor</td>
+                <td>1.0x</td>
+            </tr>
+            <tr>
+                <td>Activator.CreateInstance</td>
+                <td>9.3x</td>
+            </tr>
+            <tr>
+                <td>Code gen</td>
+                <td>2.0x</td>
+            </tr>
+            <tr>
+                <th>Method Invoke</th>
+                <th>Performance</th>
+            </tr>
+            <tr>
+                <td>Direct ctor</td>
+                <td>1.0x</td>
+            </tr>
+            <tr>
+                <td>Activator.CreateInstance</td>
+                <td>3.0x</td>
+            </tr>
+            <tr>
+                <td>Code gen</td>
+                <td>1.0x</td>
+            </tr>
+        </table>
+    </dd>
    <dt>Preprocessing</dt>
     <dd>If something can be preprocessed, then it must be preprocessed.</dd>
 </dl>
