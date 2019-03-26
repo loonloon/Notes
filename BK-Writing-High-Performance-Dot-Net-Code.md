@@ -135,16 +135,42 @@
 private delegate int MathOp(int x, int y);
 private static int Add(int x, int y) { return x + y }
 private static int DoOperation(MathOp op, int x, int y) { return op(x, y); }
+<br />
+//option 1: Slower, in IL it shows newobj inside the loop
+for(var i = 0; i < 10; i++)
+{
+    DoOperation(Add, 1, 2);
+}
+<br />
+//option 2: Faster, in IL it shows newobj outside the loop
+MathOp op = Add;
+for(var i = 0; i < 10; i++)
+{
+    DoOperation(Add, 1, 2);
+}
+<br />
+//Equivalent to option 2:
+for(var i = 0; i < 10; i++)
+{
+    DoOperation((x, y) => { return Add(x, y); }, 1, 2);
+}
         </pre>
     </dd>
     <dt>Exceptios</dt>
+    <dd>Exceptions should be truly exceptional. Using them as a matter of course can dstroy your performance.</dd>
+    <dt>dynamic</dt>
+    <dd>Using the dynamic keyword is not going to be highly optimized.</dd>
+    <dt>Reflection</dt>
+    <dd>
+        * MethodInfo.Invoke is about 100 times slower than casting the object to an interface and executing it directly.
+        <br />
+        * If a common interface is not possible, then see the Code Generation to execute dynamically loaded assemblies much faster than reflection.
+    </dd>
+    <dt>Code Generation</dt>
     <dd></dd>
+   <dt>Preprocessing</dt>
+    <dd>If something can be preprocessed, then it must be preprocessed.</dd>
 </dl>
-
-* dynamic
-* Reflection
-* Code Generation
-* Preprocessing
 
 #### Using the .NET Framework ####
 * Understand Every API You Call
