@@ -57,4 +57,18 @@
 * What is 'this' used for in a class?
   * https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
  * How to solve 'this' content?
+   * Use constructor and bind it
+   * Arrow function
  * Communicating child to parent
+
+#### Episode 8 ####
+* Use 'axios' or 'fetch'
+* Use 'async await' or 'then'
+* Use 'map' to iterate array
+
+#### Episode 9 ####
+* A 'key' is a special string attribute you need to include when creating lists of elements. 'key' help React identify which items have changed, are added, or are removed.
+
+#### Episode 10 ####
+* React refs
+* use 'addEventListener' to wait DOM loaded.
