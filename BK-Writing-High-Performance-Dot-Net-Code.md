@@ -351,15 +351,17 @@ for(var i = 0; i < 10; i++)
         * Use ReadOnlySpan<T> instead of Substrings.
     </dd>
     <dt>Avoid APIs that Throw Exceptions Under Normal Circumstances</dt>
+    <dd></dd>
+    <dt>Avoid APIs That Allocate From the Large Object Heap</dt>
     <dd>
         * Caching its results.
         <br />
         * Avoid retrieving the information you need via interop directly from the Win32 API.
     </dd>
-    <dt>Avoid APIs That Allocate From the Large Object Heap</dt>
-    <dd></dd>
     <dt>Use Lazy Initialization</dt>
-    <dd></dd>
+    <dd>
+        * Use Lazy<T>
+    </dd>
     <dt>The Surprisingly High Cost of Enums</dt>
     <dd></dd>
     <dt>Tracking Time</dt>
