@@ -204,20 +204,172 @@ for(var i = 0; i < 10; i++)
         </table>
     </dd>
    <dt>Preprocessing</dt>
-    <dd>If something can be preprocessed, then it must be preprocessed.</dd>
+   <dd>If something can be preprocessed, then it must be preprocessed.</dd>
 </dl>
 
 #### Using the .NET Framework ####
-* Understand Every API You Call
-* Multiple APIs for the Same Thing
-* Collections
-* Strings
-* Avoid APIs that Throw Exceptions Under Normal Circumstances
-* Avoid APIs That Allocate From the Large Object Heap
-* Use Lazy Initialization
-* The Surprisingly High Cost of Enums
-* Tracking Time
-* Regular Expressions
-* LINQ
-* Reading and Writing Files
-* Optimizing HTTP Settings and Network Communication
+<dl>
+    <dt>Understand Every API You Call</dt>
+    <dd></dd>
+    <dt>Multiple APIs for the Same Thing</dt>
+    <dd>
+        <table>
+            <tr>
+                <th>There are at least 9 different ways to parse XML in .NET</th>
+            </tr>
+            <tr>
+                <td>XmlTextReader</td>
+            </tr>
+            <tr>
+                <td>XmlValidatingReader</td>
+            </tr>
+            <tr>
+                <td>XmlDocument</td>
+            </tr>
+            <tr>
+                <td>XPathNavigator</td>
+            </tr>
+            <tr>
+                <td>XPathDocument</td>
+            </tr>
+            <tr>
+                <td>LINQ to XML</td>
+            </tr>
+            <tr>
+                <td>DataContractSerializer</td>
+            </tr>
+            <tr>
+                <td>XmlSerializer</td>
+            </tr>
+        </table>
+        * XmlTextReader is very fast, but it is forward only and does no validation.
+        <br />
+        * XmlDocument is very convenient because it has a full object model loaded, but it is among the slowest options.
+        <br />
+        * Not all options will be equal, performance wise. Some will be faster, but use more memory.
+    </dd>
+    <dt>Collections</dt>
+    <dd>
+        <table>
+            <tr>
+                <th>Collections to Avoid</th>
+            </tr>
+            <tr>
+                <td>ArrayList</td>
+            </tr>
+            <tr>
+                <td>Hashtable</td>
+            </tr>
+            <tr>
+                <td>Queue</td>
+            </tr>
+            <tr>
+                <td>SortedList</td>
+            </tr>
+            <tr>
+                <td>Stack</td>
+            </tr>
+            <tr>
+                <td>ListDictionary</td>
+            </tr>
+            <tr>
+                <td>HybridDictionary</td>
+            </tr>
+        </table>
+        * Should never be used by new code, avoided are casting and boxing.
+    </dd>
+    <dt>Array</dt>
+    <dd>
+        * Use ArraySegment<T> and Span<T> refers to the relevant portion of the array.
+        <br />
+        * Jagged array is faster than Multi array (because of method call in IL).
+    </dd>
+    <dt>Generic Collections</dt>
+    <dd>
+        * Understand the BIG O notation for every collections.
+        <br />
+        * Understand the storage requirements for each collection, e.g. added 1000 4 byte intergers into each structure
+        <table>
+            <tr>
+                <td></td>
+                <td>Bytes</td>
+            </tr>
+            <tr>
+                <td>List</td>
+                <td>4,036</td>
+            </tr>
+            <tr>
+                <td>Stack</td>
+                <td>4,036</td>
+            </tr>
+            <tr>
+                <td>Queue</td>
+                <td>4,036</td>
+            </tr>
+            <tr>
+                <td>SortedList</td>
+                <td>8,076</td>
+            </tr>
+            <tr>
+                <td>Dictionary</td>
+                <td>22,144</td>
+            </tr>
+            <tr>
+                <td>LinkedList</td>
+                <td>24,028</td>
+            </tr>
+            <tr>
+                <td>SortedSet</td>
+                <td>24,044</td>
+            </tr>
+            <tr>
+                <td>SortedDictionary</td>
+                <td>24,076</td>
+            </tr>
+            <tr>
+                <td>HashSet</td>
+                <td>30,972</td>
+            </tr>
+        </table>
+    </dd>
+    <dt>Key Comparisons</dt>
+    <dd>
+        * Use StringComparer in dictionary.
+    </dd>
+    <dt>Strings</dt>
+    <dd>
+        * Use simplest way to compare.
+        <br />
+        * Use String.Compare method for string comparison purpose instead of ToLower and ToUpper, avoid allocating memory and putting more pressure on the garbage collector.
+        <br />
+        * StringBuilder with initialized capacity is fastest.
+        <br />
+        * String.Concat is faster than String.Format.
+        <br />
+        * Avoid string parsing.
+        <br />
+        * Use ReadOnlySpan<T> instead of Substrings.
+    </dd>
+    <dt>Avoid APIs that Throw Exceptions Under Normal Circumstances</dt>
+    <dd>
+        * Caching its results.
+        <br />
+        * Avoid retrieving the information you need via interop directly from the Win32 API.
+    </dd>
+    <dt>Avoid APIs That Allocate From the Large Object Heap</dt>
+    <dd></dd>
+    <dt>Use Lazy Initialization</dt>
+    <dd></dd>
+    <dt>The Surprisingly High Cost of Enums</dt>
+    <dd></dd>
+    <dt>Tracking Time</dt>
+    <dd></dd>
+    <dt>Regular Expressions</dt>
+    <dd></dd>
+    <dt>LINQ</dt>
+    <dd></dd>
+    <dt>Reading and Writing Files</dt>
+    <dd></dd>
+    <dt>Optimizing HTTP Settings and Network Communication</dt>
+    <dd></dd>
+</dl>
