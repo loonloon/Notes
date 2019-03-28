@@ -363,15 +363,35 @@ for(var i = 0; i < 10; i++)
         * Use Lazy<T>
     </dd>
     <dt>The Surprisingly High Cost of Enums</dt>
-    <dd></dd>
+    <dd>
+       * E.g. Enum.HasFlag and Enum.ToString
+    </dd>
     <dt>Tracking Time</dt>
-    <dd></dd>
+    <dd>
+        * Calling DateTime.Now is a fairely expensive operation because it has to consider time zone information.
+        <br />
+        * Calling DateTime.UtcNow instead, which is more streamlined.
+    </dd>
     <dt>Regular Expressions</dt>
-    <dd></dd>
+    <dd>
+        * It is quite easy to write regular expression that perform poorly.
+        <br />
+        * Ensure up to date with .NET and patches.
+        <br />
+        * Create the Regex object with the RegexOptions.Compiled flag.
+        <br />
+        * Do not recreate Regex object over and over again. (E.g. in loop)
+    </dd>
     <dt>LINQ</dt>
-    <dd></dd>
+    <dd>
+        * LINQ version is 20 times more expensibe than the simpler version and because of its memory allocations, has a higher likelihood of casuing garbage collection.
+    </dd>
     <dt>Reading and Writing Files</dt>
-    <dd></dd>
+    <dd>
+        * If you are doing a lot of disk I/O, then you need to pay attention to the type of disk access you are doing, whether it is random, sequential, and etc.
+        <br />
+        * Need to use the FileStream amd a constructor aoverload that accepts that FileOptions enumeration. Provide hints to the operating system or file system on how to optimize file access.
+    </dd>
     <dt>Optimizing HTTP Settings and Network Communication</dt>
     <dd></dd>
 </dl>
