@@ -73,3 +73,14 @@
 #### Episode 10 ####
 * React refs
 * use 'addEventListener' to wait DOM loaded.
+
+#### Episode 12 ####
+* What is Redux?
+  * State management library
+  * Not explicitly designed to work React
+* Redux Cycle
+  * Action Creator
+  * Action
+  * dispatch
+  * Reducers
+  * State
