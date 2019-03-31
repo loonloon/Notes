@@ -79,8 +79,8 @@
   * State management library
   * Not explicitly designed to work React
 * Redux Cycle
-  * Action Creator
-  * Action
-  * dispatch
-  * Reducers
-  * State
+  * (Person dropping off the form) Action Creator, produces an
+  * (the form) Action, gets fed to
+  * (form receiver) dispatch, forwards the action to
+  * (Departments) Reducers, create news
+  * (Compiled department data) State 
