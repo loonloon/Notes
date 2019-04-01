@@ -1010,6 +1010,7 @@ A race condition occurs when two threads access the same resource and are trying
 </table>
 
 #### What is the difference between AutoResetEvent and ManualResetEvent? ####
+* https://stackoverflow.com/questions/153877/what-is-the-difference-between-manualresetevent-and-autoresetevent-in-net
 <table>
     <tbody>
         <tr>
