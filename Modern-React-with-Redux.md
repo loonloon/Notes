@@ -87,3 +87,5 @@
 
 #### Episode 13 ####
 * How React-Redux works?
+* Named vs Default Export
+* Higher-Order Functions
