@@ -1020,6 +1020,10 @@ A race condition occurs when two threads access the same resource and are trying
             <td>Unlock only one single thread from several waiting blocked threads when Set() is called.</td>
             <td>Unblocks all waiting blocked threads simultaneously when Set() is called.</td> 
         </tr>
+        <tr>
+            <td>Automatically</td>
+            <td>Need to call Reset() method to reset the state.</td> 
+        </tr>
     </tbody>
 </table>
 
