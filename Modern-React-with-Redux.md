@@ -84,3 +84,6 @@
   * (form receiver) dispatch, forwards the action to
   * (Departments) Reducers, create news
   * (Compiled department data) State 
+
+#### Episode 13 ####
+* How React-Redux works?
