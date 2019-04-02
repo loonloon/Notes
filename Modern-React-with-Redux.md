@@ -35,19 +35,14 @@
  * Condition rendering
  
 #### Episode 6 ####
-* Component lifecycle
-  * constructor (Good place to do one-time setup)
-  * render (Avoid doing anything besides returning JSX)
-    * Content visible on screen
-  * componentDidMount (Good place to do data-loading!)
-    * Sit and wait for updates
-  * componentDiUpdate (Good place to do more data-loading when state/props change)
-    * Sit and wait until this component is not longer shown (When this.setState is called)
-  * componentWillUnmount (Good place to do cleanup, especially for non-React stuff)
+![component-lifecycle](https://user-images.githubusercontent.com/5309726/55407149-15266480-5590-11e9-9ffd-23df78476a45.png)
+
 * Other lifecycle methods (rarely used)
   * shouldComponentUpdate
   * getDerivedStateFromProps
   * getSnapshotBeforeUpdate
+  
+
 * defaultProps
 * Avoid conditional in render function, instead create helper function
 
@@ -80,10 +75,9 @@
   * Not explicitly designed to work React
   ![redux-cycle-02](https://user-images.githubusercontent.com/5309726/55406621-04c1ba00-558f-11e9-8efd-7a3bc3d408e0.png)
   
-* Redux Cycle
-![redux-cycle-00](https://user-images.githubusercontent.com/5309726/55406662-1efb9800-558f-11e9-9b86-781baf95713a.png)
-
 ![redux-cycle-01](https://user-images.githubusercontent.com/5309726/55406607-fbd0e880-558e-11e9-8269-fa5f9da0c980.png)
+
+![redux-cycle-00](https://user-images.githubusercontent.com/5309726/55406662-1efb9800-558f-11e9-9b86-781baf95713a.png)
 
 #### Episode 13 ####
 * How React-Redux works?
