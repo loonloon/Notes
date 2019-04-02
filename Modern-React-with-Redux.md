@@ -81,10 +81,14 @@
 
 #### Episode 13 ####
 * How React-Redux works?
+
+![architecture](https://user-images.githubusercontent.com/5309726/55408691-1d33d380-5593-11e9-9079-f502d4535cf1.png)
+
 * Named vs Default Export
 * Higher-Order Functions
 
 #### Episode 14 ####
 * Data Loading with Redux
 * Redux-Thunk
-* 
+ * Middleware to help us make requests in a redux application
+![middleware](https://user-images.githubusercontent.com/5309726/55408670-10af7b00-5593-11e9-9084-eb6e8e496813.png)
