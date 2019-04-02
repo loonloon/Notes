@@ -78,12 +78,12 @@
 * What is Redux?
   * State management library
   * Not explicitly designed to work React
+  ![redux-cycle-02](https://user-images.githubusercontent.com/5309726/55406621-04c1ba00-558f-11e9-8efd-7a3bc3d408e0.png)
+  
 * Redux Cycle
 ![redux-cycle-00](https://user-images.githubusercontent.com/5309726/55406662-1efb9800-558f-11e9-9b86-781baf95713a.png)
 
 ![redux-cycle-01](https://user-images.githubusercontent.com/5309726/55406607-fbd0e880-558e-11e9-8269-fa5f9da0c980.png)
-
-![redux-cycle-02](https://user-images.githubusercontent.com/5309726/55406621-04c1ba00-558f-11e9-8efd-7a3bc3d408e0.png)
 
 #### Episode 13 ####
 * How React-Redux works?
