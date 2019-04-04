@@ -91,4 +91,9 @@
 * Data Loading with Redux
 * Redux-Thunk (Asyncrhonous action creator)
  * Middleware to help us make requests in a redux application
+ 
 ![middleware](https://user-images.githubusercontent.com/5309726/55408670-10af7b00-5593-11e9-9084-eb6e8e496813.png)
+
+* Behind the Scenes of Redux Thunk
+
+![redux-thunk](https://user-images.githubusercontent.com/5309726/55565205-fd83e300-572b-11e9-8d9f-401819aeda0c.png)
