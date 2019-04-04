@@ -97,3 +97,7 @@
 * Behind the Scenes of Redux Thunk
 
 ![redux-thunk](https://user-images.githubusercontent.com/5309726/55565205-fd83e300-572b-11e9-8d9f-401819aeda0c.png)
+
+#### Episode 15 ####
+* Rules of reducers
+  * Must return any value besides "undefined"
