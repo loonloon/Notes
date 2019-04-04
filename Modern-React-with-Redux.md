@@ -101,3 +101,18 @@
 #### Episode 15 ####
 * Rules of reducers
   * Must return any value besides "undefined"
+  * Produces "state" or data to be used inside of your app using only previous state and the action <br /><br />
+  ![previous-state](https://user-images.githubusercontent.com/5309726/55568327-155e6580-5732-11e9-94f3-a866d5e6fc43.png)
+  * Pure function or reducer only ever going to return values that use there it's input arguments
+  ```
+  export default (state, action) => {
+   // bad
+   return document.querySelector("#input");
+ 
+   // bad
+   return axios.get("/posts");
+ 
+   //good
+   return state + action (for loop / filtering)
+  }
+  ```
