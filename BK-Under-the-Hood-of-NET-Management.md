@@ -1,3 +1,4 @@
+### Chapter 1: Prelude ###
 #### Overview ####
 When a .NET application runs, four sections of memory (heaps) are created to be used for storage:
 <table>
@@ -247,3 +248,27 @@ void Mark(objectRef o)
 
 #### Thread Statics ####
 http://putridparrot.com/blog/using-threadstatic-and-threadlocal/
+
+### Chapter 2: The Simple Heap Model ###
+```
+// 19 characters
+// 86,000 bytes
+class MyClass
+{
+    string Test = "Hello world Wazzup!";
+    byte[] data = new byte[86000];
+}
+```
+
+![soh-loh](https://user-images.githubusercontent.com/5309726/55607828-b2131880-57af-11e9-95a6-d3ee0d69f68b.png)
+
+#### What is automatic garbage collection? ####
+* Is juat a branch of code that runs periodically, looking for allocated objects that are no longer being used by the applications.
+
+#### When does the GC run? ####
+* GC runs on a separate thread when certain memory conditions are reached or when the applcations begins to run out of memory.
+
+#### Small Object Heap ####
+* Allocation and automatic garbage collection on the SOH is quite a complex process. Because most of the objects allocated within an application are less than 85k, the SOH is a pretty heavily used storage area.
+
+#### Consecutive allocation on the SOH ####
