@@ -186,3 +186,59 @@ int p = (int) lst[0]; // Unboxing occurs
 * .NET manages object allocations on your behalf, freeing you from having to de-allocate everything you create.
 
 #### Garbage collection ####
+* All the GC does is look for allocated objects on the heap that aren't being referenced by anything. The most obvious source of references is ths stack. Other potential sources included:
+  * global / static object references
+  * CPU registers
+  * object finalization references
+  * Interop references (.NET objects passed to COM / API calls)
+  * stack references
+* There are all called <strong>root references</strong> or <strong>GC roots</strong>.
+* As well as root references, an object can also be referenced by other objects.
+* a stack based root reference for a `Customer` containing:
+  * a reference to the orders `ArrayList` collection, which contains:
+    * references to `order` objects
+    
+![root-reference](https://user-images.githubusercontent.com/5309726/55604710-c8b37280-57a3-11e9-9183-3da579692dd4.png)
+
+#### Inspection and collection ####
+* GC simply gets a list of all root references and, for each one, moves along its reference tree "marking" each object found as being in use. Any objects not marked as being in used, or "live", are free to be "collected".
+```
+// Simplified GC collection in pseudo code
+void Collect() {
+    List gcRoots = GetAllGCRoots();
+    
+    foreach (objectRef root in gcRoots)
+    {
+        Mark(root);
+    }
+    
+    Cleanup();
+}
+
+void Mark(objectRef o)
+{
+    if(!InUseList.Exists(o))
+    {
+        InUseList.Add(o);
+        List refs = GetAllChildReferences(o);
+        
+        foreach(objectRef childRef in refs)
+        {
+            Mark(childRef);
+        }
+    }
+}
+```
+* The `Mark` operation adds an object to an "object still in use" list, and then iterates through all of its child objects references, marking each on in turn.
+* Once that list is complied, the GC can then go about cleaning up the heaps.
+
+#### SOH cleanup - heap compaction ####
+* When compaction occurs, <strong>marked objects</strong> are copied over the space taken up by unmarked objects, overwriting those objects, removing any gaps, and keeping the heap contiguous, this process is known as Copy Collection.
+* The advantage of this is that <strong>heap fragmentation (i.g. unusable memory gaps) is kept to a minimum</strong>.
+* The main disadvantage is that <strong>compaction involves copying chunks of memory around, which requireds CPU cycles and so, depending on frequency, can cause performance problems</strong>.
+
+#### LOH sweeping - free space tracking ####
+* LOH <strong>keeps track of free and used space, and attempts to allocate new objects into the most appropriately sized free slots left behind by collected objects</strong>.
+* As a result of this, the LOH is prone to fragmentation, wherein memory gaps are left behind that can only be used if large objects (e.g. > 85KB) of a similar or smaller size to those gaps are subsequently allocated.
+
+#### Static Objects ####
