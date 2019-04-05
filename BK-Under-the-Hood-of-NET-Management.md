@@ -83,7 +83,7 @@ void Method1()
 ```
 ![stack-heap](https://user-images.githubusercontent.com/5309726/55542949-a1549b00-56fa-11e9-9c92-fd349016a7bb.png)
 
-.NET has to create the object on the memory heap, determine its address on the heap (or object reference), and place that object reference within the stack frame for Method1. As long as Method1 is executing, the object allocated on the heap will have a reference held on the stack. When Method1 completes, the stack frame is removed (along with the object reference), leaving the object without a reference.
+.NET has to create the object on the memory heap, determine its address on the heap (or object reference), and place that object reference within the stack frame for `Method1`. As long as `Method1` is executing, the object allocated on the heap will have a reference held on the stack. When Method1 completes, the stack frame is removed (along with the object reference), leaving the object without a reference.
 
 * The way is which variable assignment works differs between reference and value types.
 ```
@@ -116,3 +116,73 @@ After v1 assigned to v2:
 ![stack-heap](https://user-images.githubusercontent.com/5309726/55542703-330fd880-56fa-11e9-8a23-6946ce1af4a6.png)
 
 Both object pointers are referencing only the one class instance after the assignment. Variable assignment with reference types makes the object pointers on the stack the same, and so they both point to the same object on the heap.
+
+#### Passing parameters ####
+* When you pass a value type as a parameter, all you actually pass to the calling method is <strong>a copy of the variable</strong>. Any changes that are made to the passed variable within the method call are isolated to the method.
+* Having multiple copies of the same struct created on the stack creates extra work in copying the struct each time. This might not seem like a big deal but, <strong>when magnified within a high iteration loop, it can cause a performance issuse</strong>.
+* One way around this problem is to <strong>pass specific value types by reference</strong>.
+```
+void Method1() {
+    int v1 = 22;
+    Method2(v1);
+    Console.WriteLine("Method1 = " + v1.ToString());
+}
+
+void Method2(int v2) {
+    v2 = 12;
+    Console.WriteLine("Method2 = " + v2.ToString());
+}
+
+// output
+Method 2 = 12
+Method 1 = 22
+
+// passed by reference
+void Method1() {
+    int v1 = 22;
+    Method2(ref v1);
+    Console.WriteLine("Method1 = " + v1.ToString());
+}
+
+void Method2(ref int v2) {
+    v2 = 12;
+    Console.WriteLine("Method2 = " + v2.ToString());
+}
+
+// output
+Method 2 = 12
+Method 1 = 12
+```
+
+#### Boxing and unboxing ####
+* Allocating onto the heap requires more work, and is therefore less efficient.
+```
+// Integer is created on the Stack
+int stackVariable = 12;
+
+// Integer is created on the Heap = Boxing
+object boxedObject = stackVariable;
+
+// Unboxing
+int unBoxed = (int)boxedObject;
+```
+* An integer is declared and allocated on the stack because it's a value type. It's then assgined to a new object variable(boxed) which is a reference type, and so a new object is allocated on the heap for the integer. Finally, the integer is unboxed from the heap and assigned to an integer stack variable.
+
+```
+int i = 12;
+ArrayList lst = new ArrayList();
+
+// ArrayList Add method has the following signature
+// int Add(object value)
+
+lst.Add(i); // Boxing occurs automatically
+int p = (int) lst[0]; // Unboxing occurs
+```
+* Adding an integer (value type) to the ArrayList will cause a boxing operation to occur because, to allow the array list to be used for all types (value and reference), the `Add` method takes an object as a parameter. So, in order to add the integer to the ArrayList, a new object has to be allocated on the heap.
+* In short, a lot more work is going on that is necessary, and if you were doing this in a loop with thousands of integers, then performance woruld be significanty slower.
+
+#### More on the Heap ####
+* SOH and LOH are known as managed heaps.
+* .NET manages object allocations on your behalf, freeing you from having to de-allocate everything you create.
+
+#### Garbage collection ####
