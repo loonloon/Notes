@@ -242,3 +242,8 @@ void Mark(objectRef o)
 * As a result of this, the LOH is prone to fragmentation, wherein memory gaps are left behind that can only be used if large objects (e.g. > 85KB) of a similar or smaller size to those gaps are subsequently allocated.
 
 #### Static Objects ####
+* <strong>Static members don't need to be created using `new` keyword, but are accessed using the name of the class they were defined within. They are accessible by all threads in an app domain</strong>, and never garbage collected because they essentially are root references in themselves.
+* Any classes that subscribe to static events <strong>will remain in memory until the event subscription is removed, or the containing app domain finishes</strong>.
+
+#### Thread Statics ####
+http://putridparrot.com/blog/using-threadstatic-and-threadlocal/
