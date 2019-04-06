@@ -112,7 +112,7 @@
    // bad
    return axios.get("/posts");
  
-   //good
+   // good
    return state + action (for loop / filtering)
   }
   ```
@@ -120,3 +120,6 @@
 * Safe state update in Reducers
 
 ![bad-good](https://user-images.githubusercontent.com/5309726/55664357-d5e16780-585e-11e9-858a-00f961582cb6.png)
+
+* Switch statement in Reducers
+* Extracting logic to MapStateToProps
