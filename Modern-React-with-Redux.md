@@ -123,3 +123,7 @@
 
 * Switch statement in Reducers
 * Extracting logic to MapStateToProps
+* Memorized function
+* lodash library
+
+#### Episode 16 ####
