@@ -136,8 +136,13 @@
 ![react-router-care](https://user-images.githubusercontent.com/5309726/55680790-03a6d900-5951-11e9-98ef-37a2e04b8d41.png)
 
 * How Paths Get Matched
+  * is "/" in the Extracted path? -> YES, then display
+  * is "/page? in the Extracted path? -> YES, then display
+  * is "/page/5? in the Extracted path? -> NO, then no display
+  * If the particular route use "exact" keyword, then "===" logic will be used, else remain "contains" function
+![contains](https://user-images.githubusercontent.com/5309726/55681211-1f60ae00-5956-11e9-8125-dac77c3dc138.png)
 
-![overview](https://user-images.githubusercontent.com/5309726/55680905-9bf18d80-5952-11e9-822f-b6fb46b71158.png)
+
 
 
 
