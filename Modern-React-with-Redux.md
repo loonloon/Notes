@@ -139,12 +139,6 @@
 
 ![overview](https://user-images.githubusercontent.com/5309726/55680905-9bf18d80-5952-11e9-822f-b6fb46b71158.png)
 
- * Without exact keyword
-![without-exact](https://user-images.githubusercontent.com/5309726/55680917-b461a800-5952-11e9-81f0-605d0352098e.png)
-
-* With exact keyword
-
-![exact](https://user-images.githubusercontent.com/5309726/55680923-c9d6d200-5952-11e9-9143-1b38c133fc07.png)
 
 
 
