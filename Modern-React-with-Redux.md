@@ -143,7 +143,11 @@
 ![contains](https://user-images.githubusercontent.com/5309726/55681211-1f60ae00-5956-11e9-8125-dac77c3dc138.png)
 
 * Do not use achor tag <a> to navigate, it will makes request to server return new index.html page and all the state will be lost.
+ 
+ ![react-router-achor](https://user-images.githubusercontent.com/5309726/55684794-f0603180-5981-11e9-986a-c86e3fa49625.png)
+ 
+* Use "Link" tag
 
-
+![react-router-link](https://user-images.githubusercontent.com/5309726/55684769-ba22b200-5981-11e9-9f63-e9a4e7d4299d.png)
 
 
