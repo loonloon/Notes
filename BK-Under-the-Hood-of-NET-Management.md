@@ -272,3 +272,26 @@ class MyClass
 * Allocation and automatic garbage collection on the SOH is quite a complex process. Because most of the objects allocated within an application are less than 85k, the SOH is a pretty heavily used storage area.
 
 #### Consecutive allocation on the SOH ####
+* When an allocation takes place,it can take time to find a suitable gap in memory to use.
+* To minimize allocation time and almost eliminate heap fragmentation, .NET allocates objects consucutively, one on top of another, and keeps track of where to allocate the next object.
+
+![next-object](https://user-images.githubusercontent.com/5309726/55705527-90b16700-5a11-11e9-9147-e459021241d6.png)
+
+* Object A does not have a reference that can be tracked back to a root.
+* There is an aroow which represents the location where the next object will be allocated, what is known as the Next Object Pointer (NOP).
+* Because the NOP position is known, when a new object is allocated, it can be instantly added at that location without the addtional overhead of looking for space in Free Space table.
+* To overcome the fragmentation problem, the GC compacts the heap, and thereby removes any gaps between objects.
+
+![after-compaction](https://user-images.githubusercontent.com/5309726/55705875-63b18400-5a12-11e9-8ff3-f7ad03f9ee60.png)
+
+#### What's still in use? ####
+* When it runs, GC gets a list of all root references and, for each one, looks at every referenced object that stems from that root, and all the object contain recuisively. 
+* Every object found is added to a list of "in use objects".
+* Any object not on the list is assumed to be dead and available for collection, which simply involves compacting the heap by copying live objects over the top of dead ones. The result is a compacted heap with no gaps.
+
+#### Optimizing garbage collection ####
+* There's potentially a bit of a problem with creating "still in use" lists and compacting the heap, espcially if it's very large.
+* Navigating through huge objects graphs and copying lots of live objects over the top of dead ones is going to take a significant amount of processing time.
+* Short-lived (gen0), medium-live (gen1) and long-lived (gen0) objects.
+
+#### Generational garbage collection ####
