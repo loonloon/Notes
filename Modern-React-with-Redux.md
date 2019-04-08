@@ -150,4 +150,11 @@
 
 ![react-router-link](https://user-images.githubusercontent.com/5309726/55684769-ba22b200-5981-11e9-9f63-e9a4e7d4299d.png)
 
+* Different router types
+* https://www.techiediaries.com/react-router-dom-v4/
+
+![router-types](https://user-images.githubusercontent.com/5309726/55726981-945de180-5a43-11e9-9e38-3d2c78daab82.png)
+
+
+
 
