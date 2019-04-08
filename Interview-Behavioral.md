@@ -17,7 +17,7 @@ from a previous job, from a volunteer experience, or any relevant event.</td>
     <td>Describe the actions you took to address the situation with an appropriate amount of
 detail and keep the focus on YOU. What specific steps did you take and what was your particular
 contribution? Be careful that you don’t describe what the team or group did when talking about a
-project, but what you actually did. Use the word “I,” not “we” when describing actions.</td>
+      project, but what you actually did. <strong>Use the word "I,"</strong> not "we" when describing actions.</td>
   </tr>
   <tr>
     <td><b>R</b>esult</td>
@@ -58,7 +58,7 @@ learn? Make sure your answer contains multiple positive results.</td>
       <ul>
         <li>Application performance degrade after new implementation (Data table).</li>
         <li>Software architect assign to me and expect same performance as pervious version (Before is 80s, Now 100s).</li>
-        <li>Use performance measuing tools, found out wrong usage code, apply best pratices.</li>
+        <li>Use performance measuing tools, found out wrong usage code, apply best practices.</li>
         <li>Improved at least 40%.</li>
       </ul>
     </td>    
@@ -93,6 +93,9 @@ learn? Make sure your answer contains multiple positive results.</td>
   <tr>
     <td colspan="2">
       <ul>
+        <li>Sharing field devices during project development, the wiring tie together, colleague borrow and caring the field devices to their desk. Short circuit cause power shut down was always happend, some of the development implementation.</li>
+        <li>I suggest setup a virtual network for device sharing by using VirtualHere software.</li>
+        <li>No more short circuit happend.</li>
       </ul>
     </td>    
   </tr>
@@ -103,6 +106,9 @@ learn? Make sure your answer contains multiple positive results.</td>
   <tr>
     <td colspan="2">
       <ul>
+        <li>In 1 new project development and being assigned to develop a module to support multiple devices, for example A, B and C. I  have done something similar thing in previous project but the design is not bring much value.</li>
+        <li>Decide to use factory design pattern, 1 class for 1 device.</li>
+        <li>Improve code quality, increase leaders confident and reduce testing effort.</li>
       </ul>
     </td>    
   </tr>
