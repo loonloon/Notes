@@ -81,6 +81,7 @@
 
 #### Episode 13 ####
 * How React-Redux works?
+* https://github.com/reduxjs/redux/issues/653
 
 ![architecture](https://user-images.githubusercontent.com/5309726/55408691-1d33d380-5593-11e9-9079-f502d4535cf1.png)
 
