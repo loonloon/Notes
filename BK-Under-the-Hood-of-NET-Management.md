@@ -295,3 +295,45 @@ class MyClass
 * Short-lived (gen0), medium-live (gen1) and long-lived (gen0) objects.
 
 #### Generational garbage collection ####
+* Object W must have survived at least two GCs, whereas Z and Y have yet to be looked at for the first time. Object X has survived one GC inspection.
+
+![soh-generation](https://user-images.githubusercontent.com/5309726/55788510-076e6300-5aeb-11e9-9822-b4cd913a52ed.png)
+
+* GC runs automatically on a separate thread under one of the conditions below:
+  * When the size of objects in any generation reaches a generation specific threshold. To be precise, when:
+    * Gen 0 hits ~ 256K
+    * Gen 1 hits ~ 2MB (at which point the GC collects Gen 1 and 0)
+    * Gen 2 hits ~ 10MB (at which point the GC collects Gen 2, 1 and 0)
+  * `GC.Collection()` is called in code.
+  * The OS sends a low memory notification.
+  
+#### Gen 0 collection ####
+* Two possible options when they are finally inspected:
+  * Move to Gen 1 (if they have a root reference in their hierarchy)
+  * Die and be compacted (if they are rootless and therefore no longer in use)
+ * Either way, the result of a GC 0 is an empty Gen 0, with all rooted objects in Gen 0 being copied to Gen 1, joining the other Gen 1 objects.
+  
+![soh-gen-0](https://user-images.githubusercontent.com/5309726/55788938-e8bc9c00-5aeb-11e9-9c0a-56c806e1cbda.png)
+
+#### Gen 1 collection ####
+* Instead of Object X staying in Gen 1, it is moved to Gen 2. Object Y moves from Gen 0 to Gen 1 as before and Object X is collected. Once again, Gen 0 is left empty.
+
+![soh-gen-1](https://user-images.githubusercontent.com/5309726/55789382-d4c56a00-5aec-11e9-8210-c5bdb7a02b7c.png)
+
+#### Gen 2 collection ####
+* Gen 2 collections are known as "Full" collections because all of the generations are inspected and collected. As a result, they cause the most work and are thus the most expensive.
+* A full Gen 2 collection results in the following:
+  * Object W dies and is compacted
+  * Object X moves to Gen 2
+  * Object Y moves to Gen 1
+  * Object Z dies and is compacted
+  
+![soh-gen-2](https://user-images.githubusercontent.com/5309726/55789878-c88ddc80-5aed-11e9-906d-04f0fe0cc26e.png)
+
+* Gen 2 is an expensive place to keep your objects, and too frequent Gen 2 collections can really hit performance.
+* The general rule of thumb is that there should be ten times more Gen 0 collections than Gen 1, and ten times more Gen 1 collections than Gen 2.
+
+#### Performance implications ####
+* As Gen 0 collections are removing a lot of objects, fewer objects are being promoted, and so the performance stays high.
+
+#### Finalization ####
