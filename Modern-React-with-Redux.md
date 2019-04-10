@@ -156,6 +156,7 @@
 
 ![router-types](https://user-images.githubusercontent.com/5309726/55726981-945de180-5a43-11e9-9e38-3d2c78daab82.png)
 
-
+#### Episode 17 ####
+* Google Auth
 
 
