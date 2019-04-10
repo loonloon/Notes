@@ -337,3 +337,67 @@ class MyClass
 * As Gen 0 collections are removing a lot of objects, fewer objects are being promoted, and so the performance stays high.
 
 #### Finalization ####
+* If you put a destructor or a `Finalize` method in your class, then you will actually <strong>extend the lifetime of instances of your classes for longer than you expect</strong>.
+* Microsoft took a different approach, and decided to <strong>call the finalizer on objects asynchronously and on a dedicated thread</strong>.
+* How do you prevent an object that needs finalization from being compacted before its finalizer is called?
+  * The answer they came up with was to <strong>keep a queue of extra root references to all finalizable objects</strong> (one reference per object) and user this to keep them alive long enough to call their finalizer.
+  
+![finalization](https://user-images.githubusercontent.com/5309726/55852296-ee1ef280-5b8e-11e9-8854-6ee334395234.png)
+
+* Object Z has a finalizer method one it.
+* When it's created, as well as a root reference in one of the usual places (stack, statics, etc.), an additional reference is added onto the finalization queue, which then <strong>acts as a kind of reminder to .NET that it needs to call the finalizer on this object at some point</strong>.
+* When Object Z loses its root reference, it would usually become a candidate for collection but, <strong>because of the extra reference on the finalization queue, it's still viewed as "rooted"</strong>, and isn't collected when the GC next runs. Instread it's promoted to Gen 2 (assuming a Gen 1 collection occurs).
+
+![promotion-finalizable](https://user-images.githubusercontent.com/5309726/55852455-af3d6c80-5b8f-11e9-8e8b-a2b5c3f2faeb.png)
+
+* Object Z being promoted from Gen 1 to Gen 2, the finalization reference is also moved from the finalization queue to another queue, called the fReachable queue.
+* fReachable acts as a kind of reminder list of all the objects on the heap that still need to have their finalizer called. Think of it like this:
+  * The finalization queue keeps a reference to all of the live finalizable objects.
+  * fReachable references dead objects that need their finalizer calling.
+* Periodically, the finalization thread will run, and it will iterate through all objects pointed to by references in the fReachable queue, calling the `Finalize` method or destructor on each one and removing its reference from fReachable. Only then will the finalizble object be rootless and available for collection.
+* Object Z made it to Gen 2, where it could potentially have remained for a while. What we don't know is whether Object Z was actually needed for all that time, or whether its finalization was just poorly implemented.
+
+#### Improving finalization efficiency ####
+* A simply pattern you can follow to avoid the finalization problem, is by implementing the `IDisposable` interface on your class and applying the following `Dispose` pattern:
+```
+// Directly from code
+public void Dispose()
+{
+    Cleanup(true);
+    GC.SuppressFinalize(this);
+}
+
+private void Cleanup(bool disposing)
+{
+    if(!disposing)
+    {
+        // Thread specific code goes here
+    }
+}
+
+// From the finalizer
+// Resource cleanup goes here
+public void Finalize()
+{
+    Cleanup(false);
+}
+```
+
+* A Boolean parameter (`disposing`) which is used to determine if `Cleanup` was called from the finalizer or directly from code. This is important because the finalizer is called on a separate thread, so if you are doing any thread-specific cleanup, then you need to avoid doing it if it's the finalizer running it.
+* `GC.SuppressFinalize(this)`, which deletes the reference in the finalization queue and gets around the problem.
+* The `Finalize` method also calls the `Cleanup` method but just passes `false`, so it can avoid executing any thread specific code.
+
+```
+// Explicitly calling Dispose
+FinObj myFinObj = new FinObj();
+myFinObj.DoSomething();
+myFinObj.Dispose();
+
+// Implicitly calling Dispose
+using (FinObj myFinObj = new FinObj()) 
+{
+    myFinObj.DoSomething();
+}
+```
+
+#### Large Object Heap ####
