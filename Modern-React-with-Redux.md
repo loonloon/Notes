@@ -159,4 +159,8 @@
 #### Episode 17 ####
 * Google Auth
 
+#### Episode 18 ####
+* Redux DevTools
 
+#### Episode 19 ####
+* Redux Form
