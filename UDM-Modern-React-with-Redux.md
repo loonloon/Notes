@@ -168,3 +168,6 @@
 ![without-redux-form](https://user-images.githubusercontent.com/5309726/56073342-c325e000-5dd4-11e9-8926-ae2fbf7446eb.png)
 
 ![redux-form](https://user-images.githubusercontent.com/5309726/56073348-cae58480-5dd4-11e9-8c9c-6ec6639c9869.png)
+
+* Validation of Form Inputs
+  * `Touched`
