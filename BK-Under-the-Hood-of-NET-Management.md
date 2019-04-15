@@ -401,3 +401,20 @@ using (FinObj myFinObj = new FinObj())
 ```
 
 #### Large Object Heap ####
+* Objects large than 85KB are allocated onto the Large Object Heap (LOH).
+* Objects on the LOH aren't compacted, <strong>because of the overhead of copying large chunks of memory</strong>.
+* When a full Gen 2 GC takes place, <strong>the address ranges of any LOH objects not in use are recorded in a "free space" allocation table</strong>.
+
+![free-space](https://user-images.githubusercontent.com/5309726/56125164-dbe7ee80-5faa-11e9-9915-c1aee11418f2.png)
+
+* When a new object is allocated onto the LOH, the Free Space table is checked to see if there is an address range large enough to hold the object.
+  * If there is, then an object is allocated at <strong>the start byte position and the free space entry is amended</strong>.
+  * If there isn't, then the object will be allocated at the next free space above, which, in this case, is above Object D.
+  
+  ![next-free-space](https://user-images.githubusercontent.com/5309726/56125385-692b4300-5fab-11e9-95a8-c0721ccb3d75.png)
+  
+* It is very unlikely that the objects which will be allocated will be of a size that exactly matches an address range in the Free Space table. As a result, small chuncks of memory will almost always be left between objects, <strong>resulting in fragmentation</strong>.
+* If the chuncks are < 85k, they will be left with no possibility of reuse, as objects are of that size obviously never make it onto the LOH. The result is that, as <strong>allocation demand increases, new segments are reserved for the LOH, even though space, albeit fragmented space, is still available</strong>.
+* When a large object needs to be allocated, .NET has a choice:
+  * Run a Gen2 GC and identify free space on the LOH
+  * Append the object to the end (which may involve extending the heap with additional segments).
