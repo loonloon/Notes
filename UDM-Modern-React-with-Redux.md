@@ -171,3 +171,8 @@
 
 * Validation of Form Inputs
   * `Touched`
+
+#### Episode 20 ####
+* JSON server
+* Object based reducer
+  * Key interpolation
