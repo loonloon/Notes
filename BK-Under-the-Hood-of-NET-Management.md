@@ -418,3 +418,5 @@ using (FinObj myFinObj = new FinObj())
 * When a large object needs to be allocated, .NET has a choice:
   * Run a Gen2 GC and identify free space on the LOH
   * Append the object to the end (which may involve extending the heap with additional segments).
+
+### Chapter 3: A Little More Detail ###
