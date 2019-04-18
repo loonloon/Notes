@@ -176,3 +176,7 @@
 * JSON server
 * Object based reducer
   * Key interpolation
+* Intentional Navigation
+  * User clicks on a 'Link' component
+* Programmatic Navigation
+  * We run code to forcibly navigate the user through our app
