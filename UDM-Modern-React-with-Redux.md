@@ -180,3 +180,7 @@
   * User clicks on a 'Link' component
 * Programmatic Navigation
   * We run code to forcibly navigate the user through our app
+
+![plain-router](https://user-images.githubusercontent.com/5309726/56373008-a9502700-6232-11e9-88fd-07c22fcd90f1.png)
+
+* We can control the browser history object easily with plain router, instead of using Browser router and pass browser history to action method.
