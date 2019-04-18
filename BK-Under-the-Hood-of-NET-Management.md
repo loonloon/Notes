@@ -420,3 +420,37 @@ using (FinObj myFinObj = new FinObj())
   * Append the object to the end (which may involve extending the heap with additional segments).
 
 ### Chapter 3: A Little More Detail ###
+* Often, when objects are created, only some of their member variables are created immediately, with others only instantiating much later. This means that an object can contain references to objects from younger generations, for example a Gen 2 object referencing a gen 0 one.
+
+```
+class LivesInGen2ForAges
+{
+    private SpannerInWorks _createLater;
+    
+    public void DoABitMoreWork()
+    {
+        _createdLater = new SpannerInWorks();
+    }
+}
+```
+
+#### The card table ####
+* A data structure called the card table is used to record when objects are created and referenced from older objects. It's specifically designed to maintain GC performance but still allow objects references to be tracked regardless of their generation.
+* When Gen 0 or Gen 1 objects are created from within Gen 2 objects, the execution engine puts an entry in the card table. This check is made before any reference is created, to see if that reference is to a "previous generation" object, and is known as the "write barrier".
+* .NET stores a bit pattern, with one bit representing 128 bytes of heap memory. If an object residing within the address range of that bit has created a Gen 0 or Gen 1 object, then the bit is set.
+* When a Gen 0 and Gen 1 collection takes place, any objects residing in the address range of a set bit in the card table are included in the "in use list" inspection, as are all of their child references.
+
+![card-table](https://user-images.githubusercontent.com/5309726/56352050-03d08f80-6201-11e9-8671-b60cdc36cff8.png)
+
+* Object B instantiates a reference to Object E, and marks the byte portion in the card table in which it itself resides. The next time a Gen 0 collection takes place, all child references for objects located within the pseudo example byte range 0 - 127 held in the flagged region of the card table will be inspected.
+
+#### A Bit About Segments ####
+* Each managed process has its own heaps for both the SOH and the LOH. Initially, at the start of a process execution, two memory segments are requested from the OS, one for the SOH and one for the LOH.
+* Segments are just units of memory allocation. When the GC needs to expand the heap, it requests an additional segment. Equally, when a heap has compacted, or realizes it has excess free space, it can release segments back to the OS.
+* Segment size is dynamic, is tuned by the runtime, and depends on the GC mode you are running, either Workstation or Server GC.
+* At the start of a process's execution, the SOH is allocated a single segment, called the ephemeral segment, to be used for Gen 0 allocations and promotions to Gen 1 and Gen 2.
+* When it's full, a GC takes place and a new segment is added. Any surviving Gen 0 objects are copied to the new segment (becoming Gen 1 objects), and the old segment is left with just Gen 2 objects.
+
+![ephemeral-segment](https://user-images.githubusercontent.com/5309726/56353851-eef5fb00-6204-11e9-9af5-f280bb141d8e.png)
+
+#### Segments and Pages ####
