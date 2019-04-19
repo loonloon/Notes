@@ -207,4 +207,8 @@
   * PUT, update ALL properties of a record
   * PATCH, Update SOMR properties of a record
   
-  #### Episode 21 ####
+#### Episode 21 ####
+* React Portals
+  * provide a first-class way to <strong>render children into a DOM node that exists outside the DOM hierarchy of the parent component</strong>.
+  
+![react-portals](https://user-images.githubusercontent.com/5309726/56426271-415d1780-62ea-11e9-8250-4ea11046812d.png)
