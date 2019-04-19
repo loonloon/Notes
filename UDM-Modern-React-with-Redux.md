@@ -184,3 +184,12 @@
 ![plain-router](https://user-images.githubusercontent.com/5309726/56373008-a9502700-6232-11e9-88fd-07c22fcd90f1.png)
 
 * We can control the browser history object easily with plain router, instead of using Browser router and pass browser history to action method.
+* Selection reducer vs URL based selection
+
+![url-selection](https://user-images.githubusercontent.com/5309726/56411286-dd6b2c80-62b2-11e9-8925-f1268436d72d.png)
+
+* Wildcard Bavigation
+  * /streams/edit<strong>/:id</strong>
+* Route Params
+  * /streams/edit<strong>/:anything/:others</strong>
+* With React-Router, each component needs to be designed to work in isolation <strong>(fetch its own data!)</strong>.
