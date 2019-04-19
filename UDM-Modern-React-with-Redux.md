@@ -204,7 +204,7 @@
 ![additional-props](https://user-images.githubusercontent.com/5309726/56418247-f1218d80-62c8-11e9-97a8-8ae8359f6ef3.png)
 
 * PUT VS PATCH
-  * PUT, update ALL properties of a reocrd
+  * PUT, update ALL properties of a record
   * PATCH, Update SOMR properties of a record
   
   #### Episode 21 ####
