@@ -454,3 +454,18 @@ class LivesInGen2ForAges
 ![ephemeral-segment](https://user-images.githubusercontent.com/5309726/56353851-eef5fb00-6204-11e9-9af5-f280bb141d8e.png)
 
 #### Segments and Pages ####
+* Segments are made up from virtual memory pages requested from the Virtual Memory Manager (VMM) of the OS. The VMM maps the physical memory and the disk-based page file to a single virtual addressable space, which is subdivided into pages.
+* Pages can be in one of three states: free, committed or reserved.
+  * <strong>Free pages</strong>, are available to be allocated to a requesting thread.
+  * <strong>Committed pages</strong>, are allocated and, ultimately, translate to pages in physical memory. As such, they can be swapped to and from the page file when necessary (paging).
+  * <strong>Reserved pages</strong>, are a low overhead means of reserving virtual memory for future use, but don't translate to physical memory and don't incur paging.
+
+* When the GC builds a segment, it reserves the required number of pages and then commits them when needed. Redundant segments can ultimately be released back to the OS.
+
+#### Garbage Collection Performance ####
+* Heap compaction, Objects are being moved around in memory so, to ensure heap integrity, the GC has to suspend the execution of threads of the executing process.
+* The GC has two modes: 
+  * Workstation mode, which is tuned to give maximum UI responsiveness.
+  * Server mode, which is tuned to give maximum request throughput.
+  
+#### Workstation GC mode ####
