@@ -63,11 +63,11 @@
 * https://unsplash.com/developers
 
 #### Episode 9 ####
-* A 'key' is a special string attribute you need to include when creating lists of elements. 'key' help React identify which items have changed, are added, or are removed.
+* A `key` is a special string attribute you need to include when creating lists of elements. `key` help React identify which items have changed, are added, or are removed.
 
 #### Episode 10 ####
 * React refs
-* use 'addEventListener' to wait DOM loaded.
+* use `addEventListener` to wait DOM loaded.
 
 #### Episode 12 ####
 * What is Redux?
@@ -137,17 +137,17 @@
 ![react-router-care](https://user-images.githubusercontent.com/5309726/55680790-03a6d900-5951-11e9-98ef-37a2e04b8d41.png)
 
 * How Paths Get Matched
-  * is "/" in the Extracted path? -> YES, then display.
-  * is "/page? in the Extracted path? -> YES, then display.
-  * is "/page/5? in the Extracted path? -> NO, then no display.
-  * If the particular route use "exact" keyword, then "===" logic will be used, else remain "contains" function.
+  * is `/` in the Extracted path? -> YES, then display.
+  * is `/page?` in the Extracted path? -> YES, then display.
+  * is `/page/5?` in the Extracted path? -> NO, then no display.
+  * If the particular route use `exact` keyword, then `===` logic will be used, else remain "contains" function.
 ![contains](https://user-images.githubusercontent.com/5309726/55681211-1f60ae00-5956-11e9-8125-dac77c3dc138.png)
 
-* Do not use achor tag <a> to navigate, it will makes request to server return new index.html page and all the state will be lost.
+* Do not use achor tag `<a>` to navigate, it will makes request to server return new index.html page and all the state will be lost.
  
  ![react-router-achor](https://user-images.githubusercontent.com/5309726/55684794-f0603180-5981-11e9-986a-c86e3fa49625.png)
  
-* Use "Link" tag
+* Use `Link` tag
 
 ![react-router-link](https://user-images.githubusercontent.com/5309726/55684769-ba22b200-5981-11e9-9f63-e9a4e7d4299d.png)
 
@@ -171,13 +171,16 @@
 
 * Validation of Form Inputs
   * `Touched`
+* `name` attribute in `Field` will looking matching fields in the object.
+  * `{ title: 'My Book', age: '10' }`
+  * `<Field name='title />`
 
 #### Episode 20 ####
 * JSON server
 * Object based reducer
   * Key interpolation
 * Intentional Navigation
-  * User clicks on a 'Link' component
+  * User clicks on a `Link` component
 * Programmatic Navigation
   * We run code to forcibly navigate the user through our app
 
@@ -193,3 +196,15 @@
 * Route Params
   * /streams/edit<strong>/:anything/:others</strong>
 * With React-Router, each component needs to be designed to work in isolation <strong>(fetch its own data!)</strong>.
+* Pass object to React-Form by setting `initialValues` attribute.
+  * Don't set entire object to `initialValues` attribute, set the necessary one, by 2 ways:
+  * `{ title: 'My Book', description: '10' }`
+  * `pick` function in lodash, `_pick(this.props.stream, 'title', 'description')`
+  
+![additional-props](https://user-images.githubusercontent.com/5309726/56418247-f1218d80-62c8-11e9-97a8-8ae8359f6ef3.png)
+
+* PUT VS PATCH
+  * PUT, update ALL properties of a reocrd
+  * PATCH, Update SOMR properties of a record
+  
+  #### Episode 21 ####
