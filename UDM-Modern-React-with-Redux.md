@@ -51,15 +51,15 @@
   * In a controlled component, form data is handled by (store in) a React component. The alternative is uncontrolled components, where form data is handled by (store in) the DOM itself.
 * What is 'this' used for in a class?
   * https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
- * How to solve 'this' content?
+ * How to solve `this` content?
    * Use constructor and bind it
    * Arrow function
  * Communicating child to parent
 
 #### Episode 8 ####
-* Use 'axios' or 'fetch'
-* Use 'async await' or 'then'
-* Use 'map' to iterate array
+* Use `axios` or `fetch`
+* Use `async await` or `then`
+* Use `map` to iterate array
 * https://unsplash.com/developers
 
 #### Episode 9 ####
@@ -212,3 +212,10 @@
   * provide a first-class way to <strong>render children into a DOM node that exists outside the DOM hierarchy of the parent component</strong>.
   
 ![react-portals](https://user-images.githubusercontent.com/5309726/56426271-415d1780-62ea-11e9-8250-4ea11046812d.png)
+
+* Event Propagation (Default HTML / Javascript behaviour)
+  * If trigger an event on some child element, and the child element does not handle the event. The event will bubble up to some parent element until it caught will event handler.
+  * `e.stopPropagation()`
+* `React.Fragment`
+  * let you group a list of children without adding extra nodes to the DOM.
+  * short hand, `<>...</>`
