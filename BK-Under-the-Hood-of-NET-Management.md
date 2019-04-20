@@ -459,7 +459,6 @@ class LivesInGen2ForAges
   * <strong>Free pages</strong>, are available to be allocated to a requesting thread.
   * <strong>Committed pages</strong>, are allocated and, ultimately, translate to pages in physical memory. As such, they can be swapped to and from the page file when necessary (paging).
   * <strong>Reserved pages</strong>, are a low overhead means of reserving virtual memory for future use, but don't translate to physical memory and don't incur paging.
-
 * When the GC builds a segment, it reserves the required number of pages and then commits them when needed. Redundant segments can ultimately be released back to the OS.
 
 #### Garbage Collection Performance ####
@@ -469,3 +468,27 @@ class LivesInGen2ForAges
   * Server mode, which is tuned to give maximum request throughput.
   
 #### Workstation GC mode ####
+* This mode is designed to give maximum possible responsiveness to the user, and cut down on any pauses due to GC.
+  * Ideally, you want to <strong>avoid any perception of pauses or jerkiness in interactive applications so, to achieve this responsiveness</strong>, Workstation GC mode limits the number of thread suspensions.
+* Workstation GC could run as either concurrent or non-concurrent; this simply refers to which thread the GC runs on. 
+  * In <strong>non-concurrent mode</strong>, thread execution of the application code is suspended, and the GC then runs on the application thread. It was designed for uni-processor machines, where running threads concurrently wasn't an option.
+  * As multicore/multiprocessor desktop machines are now very common, <strong>concurrent Workstation GC</strong> is now the norm and the default.
+  
+#### Concurrent Workstation GC ####
+* Concurrent GC has a <strong>separate thread for the GC to run on</strong>, meaning that the application can continue execution while the GC runs.
+* <strong>Concurrent GC only applies to full GCs, so Gen 0 and Gen 1 GCs still cause thread suspension</strong>.
+
+![concurrent-gc](https://user-images.githubusercontent.com/5309726/56450676-45288280-635a-11e9-83ec-a45426d1e725.png)
+
+* The process whereby the GC domain is initially determined with a start and end position, and then the GC runs (bear in mind that it doesn't show the results of the collection). We can also see that while the GC is running, the application allocates additional objects to the heap (L, M, N and O).
+* The application can continue to allocate objects right up until the ephemeral segment limit is reached, which is the size of the segment minus a bit of space that we will call the "No Go Zone." Once this limit is reached, application execution is suspended until the full GC is finished.
+* Object M has become rootless, but it is outside of the current GC domain so its space can't be collected. It now contributes to the ephemeral segment usage even though it's no longer being used, and it's going to make thread suspension more likely to happen.
+
+#### Background Workstation GC mode (.NET 4.0) ####
+* With background GC, a Gen 0 or Gen 1 GC can be triggered for the newly allocated objects while a full Gen 2 GC is in progress.
+
+#### Server GC mode ####
+* Designed to give maximum throughput, scalability and performance for server environments. It achieves this by making the GC multithreaded, with <strong>multiple threads running the GC in parallel on multiprocessors/cores</strong>.
+* For each process, it allocates a separate SOH and LOH per logical processor (a processor with four cores has four logical processors).
+
+#### Configuring the GC ####
