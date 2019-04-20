@@ -456,24 +456,59 @@ class LivesInGen2ForAges
 #### Segments and Pages ####
 * Segments are made up from virtual memory pages requested from the Virtual Memory Manager (VMM) of the OS. The VMM maps the physical memory and the disk-based page file to a single virtual addressable space, which is subdivided into pages.
 * Pages can be in one of three states: free, committed or reserved.
-  * <strong>Free pages</strong>, are available to be allocated to a requesting thread.
-  * <strong>Committed pages</strong>, are allocated and, ultimately, translate to pages in physical memory. As such, they can be swapped to and from the page file when necessary (paging).
-  * <strong>Reserved pages</strong>, are a low overhead means of reserving virtual memory for future use, but don't translate to physical memory and don't incur paging.
+<table>
+    <tr>
+        <th>State</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Free pages</td>
+        <td>are available to be allocated to a requesting thread.</td>
+    </tr>
+    <tr>
+        <td>Committed pages</td>
+        <td>are allocated and, ultimately, translate to pages in physical memory. As such, they can be swapped to and from the page file when necessary (paging).</td>
+    </tr>
+    <tr>
+        <td>Reserved pages</td>
+        <td>are a low overhead means of reserving virtual memory for future use, but don't translate to physical memory and don't incur paging.</td>
+    </tr>
+</table>
 * When the GC builds a segment, it reserves the required number of pages and then commits them when needed. Redundant segments can ultimately be released back to the OS.
 
 #### Garbage Collection Performance ####
 * Heap compaction, Objects are being moved around in memory so, to ensure heap integrity, the GC has to suspend the execution of threads of the executing process.
 * The GC has two modes: 
-  * Workstation mode, which is tuned to give maximum UI responsiveness.
-  * Server mode, which is tuned to give maximum request throughput.
+<table>
+    <tr>
+        <th>Mode</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Workstation mode</td>
+        <td>which is tuned to give maximum UI responsiveness.</td>
+    </tr>
+    <tr>
+        <td>Server mode</td>
+        <td>which is tuned to give maximum request throughput.</td>
+    </tr>
+</table>
   
 #### Workstation GC mode ####
 * This mode is designed to give maximum possible responsiveness to the user, and cut down on any pauses due to GC.
   * Ideally, you want to <strong>avoid any perception of pauses or jerkiness in interactive applications so, to achieve this responsiveness</strong>, Workstation GC mode limits the number of thread suspensions.
 * Workstation GC could run as either concurrent or non-concurrent; this simply refers to which thread the GC runs on. 
-  * In <strong>non-concurrent mode</strong>, thread execution of the application code is suspended, and the GC then runs on the application thread. It was designed for uni-processor machines, where running threads concurrently wasn't an option.
-  * As multicore/multiprocessor desktop machines are now very common, <strong>concurrent Workstation GC</strong> is now the norm and the default.
-  
+<table>
+    <tr>
+        <th>concurrent</th>
+        <th>non-concurrent mode</th>
+    </tr>
+    <tr>
+        <td>As multicore/multiprocessor desktop machines are now very common, <strong>concurrent Workstation GC</strong> is now the norm and the default.</td>
+        <td>Thread execution of the application code is suspended, and the GC then runs on the application thread. It was designed for uni-processor machines, where running threads concurrently wasn't an option.</td>
+    </tr>
+</table>
+
 #### Concurrent Workstation GC ####
 * Concurrent GC has a <strong>separate thread for the GC to run on</strong>, meaning that the application can continue execution while the GC runs.
 * <strong>Concurrent GC only applies to full GCs, so Gen 0 and Gen 1 GCs still cause thread suspension</strong>.
@@ -492,3 +527,67 @@ class LivesInGen2ForAges
 * For each process, it allocates a separate SOH and LOH per logical processor (a processor with four cores has four logical processors).
 
 #### Configuring the GC ####
+* All you need to do to configure the GC is alter your config file (ASP.NET applications use aspnet.config for your framework version).
+  * To enable Server GC, just set `gcServer="true"` in the runtime section. Obviously, for Workstation, set it to `false`.
+  ```
+  <configuration>
+    <runtime>
+        <gcServer enabled="true | false"/>
+    </runtime>
+  </configuration>
+  ```
+  * if you have configured Workstation GC, then you can switch on concurrency by setting the `gcConcurrent enabled` flag to `true`.
+  ```
+  <configuration>
+    <runtime>
+    <gcConcurrent enabled="true | false"/>
+    </runtime>
+  </configuration>
+  ```
+
+#### Runtime GC Latency Control ####
+* .NET Framework 3.5.1 allows the latency of the GC to be controlled programmatically, which ultimately overrides the gcConcurrent setting within your config file.
+* To achieve this, the System.Runtime.GCSettings.LatencyMode property can be set to one of three modes.
+<table>
+    <tr>
+        <th>Mode</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>GCLatencyMode.Batch</td>
+        <td>designed to give maximum throughput and performance for sections of an app where UI responsiveness isn't important.</td>
+    </tr>
+    <tr>
+        <td>GCLatencyMode.LowLatency</td>
+        <td>this mode reduces the impact of GC to a minimum, which is ideal for times when things like UI responsiveness are critical, e.g. animation.</td>
+    </tr>
+    <tr>
+        <td>GCLatencyMode.Interactive</td>
+        <td>Workstation GC with Concurrency switched on, giving a balance between GC efficiency and app responsiveness.</td>
+    </tr>
+</table>
+
+* An obvious use of LatencyMode is to <strong>change it for a short period during execution of critical code that needs maximum UI or batch processing performance, and then change it back on completion</strong>.
+
+```
+using System.Runtime;
+…
+
+// Store current latency mode
+GCLatencyMode mode = GCSettings.LatencyMode;
+
+// Set low latency mode
+GCSettings.LatencyMode = GCLatencyMode.LowLatency;
+
+try
+{
+    // Do some critical animation work
+}
+finally
+{
+    // Restore latency mode
+    GCSettings.LatencyMode = mode;
+}
+```
+
+#### GC Notifications ####
