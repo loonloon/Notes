@@ -191,7 +191,7 @@
 
 ![url-selection](https://user-images.githubusercontent.com/5309726/56411286-dd6b2c80-62b2-11e9-8925-f1268436d72d.png)
 
-* Wildcard Bavigation
+* Wildcard Navigation
   * /streams/edit<strong>/:id</strong>
 * Route Params
   * /streams/edit<strong>/:anything/:others</strong>
@@ -219,3 +219,6 @@
 * `React.Fragment`
   * let you group a list of children without adding extra nodes to the DOM.
   * short hand, `<>...</>`
+
+#### Episode 22 ####
+* `Switch`,  returns only one first matching route.
