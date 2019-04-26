@@ -242,10 +242,13 @@
     * Default value (can't change the context value)
     * Provider
   * Out
-    * this.context
+    * this.context (get default value)
     * Consumer
     
 ![two-ways](https://user-images.githubusercontent.com/5309726/56815741-a4175b80-6874-11e9-9e35-abe64001d93b.png)
 
 * `React.createContext()`
 * `static contextType`
+* Each separate use of `xxxContext.Provider` creates a new, separate 'pipe' of information!
+
+![context-provider](https://user-images.githubusercontent.com/5309726/56839552-9e8e3580-68b5-11e9-846e-d1d3b47f1d8d.png)
