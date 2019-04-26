@@ -240,3 +240,5 @@
 * 2 ways to get info in and out
 
 ![two-ways](https://user-images.githubusercontent.com/5309726/56815741-a4175b80-6874-11e9-9e35-abe64001d93b.png)
+
+* `static contextType`
