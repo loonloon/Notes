@@ -227,4 +227,12 @@
 * `componentDidUpdate`
 * `componentWillUnmount`
 
-//todo component flow diagram
+![react-lifecycle](https://user-images.githubusercontent.com/5309726/56807406-4594b200-6861-11e9-9efc-bbd84df12f1c.png)
+
+#### Episode 23 ####
+* Props vs Context System
+  * Get data from a parent component to
+    * props - a direct child component
+    * context - any nested child component
+    
+![context-system](https://user-images.githubusercontent.com/5309726/56806828-a0c5a500-685f-11e9-8814-0e1412e5227a.png)
