@@ -236,3 +236,7 @@
     * context - any nested child component
     
 ![context-system](https://user-images.githubusercontent.com/5309726/56806828-a0c5a500-685f-11e9-8814-0e1412e5227a.png)
+
+* 2 ways to get info in and out
+
+![two-ways](https://user-images.githubusercontent.com/5309726/56815741-a4175b80-6874-11e9-9e35-abe64001d93b.png)
