@@ -239,11 +239,13 @@
 
 * 2 ways to get info in and out
   * In
-    * Default value
+    * Default value (can't change the context value)
     * Provider
   * Out
     * this.context
     * Consumer
+    
 ![two-ways](https://user-images.githubusercontent.com/5309726/56815741-a4175b80-6874-11e9-9e35-abe64001d93b.png)
 
+* `React.createContext()`
 * `static contextType`
