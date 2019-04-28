@@ -276,3 +276,7 @@
 * Redux vs Context recap
 
 ![redux-vs-context-recap](https://user-images.githubusercontent.com/5309726/56858177-88ad6d00-69a8-11e9-99c3-d54414f78cdd.png)
+
+#### Episode 25 ####
+* Hooks
+  * Add state and life cycle methods to function-based components. (Make is easy to share logic between components)
