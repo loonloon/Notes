@@ -263,3 +263,16 @@
    </LanguageContext.Provider>
 </ColorContext.Provider>
 ```
+
+#### Episode 24 ####
+* Redux vs Context system
+
+![redux-vs-context](https://user-images.githubusercontent.com/5309726/56858165-674c8100-69a8-11e9-919b-36a526ea7a4c.png)
+
+* Context in place of Redux
+
+![context-store-component](https://user-images.githubusercontent.com/5309726/56858187-a8449580-69a8-11e9-8768-a71dcf550ffa.png)
+
+* Redux vs Context recap
+
+![redux-vs-context-recap](https://user-images.githubusercontent.com/5309726/56858177-88ad6d00-69a8-11e9-99c3-d54414f78cdd.png)
