@@ -280,3 +280,10 @@
 #### Episode 25 ####
 * Hooks
   * Add state and life cycle methods to function-based components. (Make is easy to share logic between components)
+
+![hooks-api](https://user-images.githubusercontent.com/5309726/56963805-64aa8100-6b8c-11e9-8035-04eafee97257.png)
+
+* `[resource, setResource] = useState('posts')`, `useState('x')` will return an array and assign first element to resource, second element to setResource (array destructuring).
+* The different between state in class and function component are class is object based state and function can call `useState` for each individual value.
+
+![hooks-use-state](https://user-images.githubusercontent.com/5309726/56964424-c3242f00-6b8d-11e9-84dd-65fc80a5fd63.png)
