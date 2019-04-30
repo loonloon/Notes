@@ -707,3 +707,80 @@ unsafe static void Main()
 * Remove event handlers before disposing of an object.
 
 ### Chapter 4: Common Memory Problems ###
+#### Types ####
+* The type system in .NET consists of
+  * value
+    * is a primitive or struct
+  * reference
+    * is a pointer
+* There are two components to the data in a reference type,
+  * the reference
+  * the actual data
+* The reference is stored in the stack, and it contains the memory location (in the heap) where the data is actually stored.
+
+#### Value types ####
+* Value types consist of 
+  * simple types
+  * enum types
+  * struct types
+  * nullable types
+* Value types do not support user-defined inheritance, but they do have an inheritance chain as follows:
+  * `Enums` inherit from `System.Enum`, which inherits from `System.ValueType`
+  * nullable types are structs, and structs inherit from `System.ValueType`, which inherits from `System.Object`
+* Variables of these types maintain their own copies of their data so, when a value is assigned from one variable to another, the data stored in the memory at one location (i.e. the memory allocated to the initial variable) is copied into the memory allocated for the new variable.
+
+```
+int x = 8;
+int y = x;
+
+Assert.AreEqual(y, 8);
+Assert.AreNotSame(x, y); 
+```
+
+* The values may be equal, but modifying the value of `y` (e.g. with the ++ operator) will not affect the `x` variable. <strong>This is often the source of bugs when developers forget that changes to a value type parameter will not carry over to the calling method</strong>.
+* The exception to the One variable, one memory location rule is usage of the `ref` and `out` keywords,
+
+```
+private void Increment(int value)
+{
+    value++;
+}
+
+private void Increment(ref int value)
+{
+    value++;
+}
+
+private void IncrementOut(out int value)
+{
+    value = default(int);
+    value++;
+}
+
+[TestMethod]
+public void OutRefTest()
+{
+    int x = 7;
+    
+    Increment(x);   
+    Assert.AreEqual(7, x);
+    
+    Increment(ref x);   
+    Assert.AreEqual(8, x);
+    
+    IncrementOut(out x);
+    Assert.AreEqual(1, x);
+}
+```
+* The first `Increment(x)` call copies the value into the parameter for the method and, as the value is never returned, the variable `x` remains the same. The second call is to the ref version of `Increment`.
+* The `ref` keyword allows a value to be passed in, modified, and then passed out. This method call works as desired and increments the number. Calling the `ref` function with an initialized variable will result in a compile-time error.
+* The `out` parameter is another source of confusion for many. It works like the `ref` keyword in that it passes the value out, but the value for the incoming parameter is not copied. The parameter for the method does not need to be initialized before the call, but it must be initialized within the body of the method. This causes the `IncrementOut` method to always return 1. Calling the `out` function with an initialized variable will cause that value to be discarded.
+
+#### Reference types ####
+* Reference types include
+  * class types
+  * interface types
+  * array types
+  * delegate types
+  
+#### Boxing and unboxing ####
