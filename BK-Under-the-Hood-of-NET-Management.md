@@ -696,8 +696,8 @@ unsafe static void Main()
 * Implement `INotifyPropertyChanged` on component classes that may be used by binding clients.
 * Avoid maintaining <strong>large object graphs</strong> in memory.
 * Avoid using <strong>unsigned number types</strong (except for byte).
-* Prefer <strong>CLS-compliant</strong types.
-* Be aware of <strong>variable capture</strong when using anonymous functions.
+* Prefer <strong>CLS-compliant</strong> types.
+* Be aware of <strong>variable capture</strong> when using anonymous functions.
 * Do not pass delegates to `IQueryable` extension methods.
 * Avoid excessive grouping or aggregate functions in LINQ queries.
 * Use <strong>static methods</strong> when it is unnecessary to access or mutate state.
