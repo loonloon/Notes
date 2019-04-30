@@ -634,11 +634,11 @@ animal.RaiseEvent();
             <th>Finalize</th>
         </tr>
         <tr>
-            <td>Called by manual user code.</td>
-            <td>Belongs to IDisposable interface.</td>     
+            <td>Belongs to IDisposable interface.</td>
+            <td>Belongs to System.Object class.</td>     
         </tr>
         <tr>
-            <td>Belongs to System.Object class.</td>
+            <td>Called by manual user code.</td>
             <td>Called by Garbage Collector and can’t called manual by user code or any service.</td>
         </tr>
     </tbody>
