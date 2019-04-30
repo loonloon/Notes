@@ -283,7 +283,14 @@
 
 ![hooks-api](https://user-images.githubusercontent.com/5309726/56963805-64aa8100-6b8c-11e9-8035-04eafee97257.png)
 
-* `[resource, setResource] = useState('posts')`, `useState('x')` will return an array and assign first element to resource, second element to setResource (array destructuring).
+* `[resource, setResource] = useState('posts')`, `useState('x')` will return an array and assign first element to `resource`, second element to `setResource` (array destructuring).
 * The different between state in class and function component are class is object based state and function can call `useState` for each individual value.
 
 ![hooks-use-state](https://user-images.githubusercontent.com/5309726/56964424-c3242f00-6b8d-11e9-84dd-65fc80a5fd63.png)
+
+*  `componentDidMount` is only called once in the lifecycle of any component
+
+![component-did-mount](https://user-images.githubusercontent.com/5309726/56967197-57dd5b80-6b93-11e9-8b37-073961bdb709.png)
+
+* `componentDidUpdate` lifecycle method is called whether the parent component or we called `setState` in class component.
+  * Use `prevProps` to check whether the props (pass from parent) has changed.
