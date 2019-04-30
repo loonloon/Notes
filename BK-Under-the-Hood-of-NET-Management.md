@@ -695,7 +695,7 @@ unsafe static void Main()
 * Use the `readonl`y keyword on class fields that should be immutable.
 * Implement `INotifyPropertyChanged` on component classes that may be used by binding clients.
 * Avoid maintaining <strong>large object graphs</strong> in memory.
-* Avoid using <strong>unsigned number types</strong (except for byte).
+* Avoid using <strong>unsigned number types</strong> (except for byte).
 * Prefer <strong>CLS-compliant</strong> types.
 * Be aware of <strong>variable capture</strong> when using anonymous functions.
 * Do not pass delegates to `IQueryable` extension methods.
