@@ -591,3 +591,119 @@ finally
 ```
 
 #### GC Notifications ####
+* Basically, with NET Framework 3.5.1, you can do the following things:
+  * register for full GC notifications
+  * determine when a full GC is approaching
+  * determine when a full GC has finished
+  * unregister for full GC notifications
+ 
+#### Weak References ####
+* Weak object references allow you to keep hold of objects (as they are another source of GC roots), but still allow them to be collected if the GC needs to.
+
+#### Under the hood ####
+* Weak references are classified as one of:
+  * short weak references (which ignore finalization)
+  * long weak references (which consider finalization)
+
+```
+//short
+WeakReference wr = WeakReference(floor23, false);
+
+//long
+WeakReference wr = WeakReference(floor23, true);
+```
+
+#### Object Pinning and GC Handles ####
+* The SOH is better managed than the LOH because it compacts and doesn't suffer from fragmentation issues (as mentioned in Chapter 2's LOH section). Well, that's not entirely true.
+* If you want to make calls from your .NET application to other unmanaged application APIs or COM objects, you will probably want to pass data to them. If the data you pass is allocated on the heap, then it could be moved at some point during compaction as part of GC.
+
+#### GC Handles ####
+* NET uses a structure called GCHandle to keep track of heap objects, which can also be used to pass object references between managed and unmanaged domains.
+* A `GCHandle` can be one of four types:
+
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Normal</td>
+        <td>tracks standard heap objects</td>
+    </tr>
+    <tr>
+        <td>Weak</td>
+        <td>used to track short weak references</td>
+    </tr>
+    <tr>
+        <td>Weak Track Resurrection</td>
+        <td>used for long weak references</td>
+    </tr>
+    <tr>
+        <td>Pinned</td>
+        <td>used to fix an object at a specific address in memory</td>
+    </tr>
+</table>
+
+#### Object pinning ####
+* We can create GC Handles directly in code, and so can use them to create pinned references to objects we need to pass to unmanaged code.
+
+```
+byte[] buffer = new byte[512];
+GCHandle h = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+IntPtr ptr = h.AddrOfPinnedObject();
+
+// Call native API and pass buffer
+
+if (h.IsAllocated) 
+{
+    h.Free();
+}
+```
+
+* Objects will also be pinned if you use a fixed block.
+
+```
+unsafe static void Main()
+{
+    Person p = new Person();
+    p.age = 25;
+    
+    // Pin p
+    fixed (int* a = &p.age)
+    {
+        // Do something
+    }
+    
+    // p unpinned
+}
+```
+
+#### Problems with object pinning ####
+* The main problem with object pinning is that it can cause SOH fragmentation. If an object is pinned during a GC then, by definition, it can't be relocated. Depending on how you use pinning, it can reduce the efficiency of compaction, leaving gaps in the heap.
+* The best advice is to pin for a very short time and then release, to minimize compaction issues.
+
+### Section 2: Troubleshooting ###
+#### Best practices ####
+* Use the `IDisposable` interface with the Disposable pattern to release unmanaged resources, and suppress finalization in the Dispose method if no other finalization is required.
+* Use the `using` statement to define the scope of a disposable object, unless doing so could cause an exception.
+* Use `StringBuilder` when the number of string concatenations is unknown or contained within a loop.
+* Initialize the capacity of a `StringBuilder` to a reasonable value, if possible.
+* Use <strong>lazy initialization</strong> to defer the cost of instantiating members of a class if the members are not needed when the object is created.
+* Use a `struct` to represent any immutable, single value whose instance size is 16 bytes or smaller and which will be infrequently boxed.
+* Override the `GetHashCode` and `Equal`s methods of a `struct`.
+* Mark all fields in a `struct` as `readonly`.
+* Use the `readonl`y keyword on class fields that should be immutable.
+* Implement `INotifyPropertyChanged` on component classes that may be used by binding clients.
+* Avoid maintaining <strong>large object graphs</strong> in memory.
+* Avoid using <strong>unsigned number types</strong (except for byte).
+* Prefer <strong>CLS-compliant</strong types.
+* Be aware of <strong>variable capture</strong when using anonymous functions.
+* Do not pass delegates to `IQueryable` extension methods.
+* Avoid excessive grouping or aggregate functions in LINQ queries.
+* Use <strong>static methods</strong> when it is unnecessary to access or mutate state.
+* Initialize collections (such as `List<T>`) with the target size, if it is known.
+* Consider using content instead of embedded resources for larger artifacts.
+* In an IIS hosted application, set the `//compilation/system.web/compilation/debug` attribute to `false` before releasing to production.
+* Remove event handlers before disposing of an object.
+
+### Chapter 4: Common Memory Problems ###
