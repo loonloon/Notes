@@ -299,3 +299,6 @@
 ![use-effect](https://user-images.githubusercontent.com/5309726/57005574-87c84580-6c0b-11e9-8280-766f8188926f.png)
 
 ![use-effect-senarios](https://user-images.githubusercontent.com/5309726/57005733-e8a44d80-6c0c-11e9-8054-d14d6076b2f8.png)
+
+* Immediately invoke function
+  * `(() => console.log('hi'))()` same as `const hi = () => console.log('hi'); hi();`
