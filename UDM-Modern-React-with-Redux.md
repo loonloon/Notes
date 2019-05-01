@@ -300,5 +300,5 @@
 
 ![use-effect-senarios](https://user-images.githubusercontent.com/5309726/57005733-e8a44d80-6c0c-11e9-8054-d14d6076b2f8.png)
 
-* Immediately invoke function
+* Immediately invoked function
   * `(() => console.log('hi'))()` same as `const hi = () => console.log('hi'); hi();`
