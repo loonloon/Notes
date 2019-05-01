@@ -288,9 +288,14 @@
 
 ![hooks-use-state](https://user-images.githubusercontent.com/5309726/56964424-c3242f00-6b8d-11e9-84dd-65fc80a5fd63.png)
 
-*  `componentDidMount` is only called once in the lifecycle of any component
+*  `componentDidMount` is only called once in the lifecycle of any component.
 
 ![component-did-mount](https://user-images.githubusercontent.com/5309726/56967197-57dd5b80-6b93-11e9-8b37-073961bdb709.png)
 
 * `componentDidUpdate` lifecycle method is called whether the parent component or we called `setState` in class component.
   * Use `prevProps` to check whether the props (pass from parent) has changed.
+* `useEffect`, something likes combining `componentDidMount` and `componentDidUpdate` lifecycle methods.
+
+![use-effect](https://user-images.githubusercontent.com/5309726/57005574-87c84580-6c0b-11e9-8280-766f8188926f.png)
+
+![use-effect-senarios](https://user-images.githubusercontent.com/5309726/57005733-e8a44d80-6c0c-11e9-8054-d14d6076b2f8.png)
