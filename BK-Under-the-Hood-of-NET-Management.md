@@ -784,3 +784,170 @@ public void OutRefTest()
   * delegate types
   
 #### Boxing and unboxing ####
+* Value types can be converted to reference types through a process known as boxing, and back into value types through unboxing.
+* Boxing is sometimes necessary, but it should be avoided if at all possible, because it will slow down performance and increase memory requirements.
+* Boxing can be avoided by using parameterized classes and methods, which is implemented using generics; in fact this was the motivation for adding generics.
+
+```
+public void BoxedCall(object value)
+{
+    // Perform operation on value
+}
+
+public void NonboxedCall<T>(T value)
+{
+    // Perform operation on value
+}
+```
+
+#### Disposing of unmanaged resources ####
+* There are two ways to do so without an exception preventing the method's execution.
+
+```
+// Way 1
+FileStream stream = new FileStream("message.txt", FileMode.Open);
+
+try
+{
+    StreamReader reader = new StreamReader(stream);
+    
+    try
+    {
+        Console.WriteLine(reader.ReadToEnd());
+    }
+    finally
+    {
+        reader.Dispose();
+    }
+}
+finally
+{
+    stream.Dispose();
+}
+
+// Way 2
+using (FileStream stream = new FileStream("message.txt", FileMode.Open))
+using (StreamReader reader = new StreamReader(stream))
+{
+    Console.WriteLine(reader.ReadToEnd());
+}
+```
+
+* In most situations, the using syntax is cleaner, but there will be times when a try block is preferable.
+
+#### Finalization ####
+* A common problem with custom implementations of disposable objects is that these implementations are not complete, and so resources are not released.
+* The issue arises when the Dispose method isn't called. Despite all the best practices, it is important to realize that not everyone remembers to call the Dispose method, or to employ the using statement in conjunction with a disposable. Sometimes a developer may not have noticed the Dispose method in the Intellisense method list.
+* `~Sample()`; it is a language implementation for the Finalize method.
+* A destructor is responsible for reclaiming all of the resources, whereas the finalizer only needs to worry about calling the Dispose method
+
+#### Concatenation ####
+* The compiler also converts concatenation with variables and non-string literals into a call to `String.Concat`.
+
+```
+string panda = "bear";
+panda += "cat";
+
+// after compiled
+string panda = "bear";
+panda = String.Concat(panda, "cat");
+```
+
+* Since string is immutable, this causes a new string to be allocated at every pass through the loop. This problem can be prevented by using the `StringBuilder` class.
+
+#### Structs ####
+* Used it only when the type represents a single value consisting of 16 bytes or less. It <strong>should be</strong> immutable.
+* Structs inherit from `System.Struct` and cannot be further inherited.
+* A default constructor is provided by the CLR and cannot be custom defined, and field values cannot be initialized.
+* Even though a struct cannot participate in inheritance, it can implement an interface.
+* Type casting a struct to an interface implicitly boxes the struct, which incurs the overhead of boxing and unboxing, and also has an interesting side effect.
+* This struct can be made immutable by making its fields read-only and removing the property setters.
+
+```
+public partial struct GeographicPoint
+{
+    private readonly float latitude;
+    private readonly float longitude;
+    private readonly int altitude;
+    
+    public float Latitude
+    {
+        get { return latitude; }
+    }
+    
+    public float Longitude
+    {
+        get { return longitude; }
+    }
+    
+    public int Altitude
+    {
+        get { return altitude; }
+    }
+    
+    public GeographicPoint(float latitude, float longitude, int altitude)
+    {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+    }
+    
+    public GeographicPoint ChangeLatitude (float newLatitude)
+    {
+        return new GeographicPoint(latitude, Longitude, Altitude);
+    }
+
+    public GeographicPoint ChangeLongitude (float newLongitude)
+    {
+        return new GeographicPoint(Latitude, newLongitude, Altitude);
+    }
+}
+```
+
+* Although this struct is now immutable, it will still have an issue with Hashtables. When struct objects are used as Hashtable keys, the lookup operation for the Hashtable is slower because of the implementation of the GetHashCode method used to perform the lookup.
+* By implementing our own Equals() method we can optimize it and eliminate reflection and boxing.
+
+```
+public partial struct GeographicPoint
+{
+    public static bool operator ==(GeographicPoint first, GeographicPoint second)
+    {
+        return first.Equals(second);
+    }
+    
+    public static bool operator !=(GeographicPoint first, GeographicPoint second)
+    {
+        return !first.Equals(second);
+    }
+    
+    public override int GetHashCode()
+    {
+        return (int)this.latitude ^ (int)this.longitude ^ this.altitude;
+    }
+    
+    public override bool Equals(object obj)
+    {
+        if (obj is GeographicPoint)
+        {
+            return Equals((GeographicPoint)obj);
+        }
+        
+        return false;
+    }
+    
+    public bool Equals(GeographicPoint other)
+    {
+        return this.latitude == other.latitude
+            && this.longitude == other.longitude
+            && this.altitude == other.altitude;
+    }
+}
+```
+
+* We can now ensure `GeographicPoint` is thread-safe, `Hashtable` friendly, and works with equality operators.
+
+#### Effects of Yield ####
+* The yield keyword is used to generate an implementation of the Iterator pattern.
+* Only one item at a time has to be in memory, which can be a dramatic improvement if only one object is used at a time.
+
+#### Arrays and Collections ####
