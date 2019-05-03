@@ -292,7 +292,7 @@ class MyClass
 #### Optimizing garbage collection ####
 * There's potentially a bit of a problem with creating "still in use" lists and compacting the heap, espcially if it's very large.
 * Navigating through huge objects graphs and copying lots of live objects over the top of dead ones is going to take a significant amount of processing time.
-* Short-lived (gen0), medium-live (gen1) and long-lived (gen0) objects.
+* Short-lived (gen0), medium-live (gen1) and long-lived (gen2) objects.
 
 #### Generational garbage collection ####
 * Object W must have survived at least two GCs, whereas Z and Y have yet to be looked at for the first time. Object X has survived one GC inspection.
