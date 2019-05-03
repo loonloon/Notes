@@ -205,7 +205,7 @@
 
 * PUT VS PATCH
   * PUT, update ALL properties of a record
-  * PATCH, Update SOMR properties of a record
+  * PATCH, Update SOME properties of a record
   
 #### Episode 21 ####
 * React Portals
