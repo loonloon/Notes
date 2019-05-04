@@ -951,3 +951,128 @@ public partial struct GeographicPoint
 * Only one item at a time has to be in memory, which can be a dramatic improvement if only one object is used at a time.
 
 #### Arrays and Collections ####
+* If we do not properly initialize our List, we will need to perform several resizing operations as the size grows.
+* With large arrays, we may actually have twice as much memory allocated as we would expect.
+* Use the overloaded constructor where you can specify the initial capacity. This will reduce the number of initial resizing operations that are needed.
+
+#### Excessive References ####
+* Use LazyLoading to delay initializing related properties until they are referenced.
+
+### Chapter 5: Application-Specific Problems ###
+#### Debug ####
+* This is the default setting in the web.config, but it has an unfortunate side effect from a performance perspective. This setting will inject debug symbols into the compiled assemblies.
+
+```
+<compilation debug="true">
+```
+
+#### StringBuilder ####
+* When you create the StringBuilder, you can explicitly initialize the size of the internal buffer.
+
+#### ADO.NET ####
+* Explicitly wrap Connections, Commands, and Adapters with using statements.
+
+#### LINQ ####
+* The improved memory management rests in the potential of delayed execution and having to load entire results lists into memory at the same time.
+* The SQL that is generated will actually exclude the filtering restrictions, which will not be interpreted until after the SQL is run and the results returned.
+* Instead of having the filter use indexes in the database and call up a small subset of the data, no indexes will be used, and the entire contents of the table will be retrieved.
+
+```
+// bad
+public bool PastDueAccount(Account account)
+{
+    return account.DueDate < DateTime.Today.AddDays(-7);
+}
+
+Order[] pastDueAccounts = null;
+
+using (var context = new Context())
+{
+    pastDueAccounts = context.Accounts.Where(account => PastDueAccount(account)).ToArray();
+}
+```
+
+* This way, the lambda expression will be passed to the LINQ provider, and its logic will be incorporated into the final query.
+
+```
+// good
+public Expression<Func<Order, bool>> PastDueAccount
+{
+    get
+    {
+        DateTime startDate = DateTime.Today.AddDays(-7);
+        return order => order.TransactionDate > startDate;
+    }
+}
+```
+#### Weak event pattern ####
+* The downside is that you will generally need a `WeakEventManager` for every event that you want a weak event reference to.
+
+#### Command bindings ####
+* A good practice is to clear all of the binding information when you are through with the child. From within the context of the child window, you can easily clear this binding information.
+
+```
+BindingOperations.ClearAllBindings(this);
+```
+
+#### WCF Disposable ####
+* Avoid the `Using` statement with a service proxy. If you do try it, then the `Dispose()` method of a proxy will call the `Close()` method, which will cause an exception if a fault has occurred on a channel.
+* Relying on the `Using` construct may also result in orphaned service clients and unmanaged resources.
+
+```
+// best practice
+var clientproxy = new UnderTheHoodClient();
+
+try
+{
+    clientproxy.Method();
+    clientProxy.Close();
+}
+catch(CommunicationException)
+{
+    clientProxy.Abort();
+}
+catch (TimeoutException)
+{
+    clientProxy.Abort();
+}
+````
+
+### Chapter 6: A Few More Advanced Topics ###
+#### 32-Bit vs. 64-Bit ####
+* Any given program compiled as a 64-bit application will use more memory than the 32-bit version of the same program.
+* You may want to switch some objects from classes to structs to make the most effective use of memory. However, bear in mind that this tactic may backfire if you are forced to box and unbox the new structs. Generics will help avoid boxing.
+* <strong>The Large Object Heap does not change. The size threshold is the same for 64 bits as it was for 32 bits</strong> and, since your objects will be bigger in a 64-bit environment, this means that you may have objects winding up in the LOH that were normally placed in the SOH when everything was 32 bit.
+
+#### Survey of Garbage Collection Flavors ####
+<table>
+    <tr>
+        <th>Workstation GC</th>
+        <th>Server GC</th>
+    </tr>
+    <tr>
+        <td>is the default and is the only option available on a single processor computer.</td>
+        <td>is available whenever you have more than one processor in the machine.</td>
+    </tr>
+    <tr>
+        <td>favors responsiveness</td>
+        <td>favors throughput</td>
+    </tr>
+    <tr>
+        <td>runs on the same thread that triggered the garbage collection. This thread will typically run at normal priority, and must compete with all the other running threads for processing time. Since this thread is running at normal priority, it will easily be preempted by the other threads that the operating system is running. This can mean that garbage collecting takes longer than if it had a dedicated thread that was set at a higher priority.</td>
+        <td>uses multiple threads, each running at the highest priority, making it significantly faster than Workstation GC. Each of these threads will be given the highest priority, so they will finish substantially faster than under a workstation equivalent, but they will also preempt all other threads, so all that speed is not free.</td>
+    </tr>
+</table>
+
+* Essentially, while Server GC is faster than Workstation GC on the same size heap, there can be problems if you're running hundreds of instances of an app because of excessive context switching between threads.
+* Concurrent GC is intended to minimize screen freezes during garbage collection and is best suited to application scenarios where a responsive UI is the most critical design goal.
+
+```
+<configuration>
+    <runtime>
+        <gcConcurrent enabled="true" />
+    </runtime>
+</configuration>
+```
+
+* .NET 4.0 introduced a new flavor to the table: Background GC. Technically this isn't really a new option, as it replaces Concurrent GC, although there have been improvements. In particular, Background GC works just like Concurrent GC except that your application isn't blocked when the ephemeral segment is full.
