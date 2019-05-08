@@ -3,7 +3,6 @@
 * https://codeburst.io/javascript-wtf-is-es6-es8-es-2017-ecmascript-dca859e4821c
 * http://kangax.github.io/compat-table/es2016plus/
 * https://americanexpress.io/clean-code-dirty-code/
-* C# in Depth, Fourth Edition
 * http://www.leerichardson.com/2007/01/parameter-passing-in-c.html
 
 #### Blogs ####
