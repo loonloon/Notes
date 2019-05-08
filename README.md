@@ -1,9 +1,8 @@
 # Notes
-
-* https://codeburst.io/javascript-wtf-is-es6-es8-es-2017-ecmascript-dca859e4821c
 * http://kangax.github.io/compat-table/es2016plus/
 * https://americanexpress.io/clean-code-dirty-code/
 * http://www.leerichardson.com/2007/01/parameter-passing-in-c.html
+* http://www.sangadjiprabowo.com/post/2017/02/14/10-c-generic-collection-types-you-should-know
 
 #### Blogs ####
 <table>
@@ -20,6 +19,15 @@
         <tr>
             <td>https://www.dotnetperls.com/</td>
         </tr> 
+        <tr>
+            <td>http://bigocheatsheet.com/</td>
+        </tr> 
+        <tr>
+            <td>https://docs.microsoft.com/en-us/dotnet/standard/collections/selecting-a-collection-class</td>
+        </tr> 
+        <tr>
+            <td>https://www.geeksforgeeks.org/</td>
+        </tr>         
     </tbody>
 </table>
 
