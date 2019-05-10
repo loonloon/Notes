@@ -26,3 +26,9 @@
 </table>
 
 #### Episode 2 ####
+* let vs const
+* arrow functions
+* exports vs imports (modules)
+  * `export default person`, imports default and ONLY export of the file. Name in the receiving file is up to you.
+  * `export const baseData = 10`, named export, use exact name defined in the file with curly braces or assign an alias.
+  
