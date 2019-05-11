@@ -29,6 +29,77 @@
 * let vs const
 * arrow functions
 * exports vs imports (modules)
-  * `export default person`, imports default and ONLY export of the file. Name in the receiving file is up to you.
-  * `export const baseData = 10`, named export, use exact name defined in the file with curly braces or assign an alias.
-  
+
+<table>
+  <tr>
+    <th>default export</th>
+    <th>named export</th>
+  </tr>
+  <tr>
+    <td>export default person</td>
+    <td>export const baseData = 10</td>
+  </tr>
+  <tr>
+    <td>imports default and ONLY export of the file. Name in the receiving file is up to you</td>
+    <td>Use exact name defined in the file with curly braces or assign an alias</td>
+  </tr>
+</table>
+
+* Classes, Properties and Methods
+* Spread vs Rest operators
+
+<table>
+  <tr>
+    <th>Spread</th>
+    <th>Rest</th>
+  </tr>
+  <tr>
+    <td>Used to split up array elements OR object properties</td>
+    <td>Used to merge a list of function arguments into an array</td>
+  </tr>
+  <tr>
+    <td>
+     <pre lang="typescript">
+const newArray = [...oldArray, 1, 2]
+const newObject = {...oldObject, newProp: 5}
+     </pre>
+   </td>
+    <td>
+     <pre lang="typescript">
+function sortArgs(...args) {
+   return args.sort();
+}
+     </pre>
+   </td>
+  </tr>
+</table>
+
+* Destructuring
+  * Easily extract array elements or object properties and store them in variables  
+
+<table>
+  <tr>
+    <th>Array Destructuring</th>
+    <th>Object Destructuring</th>
+  </tr>
+  <tr>
+    <td>
+     <pre lang="typescript">
+[a, b] = ['Hello', 'Max'];
+console.log(a); // Hello
+console.log(b); // Max
+     </pre>
+   </td>
+    <td>
+     <pre lang="typescript">
+{ name } = { name: 'Max', age: 29 };
+console.log(name) // Max
+console.log(age) // undefined
+     </pre>
+   </td>
+  </tr>
+</table>
+
+* Objects and arrays are reference type, if you reassign them, you are copying the pointer not the value
+
+#### Episode 3 ####
