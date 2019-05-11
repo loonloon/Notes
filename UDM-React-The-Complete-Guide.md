@@ -103,3 +103,4 @@ console.log(age) // undefined
 * Objects and arrays are reference type, if you reassign them, you are copying the pointer not the value
 
 #### Episode 3 ####
+![build-workflow](https://user-images.githubusercontent.com/5309726/57570910-d52d8980-7439-11e9-8b9d-2adf45e7afdb.png)
