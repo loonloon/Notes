@@ -114,3 +114,10 @@ console.log(age) // undefined
     * `props.children`, content in between the opening and closing tag either text or html
  * Understand and using state
    * Change the state will re-render and update the DOM
+* `useState`, will replace instead of merge
+* stateful vs stateless
+* Passing function references to components
+* Function binding
+  * `onClick={() => printName("Max")}`, arrow function (NOT EFFICIENT)
+  * `onClick={printName.bind(this, "Max")}`, bind in render
+  * `this.printName = this.printName.bind(this);`, bind in constructor (BEST)
