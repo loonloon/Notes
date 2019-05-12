@@ -104,3 +104,13 @@ console.log(age) // undefined
 
 #### Episode 3 ####
 ![build-workflow](https://user-images.githubusercontent.com/5309726/57570910-d52d8980-7439-11e9-8b9d-2adf45e7afdb.png)
+
+* Understanding JSX
+  * JSX will being compile from `<div>` to `React.CreateElement('<div>', null, '');`
+* Why components? RE-using
+* Outputting dynamic content
+  * pass value from parent to child components
+    * `props`, access the attribute in child that pass from the parent component
+    * `props.children`, content in between the opening and closing tag either text or html
+ * Understand and using state
+   * Change the state will re-render and update the DOM
