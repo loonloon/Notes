@@ -1,4 +1,3 @@
-
 #### General Coding and Class Design ####
 <dl>
     <dt>Classes and Structs</dt>
