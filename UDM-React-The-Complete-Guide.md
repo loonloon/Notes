@@ -121,3 +121,26 @@ console.log(age) // undefined
   * `onClick={() => printName("Max")}`, arrow function (NOT EFFICIENT)
   * `onClick={printName.bind(this, "Max")}`, bind in render
   * `this.printName = this.printName.bind(this);`, bind in constructor (BEST)
+
+#### Episode 4 ####
+* Render content conditionally
+* Update array objects
+
+```
+nameChangedHandler = (event, id) => {
+  const personIndex = this.state.persons.findIndex(p => p.id === id);
+  
+  //clone person object
+  const person = { ...this.state.persons[personIndex] };
+  person.name = event.target.value;
+
+  const persons = [...this.state.persons];
+  persons[personIndex] = person;
+
+  this.setState({ persons });
+};
+
+<Person key={person.id} changed={e => this.nameChangedHandler(e, person.id)} />
+```
+
+* Unique KEY for list
