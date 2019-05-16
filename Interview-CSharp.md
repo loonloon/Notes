@@ -163,7 +163,6 @@ void Init()
 ![arrays](https://user-images.githubusercontent.com/5309726/52907555-dc138880-329e-11e9-9982-eb0d4fffe6cd.png)
 
 #### What is the difference between ```System.Array.Clone()``` and ```System.Array.CopyTo()```? ####
-* https://stackoverflow.com/questions/198496/difference-between-the-system-array-copyto-and-system-array-clone
 <table>
     <tbody>
         <tr>
@@ -171,8 +170,12 @@ void Init()
             <th>System.Array.CopyTo()</th>
         </tr>
         <tr>
-            <td>Used to create a new array to contain all the elements which are in the original array.</td>
+            <td>Used to create a new array to contain all the elements which are in the original array</td>
             <td>Used to copy the elements of one array to other</td>
+        </tr>
+        <tr>
+            <td>Return a new array</td>
+            <td>Require to have a destination array and let you specify an index (if required) to the destination array</td>
         </tr>
     </tbody>
 </table>
