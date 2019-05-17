@@ -144,3 +144,9 @@ nameChangedHandler = (event, id) => {
 ```
 
 * Unique KEY for list
+
+#### Episode 5 ####
+* Styles dynamically
+* Radium (CSS selector in JSX)
+* Webpack CSS module (CSS from file as object)
+  * css-loader, localIdentName
