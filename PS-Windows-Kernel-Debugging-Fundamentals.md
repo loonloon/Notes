@@ -75,3 +75,132 @@
   * Name: DedicatedDumpFile
   * Type: REG_SZ
   * Value: A dedicated dump file together with a full path, such as D:\dedicateddumpfile.sys
+
+ #### What needs to be configured in the debugger? ####
+ * Symbol File Path
+   * Provide meaningful names (function and variables) instead of hexadecimal numbers
+   * Types of Symbols
+     * Public
+     * Private
+ * Source File Path
+ * Image File Path
+ 
+ #### How do I get Symbols? ####
+ * Symbols must match the OS version being debugged
+
+<table>
+ <tr>
+  <td>From the WinDbg GUI</td>
+  <td>srv*c:\symbols*http://msdl.microsoft.com/download/symbols</td>
+ </tr>
+ <tr>
+  <td>From the CLI</td>
+  <td>Windbg -y srv*c:\symbols*http://msdl.microsoft.com/download/symbols</td>
+ </tr>
+ <tr>
+  <td>from the WinDbg command prompt</td>
+  <td>.sympath srv*c:\symbols*http://msdl.microsoft.com/download/symbols</td>
+ </tr>
+ <tr>
+  <td>SET the _NT_SYMBOL_PATH environment variable</td>
+  <td>SET_NT_SYMBOL_PATH=srv*c:\symbols*http://msdl.microsoft.com/download/symbols</td>
+ </tr>
+</table>
+
+#### Additional Symbol Commands to Know ####
+<table>
+ <tr>
+  <td>.symfix</td>
+  <td>sets the symbol path to use the Microsoft Symbol Server</td>
+ </tr>
+ <tr>
+  <td>!sympath</td>
+  <td>displays the current symbol file path</td>
+ </tr>
+ <tr>
+  <td>!sym noisy</td>
+  <td>turns on verbose mode</td>
+ </tr>
+ <tr>
+  <td>!sym quiet</td>
+  <td>turns off verbose mode</td>
+ </tr>
+ <tr>
+  <td>.reload</td>
+  <td>reloads symbols after changing the symbol path</td>
+ </tr>
+</table>
+
+#### Source File Path ####
+* Display corresponding C/C++ source code in the Debugger
+
+<table>
+ <tr>
+  <td>From the WinDbg GUI</td>
+  <td>c:\mySource</td>
+ </tr>
+ <tr>
+  <td>From the CLI</td>
+  <td>windbg -srcpath c:\mySource</td>
+ </tr>
+ <tr>
+  <td>from the Debugger command prompt</td>
+  <td>.srcpath c:\mySource</td>
+ </tr>
+ <tr>
+  <td>SET the _NT_SYMBOL_PATH environment variable</td>
+  <td></td>
+ </tr>
+</table>
+
+#### Strategies for Analyzing Crashes ####
+* Start with !analyze -v
+* Look up the Stop code with the Bug Check Code Reference section in Help
+* Examine the stack trace to determine what drives were executing (kv)
+* Determine what process and thread was running (!process, !thread)
+* Review loaded driver dates for old or brand new drives (lm t n, !lmi)
+* Track down any outstanding I/O request packets (!irp, !object, !devstack)
+
+#### Strategies for Analyzing Hangs ####
+* Start with !analyze -v -hang
+* Check for deadlocks or spinlocks (!locks, !qlocks)
+* Check for compute-bound runaway threads (!thread, !running -t, !stacks)
+* Check for depleted system memory resources (!vm, !memusage)
+* Determine memory pool consumers (!poolused)
+* Search http://support.microsoft.com (KBs), Bing and Google
+
+#### Displaying the Stack Trace ####
+* k Command
+
+<table>
+ <tr>
+  <td>k</td>
+  <td>Display child stack pointer, return address, function name</td>
+ </tr>
+ <tr>
+  <td>kb</td>
+  <td>Displays child SP, ret.Addr, function name, first 3 parameters</td>
+ </tr>
+ <tr>
+  <td>kv</td>
+  <td>Displays child SP, ret.Addr, function name, first 3 parameters, FPO info</td>
+ </tr>
+ <tr>
+  <td>kc</td>
+  <td>display function name</td>
+ </tr>
+ <tr>
+  <td>kn</td>
+  <td>display frame numbers</td>
+ </tr>
+ <tr>
+  <td>kd</td>
+  <td>display raw stack data</td>
+ </tr>
+</table>
+
+#### Alternative way to view the same stack data ####
+* dds esp (for x86 memory dump)
+* dqs rsp (for x64 memory dump)
+* !stacks to display a summary of kernel stack
+* !stacks2 to display a full stack trace for all threads
