@@ -150,3 +150,6 @@ nameChangedHandler = (event, id) => {
 * Radium (CSS selector in JSX)
 * Webpack CSS module (CSS from file as object)
   * css-loader, localIdentName
+* CSS pseudo selectors
+
+#### Episode 6 ####
