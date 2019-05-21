@@ -251,6 +251,8 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
 Allow an existing type to be extended with new methods without altering the definition of the original type. An extension method is a static method of a static class. 
 
 #### What is ```yield```? ####
+To return each element one at a time.
+ 
 ```
 public class ContactListStore : IStore<ContactModel>
 {
