@@ -153,6 +153,6 @@ nameChangedHandler = (event, id) => {
 * CSS pseudo selectors
 
 #### Episode 6 ####
-* Error Boundaries
+* Error Boundaries (ONLY working on production mode)
 
 #### Episode 7 ####
