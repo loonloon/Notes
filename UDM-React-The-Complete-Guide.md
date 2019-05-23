@@ -156,3 +156,4 @@ nameChangedHandler = (event, id) => {
 * Error Boundaries (ONLY working on production mode)
 
 #### Episode 7 ####
+* Stateless (Function) vs Stateful (Class) component
