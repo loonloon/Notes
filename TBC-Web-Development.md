@@ -20,3 +20,23 @@
 
 #### What is REST api? ####
 * https://www.quora.com/What-are-REST-APIs-What-does-rest-mean-How-does-it-work
+
+#### 3 Layer vs 3 Tier Architecture ####
+<table>
+  <tr>
+    <th>3 Layer</th>
+    <th>3 Tier</th>
+  </tr>
+  <tr>
+    <td>Logical structuring</td>
+    <td>Physical structuring</td>
+  </tr>
+  <tr>
+    <td>The User Interface Layer (UIL), Business Logic Layer (BLL) and Database Access Layer (DAL) resides as 3 different project and the output of these 3 projects (.dll file) must be together in the same server or on same machine in order for the system to run</td>
+    <td>The User Interface Layer (UIL), Business Logic Layer (BLL) and Database Access Layer (DAL) reside as 3 different projects. But each of the projects can be deployed at the different server or at the different machines and distributed functionality is explored</td>
+  </tr>
+  <tr>
+    <td>Improve readability and reusability</td>
+    <td>Scalability</td>
+  </tr>
+</table>
