@@ -40,3 +40,16 @@
     <td>Scalability</td>
   </tr>
 </table>
+
+#### SQL Procedural vs Set-Based ####
+* https://www.itprotoday.com/analytics-and-reporting/programming-sql-set-based-way
+<table>
+  <tr>
+    <th>Procedural</th>
+    <th>Set-Based</th>
+  </tr>
+  <tr>
+    <td>Tell the system "what to do" along with "how to do" it.</td>
+    <td>Lets you specify "what to do", but does not let you specify "how to do"</td>
+  </tr>
+</table>
