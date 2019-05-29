@@ -157,3 +157,8 @@ nameChangedHandler = (event, id) => {
 
 #### Episode 7 ####
 * Stateless (Function) vs Stateful (Class) component
+
+![class-vs-functional](https://user-images.githubusercontent.com/5309726/58560244-5321cb00-8257-11e9-9594-772cf2fd5eac.png)
+
+* Side effects likes sending HTTP request
+![component-lifecycle](https://user-images.githubusercontent.com/5309726/58560403-a136ce80-8257-11e9-8b43-93fccc5327bd.png)
