@@ -164,3 +164,7 @@ nameChangedHandler = (event, id) => {
 ![component-lifecycle](https://user-images.githubusercontent.com/5309726/58560403-a136ce80-8257-11e9-8b43-93fccc5327bd.png)
 
 ![component-lifecycle](https://user-images.githubusercontent.com/5309726/58565701-bdd80400-8261-11e9-8f8b-60562db53794.png)
+
+* `return () => { xxx };` inside `useEffect` in functional component as cleanup
+* `shouldComponentUpdate` for class component optimization
+* `React.memo` for functional component optimization
