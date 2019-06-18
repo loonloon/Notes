@@ -57,3 +57,6 @@
 #### HTTP vs HTTPs ####
 https://www.globalsign.com/en/blog/the-difference-between-http-and-https/
 ![http-https](https://user-images.githubusercontent.com/5309726/59653358-4b08db80-91c4-11e9-83df-065aaa463383.png)
+
+#### SSL vs TLS ####
+https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/
