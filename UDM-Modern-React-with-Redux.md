@@ -1,3 +1,12 @@
+#### NPM packages ####
+* npm install redux
+* npm install redux-form
+* npm install react-redux
+* npm install redux-thunk
+* npm install axios
+* npm install react-router-dom
+* npm install loadash
+
 #### Episode 1 ####
 * ES5, ES2015 - ES2019
 * What is Babel?
