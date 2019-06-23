@@ -27,3 +27,13 @@
   * to link different files together and share some code between them
 
 ![module-system](https://user-images.githubusercontent.com/5309726/59971447-e6c48e00-95ae-11e9-99a3-10170f17e114.png)
+
+* Webpack configuration (2 required properties)
+  * Enrty property
+  * Output property
+    * path module from node.js
+    * __dirname
+  
+![webpack-config](https://user-images.githubusercontent.com/5309726/59977602-a3493e80-9605-11e9-99e3-8b1848f577fb.png)
+
+#### Episode 3 ####
