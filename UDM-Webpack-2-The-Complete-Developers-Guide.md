@@ -37,3 +37,19 @@
 ![webpack-config](https://user-images.githubusercontent.com/5309726/59977602-a3493e80-9605-11e9-99e3-8b1848f577fb.png)
 
 #### Episode 3 ####
+![babel-loader](https://user-images.githubusercontent.com/5309726/60185167-07654000-985c-11e9-9c0e-122a4c351c6d.png)
+
+![apply-babel](https://user-images.githubusercontent.com/5309726/60185498-9c683900-985c-11e9-8b92-216a17bdc37e.png)
+
+![common-es2015](https://user-images.githubusercontent.com/5309726/60186954-5660a480-985f-11e9-923f-623aa9abca58.png)
+
+![css-loader](https://user-images.githubusercontent.com/5309726/60187607-747ad480-9860-11e9-82b2-6a4c594b46fc.png)
+
+* Use `extract-text-webpack-plugin (DEPRECATED)` to extracts text from a bundle into a separate file
+  * Latest `mini-css-extract-plugin`
+  
+![image-loader](https://user-images.githubusercontent.com/5309726/60190013-83638600-9864-11e9-88ac-acce1f66d370.png)
+* Required loaders
+  * npm install --save-dev imagemin-svgo
+  * npm install file-loader --save-dev
+ * Define `publicPath` in `output` object, URL loader can use it and prepended to the image URL.
