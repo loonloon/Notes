@@ -53,3 +53,8 @@
   * npm install --save-dev imagemin-svgo
   * npm install file-loader --save-dev
  * Define `publicPath` in `output` object, URL loader can use it and prepended to the image URL.
+
+#### Episode 4 ####
+* Code splitting
+* Client server image (TODO)
+* Webpack is looking for `System.import` call, and if it sees a call to `System.import`, it's going to add additional code.
