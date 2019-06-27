@@ -56,5 +56,9 @@
 
 #### Episode 4 ####
 * Code splitting
-* Client server image (TODO)
+
+![client-server](https://user-images.githubusercontent.com/5309726/60270030-229a8300-9922-11e9-9745-d7754ed50cc9.png)
+
 * Webpack is looking for `System.import` call, and if it sees a call to `System.import`, it's going to add additional code.
+
+#### Episode 5 ####
