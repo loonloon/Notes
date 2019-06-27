@@ -112,6 +112,28 @@
     </tbody>
 </table>
 
+#### Basic concepts of OOPs ####
+<table>
+    <tbody>
+        <tr>
+            <td>Abstraction</td>
+            <td>Present the essential features without including implementation details. (Interface)</td>
+        </tr>
+        <tr>
+            <td>Encapsulation</td>
+            <td>Information hiding, used to hide its members from outside class by using public, private, internal, protected and protected internal keywords.</td>
+        </tr>
+        <tr>
+            <td>Inheritance</td>
+            <td>Create a class from the "parent" class, extending the functionality and state of the parent in the child class.</td>
+        </tr>
+        <tr>
+            <td>Polymorphism</td>
+            <td>Classes have different functionality while sharing a common interface.</td>
+        </tr>
+    </tbody>
+</table>
+
 #### Retangular / Multidimentional, Jagged Array ####
 * https://stackoverflow.com/questions/37717724/2d-array-vs-array-of-arrays-in-tight-loop-performance-c-sharp
 <table>
