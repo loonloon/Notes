@@ -180,6 +180,24 @@ void Init()
     </tbody>
 </table>
 
+#### What is Shallow and Deep copies? ####
+<table>
+    <tbody>
+        <tr>
+            <th>Shallow copies</th>
+            <th>Deep copies</th>
+        </tr>
+        <tr>
+            <td>Duplicate as little as possible.</td>
+            <td>Duplicate everything.</td>
+        </tr>
+         <tr>
+            <td>A shallow copy of a collection is a copy of the collection structure, not the elements. With a shallow copy, two collections now share the individual elements.</td>
+            <td>A deep copy of a collection is two collections with all of the elements in the original collection duplicated.</td>
+        </tr>
+    </tbody>
+</table>
+
 #### What is Stack and Heap? ####
 <table>
     <tbody>
