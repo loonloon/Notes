@@ -249,7 +249,7 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
             <th>Unboxing</th>
         </tr>
         <tr>
-            <td>Is the process of converting a value type to the type object or to any interface type implemented by this value type.</td>
+            <td>Is the process of converting a value type to the object or any interface type implemented by this value type.</td>
             <td>Extracts the value type from the object.</td>
         </tr>
         <tr>
