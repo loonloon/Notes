@@ -282,7 +282,7 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-an
         </tr>
         <tr>
             <td>Does not reset stack trace and will get information about original exception.</td>
-            <td>Will reset stack trace, so error will appear from the line where throw(ex) written.It makes hard to find the original code line number that has thrown the exception.</td>
+            <td>Will reset stack trace, so error will appear from the line where throw(ex) written. It makes hard to find the original code line number that has thrown the exception.</td>
         </tr>
     </tbody>
 </table>
