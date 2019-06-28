@@ -112,6 +112,9 @@
     </tbody>
 </table>
 
+#### What is Anonymous Type? #### 
+An anonymous type is a temporary data type that is inferred based on the data that you include in an object initializer. Properties of anonymous types will be read-only properties so you cannot change their values
+
 #### Basic concepts of OOPs ####
 <table>
     <tbody>
