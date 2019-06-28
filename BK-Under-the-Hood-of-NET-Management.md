@@ -68,7 +68,7 @@ When a .NET application runs, four sections of memory (heaps) are created to be 
         <td>strings</td>
     </tr>
     <tr>
-        <td>instances of "object"</td>
+        <td>instances of "class" (object)</td>
     </tr>
 </table>
 
