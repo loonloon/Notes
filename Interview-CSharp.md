@@ -459,6 +459,8 @@ w.Foo(); // Widget's implementation of I1.Foo
 </table>
 
 #### What is the difference between ```interface``` and ```abstract``` Class? ####
+* An abstract class allows you to create functionality that subclasses can implement or override. An interface only allows you to define functionality, not implement it. And whereas a class can extend only one abstract class, it can take advantage of multiple interfaces.
+
 <table>
     <tbody>
         <tr>
