@@ -71,5 +71,6 @@
 
 #### Episode 6 ####
 * webpack-dev-serv
+  * watch the changes and automatically build (only changed file) for us
 
 #### Episode 7 ####
