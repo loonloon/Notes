@@ -65,3 +65,8 @@
 * Vendor caching
 
 ![code-splitting](https://user-images.githubusercontent.com/5309726/60273073-df431300-9927-11e9-99e9-c78e77091b5b.png)
+* `CommonsChunkPlugin` E.g. any files that importing react library, it should point to `vendor.js`
+* `HtmlWebpackPlugin`, automatically find all the generated scripts and add to `index.html` file
+* `rimraf`, clean up folder for every re-build
+
+#### Episode 6 ####
