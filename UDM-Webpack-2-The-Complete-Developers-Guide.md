@@ -70,3 +70,6 @@
 * `rimraf`, clean up folder for every re-build
 
 #### Episode 6 ####
+* webpack-dev-serv
+
+#### Episode 7 ####
