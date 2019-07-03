@@ -71,6 +71,7 @@
 
 #### Episode 6 ####
 * webpack-dev-serv
-  * watch the changes and automatically build (only changed file) for us
-
+  * watch the file changes and automatically build (only changed file) for us
+  * builded files will save in memory as a part of the server itself
+  
 #### Episode 7 ####
