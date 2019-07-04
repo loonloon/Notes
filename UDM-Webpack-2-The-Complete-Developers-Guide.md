@@ -81,3 +81,6 @@
 * Deployment options
 
 ![deployment-options](https://user-images.githubusercontent.com/5309726/60672703-9d2a4c00-9ea8-11e9-91ee-694e0e48909e.png)
+
+`webpack.DefinePlugin`, use to define global scope variable within `bundle.js`
+`SET NODE_ENV=production npm run clean && webpack -p` in `package.json`
