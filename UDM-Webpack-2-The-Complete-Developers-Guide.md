@@ -78,3 +78,6 @@
 * React code splitting by using dynamic `import`
 
 #### Episode 8 ####
+* Deployment options
+
+![deployment-options](https://user-images.githubusercontent.com/5309726/60672703-9d2a4c00-9ea8-11e9-91ee-694e0e48909e.png)
