@@ -75,3 +75,6 @@
   * builded files will save in memory as a part of the server itself
   
 #### Episode 7 ####
+* React code splitting by using dynamic `import`
+
+#### Episode 8 ####
