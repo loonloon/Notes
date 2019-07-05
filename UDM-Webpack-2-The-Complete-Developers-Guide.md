@@ -88,4 +88,13 @@
   * https://surge.sh/
   * Github page
   * AWS s3
-  
+* There are 2 types of architecture 
+
+![architecture](https://user-images.githubusercontent.com/5309726/60724613-7c75fb00-9f69-11e9-873a-d5841e620e3f.png)
+
+* Dev vs Prod Environment
+![dev-env](https://user-images.githubusercontent.com/5309726/60724858-18a00200-9f6a-11e9-891b-cd1c9fa28277.png)
+
+![pro-env](https://user-images.githubusercontent.com/5309726/60724865-2190d380-9f6a-11e9-9611-b1bcc3edd5c2.png)
+
+* `webpack-dev-middleware`, serves to intercept(阻止) incoming requests and hand it off to webpack
