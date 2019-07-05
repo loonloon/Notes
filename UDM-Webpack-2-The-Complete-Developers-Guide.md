@@ -98,3 +98,7 @@
 ![pro-env](https://user-images.githubusercontent.com/5309726/60724865-2190d380-9f6a-11e9-9611-b1bcc3edd5c2.png)
 
 * `webpack-dev-middleware`, serves to intercept(阻止) incoming requests and hand it off to webpack
+
+* Deployment for Dyanmic Sites
+  * Heroku
+  * AWS
