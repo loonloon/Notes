@@ -99,6 +99,6 @@
 
 * `webpack-dev-middleware`, serves to intercept(阻止) incoming requests and hand it off to webpack
 
-* Deployment for Dyanmic Sites
+* Deployment for Dynamic Sites
   * Heroku
   * AWS
