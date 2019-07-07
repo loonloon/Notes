@@ -146,8 +146,22 @@
     </tbody>
   </table>
   
-  * Tags
-    * For protobuf the important element is the "tag"
-    * Smallest tag, 1
-    * Largest tag, 2^29 - 1, or 536,870,911
-    * Cannot use the numbers 19000 to 19999 (reserved by google)
+* Tags
+  * For protobuf the important element is the "tag"
+  * Smallest tag, 1
+  * Largest tag, 2^29 - 1, or 536,870,911
+  * Cannot use the numbers 19000 to 19999 (reserved by google)
+  * Tags numbered from 1 to 15 use 1 byte in space, 16 to 2047 use 2 bytes
+* Repeated Fields
+  * To make a "list" or an "array"
+  * Can take any number (0 or more)
+* Default values for fields
+  * bool, false
+  * number, 0
+  * string, empty string
+  * bytes, empty bytes
+  * enum, first value
+  * repeated, empty list
+* Enums
+  * The first value of an Enum is the default value
+  * Enum must start by the tag 0 (which is the default value)
