@@ -165,3 +165,15 @@
 * Enums
   * The first value of an Enum is the default value
   * Enum must start by the tag 0 (which is the default value)
+
+#### Episode 9 ####
+* Data Evolution
+
+![data-evo](https://user-images.githubusercontent.com/5309726/60764230-780c2800-a0b8-11e9-8fb6-e2d1475897ae.png)
+
+* Updating Protocol Rules (https://developers.google.com/protocol-buffers/docs/proto#updating)
+  * Don't change the numeric tags for any existing fields
+  * Add new fields, an old code will just ignore them
+  * If the old / new code read unknown data, the default will take place
+  * Fields can be removeds, as long as the tag number is not used again in updated message type. Can use `OBSOLETE_` make the tag reserved
+  * For data type changes (int32 to int64) avoid
