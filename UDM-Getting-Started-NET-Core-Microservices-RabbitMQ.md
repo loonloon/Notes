@@ -36,3 +36,6 @@
     <td>E.g. rabbitmqctl set_permissions -p / janeway ".*" ".*" ".*"</td>
   </tr>
 </table>
+
+#### Episode 3 ####
+* Drop mail to post office as example
