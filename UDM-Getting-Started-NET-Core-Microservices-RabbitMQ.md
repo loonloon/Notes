@@ -104,5 +104,3 @@ namespace Producer
     }
 }
 ```
-
-#### Episode 5 ####
