@@ -166,6 +166,6 @@ nameChangedHandler = (event, id) => {
 ![component-lifecycle](https://user-images.githubusercontent.com/5309726/58565701-bdd80400-8261-11e9-8f8b-60562db53794.png)
 
 * `return () => { xxx };` inside `useEffect` in functional component as cleanup
-* `shouldComponentUpdate` for class component optimization
+* `shouldComponentUpdate` for class component optimization (Can use React.PureComponent if doing full props comparison)
 * `React.memo` for functional component optimization
   * Pass length to child component instead of array reference
