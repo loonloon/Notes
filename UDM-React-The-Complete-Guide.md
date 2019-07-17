@@ -169,3 +169,5 @@ nameChangedHandler = (event, id) => {
 * `shouldComponentUpdate` for class component optimization (Can use React.PureComponent if doing full props comparison)
 * `React.memo` for functional component optimization
   * Pass length to child component instead of array reference
+* `React.Fragment`
+* High order function (HOC), a component that wraps other components that add something (styling, addtional HTML / logic)
