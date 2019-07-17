@@ -168,3 +168,4 @@ nameChangedHandler = (event, id) => {
 * `return () => { xxx };` inside `useEffect` in functional component as cleanup
 * `shouldComponentUpdate` for class component optimization
 * `React.memo` for functional component optimization
+  * Pass length to child component instead of array reference
