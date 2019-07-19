@@ -16,7 +16,177 @@
   * Integrates with many different AWS services
   * Supports Payment Card Industry Data Security Standard (PCI DSS) compliance
 * Critical Terms
-  * Users - End Users
-  * Group - A collection of users under one set of permissions
-  * Roles -You create roles and can then assign them to AWS resources
-  * Policies - A document that defines one (or more) permissions can be attacged to either a user group or role
+<table>
+    <tbody>
+        <tr>
+            <td>Users</td>
+            <td>End Users</td>
+        </tr>
+        <tr>
+            <td>Group</td>
+            <td>A collection of users under one set of permissions</td>
+        </tr>
+        <tr>
+            <td>Roles</td>
+            <td>You create roles and can then assign them to AWS resources</td>
+        </tr>
+        <tr>
+            <td>Policies</td>
+            <td>A document that defines one (or more) permissions can be attacged to either a user group or role</td>
+        </tr>
+    </tbody>
+</table>
+  
+#### Episode 3 ####
+* What is EC2?
+  * Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud
+  * Allowing users to rent virtual computers on which to run their own computer applications in the cloud
+* EC2 Options
+<table>
+    <tbody>
+        <tr>
+            <th>Option</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>On Demand</td>
+            <td>Allows you to pay a <strong>fixed rate</strong> by the hour (or by the second) with no commitment</td>
+        </tr>
+        <tr>
+            <td>Reserved</td>
+            <td>Provides you with a capacity reservation, and offer a significant discount on the hourly charge for an instance. 1 Year or 3 Year <strong>Terms</strong></td>
+        </tr>
+        <tr>
+            <td>Spot</td>
+            <td>Enables you to <strong>bid</strong> whatever price you want for instance capacity, providing for even greater savings if your applications have flexible start and end times</td>
+        </tr>
+        <tr>
+            <td>Dedicated Hosts</td>
+         <td><strong>Physical EC2 server dedicated</strong> for your use. Dedicated Hosts can help you reduce costs by allowing you to use your existing server-bound software licenses (SQL Server, VMware and etc)</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Option</th>
+            <th>Good for</th>
+        </tr>
+        <tr>
+            <td>On Demand</td>
+            <td>
+                <ul>
+                    <li>Perfect for users that want the <strong>low cost and flexibility</strong> of Amazon EC2 <strong>without any up-front payment or long term commitment</strong></li>
+                    <li>Applications with short term, spiky, or unpredictable workloads that cannot be interrupted</li>
+                    <li>Applications being developed or tested on Amazon EC2 for the first time</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Reserved Instances</td>
+            <td>
+                <ul>
+                    <li>Applications with steady state or <strong>predictable usage</strong></li>
+                    <li>Application that <strong>require reserved capacity</strong></li>
+                    <li>Users can make up-front payments to reduce their total computing costs (DISCOUNT) even further</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Sport Instances</td>
+            <td>
+                <ul>
+                    <li>Applications that have <strong>flexible start and end times</strong></li>
+                    <li>Applications that are only feasible at very low compute prices (Chemical companies use this to do huge amounts of computing (at 4 AM on a Sunday that will save they an awful lot of money)</li>
+                    <li>
+                        Users with an <strong>urgent need for large amounts of additional computing capacity</strong>
+                        <ul>
+                            <li>Standard RIs (Up to 75% off on-demand cost)</li>
+                            <li>Convertible RIs (Up to 4% off on-demand cost) feature the capability to change the arributes of the RI as long as the exchange results in the creation of Reserved Instances of equal or greater value (could go from a very CPU intensive instance over to a very memory intensive instance)</li>
+                            <li>Scheduled RIs are available to launch within the time window you reserve. This option allows you to match your capacity reservation to a predictable recurring schedule that only requires a fraction of a day, a week, or a month</li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Dedicated Hosts</td>
+            <td>
+                <ul>
+                    <li><strong>Useful for regulatory requirements that may not support multi-tenant virtualization</strong></li>
+                    <li>Multi-tenancy is an architecture in which a single instance of a software application serves multiple customers</li>
+                    <li>Great for licensing which does not support multi-tenancy or cloud deployments</li>
+                    <li>Can be purchased On-Demand (hourly)</li>
+                    <li>Can be purchased as a Reservation for up to 70% off the On-Demand price</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* EC2 Instance Types
+<table>
+    <tbody>
+        <tr>
+            <th>Family</th>
+            <th>Speciality</th>
+            <th>Use case</th>
+        </tr>
+        <tr>
+            <td>F1</td>
+            <td>Field Programmble Gate Array</td>
+            <td>Genomics research, financial analytics, real-time video processing, big data etc</td>
+        </tr>
+        <tr>
+            <td>I3</td>
+            <td>High Speed Storage</td>
+            <td>NoSQL DBs, Data Warehousing etc</td>
+        </tr>
+        <tr>
+            <td>G3</td>
+            <td>Graphics Intensive</td>
+            <td>Video Encoding / 3D Application Streaming</td>
+        </tr>
+        <tr>
+            <td>H1</td>
+            <td>High Disk Throughput</td>
+            <td>MapReduce-based workloads, distrubuted file systems such as HDFS and MapR-FS</td>
+        </tr>
+        <tr>
+            <td>T2</td>
+            <td>Lowest Cost, General Purpose</td>
+            <td>Web Servers / Small DBs</td>
+        </tr>
+        <tr>
+            <td>D2</td>
+            <td>Dense Storage</td>
+            <td>Fileservers / Data Warehousing / Hadoop</td>
+        </tr>
+        <tr>
+            <td>R4</td>
+            <td>Memory Optimized</td>
+            <td>Memory Intensive Apps / DBs</td>
+        </tr>
+        <tr>
+            <td>M5</td>
+            <td>General Purpose</td>
+            <td>Application Servers</td>
+        </tr>
+        <tr>
+            <td>C5</td>
+            <td>Compute Optimized</td>
+            <td>CPU Intensive Apps / DBs</td>
+        </tr>
+        <tr>
+            <td>P3</td>
+            <td>Graphics / General Purpose GPU</td>
+            <td>Machine Learning, BitCoin Mining etc</td>
+        </tr>
+        <tr>
+            <td>X1</td>
+            <td>Memory Optimized</td>
+            <td>SAP HANA / Apache Spark etc</td>
+        </tr>
+    </tbody>
+</table>
