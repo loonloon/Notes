@@ -190,3 +190,8 @@
         </tr>
     </tbody>
 </table>
+
+* What is EBS?
+  * A virtual disk in the cloud
+  * Elastic Block Store (EBS) allows you to create storage volumes and attach them to Amazon EC2 instances.
+* EBS Volume Types
