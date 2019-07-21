@@ -383,7 +383,7 @@ for(var i = 0; i < 10; i++)
     </dd>
     <dt>LINQ</dt>
     <dd>
-        * LINQ version is 20 times more expensibe than the simpler version and because of its memory allocations, has a higher likelihood of casuing garbage collection.
+        * LINQ version is 20 times more expensive than the simpler version and because of its memory allocations, has a higher likelihood of casuing garbage collection.
     </dd>
     <dt>Reading and Writing Files</dt>
     <dd>
