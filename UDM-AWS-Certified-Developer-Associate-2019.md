@@ -195,3 +195,57 @@
   * A virtual disk in the cloud
   * Elastic Block Store (EBS) allows you to create storage volumes and attach them to Amazon EC2 instances.
 * EBS Volume Types
+<table>
+    <tbody>
+        <tr>
+            <th>Volume Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>General Purpose SSD (GP2)</td>
+            <td>
+                <ul>
+                    <li>General purpose, balances both price and performance</li>
+                    <li>Ratio of 3 IOPS per GB with up to 10,000 IOPS and the ability to burst up to 3000 IOPS for extended periods of time for volumes at 3334 GiB and above</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Provisioned IOPS SSD (IO1)</td>
+            <td>
+                <ul>
+                    <li>Designed for I/O intensive applications such as large relational or NoSQL databases</li>
+                    <li>Use if you need more than 10,000 IOPS</li>
+                    <li>Can provision up to 20,000 IOPS per volume</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Throughput Optimized HDD (ST1)</td>
+            <td>
+                <ul>
+                    <li>Big data</li>
+                    <li>Data warehouses</li>
+                    <li>Log processing</li>
+                    <li>Cannot be a boot volume</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Cold HDD (SC1)</td>
+            <td>
+                <ul>
+                    <li>Lowest cost storage for infrequently accessed workloads</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Magnetic (Standard)</td>
+            <td>
+                <ul>
+                    <li>Lowest cost per gigabyte of all EBS volume types that is bootable. Magnetic volumes are ideal for workloads where daa is accessed infrequently, and applications where the lowest storage cost is important</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
