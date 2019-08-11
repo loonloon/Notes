@@ -171,3 +171,7 @@ nameChangedHandler = (event, id) => {
   * Pass length to child component instead of array reference
 * `React.Fragment`
 * High order function (HOC), a component that wraps other components that add something (styling, addtional HTML / logic)
+* Use `prevState` to update the state that is depending the old state
+* 2 ways to use Ref
+  * `React.createRef()`
+  * Passing function, `ref={(inputElement) => {this.inputElement = inputElement}}`
