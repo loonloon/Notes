@@ -176,3 +176,4 @@ nameChangedHandler = (event, id) => {
   * `React.createRef()`
   * Passing function, `ref={(inputElement) => {this.inputElement = inputElement}}`
 * Use `useRef` in functional component
+* Use `createContext` to bypassing components and directly passing data from A to D
