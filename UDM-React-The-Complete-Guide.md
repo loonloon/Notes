@@ -180,3 +180,5 @@ nameChangedHandler = (event, id) => {
   * Provider and Consumer pattern (way 1)
   * `useContext`, use in functional component (way 2)
   * `static contextType = xxxContext;`, use in class component (way 2)
+
+#### Episode 8 ####
