@@ -177,5 +177,6 @@ nameChangedHandler = (event, id) => {
   * Passing function, `ref={(inputElement) => {this.inputElement = inputElement}}`
 * Use `useRef` in functional component
 * Use context (`createContext`) to bypassing components and directly passing data from A to D
-  * `useContext`, use in functional component
-  * `static contextType = xxxContext;`, use in class component
+  * Provider and Consumer pattern (way 1)
+  * `useContext`, use in functional component (way 2)
+  * `static contextType = xxxContext;`, use in class component (way 2)
