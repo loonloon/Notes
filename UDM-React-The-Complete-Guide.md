@@ -182,3 +182,5 @@ nameChangedHandler = (event, id) => {
   * `static contextType = xxxContext;`, use in class component (way 2)
 
 #### Episode 8 ####
+* Prop type validation
+* Why sometimes avoid to use PureComponent because we don't want to check all the props
