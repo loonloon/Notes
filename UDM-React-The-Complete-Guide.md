@@ -184,3 +184,6 @@ nameChangedHandler = (event, id) => {
 #### Episode 8 ####
 * Prop type validation
 * Why sometimes avoid to use PureComponent because we don't want to check all the props
+
+#### Episode 9 ####
+* Axios
