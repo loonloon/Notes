@@ -187,3 +187,7 @@ nameChangedHandler = (event, id) => {
 
 #### Episode 9 ####
 * Axios
+* Interceptors in Axios
+* 2 ways to configure Axios
+  * Default global configuration (`axios.defaults.baseURL = "https://xxx.com"`)
+  * Axios instances (`axios.create({baseURL: "https://xxx.com"})`)
