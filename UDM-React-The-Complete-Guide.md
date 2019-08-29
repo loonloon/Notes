@@ -191,3 +191,6 @@ nameChangedHandler = (event, id) => {
 * 2 ways to configure Axios
   * Default global configuration (`axios.defaults.baseURL = "https://xxx.com"`)
   * Axios instances (`axios.create({baseURL: "https://xxx.com"})`)
+* When using high order component, may consider implement the `componentWillUnmount` method to prevent memory leak.
+
+#### Episode 10 ####
