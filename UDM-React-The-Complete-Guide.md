@@ -200,3 +200,4 @@ nameChangedHandler = (event, id) => {
 * 2 ways to pass additional router props to component tree
   * `withRouter`
   * `...props`
+* Can use `this.props.match.url` to build relative path
