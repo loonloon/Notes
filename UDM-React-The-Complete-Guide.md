@@ -194,3 +194,6 @@ nameChangedHandler = (event, id) => {
 * When using high order component, may consider implement the `componentWillUnmount` method to prevent memory leak.
 
 #### Episode 10 ####
+* `exact` keyword -> is my complete path like this?
+* `<a>` tag will refresh the page and lost the state after user clicked.
+* `react-router` will pass props to the component.
