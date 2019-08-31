@@ -196,4 +196,7 @@ nameChangedHandler = (event, id) => {
 #### Episode 10 ####
 * `exact` keyword -> is my complete path like this?
 * `<a>` tag will refresh the page and lost the state after user clicked.
-* `react-router` will pass props to the component.
+* `react-router` will pass additional props to the 1st lv component but not component tree.
+* 2 ways to pass additional router props to component tree
+  * `withRouter`
+  * `...props`
