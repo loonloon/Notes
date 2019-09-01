@@ -202,3 +202,28 @@ nameChangedHandler = (event, id) => {
   * `...props`
 * Can use `this.props.match.url` to build relative path
 * `NavLink` same as `Link` but added an active class.
+* Passing route parameters, `/:id`
+* `Switch` tell react-router please only load one of the route. (The first one actually you find that matches from a given set of routes).
+
+```
+Option 1:
+<Switch>
+    <Route path="/" exact component={Posts} />
+    <Route path="/new-post" component={NewPost} />
+    <Route path="/:id" exact component={FullPost} />
+</Switch>
+
+Option 2:
+<Route path="/" exact component={Posts} />
+<Switch>
+    <Route path="/new-post" component={NewPost} />
+    <Route path="/:id" exact component={FullPost} />
+</Switch>
+```
+
+* Navigation is a stack of pages
+* Differnt ways navigate to other page
+  * `Link`
+  * `this.props.history.push("'/' + id");`
+  * `this.props.history.push({pathname: '/' + id});`
+* `<Redirect from="/" to="/posts" />`, can be used as conditional redirects
