@@ -201,3 +201,4 @@ nameChangedHandler = (event, id) => {
   * `withRouter`
   * `...props`
 * Can use `this.props.match.url` to build relative path
+* `NavLink` same as `Link` but added an active class.
