@@ -107,7 +107,8 @@ console.log(age) // undefined
 
 * Understanding JSX
   * JSX will being compile from `<div>` to `React.CreateElement('<div>', null, '');`
-* Why components? RE-using
+* Why components?
+  * RE-using
 * Outputting dynamic content
   * pass value from parent to child components
     * `props`, access the attribute in child that pass from the parent component
@@ -222,8 +223,19 @@ Option 2:
 ```
 
 * Navigation is a stack of pages
-* Differnt ways navigate to other page
-  * `Link`
-  * `this.props.history.push("'/' + id");`
-  * `this.props.history.push({pathname: '/' + id});`
-* `<Redirect from="/" to="/posts" />`, can be used as conditional redirects
+* Different ways navigate to other page
+  * `Link` (way 1, push)
+    * `this.props.history.push("'/' + id");`
+    * `this.props.history.push({pathname: '/' + id});`
+  * `<Redirect from="/" to="/posts" />` (way 2, replace)
+    * Can be used as conditional redirects
+    * `this.props.history.replace("/posts");`
+* Unknown route
+  * Without specify the `path`
+  * `<Route render={() => <h1>Not found</h1>}/>`
+* Code splitting
+  * `import("./math").then(math => { console.log(math.add(16, 26)); });` (way 1)
+  * `const OtherComponent = React.lazy(() => import('./OtherComponent'));` (way 2)
+* Remember to configure production server to always load the `index.html`
+  * If user try to send navigate request (http://hello.com/movies) to the server, server does not know the requested path other than `index.html` or `/` at first.
+* `<BrowserRouter basename="" />`
