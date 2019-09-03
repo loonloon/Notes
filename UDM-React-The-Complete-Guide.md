@@ -186,7 +186,7 @@ nameChangedHandler = (event, id) => {
 * Prop type validation
 * Why sometimes avoid to use PureComponent because we don't want to check all the props
 
-#### Episode 9 ####
+#### Episode 9 & 10 ####
 * Axios
 * Interceptors in Axios
 * 2 ways to configure Axios
@@ -194,7 +194,7 @@ nameChangedHandler = (event, id) => {
   * Axios instances (`axios.create({baseURL: "https://xxx.com"})`)
 * When using high order component, may consider implement the `componentWillUnmount` method to prevent memory leak.
 
-#### Episode 10 ####
+#### Episode 11 ####
 * `exact` keyword -> is my complete path like this?
 * `<a>` tag will refresh the page and lost the state after user clicked.
 * `react-router` will pass additional props to the 1st lv component but not component tree.
@@ -239,3 +239,7 @@ Option 2:
 * Remember to configure production server to always load the `index.html`
   * If user try to send navigate request (http://hello.com/movies) to the server, server does not know the requested path other than `index.html` or `/` at first.
 * `<BrowserRouter basename="" />`
+
+#### Episode 12 ####
+* `WithRouter` gives access to match and location 
+* `this.props.history.push({ pathname: "/checkout", search: "?" + queryString })`
