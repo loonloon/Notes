@@ -243,3 +243,6 @@ Option 2:
 #### Episode 12 ####
 * `WithRouter` gives access to match and location 
 * `this.props.history.push({ pathname: "/checkout", search: "?" + queryString })`
+
+#### Episode 14 ####
+![complex-state](https://user-images.githubusercontent.com/5309726/64627422-32563d80-d422-11e9-85c9-406d1e3a7989.png)
