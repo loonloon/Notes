@@ -248,3 +248,5 @@ Option 2:
 ![complex-state](https://user-images.githubusercontent.com/5309726/64627422-32563d80-d422-11e9-85c9-406d1e3a7989.png)
 
 ![redux-flow](https://user-images.githubusercontent.com/5309726/64630537-ec03dd00-d427-11e9-8d50-9710a1df521a.png)
+
+![types-of-state](https://user-images.githubusercontent.com/5309726/64876846-b0188400-d682-11e9-93b6-7b6dfe8a9185.png)
