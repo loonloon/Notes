@@ -253,3 +253,12 @@ const query = new URLSearchParams(this.props.location.search);
 ![redux-flow](https://user-images.githubusercontent.com/5309726/64630537-ec03dd00-d427-11e9-8d50-9710a1df521a.png)
 
 ![types-of-state](https://user-images.githubusercontent.com/5309726/64876846-b0188400-d682-11e9-93b6-7b6dfe8a9185.png)
+
+
+#### Episode 16 ####
+* What is middleware?
+  * The action will still reach the reducer thereafter but we can do something with that action before it eaches the reducer, E.g. logging something.
+  
+![middleware-thunk](https://user-images.githubusercontent.com/5309726/64905158-ba7c6180-d706-11e9-84a6-2f376d75fe14.png)
+
+* redux-devtools
