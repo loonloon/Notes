@@ -262,3 +262,7 @@ const query = new URLSearchParams(this.props.location.search);
 ![middleware-thunk](https://user-images.githubusercontent.com/5309726/64905158-ba7c6180-d706-11e9-84a6-2f376d75fe14.png)
 
 * redux-devtools
+
+* Where to put the logic? (transform)
+  * Prefer in redux
+![action-creator-logic](https://user-images.githubusercontent.com/5309726/64916890-dd684d80-d7ba-11e9-81ae-59003a76725b.png)
