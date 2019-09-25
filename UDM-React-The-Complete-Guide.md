@@ -254,7 +254,6 @@ const query = new URLSearchParams(this.props.location.search);
 
 ![types-of-state](https://user-images.githubusercontent.com/5309726/64876846-b0188400-d682-11e9-93b6-7b6dfe8a9185.png)
 
-
 #### Episode 16 ####
 * What is middleware?
   * The action will still reach the reducer thereafter but we can do something with that action before it eaches the reducer, E.g. logging something.
@@ -266,3 +265,6 @@ const query = new URLSearchParams(this.props.location.search);
 * Where to put the logic? (data transforming logic)
   * Prefer in redux
 ![action-creator-logic](https://user-images.githubusercontent.com/5309726/64916890-dd684d80-d7ba-11e9-81ae-59003a76725b.png)
+
+#### Episode 17 ####
+![spa-authentication](https://user-images.githubusercontent.com/5309726/65560237-65dfae80-df70-11e9-9ffe-107764567625.png)
