@@ -156,7 +156,7 @@ for(var i = 0; i < 10; i++)
         </pre>
     </dd>
     <dt>Exceptios</dt>
-    <dd>Exceptions should be truly exceptional. Using them as a matter of course can dstroy your performance.</dd>
+    <dd>Exceptions should be truly exceptional. Using them as a matter of course can destroy your performance.</dd>
     <dt>dynamic</dt>
     <dd>Using the dynamic keyword is not going to be highly optimized.</dd>
     <dt>Reflection</dt>
