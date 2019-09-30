@@ -268,3 +268,6 @@ const query = new URLSearchParams(this.props.location.search);
 
 #### Episode 17 ####
 ![spa-authentication](https://user-images.githubusercontent.com/5309726/65560237-65dfae80-df70-11e9-9ffe-107764567625.png)
+
+#### Episode 18 ####
+* localStorage
