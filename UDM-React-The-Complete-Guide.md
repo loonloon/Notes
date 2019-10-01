@@ -274,3 +274,7 @@ const query = new URLSearchParams(this.props.location.search);
 
 #### Episode 20 ####
 ![what-to-test](https://user-images.githubusercontent.com/5309726/65892540-0ef73080-e3d9-11e9-8664-095ab4d20fde.png)
+* npm install jest
+* npm install enzyme
+* npm install react-test-renderer
+* npm install enzyme-adapter-react-16
