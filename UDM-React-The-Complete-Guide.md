@@ -278,3 +278,8 @@ const query = new URLSearchParams(this.props.location.search);
 * npm install enzyme
 * npm install react-test-renderer
 * npm install enzyme-adapter-react-16
+
+#### Episode 21 ####
+![deployment-steps](https://user-images.githubusercontent.com/5309726/65965639-8ab4b400-e491-11e9-9237-a829599d3835.png)
+* npm run build
+* Deploy react to Firebase
