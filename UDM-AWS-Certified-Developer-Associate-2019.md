@@ -89,7 +89,13 @@
                 <ul>
                     <li>Applications with steady state or <strong>predictable usage</strong></li>
                     <li>Application that <strong>require reserved capacity</strong></li>
-                    <li>Users can make up-front payments to reduce their total computing costs (DISCOUNT) even further</li>
+                    <li>Users can make up-front payments to reduce their total computing costs (DISCOUNT) even further
+                     <ul>
+                      <li>Standard RIs (Up to 75% off on-demand cost)</li>
+                      <li>Convertible RIs (Up to 4% off on-demand cost) feature the capability to change the arributes of the RI as long as the exchange results in the creation of Reserved Instances of equal or greater value (could go from a very CPU intensive instance over to a very memory intensive instance)</li>
+                      <li>Scheduled RIs are available to launch within the time window you reserve. This option allows you to match your capacity reservation to a predictable recurring schedule that only requires a fraction of a day, a week, or a month</li>
+                        </ul>
+                    </li>
                 </ul>
             </td>
         </tr>
@@ -101,11 +107,6 @@
                     <li>Applications that are only feasible at very low compute prices (Chemical companies use this to do huge amounts of computing (at 4 AM on a Sunday that will save they an awful lot of money)</li>
                     <li>
                         Users with an <strong>urgent need for large amounts of additional computing capacity</strong>
-                        <ul>
-                            <li>Standard RIs (Up to 75% off on-demand cost)</li>
-                            <li>Convertible RIs (Up to 4% off on-demand cost) feature the capability to change the arributes of the RI as long as the exchange results in the creation of Reserved Instances of equal or greater value (could go from a very CPU intensive instance over to a very memory intensive instance)</li>
-                            <li>Scheduled RIs are available to launch within the time window you reserve. This option allows you to match your capacity reservation to a predictable recurring schedule that only requires a fraction of a day, a week, or a month</li>
-                        </ul>
                     </li>
                 </ul>
             </td>
