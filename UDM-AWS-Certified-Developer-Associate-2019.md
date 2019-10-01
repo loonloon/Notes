@@ -36,7 +36,7 @@
         </tr>
     </tbody>
 </table>
-  
+
 #### Episode 3 ####
 * What is EC2?
   * Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud
@@ -62,7 +62,7 @@
         </tr>
         <tr>
             <td>Dedicated Hosts</td>
-         <td><strong>Physical EC2 server dedicated</strong> for your use. Dedicated Hosts can help you reduce costs by allowing you to use your existing server-bound software licenses (SQL Server, VMware and etc)</td>
+            <td><strong>Physical EC2 server dedicated</strong> for your use (or regulatory). Dedicated Hosts can help you reduce costs by allowing you to use your existing server-bound software licenses (SQL Server, VMware and etc)</td>
         </tr>
     </tbody>
 </table>
@@ -89,11 +89,12 @@
                 <ul>
                     <li>Applications with steady state or <strong>predictable usage</strong></li>
                     <li>Application that <strong>require reserved capacity</strong></li>
-                    <li>Users can make up-front payments to reduce their total computing costs (DISCOUNT) even further
-                     <ul>
-                      <li>Standard RIs (Up to 75% off on-demand cost)</li>
-                      <li>Convertible RIs (Up to 4% off on-demand cost) feature the capability to change the arributes of the RI as long as the exchange results in the creation of Reserved Instances of equal or greater value (could go from a very CPU intensive instance over to a very memory intensive instance)</li>
-                      <li>Scheduled RIs are available to launch within the time window you reserve. This option allows you to match your capacity reservation to a predictable recurring schedule that only requires a fraction of a day, a week, or a month</li>
+                    <li>
+                        Users can make up-front payments to reduce their total computing costs (DISCOUNT) even further
+                        <ul>
+                            <li>Standard RIs (Up to 75% off on-demand cost)</li>
+                            <li>Convertible RIs (Up to 4% off on-demand cost) feature the capability to change the arributes of the RI as long as the exchange results in the creation of Reserved Instances of equal or greater value (could go from a very CPU intensive instance over to a very memory intensive instance)</li>
+                            <li>Scheduled RIs are available to launch within the time window you reserve. This option allows you to match your capacity reservation to a predictable recurring schedule that only requires a fraction of a day, a week, or a month</li>
                         </ul>
                     </li>
                 </ul>
@@ -108,6 +109,7 @@
                     <li>
                         Users with an <strong>urgent need for large amounts of additional computing capacity</strong>
                     </li>
+                    <li><strong></strong>If the instance is terminated by Amazon EC2, you will not be charged for a partial hour of usage. However, if you terminate the instance yourself, you will be charged for the complete hour in which the instance ran.</li>
                 </ul>
             </td>
         </tr>
@@ -237,6 +239,8 @@
             <td>
                 <ul>
                     <li>Lowest cost storage for infrequently accessed workloads</li>
+                    <li>File Server</li>
+                    <li>Cannot be a boot volume</li>
                 </ul>
             </td>
         </tr>
@@ -244,7 +248,7 @@
             <td>Magnetic (Standard)</td>
             <td>
                 <ul>
-                    <li>Lowest cost per gigabyte of all EBS volume types that is bootable. Magnetic volumes are ideal for workloads where daa is accessed infrequently, and applications where the lowest storage cost is important</li>
+                    <li>Lowest cost per gigabyte of all EBS volume types that is <strong>bootable</strong>. Magnetic volumes are ideal for workloads (test / dev environments) where data is accessed infrequently, and applications where the lowest storage cost is important</li>
                 </ul>
             </td>
         </tr>
