@@ -254,3 +254,7 @@
         </tr>
     </tbody>
 </table>
+
+* Use putty for SSH
+  * use puTTY Key Generator generate new .ppk file
+  * ec2-user@x.x.x.x as hostname
