@@ -258,3 +258,45 @@
 * Use putty for SSH
   * use puTTY Key Generator generate new .ppk file
   * ec2-user@x.x.x.x as hostname
+* Elastic Load Balancers
+* Helps us balance our load across multiple different servers.
+* Types Of Load Balancers
+<table>
+    <tbody>
+        <tr>
+            <th>Load Balancer Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Application Load Balancer</td>
+            <td>
+                <ul>
+                    <li>Best suited for loading HTTP and HTTPS traffic</li>
+                    <li>They operate at Layer 7 and are application aware. They are intelligent, and you can create advanced request routing, sending specified requests to specific web servers</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Network Load Balancer (Use for <strong>extreme performance</strong>)</td>
+            <td>
+                <ul>
+                    <li>Best suited for load balancing TCP traffic where extreme performance is required</li>
+                    <li>Operating at the connection level (Layer 4), Network Load Balancer are capable of handling millions of requests per second, while maintaining ultra-low latencies</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Classic Load Balancer</td>
+            <td>
+                <ul>
+                    <li>Are the legacy Elastic Load Balancers</li>
+                    <li>You can load balance HTTP/ HTTPS applications and use Layer 7 specific features such as X-Forwarded and sticky sessions. You can also use strict Layer 4 load balancing for applications that rely purely on the TCP protocol</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* Load Balancer Errors
+* <strong>504 error means the gateway has timed out</strong>. This means that the application not responding within the idle timeout period. Trouble shoot the application. Is is the Web Server or Database Server?
+* If you <strong>need the IPv4 address of your end user</strong>, look for the <strong>X-Forwarded-For Header</strong>
