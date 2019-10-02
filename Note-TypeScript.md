@@ -141,7 +141,7 @@ var person = {
    </tr>
    <tr>
       <td>Type assertions</td>
-      <td>Like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler.</td>
+      <td><strong>Type assertions are a way to tell the compiler "trust me, I know what I’m doing."</strong> Like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler.</td>
       <td>
          <pre lang="typescript">
 let someValue: any = "this is a string";
