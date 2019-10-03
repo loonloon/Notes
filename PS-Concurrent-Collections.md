@@ -16,7 +16,7 @@
 4. Concurrent Bag (Unorder Producer Consumer Collection)
 
 #### Concurrent Dictionary ####
-- Do not protect you from race conditions between method calls.
+- <strong>Do not protect you from race conditions between method calls</strong>.
 
 <table>
     <tbody>
