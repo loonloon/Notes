@@ -3,6 +3,8 @@
 * https://americanexpress.io/clean-code-dirty-code/
 * http://www.leerichardson.com/2007/01/parameter-passing-in-c.html
 * http://www.sangadjiprabowo.com/post/2017/02/14/10-c-generic-collection-types-you-should-know
+* https://refactoring.guru/
+* https://www.oodesign.com/
 
 #### Blogs ####
 <table>
