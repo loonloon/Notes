@@ -305,3 +305,4 @@
    * EC2 instances
    * Load Balancers
    * S3 Buckets
+* Prefer roles than sing access key id's and secret access keys
