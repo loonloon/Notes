@@ -258,8 +258,9 @@
 * Use putty for SSH
   * use puTTY Key Generator generate new .ppk file
   * ec2-user@x.x.x.x as hostname
-* Elastic Load Balancers
-  * Helps us balance our load across multiple different servers.
+  
+#### Elastic Load Balancers ####
+* Helps us balance our load across multiple different servers.
 * Types Of Load Balancers
 <table>
     <tbody>
@@ -298,15 +299,16 @@
 </table>
 
 * Load Balancer Errors
-* <strong>504 error means the gateway has timed out</strong>. This means that the application not responding within the idle timeout period. Trouble shoot the application. Is is the Web Server or Database Server?
+  * <strong>504 error means the gateway has timed out</strong>. This means that the application not responding within the idle timeout period. Trouble shoot the application. Is is the Web Server or Database Server?
 * If you <strong>need the IPv4 address of your end user</strong>, look for the <strong>X-Forwarded-For Header</strong>
 * Route 53 (<strong>buy domain name</strong>) is Amazon's DNS service
  * Allows you to map your domain names to
    * EC2 instances
    * Load Balancers
    * S3 Buckets
-* Prefer roles than sing access key id's and secret access keys
+* Prefer roles than secret access key id's and secret access keys
 
+#### RDS 101 ####
 * Relational Database Types
   * SQL Server
   * Oracle
