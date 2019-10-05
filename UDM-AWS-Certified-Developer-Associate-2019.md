@@ -306,3 +306,30 @@
    * Load Balancers
    * S3 Buckets
 * Prefer roles than sing access key id's and secret access keys
+
+* Relational Database Types
+  * SQL Server
+  * Oracle
+  * MySQL Server
+  * PostgreSQL
+  * Aurora
+  * MariaDB
+
+* Non Relational Databases
+  * Database
+  * Collection = Table
+  * Document = Row
+  * Key Value Pairs = Fields
+
+* What is Data Warehousing
+  * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver.
+  * Used to pull in very large and complex data sets. Usually used by management to do queries on data.
+
+* OLTP VS OLAP
+  * https://techdifferences.com/difference-between-oltp-and-olap.html
+
+* What is Elasticache
+  * The service improves the performance of web applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slower disk-based databases.
+  * Supports 2 open-source in-memory caching engines:
+    * Memcached
+    * Redis
