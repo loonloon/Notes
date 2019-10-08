@@ -109,7 +109,7 @@
                     <li>
                         Users with an <strong>urgent need for large amounts of additional computing capacity</strong>
                     </li>
-                    <li><strong></strong>If the instance is terminated by Amazon EC2, you will not be charged for a partial hour of usage. However, if you terminate the instance yourself, you will be charged for the complete hour in which the instance ran.</li>
+                    <li><strong></strong>If the instance is terminated by Amazon EC2, you will not be charged for a partial hour of usage. However, if you terminate the instance yourself, you will be charged for the complete hour in which the instance ran</li>
                 </ul>
             </td>
         </tr>
@@ -196,7 +196,7 @@
 
 * What is EBS?
   * A virtual disk in the cloud
-  * Elastic Block Store (EBS) allows you to create storage volumes and attach them to Amazon EC2 instances.
+  * Elastic Block Store (EBS) allows you to create storage volumes and attach them to Amazon EC2 instances
 * EBS Volume Types
 <table>
     <tbody>
@@ -258,9 +258,9 @@
 * Use putty for SSH
   * use puTTY Key Generator generate new .ppk file
   * ec2-user@x.x.x.x as hostname
-  
+
 #### Elastic Load Balancers ####
-* Helps us balance our load across multiple different servers.
+* Helps us balance our load across multiple different servers
 * Types Of Load Balancers
 <table>
     <tbody>
@@ -324,8 +324,8 @@
   * Key Value Pairs = Fields
 
 * What is Data Warehousing
-  * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver.
-  * Used to pull in very large and complex data sets. Usually used by management to do queries on data.
+  * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver
+  * Used to pull in very large and complex data sets. Usually used by management to do queries on data
 
 * OLTP VS OLAP
   * https://techdifferences.com/difference-between-oltp-and-olap.html
@@ -335,3 +335,79 @@
   * Supports 2 open-source in-memory caching engines:
     * Memcached
     * Redis
+
+#### RDS - Back Ups, Multi-AZ & Read Replicas ####
+* Two different types of Backups for AWS
+  * Automated Backups and Database Snapshots
+<table>
+    <tbody>
+        <tr>
+            <th>Backup Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Automated Backups</td>
+            <td>
+                <ul>
+                    <li>Allow you to recover your database to any point in time within a "retention period" (can be between 1 and 35 days)</li>
+                    <li>Will take a full daily snapshot and will also store transaction logs throughout the day</li>
+                    <li>When you do a recovery, AWS will first choose the most recent daily backup, and then apply transaction logs relevant to that day</li>
+                    <li>Enabled by default</li>
+                    <li>The backup data is stored in S3 and you get free storage space equal to the size of your database</li>
+                    <li>The backup data will be deleted when you delete the RDS instance</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Snapshots</td>
+            <td>
+                <ul>
+                    <li>Are done manually</li>
+                    <li>They are stored even after you delete the original RDS instance, unlike automated backups</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* Whenever you restore either an Automatic Backup or manual Snapshot, the restored version of the database will be a new RDS instance with a new DNS endpoint
+
+* Encryption
+  * Supported for MySQL, Oracle, SQL Server, PostgreSQL, MariaDB & Aurora
+  * Is done using AWS Key Management Service (KMS) service
+  * Once your RDS instance is encrypted, the data stored at rest in the underlying storage is encrypted, as are its automated backups, read replicas, and snapshots
+  * At the present time, encrypting an existing DB instance is not supported. To use Amazon RDS encryption for an existing database, you must first create a snapshot, make a copy of that snapshot and encrypt the copy
+
+<table>
+    <tbody>
+        <tr>
+            <td>Multi-AZ RDS (for Disaster Recovery only)</td>
+            <td>
+                <ul>
+                    <li>Allows you to have an exact copy of your production database in another availability zone</li>
+                    <li>AWS handles the replication for you, so when your production database is written to, this write will automatically be synchronized to the stand by database</li>
+                    <li>In the event of planned database maintenance, DB instance failure, or an Availability Zone failure, Amazon RDS will automatically failover (故障转移) to the standby so that database operations can resume quickly without administrative intervention</li>
+                    <li>Supported for MySQL, Oracle, SQL Server, PostgreSQL, MariaDB</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Read Replica (for Scaling, Performance)</td>
+            <td>
+                <ul>
+                    <li>Allow you to have a read-only copy of your production database (up to 5 copies)</li>
+                    <li>Achieved by using Asynchronous replication from the primary RDS instance to the read replica</li>
+                    <li>Use read replicas primarily for very read-heavy database workloads</li>
+                    <li>Supported for MySQL, PostgreSQL, MariaDB, Aurora</li>
+                    <li>Must have automatic backups turned on in order to deploy a read replica</li>
+                    <li>Can have read replicas of read replicas (Watch out for latency)</li>
+                    <li>Each read replica will have its own DNS end point</li>
+                    <li>Can have read replicas that have Multi-AZ</li>
+                    <li>Can create read replicas of Multi-AZ source databases</li>
+                    <li>Can promoted to their own databases. This breaks the replication</li>
+                    <li>Can have a read replica ina second region</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
