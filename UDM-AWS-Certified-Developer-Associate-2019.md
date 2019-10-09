@@ -462,6 +462,7 @@
                     <li>Does sorting and ranking datasets in memory help you, such as with leaderboards?</li>
                     <li>Is persistence of your key store important?</li>
                     <li>Do you want to run in multiple AWS Availability Zones (Multi-AZ) with failover?</li>
+                    <li>Pub/Sub capabilities are needed</li>
                 </ul>
             </td>
         </tr>
