@@ -411,3 +411,59 @@
         </tr>
     </tbody>
 </table>
+
+#### What is Elasticache? ####
+* Is a web service that makes it easy to deploy, operate, and scale an in-memory cache in the cloud. The service improves the performance of web applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slower disk-based databases
+  * E.g. Always querying the top 10 for sale items
+* Can be used to significantly improve latency and throughput for many read-heavy application workloads
+  * social networking
+  * gaming
+  * media sharing
+  * Q & A portals
+  * compute intensive workloads (recommendation engine)
+* Caching improves application performance by storing critical pieces of data in memory for low-latency access. Cached information may include the results of I/O-intensive database quries or theresults of computationally intensive calculations
+
+<table>
+    <tbody>
+        <tr>
+            <th>Types of Elasticache</th>
+            <th>Description</th>
+            <th>Use cases</th>
+        </tr>
+        <tr>
+            <td>Memcached</td>
+            <td>
+                <ul>
+                    <li>ElastiCache is protocol compliant with Memcached</li>
+                    <li>Designed as a pure caching solution with no persistence, ElastiCache manages Memcached nodes as a pool that can grow and shrink similar to an Amazon EC2 Auto Scaling Group. Individual nodes are expendable, and ElastiCache provides additional capabilities here, such as automatic node replacement and Auto Discovery</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Is object caching your primary goal, for example to offload your database?</li>
+                    <li>Are you interested in as simple a caching model as possible?</li>
+                    <li>Are you planning on running large cache nodes, and require multithreaded performance with utilization of multiple core?</li>
+                    <li>Do you want the ability to scale your cache horizontally as you grow?</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Redis</td>
+            <td>
+                <ul>
+                    <li>A popular open-source in-memory key-value store that supports data structures such as sorted sets and lists</li>
+                    <li>ElastiCache supports Master / Slave replication and Multi-AZ which can be used to achieve cross AZ redundancy</li>
+                    <li>The replication of persistence features of Redis, ElastiCache manages Redis more as a relational database. Redis ElastiCache clusters are amanged as stateful entities that include failover, similar to how Amazon RDS manages database failover</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Are you looking for more advanced data types, such as lists, hashes, and sets?</li>
+                    <li>Does sorting and ranking datasets in memory help you, such as with leaderboards?</li>
+                    <li>Is persistence of your key store important?</li>
+                    <li>Do you want to run in multiple AWS Availability Zones (Multi-AZ) with failover?</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
