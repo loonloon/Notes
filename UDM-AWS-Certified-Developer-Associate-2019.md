@@ -468,3 +468,19 @@
         </tr>
     </tbody>
 </table>
+
+#### Episode 4 ####
+* What is S3?
+  * Provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web
+  * Is a safe place to store your files (Can be from 0 bytes to 5TB)
+  * It is object-based storage (E.g. allows you to upload files)
+  * The data is spread across multiple devices and facilities
+  * There is unlimited storage
+  * Files are stored in Buckets (similar to a folder)
+  * S3 is a universal namespace. That is, names must be unique globally
+    * https://s3-eu-west-1.amazonaws.com/acloudguru (acloudguru is name of the bucket)
+  * When you upload a file to S3, you will receive a HTTP 200 code if the upload was successful
+* Data consistency model for S3
+  * Read after write consistency for PUTS of new Objects
+    * You <strong>can access your file / object as soon as you have uploaded / added it into S3</strong>
+  * Eventual consistency for overwrite PUTS and DELETES (<strong>can take some time to propagate</strong>)
