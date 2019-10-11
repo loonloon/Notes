@@ -79,31 +79,29 @@ public class Loan
     private DateTime _expiry;
     private DateTime? _maturity;
 
-    public Loan(float notional, float outstanding, int customerRating, DateTime expiry)
-        : this(TermLoan, new TermROC(), notional, outstanding,
+    public Loan(float notional, float outstanding, int customerRating, DateTime expiry) : this(TermLoan,
+        new TermROC(), notional, outstanding,
         customerRating, expiry, null)
     {
-
     }
 
-    public Loan(float notional, float outstanding, int customerRating, DateTime expiry, DateTime maturity)
-        : this(Rctl, new RevolvingTermROC(), notional, outstanding, customerRating,
+    public Loan(float notional, float outstanding, int customerRating, DateTime expiry, DateTime maturity) : this(
+        Rctl, new RevolvingTermROC(), notional, outstanding, customerRating,
         expiry, maturity)
     {
-
     }
 
     public Loan(CapitalStrategy strategy, float notional, float outstanding,
-        int customerRating, DateTime expiry, DateTime maturity) : this(Rctl, strategy, notional, outstanding, customerRating,
+        int customerRating, DateTime expiry, DateTime maturity) : this(Rctl, strategy, notional, outstanding,
+        customerRating,
         expiry, maturity)
     {
-
     }
 
     public Loan(string type, CapitalStrategy strategy, float notional,
-        float outstanding, int customerRating, DateTime expiry) : this(type, strategy, notional, outstanding, customerRating, expiry, null)
+        float outstanding, int customerRating, DateTime expiry) : this(type, strategy, notional, outstanding,
+        customerRating, expiry, null)
     {
-
     }
 
     public Loan(string type, CapitalStrategy strategy, float notional,
