@@ -407,3 +407,7 @@ var termLoan = LoanCreator.newTermLoan(…);
 ```
 
 #### Replace Conditional Calculations with Strategy ####
+![image](https://user-images.githubusercontent.com/5309726/66653802-66b05a00-ec6b-11e9-9bd0-3cf4039b1158.png)
+
+* Motivation
+* Example
