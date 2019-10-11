@@ -238,4 +238,7 @@ public class TermLoan : Loan
     {
     }
 }
+
+client code...
+var termLoan = Loan.NewTermLoan(1000f, 250f, getCustRating(), expiryDate);
 ```
