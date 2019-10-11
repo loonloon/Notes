@@ -242,3 +242,168 @@ public class TermLoan : Loan
 client code...
 var termLoan = Loan.NewTermLoan(1000f, 250f, getCustRating(), expiryDate);
 ```
+
+#### Extract Creation Class ####
+* Motivation
+  * There’s nothing wrong with a few Creation Methods on a class, but as the number of them grows, a class’s own primary responsibilities – it’s main purpose in life – can feel like it is obscured, outweighed by too much creational code. At such times, it’s best to restore the class’s identity by extracting all of its Creation Methods into their own home. We call such a home a Creation Class.
+
+* Example
+```
+//Before
+public class Loan
+{
+    private double _notional;
+    private double _outstanding;
+    private int _rating;
+    private DateTime _start;
+    private readonly CapitalStrategy _capitalStrategy;
+    private DateTime? _expiry;
+    private DateTime? _maturity;
+
+    // . . . more instances variables not shown
+    protected Loan(double notional, DateTime start, DateTime? expiry,
+        DateTime? maturity, int riskRating, CapitalStrategy strategy)
+    {
+        _notional = notional;
+        _start = start;
+        _expiry = expiry;
+        _maturity = maturity;
+        _rating = riskRating;
+        _capitalStrategy = strategy;
+    }
+
+    public double CalcCapital()
+    {
+        return _capitalStrategy.Calc(this);
+    }
+
+    public void SetOutstanding(double newOutstanding)
+    {
+        _outstanding = newOutstanding;
+    }
+
+    // ... more methods for dealing with the primary responsibilities of a Loan, not shown
+    public static Loan NewAdvisor(double notional, DateTime start, DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewLetterOfCredit(double notional, DateTime start,
+        DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewRctl(double notional, DateTime start,
+        DateTime expiry, DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, expiry, maturity, rating, new RCTLCapital());
+    }
+
+    public static Loan NewRevolver(double notional, DateTime start,
+        DateTime expiry, int rating)
+    {
+        return new Loan(notional, start, expiry, null, rating, new RevolverCapital());
+    }
+
+    public static Loan NewSplc(double notional, DateTime start,
+        DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewTermLoan(double notional, DateTime start,
+        DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewVariableLoan(double notional, DateTime start,
+        DateTime expiry, DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, expiry, maturity, rating, new RCTLCapital());
+    }
+}
+
+//After
+public class Loan
+{
+    private double _notional;
+    private double _outstanding;
+    private int _rating;
+    private DateTime _start;
+    private readonly CapitalStrategy _capitalStrategy;
+    private DateTime? _expiry;
+    private DateTime? _maturity;
+
+    // . . . more instances variables not shown
+    protected internal Loan(double notional, DateTime start, DateTime? expiry,
+        DateTime? maturity, int riskRating, CapitalStrategy strategy)
+    {
+        _notional = notional;
+        _start = start;
+        _expiry = expiry;
+        _maturity = maturity;
+        _rating = riskRating;
+        _capitalStrategy = strategy;
+    }
+
+    public double CalcCapital()
+    {
+        return _capitalStrategy.Calc(this);
+    }
+
+    public void SetOutstanding(double newOutstanding)
+    {
+        _outstanding = newOutstanding;
+    }
+}
+
+public class LoanCreator
+{
+    public static Loan NewAdvisor(double notional, DateTime start, DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewLetterOfCredit(double notional, DateTime start,
+        DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewRctl(double notional, DateTime start,
+        DateTime expiry, DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, expiry, maturity, rating, new RCTLCapital());
+    }
+
+    public static Loan NewRevolver(double notional, DateTime start,
+        DateTime expiry, int rating)
+    {
+        return new Loan(notional, start, expiry, null, rating, new RevolverCapital());
+    }
+
+    public static Loan NewSplc(double notional, DateTime start,
+        DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewTermLoan(double notional, DateTime start,
+        DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+
+    public static Loan NewVariableLoan(double notional, DateTime start,
+        DateTime expiry, DateTime maturity, int rating)
+    {
+        return new Loan(notional, start, expiry, maturity, rating, new RCTLCapital());
+    }
+}
+
+var termLoan = LoanCreator.newTermLoan(…);
+```
+
+#### Replace Conditional Calculations with Strategy ####
