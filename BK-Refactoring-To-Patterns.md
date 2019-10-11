@@ -189,13 +189,12 @@ public class Loan
   ![image-01](https://user-images.githubusercontent.com/5309726/66643442-496e9200-ec51-11e9-8db4-b361fd41385a.png)
 * Example
 ```
-  //Before
-abstract class Loan
+//Before
+public abstract class Loan
 {
     ...
     protected Loan(...)
     {
-        ...
     }
 }
 
@@ -204,25 +203,39 @@ public class TermLoan : Loan
     public TermLoan(...)
         : base(...)
     {
-
     }
 }
 
 public class Revolver : Loan
 {
-    public Revolver(...)
+    public Revolver(...) 
         : base(...)
     {
-
     }
 }
 
 public class RCTL : Loan
 {
-    public RCTL(...)
+    public RCTL(...) 
         : base(...)
     {
+    }
+}
 
+//After
+public abstract class Loan
+{
+    public static Loan NewTermLoan(...)
+    {
+        return new TermLoan(...);
+    }
+}
+
+public class TermLoan : Loan
+{
+    protected TermLoan(...)
+        : base(...)
+    {
     }
 }
 ```
