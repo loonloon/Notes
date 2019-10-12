@@ -53,7 +53,7 @@
       * Can name the property.
     </dd>
     <dt>Interface Dispatch</dt>
-    <dd></dd>
+    <dd>Avoid calling these objects through the common interface. E.g. (Use List instead of IList)</dd>
     <dt>Avoid Boxing</dt>
     <dd>Boxing costs CPU time for object allocation, copying and casting, but more seriously, it results in more pressure on the GC heap.</dd>
     <dt>ref returns and locals</dt>
