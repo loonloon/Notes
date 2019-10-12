@@ -754,3 +754,211 @@ public class XmlBuilder
 ```
 
 #### Extract Special-Case Logic into Decorators ####
+![image](https://user-images.githubusercontent.com/5309726/66699978-51483800-ed1e-11e9-9b19-7c4c6c13b6a8.png)
+
+* Motivation
+  * 
+* Example
+```
+//Before
+var m = new Model(10.0f, 50.0f, "Ford Taurus");
+
+var r1 = new CarRental(m, 5);
+Debug.Assert(r1.CalcPrice() == 250.0f);
+
+var r2 = new CarRental(m, 5);
+r2.SetInsurance(12.5f);
+Debug.Assert(r2.CalcPrice() == 312.5f);
+
+var r3 = new CarRental(m, 5);
+r3.SetInsurance(12.5f);
+r3.SetRefuelOnReturn(3.75f);
+Debug.Assert(r3.CalcPrice() == 350.0f);
+
+public class CarRental
+{
+    protected float FuelConsumed { get; private set; }
+    protected int RentalDays { get; }
+    protected Model Model { get; }
+    protected float InsuranceRate { get; private set; }
+    protected bool HasInsurance { get; private set; }
+    protected bool HasRefuelOnReturn { get; private set; }
+    protected float RefuelPrice { get; private set; }
+
+    public CarRental(Model model, int rentalDays)
+    {
+        Model = model;
+        RentalDays = rentalDays;
+        HasInsurance = false;
+        HasRefuelOnReturn = false;
+    }
+
+    public float CalcPrice()
+    {
+        var price = (Model.Price * RentalDays);
+
+        if (HasInsurance)
+        {
+            price += InsuranceAmount();
+        }
+
+        if (HasRefuelOnReturn)
+        {
+            price += GetRefuelPrice();
+        }
+
+        return price;
+    }
+
+    public void SetFuelConsumed(float amount)
+    {
+        FuelConsumed = amount;
+    }
+
+    public void SetInsurance(float rate)
+    {
+        InsuranceRate = rate;
+        HasInsurance = true;
+    }
+
+    public void SetRefuelOnReturn(float pricePerGallon)
+    {
+        RefuelPrice = pricePerGallon;
+        HasRefuelOnReturn = true;
+    }
+
+    private float InsuranceAmount()
+    {
+        return InsuranceRate * RentalDays;
+    }
+
+    private float GetRefuelPrice()
+    {
+        return (Model.FuelCapacity - FuelConsumed) * RefuelPrice;
+    }
+}
+
+public class Model
+{
+    public float FuelCapacity { get; }
+    public float Price { get; }
+    public string Name { get; }
+
+    public Model(float fuelCapacity, float price, string name)
+    {
+        FuelCapacity = fuelCapacity;
+        Price = price;
+        Name = name;
+    }
+}
+
+//After
+var m = new Model(10.0f, 50.0f, "Ford Taurus");
+
+var insuredFord = new Insurance(new CarRental(m, 5), 12.5f);
+var refuelInsuredFord = new RefuelOnReturn(insuredFord, 3.75f);
+var price1 = refuelInsuredFord.CalcPrice();
+Debug.Assert(price1 == 350.0f);
+
+var refuelFord = new RefuelOnReturn(new CarRental(m, 5), 3.75f);
+var insuredRefuelFord = new Insurance(refuelFord, 12.5f);
+var price2 = insuredRefuelFord.CalcPrice();
+Debug.Assert(price2 == 350.0f);
+
+public interface IRental
+{
+    float FuelConsumed { get; }
+    int RentalDays { get; }
+    Model Model { get; }
+    float CalcPrice();
+    void SetFuelConsumed(float amount);
+}
+
+public class CarRental : IRental
+{
+    public float FuelConsumed { get; set; }
+    public int RentalDays { get; }
+    public Model Model { get; }
+
+    public CarRental(Model model, int rentalDays)
+    {
+        Model = model;
+        RentalDays = rentalDays;
+
+    }
+    public float CalcPrice()
+    { 
+        return Model.Price * RentalDays;
+    }
+
+    public void SetFuelConsumed(float amount)
+    {
+        FuelConsumed = amount;
+    }
+}
+
+public class CarRentalDecorator : IRental
+{
+    protected IRental Rental;
+    public float FuelConsumed => Rental.FuelConsumed;
+    public int RentalDays => Rental.RentalDays;
+    public Model Model => Rental.Model;
+
+    protected CarRentalDecorator(IRental rental)
+    {
+        Rental = rental;
+    }
+
+    public virtual float CalcPrice()
+    {
+        return Rental.CalcPrice();
+    }
+
+    public void SetFuelConsumed(float amount)
+    {
+        Rental.SetFuelConsumed(amount);
+    }
+}
+
+public class Insurance : CarRentalDecorator
+{
+    protected float InsuranceRate;
+
+    public Insurance(IRental rental, float insuranceRate)
+        : base(rental)
+    {
+
+        InsuranceRate = insuranceRate;
+    }
+
+    private float InsuranceAmount()
+    {
+        return InsuranceRate * Rental.RentalDays;
+    }
+    public override float CalcPrice()
+    {
+        return Rental.CalcPrice() + InsuranceAmount();
+    }
+}
+
+public class RefuelOnReturn : CarRentalDecorator
+{
+    private readonly float _refuelPrice;
+
+    public RefuelOnReturn(IRental rental, float refuelPrice)
+        : base(rental)
+    {
+        _refuelPrice = refuelPrice;
+    }
+
+    public override float CalcPrice()
+    {
+        return Rental.CalcPrice() + CalcRefuelPrice();
+    }
+
+    private float CalcRefuelPrice()
+    {
+        return (Rental.Model.FuelCapacity - Rental.FuelConsumed) * _refuelPrice;
+    }
+}
+```
