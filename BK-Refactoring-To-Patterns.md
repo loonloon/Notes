@@ -887,7 +887,6 @@ public class CarRental : IRental
     {
         Model = model;
         RentalDays = rentalDays;
-
     }
     
     public float CalcPrice()
@@ -931,7 +930,6 @@ public class Insurance : CarRentalDecorator
     public Insurance(IRental rental, float insuranceRate)
         : base(rental)
     {
-
         InsuranceRate = insuranceRate;
     }
 
