@@ -757,7 +757,10 @@ public class XmlBuilder
 ![image](https://user-images.githubusercontent.com/5309726/66699978-51483800-ed1e-11e9-9b19-7c4c6c13b6a8.png)
 
 * Motivation
-  * 
+  * Consider an Invoice class that is responsible for keeping track of payment information for a customer invoice. Most invoices are simple - some dollar amount is owed, and all the Invoice object has to do is calculate the amount owed. But what happens when the amount
+owed is overdue or if a special discount must be applied because the customer is a preferred customer? Those are two special conditions that the Invoice’s calcAmountOwed() method will have to deal with
+  * But what happens when we add more special conditions to calcAmountOwed()? As more special conditions are added, the Invoice class gets more complex: it holds onto more instance variables, it supports more getter and setter methods for handling special conditions and its calculation logic gets longer and more involved
+
 * Example
 ```
 //Before
@@ -886,6 +889,7 @@ public class CarRental : IRental
         RentalDays = rentalDays;
 
     }
+    
     public float CalcPrice()
     { 
         return Model.Price * RentalDays;
@@ -935,6 +939,7 @@ public class Insurance : CarRentalDecorator
     {
         return InsuranceRate * Rental.RentalDays;
     }
+    
     public override float CalcPrice()
     {
         return Rental.CalcPrice() + InsuranceAmount();
