@@ -410,6 +410,8 @@ var termLoan = LoanCreator.newTermLoan(…);
 ![image](https://user-images.githubusercontent.com/5309726/66653802-66b05a00-ec6b-11e9-9bd0-3cf4039b1158.png)
 
 * Motivation
+  * A lot of condition logic can obscure any calculation, even a simple one. When that happens, your calculation can be misunderstood by others and harder to maintain, debug and extend
+  
 * Example
 ```
 //Before
@@ -600,3 +602,155 @@ public class RCTLCapital : CapitalStrategy
     }
 }
 ```
+
+#### Replace Implicit Tree with Composite* ####
+* Motivation
+  * One problem with implicit tree construction is the tight coupling between the code that builds the tree and how the tree is represented
+  
+* Example
+```
+//Before
+var orders = "<orders>";
+orders += "<order number='123'>";
+orders += "<item number='x1786'>";
+orders += "carDoor";
+orders += "</item>";
+orders += "</order>";
+orders += "</orders>";
+
+//After
+var order = new TagNode("order");
+order.AddAttribute("number", "123");
+
+var item = new TagNode("item");
+item.AddAttribute("number", "x1786");
+item.AddValue("carDoor");
+
+order.Add(item);
+
+var orders = new TagNode("orders");
+orders.Add(order);
+
+public class TagNode
+{
+    private readonly string _tagName;
+    private string _tagValue = "";
+    private string _attributes = "";
+    private readonly List<TagNode> _children = new List<TagNode>();
+
+    public TagNode(string name)
+    {
+        _tagName = name;
+    }
+
+    public void Add(TagNode childNode)
+    {
+        _children.Add(childNode);
+    }
+
+    public void AddAttribute(string name, string value)
+    {
+        _attributes += $" {name}='{value}'";
+    }
+
+    public void AddValue(string value)
+    {
+        _tagValue = value;
+    }
+
+    public override string ToString()
+    {
+        var result = new StringBuilder();
+        result.Append($"<{_tagName}{_attributes}>");
+
+        for (var i = 0; i < _children.Count; i++)
+        {
+            result.Append(_children[i]);
+        }
+
+        if (!_tagValue.Equals(""))
+        {
+            result.Append(_tagValue);
+        }
+
+        result.Append($"</{_tagName}>");
+        return result.ToString();
+    }
+}
+```
+
+#### Encapsulate Composite with Builder ####
+![image](https://user-images.githubusercontent.com/5309726/66698192-6026ee80-ed0e-11e9-8c08-04fd5db2a76f.png)
+
+* Motivation
+  * I'm always interested in simplifying client code: I want it to read as clearly as English. So when it comes to creating really simple tree-construction code, I like the Builder pattern even better than the Composite pattern
+  
+* Example
+```
+//Before
+var order = new TagNode("order");
+order.AddAttribute("number", "123");
+
+var item = new TagNode("item");
+item.AddAttribute("number", "x1786");
+item.AddValue("carDoor");
+
+order.Add(item);
+
+var orders = new TagNode("orders");
+orders.Add(order);
+
+//After
+var orders = new XmlBuilder("orders");
+orders.AddBelow("order");
+orders.AddAttribute("number", "123");
+orders.AddBelow("item");
+orders.AddAttribute("number", "x1786");
+orders.AddValue("carDoor");
+
+public class XmlBuilder
+{
+    private readonly TagNode _root;
+    private TagNode _current;
+    private TagNode _parent;
+
+    public XmlBuilder(string rootName)
+    {
+        _root = new TagNode(rootName);
+        _current = _root;
+        _parent = _root;
+    }
+
+    public void AddBelow(string child)
+    {
+        var childNode = new TagNode(child);
+        _current.Add(childNode);
+        _parent = _current;
+        _current = childNode;
+    }
+
+    public void AddBeside(string sibling)
+    {
+        var siblingNode = new TagNode(sibling);
+        _parent.Add(siblingNode);
+        _current = siblingNode;
+    }
+
+    public void AddAttribute(string name, string value)
+    {
+        _current.AddAttribute(name, value);
+    }
+
+    public void AddValue(string value)
+    {
+        _current.AddValue(value);
+    }
+
+    public override string ToString()
+    {
+        return _root.ToString();
+    }
+}
+```
+
+#### Extract Special-Case Logic into Decorators ####
