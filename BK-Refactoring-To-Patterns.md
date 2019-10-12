@@ -411,3 +411,192 @@ var termLoan = LoanCreator.newTermLoan(…);
 
 * Motivation
 * Example
+```
+//Before
+public class Loan
+{
+    private const int MillisPerDay = 86400000;
+    private double _unusedPercentage;
+    public double Notional { get; set; }
+    public DateTime? Start { get; set; }
+    public DateTime? Expiry { get; set; }
+    public DateTime? Maturity { get; set; }
+    public int Rating { get; set; }
+    public double Outstanding { get; private set; }
+    
+    public void SetOutstanding(double newOutstanding)
+    {
+        Outstanding = newOutstanding;
+    }
+
+    public double CalcCapital()
+    {
+        return RiskAmount() * Duration() * RiskFactor.forRiskRating(Rating);
+    }
+
+    private double CalcUnusedRiskAmount()
+    {
+        return (Notional - Outstanding) * _unusedPercentage;
+    }
+
+    private double Duration()
+    {
+        if (Expiry == null)
+        {
+            return ((Maturity.Value.Subtract(Start.Value)).Milliseconds / MillisPerDay) / 365;
+        }
+
+        if (Maturity == null)
+        {
+            return ((Expiry.Value.Subtract(Start.Value).Milliseconds) / MillisPerDay) / 365;
+        }
+
+        long millisToExpiry = Expiry.Value.Subtract(Start.Value).Milliseconds;
+        long millisFromExpiryToMaturity = Maturity.Value.Subtract(Expiry.Value).Milliseconds;
+        double revolverDuration = (millisToExpiry / MillisPerDay) / 365;
+        double termDuration = (millisFromExpiryToMaturity / MillisPerDay) / 365;
+        return revolverDuration + termDuration;
+    }
+
+    private double RiskAmount()
+    {
+        return _unusedPercentage != 1.00 ? Outstanding + CalcUnusedRiskAmount() : Outstanding;
+    }
+
+    private void SetUnusedPercentage()
+    {
+        if (Expiry != null && Maturity != null)
+        {
+            _unusedPercentage = Rating > 4 ? 0.95 : 0.50;
+        }
+        else if (Maturity != null)
+        {
+            _unusedPercentage = 1.00;
+        }
+        else if (Expiry != null)
+        {
+            _unusedPercentage = Rating > 4 ? 0.75 : 0.25;
+        }
+    }
+}
+
+//After
+public class Loan
+{
+    public double Notional { get; set; }
+    public DateTime? Start { get; set; }
+    public DateTime? Expiry { get; set; }
+    public DateTime? Maturity { get; set; }
+    public int Rating { get; set; }
+    public CapitalStrategy CapitalStrategy { get; set; }
+    public double Outstanding { get; set; }
+
+    protected Loan(double notional, DateTime? start, DateTime? expiry, DateTime? maturity, int riskRating, CapitalStrategy strategy)
+    {
+        Notional = notional;
+        Start = start;
+        Expiry = expiry;
+        Maturity = maturity;
+        Rating = riskRating;
+        CapitalStrategy = strategy;
+    }
+    
+    //can apply Extract Creation Class
+    public static Loan NewRctl(double notional, DateTime? start, DateTime? expiry, DateTime? maturity, int rating)
+    {
+        return new Loan(notional, start, expiry, maturity, rating, new RCTLCapital());
+    }
+
+    public static Loan NewRevolver(double notional, DateTime? start, DateTime? expiry, int rating)
+    {
+        return new Loan(notional, start, expiry, null, rating, new RevolverCapital());
+    }
+
+    public static Loan NewTermLoan(double notional, DateTime? start, DateTime? maturity, int rating)
+    {
+        return new Loan(notional, start, null, maturity, rating, new TermLoanCapital());
+    }
+}
+
+public abstract class CapitalStrategy
+{
+    protected Loan Loan;
+    protected const int MillisPerDay = 86400000;
+    private const int DaysPerYear = 365;
+
+    public double Calc(Loan loan)
+    {
+        Loan = loan;
+        return RiskAmount() * Duration() * RiskFactor.forRiskRating(loan.Rating);
+    }
+
+    protected double CalcDuration(DateTime? start, DateTime? end)
+    {
+        return ((end.Value.Subtract(start.Value).Milliseconds / MillisPerDay) / DaysPerYear);
+    }
+
+    protected abstract double Duration();
+    protected abstract double RiskAmount();
+}
+
+public class TermLoanCapital : CapitalStrategy
+{
+    protected override double Duration()
+    {
+        return CalcDuration(Loan.Maturity, Loan.Start);
+    }
+
+    protected override double RiskAmount()
+    {
+        return Loan.Outstanding;
+    }
+}
+
+public class RevolverCapital : CapitalStrategy
+{
+    private double CalcUnusedPercentage()
+    {
+        return Loan.Rating > 4 ? 0.75 : 0.25;
+    }
+
+    private double CalcUnusedRiskAmount()
+    {
+        return (Loan.Notional - Loan.Outstanding) * CalcUnusedPercentage();
+    }
+
+    protected override double Duration()
+    {
+        return CalcDuration(Loan.Expiry, Loan.Start);
+    }
+
+    protected override double RiskAmount()
+    {
+        return Loan.Outstanding + CalcUnusedRiskAmount();
+    }
+}
+
+public class RCTLCapital : CapitalStrategy
+{
+    private double CalcUnusedPercentage()
+    {
+        return Loan.Rating > 4 ? 0.95 : 0.50;
+    }
+
+    private double CalcUnusedRiskAmount()
+    {
+        return (Loan.Notional - Loan.Outstanding) * CalcUnusedPercentage();
+    }
+
+    protected override double Duration()
+    {
+        var revolverDuration = CalcDuration(Loan.Expiry, Loan.Start);
+        var termDuration = CalcDuration(Loan.Maturity, Loan.Expiry);
+        return revolverDuration + termDuration;
+    }
+
+    protected override double RiskAmount()
+    {
+        return Loan.Outstanding + CalcUnusedRiskAmount();
+    }
+}
+```
