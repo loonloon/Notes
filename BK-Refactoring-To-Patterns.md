@@ -965,3 +965,107 @@ public class RefuelOnReturn : CarRentalDecorator
     }
 }
 ```
+
+#### Replace Hard-Coded Notifications with Observer ####
+![image](https://user-images.githubusercontent.com/5309726/66709943-f277d280-eda0-11e9-9c10-5a6edc6d0b7b.png)
+
+* Motivation
+  * The Observer pattern is popular. Many programmers know it well and use it often.
+  
+#### Move Accumulation to Collecting Parameter ####
+![image](https://user-images.githubusercontent.com/5309726/66710518-cfebb680-edac-11e9-9252-0add4b2e6b9f.png)
+
+* Motivation
+  * A Collecting Parameter is an object that you pass to methods in order to collect information from those methods
+  
+* Example
+```
+//Before
+public class TagNode
+{
+    private readonly string _tagName;
+    private string _tagValue = "";
+    private string _attributes = "";
+    private readonly List<TagNode> _children = new List<TagNode>();
+
+    public TagNode(string name)
+    {
+        _tagName = name;
+    }
+
+    public override string ToString()
+    {
+        var result = new StringBuilder();
+        result.Append($"<{_tagName}{_attributes}>");
+
+        for (var i = 0; i < _children.Count; i++)
+        {
+            result.Append(_children[i]);
+        }
+
+        if (!_tagValue.Equals(""))
+        {
+            result.Append(_tagValue);
+        }
+
+        result.Append($"</{_tagName}>");
+        return result.ToString();
+    }
+}
+
+//After
+public class TagNode
+{
+    private readonly string _tagName;
+    private string _tagValue = "";
+    private string _attributes = "";
+    private readonly List<TagNode> _children = new List<TagNode>();
+
+    public override string ToString()
+    {
+        var result = new StringBuilder("");
+        ToStringHelper(result);
+        return result.ToString();
+    }
+
+    private void ToStringHelper(StringBuilder result)
+    {
+        WriteOpenTagTo(result);
+        WriteChildrenTo(result);
+        WriteValueTo(result);
+        WriteEndTagTo(result);
+    }
+
+    private void WriteOpenTagTo(StringBuilder result)
+    {
+        result.Append("<");
+        result.Append(_tagName);
+        result.Append(_attributes);
+        result.Append(">");
+    }
+    
+    private void WriteChildrenTo(StringBuilder result)
+    {
+        for (var i = 0; i < _children.Count; i++)
+        {
+            _children[i].ToStringHelper(result);
+
+        }
+    }
+    
+    private void WriteValueTo(StringBuilder result)
+    {
+        if (!_tagValue.Equals(""))
+        {
+            result.Append(_tagValue);
+        }
+    }
+
+    private void WriteEndTagTo(StringBuilder result)
+    {
+        result.Append("</");
+        result.Append(_tagName);
+        result.Append(">");
+    }
+}
+```
