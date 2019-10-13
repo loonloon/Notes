@@ -1069,3 +1069,70 @@ public class TagNode
     }
 }
 ```
+
+#### Replace One/Many Distinctions with Composite ####
+![image](https://user-images.githubusercontent.com/5309726/66717520-92b71100-ee0c-11e9-9197-a803a17fff8a.png)
+
+* Motivation
+  * A good reason to refactor to Composite is to get rid of code that distinguishes between single objects and collections of those objects
+  
+#### Compose Method ####
+![image](https://user-images.githubusercontent.com/5309726/66717536-d3af2580-ee0c-11e9-8354-0b587faf2735.png)
+
+* Motivation
+  * Transform the logic into a small number of intention-revealing steps at the same level of detail
+  
+* Example
+```
+//Before
+public bool Contains(Component c)
+{
+    var locX = c.Location.X;
+    var locY = c.Location.Y;
+    var completelyWithin =
+        (locX >= coords[0] &&
+         locY >= coords[1] &&
+         (locX + CardComponent.Width) <= coords[2]) &&
+        (locY + CardComponent.Height) <= coords[3];
+
+    if (completelyWithin)
+    {
+        return true;
+    }
+
+    locX = locX + CardComponent.Width;
+    locY = locY + CardComponent.Height;
+
+    var partiallyWithin =
+        (locX > coords[0] &&
+         locY > coords[1] &&
+         (locX < coords[2]) &&
+         (locY < coords[3]));
+
+    return partiallyWithin;
+}
+
+//After
+public bool Contains(Component c)
+{
+    return CompletelyWithin(c) || PartiallyWithin(c);
+}
+
+private bool CompletelyWithin(Component c)
+{
+    return (c.Location.X >= coords[0] &&
+            c.Location.Y >= coords[1] &&
+            (c.Location.X + CardComponent.Width) <= coords[2]) &&
+           (c.Location.Y + CardComponent.Height) <= coords[3];
+}
+
+private bool PartiallyWithin(Component c)
+{
+    return ((c.Location.X + CardComponent.Width) > coords[0] &&
+            (c.Location.Y + CardComponent.Height) > coords[1] &&
+            (c.Location.X + CardComponent.Width) < coords[2] &&
+            (c.Location.Y + CardComponent.Height) < coords[3]);
+}
+```
+
+#### Separate Versions with Adapters ####
