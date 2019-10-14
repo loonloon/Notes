@@ -1,3 +1,5 @@
+https://industriallogic.com/xp/refactoring/chainConstructors.html
+
 #### Chain Constructors ####
 
 * Motivation
@@ -1136,3 +1138,205 @@ private bool PartiallyWithin(Component c)
 ```
 
 #### Separate Versions with Adapters ####
+![image](https://user-images.githubusercontent.com/5309726/66741118-51c00a80-eea7-11e9-8499-ac7d8f58e2b0.png)
+
+* Motivation
+  * While software must often support multiple versions of a component, library or API, code that handles these versions doesn’t have to be a confusing mess
+
+* Example
+```
+//Before
+public class Query
+{
+    private SDLogin _sdLogin;               // needed for SD version 5.1
+    private SDSession _sdSession;           // needed for SD version 5.1
+    private SDLoginSession _sdLoginSession; // needed for SD version 5.2
+    private bool _sd52;                     // tells if we're running under SD 5.2
+    private SDQuery _sdQuery;               // this is needed for SD versions 5.1 & 5.2
+
+    // this is a login for SD 5.1
+    // // NOTE: remove this when we convert all aplications to 5.2
+    public void Login(string server, string user, string password)
+    {
+        _sd52 = false;
+
+        try
+        {
+            _sdSession = _sdLogin.LoginSession(server, user, password);
+        }
+        catch (SDLoginFailedException lfe)
+        {
+            throw new QueryException(QueryException.LOGIN_FAILED, "Login failure\n" + lfe, lfe);
+        }
+        catch (SDSocketInitFailedException ife)
+        {
+            throw new QueryException(QueryException.LOGIN_FAILED, "Socket fail\n" + ife, ife);
+        }
+    }
+
+    // 5.2 login
+    public void Login(string server, string user, string password, string sdConfigFileName)
+    {
+        sd52 = true;
+        sdLoginSession = new SDLoginSession(sdConfigFileName, false);
+
+        try
+        {
+            _sdLoginSession.LoginSession(server, user, password);
+        }
+        catch (SDLoginFailedException lfe)
+        {
+            throw new QueryException(QueryException.LoginFailed, "Login failure\n" + lfe, lfe);
+        }
+        catch (SDSocketInitFailedException ife)
+        {
+            throw new QueryException(QueryException.LoginFailed, "Socket fail\n" + ife, ife);
+        }
+        catch (SDNotFoundException nfe)
+        {
+            throw new QueryException(QueryException.LoginFailed, "Not found exception\n" + nfe, nfe);
+        }
+    }
+
+    public void DoQuery()
+    {
+        if (_sdQuery != null)
+        {
+            _sdQuery.ClearResultSet();
+        }
+
+        if (_sd52)
+        {
+            _sdQuery = _sdLoginSession.CreateQuery(SDQuery.OpenForQuery);
+        }
+        else
+        {
+            _sdQuery = _sdSession.CreateQuery(SDQuery.OpenForQuery);
+        }
+
+        ExecuteQuery();
+    }
+}
+
+//After
+
+//Client code
+public void LoginToDatabase(string db, string user, string password)
+{
+    IQuery query = null;
+
+    if (UsingSDVersion52())
+    {
+        query = new QuerySD52(GetSD52ConfigFileName());
+    }
+    else
+    {
+        query = new QuerySD51();
+
+        try
+        {
+            query.Login(db, user, password);
+
+        }
+        catch (QueryException qe)
+        {
+
+        }
+    }
+}
+
+public interface IQuery
+{
+    void Login(string server, string user, string password);
+    void DoQuery();
+}
+
+public abstract class Query : IQuery
+{
+    protected SDQuery SdQuery;
+
+    public virtual void Login(string server, string user, string password)
+    {
+    }
+
+    public void DoQuery()
+    {
+        // a Template Method [GoF]
+        if (SdQuery != null)
+        {
+            SdQuery.ClearResultSet();
+        }
+
+        SdQuery = CreateQuery(); // call to the Factory Method
+        ExecuteQuery();
+    }
+
+    // a Factory Method [GoF]
+    protected abstract SDQuery CreateQuery();
+}
+
+public class QuerySD51 : Query
+{
+    private SDLogin _sdLogin;
+    private SDSession _sdSession;
+
+    public override void Login(string server, string user, string password)
+    {
+        try
+        {
+            _sdSession = _sdLogin.LoginSession(server, user, password);
+        }
+        catch (SDLoginFailedException lfe)
+        {
+            throw new QueryException(QueryException.LOGIN_FAILED, "Login failure\n" + lfe, lfe);
+        }
+        catch (SDSocketInitFailedException ife)
+        {
+            throw new QueryException(QueryException.LOGIN_FAILED, "Socket fail\n" + ife, ife);
+        }
+    }
+
+    protected override SDQuery CreateQuery()
+    {
+        return _sdSession.CreateQuery(SDQuery.OpenForQuery);
+    }
+}
+
+public class QuerySD52 : Query
+{
+    private readonly string _sdConfigFileName;
+    private SDLoginSession _sdLoginSession;
+
+    public QuerySD52(string sdConfigFileName)
+    {
+        _sdConfigFileName = sdConfigFileName;
+    }
+
+    public override void Login(string server, string user, string password)
+    {
+        _sdLoginSession = new SDLoginSession(_sdConfigFileName, false);
+
+        try
+        {
+            _sdLoginSession.LoginSession(server, user, password);
+        }
+        catch (SDLoginFailedException lfe)
+        {
+            throw new QueryException(QueryException.LoginFailed, "Login failure\n" + lfe, lfe);
+        }
+        catch (SDSocketInitFailedException ife)
+        {
+            throw new QueryException(QueryException.LoginFailed, "Socket fail\n" + ife, ife);
+        }
+        catch (SDNotFoundException nfe)
+        {
+            throw new QueryException(QueryException.LoginFailed, "Not found exception\n" + nfe, nfe);
+        }
+    }
+
+    protected override SDQuery CreateQuery()
+    {
+        return _sdLoginSession.CreateQuery(SDQuery.OpenForQuery);
+    }
+}
+```
