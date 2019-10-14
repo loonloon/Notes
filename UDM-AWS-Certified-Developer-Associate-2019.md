@@ -483,42 +483,49 @@
 * Data consistency model for S3
   * Read after write consistency for PUTS of new Objects
     * You <strong>can access your file / object as soon as you have uploaded / added it into S3</strong>
-  * Eventual consistency for overwrite PUTS and DELETES (<strong>can take some time to propagate</strong>)
+* Eventual consistency for overwrite PUTS and DELETES (<strong>can take some time to propagate</strong>)
 * S3 is a object based / simple key value store
-  * Key (name of the object)
-  * Value (the data, which is made of a sequence of bytes)
-  * Version ID (Can use to rollback previous version)
-  * Medatadata (Can add your own message)
-  * Subresources (Bucket specific configuration)
-  * Bucket polices, access control lists
-  * Cross origin resources sharing (CORS)
-  * Transfer acceleration (加速) (Accelerate file transfer speeds when uploading lots of files into S3)
+* Key (name of the object)
+* Value (the data, which is made of a sequence of bytes)
+* Version ID (Can use to rollback previous version)
+* Medatadata (Can add your own message)
+* Subresources (Bucket specific configuration)
+* Bucket polices, access control lists
+* Cross origin resources sharing (CORS)
+* Transfer acceleration (加速) (Accelerate file transfer speeds when uploading lots of files into S3)
 
 <table>
     <tbody>
-        <tr>
-            <th>Storage Tiers / Classes</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>S3</td>
-            <td>Durable, immediately available, frequently accessed</td>
-        </tr>
-        <tr>
-            <td>S3 - IA</td>
-            <td>Durable, immediately available, infrequently accessed</td>
-        </tr>
-        <tr>
-            <td>S3 - One Zone IA</td>
-            <td>Same as IA. However, data is stored in a single availability zone only</td>
-        </tr>
-        <tr>
-            <td>Reduced Redundancy Storage</td>
-            <td>Data that is reproducible, such as thumbnails, etc</td>
-        </tr>
-        <tr>
-            <td>Glacier</td>
-            <td>Archived data, where you can wait 3 - 5 hours ebfore accessing</td>
-        </tr>
+    <tr>
+        <th>Storage Tiers / Classes</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>S3</td>
+        <td>Durable, immediately available, frequently accessed</td>
+    </tr>
+    <tr>
+        <td>S3 - IA</td>
+        <td>Durable, immediately available, infrequently accessed</td>
+    </tr>
+    <tr>
+        <td>S3 - One Zone IA</td>
+        <td>Same as IA. However, data is stored in a single availability zone only</td>
+    </tr>
+    <tr>
+        <td>Reduced Redundancy Storage</td>
+        <td>Data that is reproducible, such as thumbnails, etc</td>
+    </tr>
+    <tr>
+        <td>Glacier</td>
+        <td>Archived data, where you can wait 3 - 5 hours ebfore accessing</td>
+    </tr>
     </tbody>
 </table>
+
+#### S3 Security ####
+* By default, all newly created buckets are PRIVATE
+* You can set up access control to your buckets using:
+  * Bucket polices - Applied at a bucket level
+  * Access control lists = Applied at an object level
+* S3 buckets can be configured to create access logs, which log all requests made to the S3 bucket. These logs can be written to another bucket
