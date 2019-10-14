@@ -1138,6 +1138,7 @@ private bool PartiallyWithin(Component c)
 ```
 
 #### Separate Versions with Adapters ####
+![image](https://user-images.githubusercontent.com/5309726/66751442-9fe20780-eec1-11e9-9aca-16ef5484c384.png)
 
 * Motivation
   * While software must often support multiple versions of a component, library or API, code that handles these versions doesn’t have to be a confusing mess
@@ -1341,11 +1342,7 @@ public class QuerySD52 : Query
 ```
 
 #### Adapter Interface ####
+![image](https://user-images.githubusercontent.com/5309726/66751385-83de6600-eec1-11e9-9acf-8211cf241c94.png)
 
 * Motivation
   * Empty methods in concrete classes bother me. I often find that they’re there because a class needs to satisfy a contract by implementing an interface, but only really needs code for some of the interface’s methods
-  
-* Example
-```
-
-```
