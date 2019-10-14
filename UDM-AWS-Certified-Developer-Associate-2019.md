@@ -493,3 +493,32 @@
   * Bucket polices, access control lists
   * Cross origin resources sharing (CORS)
   * Transfer acceleration (加速) (Accelerate file transfer speeds when uploading lots of files into S3)
+
+<table>
+    <tbody>
+        <tr>
+            <th>Storage Tiers / Classes</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>S3</td>
+            <td>Durable, immediately available, frequently accessed</td>
+        </tr>
+        <tr>
+            <td>S3 - IA</td>
+            <td>Durable, immediately available, infrequently accessed</td>
+        </tr>
+        <tr>
+            <td>S3 - One Zone IA</td>
+            <td>Same as IA. However, data is stored in a single availability zone only</td>
+        </tr>
+        <tr>
+            <td>Reduced Redundancy Storage</td>
+            <td>Data that is reproducible, such as thumbnails, etc</td>
+        </tr>
+        <tr>
+            <td>Glacier</td>
+            <td>Archived data, where you can wait 3 - 5 hours ebfore accessing</td>
+        </tr>
+    </tbody>
+</table>
