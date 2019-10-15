@@ -496,30 +496,30 @@
 
 <table>
     <tbody>
-    <tr>
-        <th>Storage Tiers / Classes</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>S3</td>
-        <td>Durable, immediately available, frequently accessed</td>
-    </tr>
-    <tr>
-        <td>S3 - IA</td>
-        <td>Durable, immediately available, infrequently accessed</td>
-    </tr>
-    <tr>
-        <td>S3 - One Zone IA</td>
-        <td>Same as IA. However, data is stored in a single availability zone only</td>
-    </tr>
-    <tr>
-        <td>Reduced Redundancy Storage</td>
-        <td>Data that is reproducible, such as thumbnails, etc</td>
-    </tr>
-    <tr>
-        <td>Glacier</td>
-        <td>Archived data, where you can wait 3 - 5 hours ebfore accessing</td>
-    </tr>
+        <tr>
+            <th>Storage Tiers / Classes</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>S3</td>
+            <td>Durable, immediately available, frequently accessed</td>
+        </tr>
+        <tr>
+            <td>S3 - IA</td>
+            <td>Durable, immediately available, infrequently accessed</td>
+        </tr>
+        <tr>
+            <td>S3 - One Zone IA</td>
+            <td>Same as IA. However, data is stored in a single availability zone only</td>
+        </tr>
+        <tr>
+            <td>Reduced Redundancy Storage</td>
+            <td>Data that is reproducible, such as thumbnails, etc</td>
+        </tr>
+        <tr>
+            <td>Glacier</td>
+            <td>Archived data, where you can wait 3 - 5 hours ebfore accessing</td>
+        </tr>
     </tbody>
 </table>
 
@@ -529,3 +529,35 @@
   * Bucket polices - Applied at a bucket level
   * Access control lists = Applied at an object level
 * S3 buckets can be configured to create access logs, which log all requests made to the S3 bucket. These logs can be written to another bucket
+
+#### S3 Encryption ####
+* If you want to enfore the use of encryption for your files stored in S3, use an S3 Bucket Policy to deny all PUT requests that don't include the x-amz-server-side-encryption.parameter in thr request header
+
+<table>
+    <tbody>
+    <tr>
+        <th>Encryption</th>
+        <th colspan="2">Description</th>
+    </tr>
+    <tr>
+        <td>Encryption In-Transit</td>
+        <td colspan="2">
+            SSl/TLS (HTTPS)
+        </td>
+    </tr>
+    <tr>
+        <td>Encryption At Rest</td>
+        <td>
+            Server Side Encryption
+            <ul>
+                <li>SSE-S3</li>
+                <li>SSE-KMS</li>
+                <li>SSE-C</li>
+            </ul>
+        </td>
+        <td>
+            Client Side Encryption
+        </td>
+    </tr>
+    </tbody>
+</table>
