@@ -142,9 +142,6 @@ Next we will discuss, what are the disadvantages of using MQ?
                 <br />
                 <br />
                 In the end, you may find that the whole system is several times more complicated, so you should make trade-offs based on these considerations when designing the system. Many times you will find that it is still used...
-                <br />
-                <br />
-                How to ensure that MQ messages are not lost? After using MQ, you should also be concerned about the loss of messages. Here we pick RabbitMQ to explain it.
             </td>
         </tr>
     </tbody>
