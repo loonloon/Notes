@@ -561,3 +561,15 @@
     </tr>
     </tbody>
 </table>
+
+* Use S3 to host static website
+  * Need to configure CORS in order to load the page in another bucket
+  
+#### CloudFront (CDN) ####
+* A content devliery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based on the geographic locations of the user, the origin of the webpage, and content delivery server
+* Edge location is the location where content is cached and can also be written. 
+* Origin is the origin of all the files that the CDN will distribute. Origins can be an S3 Bucket, an EC2 Instance, an Elastic Load Balacer, or Route53
+* Distribution 
+* RTMP 
+
+![edge-location](https://user-images.githubusercontent.com/5309726/67011357-ffd6e900-f121-11e9-82a1-36a29ad3b3a7.png)
