@@ -597,3 +597,6 @@
 </table>
 
 ![s3-upload](https://user-images.githubusercontent.com/5309726/67396616-7c623f80-f5da-11e9-8a68-2e417542cec4.png)
+
+* Restrict Viewer Access (Use Signed URLs or Signed Cookies)
+  * E.g. restricting that only to users who have paid for the content
