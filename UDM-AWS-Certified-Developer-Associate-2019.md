@@ -535,41 +535,65 @@
 
 <table>
     <tbody>
-    <tr>
-        <th>Encryption</th>
-        <th colspan="2">Description</th>
-    </tr>
-    <tr>
-        <td>Encryption In-Transit</td>
-        <td colspan="2">
-            SSl/TLS (HTTPS)
-        </td>
-    </tr>
-    <tr>
-        <td>Encryption At Rest</td>
-        <td>
-            Server Side Encryption
-            <ul>
-                <li>SSE-S3</li>
-                <li>SSE-KMS</li>
-                <li>SSE-C</li>
-            </ul>
-        </td>
-        <td>
-            Client Side Encryption
-        </td>
-    </tr>
+        <tr>
+            <th>Encryption</th>
+            <th colspan="2">Description</th>
+        </tr>
+        <tr>
+            <td>Encryption In-Transit</td>
+            <td colspan="2">
+                SSl/TLS (HTTPS)
+            </td>
+        </tr>
+        <tr>
+            <td>Encryption At Rest</td>
+            <td>
+                Server Side Encryption
+                <ul>
+                    <li>SSE-S3</li>
+                    <li>SSE-KMS</li>
+                    <li>SSE-C</li>
+                </ul>
+            </td>
+            <td>
+                Client Side Encryption
+            </td>
+        </tr>
     </tbody>
 </table>
 
 * Use S3 to host static website
   * Need to configure CORS in order to load the page in another bucket
-  
+
 #### CloudFront (CDN) ####
 * A content devliery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based on the geographic locations of the user, the origin of the webpage, and content delivery server
-* Edge location is the location where content is cached and can also be written. 
-* Origin is the origin of all the files that the CDN will distribute. Origins can be an S3 Bucket, an EC2 Instance, an Elastic Load Balacer, or Route53
-* Distribution 
-* RTMP 
+  * Can be used into S3 (S3 transfer acceleration)
 
 ![edge-location](https://user-images.githubusercontent.com/5309726/67011357-ffd6e900-f121-11e9-82a1-36a29ad3b3a7.png)
+
+<table>
+    <tbody>
+        <tr>
+            <th>Key Terminology</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Edge location</td>
+            <td>The location where content is cached and can also be written</td>
+        </tr>
+        <tr>
+            <td>Origin</td>
+            <td>The origin of all the files that the CDN will distribute. Origins can be an S3 Bucket, an EC2 Instance, an Elastic Load Balacer, or Route53</td>
+        </tr>
+        <tr>
+            <td>Distribution</td>
+            <td>The name given the CDN, which consist of a collection of Edge Locations</td>
+        </tr>
+        <tr>
+            <td>Real time messaging protocol (RTMP)</td>
+            <td>Used for media streaming</td>
+        </tr>
+    </tbody>
+</table>
+
+![s3-upload](https://user-images.githubusercontent.com/5309726/67396616-7c623f80-f5da-11e9-8a68-2e417542cec4.png)
