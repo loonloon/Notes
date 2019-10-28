@@ -675,3 +675,18 @@
 </table>
 
 * Use AWS X-ray allows you debug what is happening
+
+#### What is API Gateway? ####
+* Is a fully managed service that makes it easy for developers to publish, maintain, monitor and secrure APIs at any scale.
+* Create an API that acts as a "front door" for applications to access data, business logic or functionality from your back-end services, such as applications running on ES2
+
+* What can API Gateway do?
+  * Expose HTTPS endpoints to define a RESTful API
+  * Serverless-ly connect to services like Lambda & DynamoDB
+  * Send each API endpoint to a different target
+  * Run efficiently with low cost
+  * Scale effortlessly
+  * Track and control usage by API key
+  * Throttle requests to prevent attack
+  * Connect to CloudWatch to log all requests for monitoring
+  * Maintain multiple versions of your API
