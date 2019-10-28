@@ -669,7 +669,7 @@
         </tr>
         <tr>
             <td>Duration</td>
-            <td>Is calculated from the time your code begins executing until it retusn or otherwise terminates, rounded up to the nearest 100ms. The price depends on the amount of memory you allocate to your function. You are charged $0.00001667 for every GB/second used</td>
+            <td>Is calculated from the time your code begins executing until it return or otherwise terminates, rounded up to the nearest 100ms. The price depends on the amount of memory you allocate to your function. You are charged $0.00001667 for every GB/second used</td>
         </tr>
     </tbody>
 </table>
@@ -690,3 +690,12 @@
   * Throttle requests to prevent attack
   * Connect to CloudWatch to log all requests for monitoring
   * Maintain multiple versions of your API
+
+* What is API Caching?
+* Can enable API caching in Amazon API Gateway to cache your endpoint's response. With caching, you can reduce the number of calls made to your endpoint and also improve the latency of the requests to your API.
+* When you enable caching for a stage, API Gateway caches responses from your endpoint for a specified time to live (TTL) period, in seconds
+* API Gateway then responds to the request by looking up the endpoint response from the cache instead of making request to you endpoint
+
+* Cross origin resource sharing (CORS)
+  * If you are using Javascript/AJAX that uses multiple domains with API Gateway, ensure that you have enabled CORS on API Gateway
+  * CORS is enforced by the client
