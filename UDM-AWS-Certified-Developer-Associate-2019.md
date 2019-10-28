@@ -1,5 +1,5 @@
 #### Episode 2 ####
-* Identity Access Management (IAM) 101
+* Identity Access Management (IAM)
   * Allows you to manage users and their level of access to the AWS console.
 * What does IAM give you?
   * Centralized control of your AWS account
@@ -308,7 +308,7 @@
    * S3 Buckets
 * Prefer roles than secret access key id's and secret access keys
 
-#### RDS 101 ####
+#### RDS ####
 * Relational Database Types
   * SQL Server
   * Oracle
