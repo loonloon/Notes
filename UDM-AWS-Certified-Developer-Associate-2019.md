@@ -518,7 +518,7 @@
         </tr>
         <tr>
             <td>Glacier</td>
-            <td>Archived data, where you can wait 3 - 5 hours ebfore accessing</td>
+            <td>Archived data, where you can wait 3 - 5 hours before accessing</td>
         </tr>
     </tbody>
 </table>
@@ -527,7 +527,7 @@
 * By default, all newly created buckets are PRIVATE
 * You can set up access control to your buckets using:
   * Bucket polices - Applied at a bucket level
-  * Access control lists = Applied at an object level
+  * Access control lists - Applied at an object level
 * S3 buckets can be configured to create access logs, which log all requests made to the S3 bucket. These logs can be written to another bucket
 
 #### S3 Encryption ####
@@ -600,3 +600,36 @@
 
 * Restrict Viewer Access (Use Signed URLs or Signed Cookies)
   * E.g. restricting that only to users who have paid for the content
+
+#### S3 Performance Optimization ####
+* Is designed to support very high request rates.
+* However, if your S3 buckets are routinely receiving > 100 PUT/LIST/DELETE or > 300 GET requests per second, then there are some best pratice guidlines that will help optimize S3 performance
+
+<table>
+    <tbody>
+    <tr>
+        <th>Type of Workload</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>GET intensive workloads</td>
+        <td>Use CloudFront CDN to get best performance. CloudFront will cache your most frequently accessed objects and will reduce latency for your GET requests</td>
+    </tr>
+    <tr>
+        <td>Mixed request type workloads</td>
+        <td>
+            <ul>
+                <li>A mix of GET, PUT, DELETE, GET bucket, the key names you use for your objects can impact performance for intensive workloads</li>
+                <li>S3 uses the key name to determine which partition an object will be stored in</li>
+                <li>The use of sequential key names, E.g. names prefixed with a time stamp / alphabetical sequence increase the likelihood of having multiple objects stored on the same partition. For heavy workloads this can cause I/O issues and contention</li>
+                <li>By using a random prefix to key names, can force S3 to distribute your keys across multiple partitions, distributing the I/O workload</li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+* In July 2018, Amazon announced a massive increase in S3 performance,
+  * 3500 put requests per second
+  * 5500 get requests
+* This means logical and sequential naming patterns can now be used without any performance implication
