@@ -607,25 +607,25 @@
 
 <table>
     <tbody>
-    <tr>
-        <th>Type of Workload</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>GET intensive workloads</td>
-        <td>Use CloudFront CDN to get best performance. CloudFront will cache your most frequently accessed objects and will reduce latency for your GET requests</td>
-    </tr>
-    <tr>
-        <td>Mixed request type workloads</td>
-        <td>
-            <ul>
-                <li>A mix of GET, PUT, DELETE, GET bucket, the key names you use for your objects can impact performance for intensive workloads</li>
-                <li>S3 uses the key name to determine which partition an object will be stored in</li>
-                <li>The use of sequential key names, E.g. names prefixed with a time stamp / alphabetical sequence increase the likelihood of having multiple objects stored on the same partition. For heavy workloads this can cause I/O issues and contention</li>
-                <li>By using a random prefix to key names, can force S3 to distribute your keys across multiple partitions, distributing the I/O workload</li>
-            </ul>
-        </td>
-    </tr>
+        <tr>
+            <th>Type of Workload</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>GET intensive workloads</td>
+            <td>Use CloudFront CDN to get best performance. CloudFront will cache your most frequently accessed objects and will reduce latency for your GET requests</td>
+        </tr>
+        <tr>
+            <td>Mixed request type workloads</td>
+            <td>
+                <ul>
+                    <li>A mix of GET, PUT, DELETE, GET bucket, the key names you use for your objects can impact performance for intensive workloads</li>
+                    <li>S3 uses the key name to determine which partition an object will be stored in</li>
+                    <li>The use of sequential key names, E.g. names prefixed with a time stamp / alphabetical sequence increase the likelihood of having multiple objects stored on the same partition. For heavy workloads this can cause I/O issues and contention</li>
+                    <li>By using a random prefix to key names, can force S3 to distribute your keys across multiple partitions, distributing the I/O workload</li>
+                </ul>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -633,3 +633,45 @@
   * 3500 put requests per second
   * 5500 get requests
 * This means logical and sequential naming patterns can now be used without any performance implication
+
+#### What is Lambda? ####
+* Is a compute service where you can upload your code and create a Lambda function.
+* AWS Lambda takes care of provisioning and managing the servers that you use to run the code. You don't have to worry about operating system, patching, scaling, etc.
+* You can use Lambda in the following ways,
+
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Event driven compute service</td>
+            <td>AWS Lambda runs your code in response to events. These events could be changes to data in an Amazon S3 bucket or an Amazon DynamoDB table</td>
+        </tr>
+        <tr>
+            <td>Compute service</td>
+            <td>Run your code in response to HTTP requests using AmazonAPI Gateway or API calls made using AWS SDKs</td>
+        </tr>
+    </tbody>
+</table>
+
+* How is Lambda priced?
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Number of requests</td>
+            <td>First 1 million requests are free. $0.2 per 1 million requests thereafter</td>
+        </tr>
+        <tr>
+            <td>Duration</td>
+            <td>Is calculated from the time your code begins executing until it retusn or otherwise terminates, rounded up to the nearest 100ms. The price depends on the amount of memory you allocate to your function. You are charged $0.00001667 for every GB/second used</td>
+        </tr>
+    </tbody>
+</table>
+
+* Use AWS X-ray allows you debug what is happening
