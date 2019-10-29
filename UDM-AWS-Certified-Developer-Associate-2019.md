@@ -692,10 +692,18 @@
   * Maintain multiple versions of your API
 
 * What is API Caching?
-* Can enable API caching in Amazon API Gateway to cache your endpoint's response. With caching, you can reduce the number of calls made to your endpoint and also improve the latency of the requests to your API.
-* When you enable caching for a stage, API Gateway caches responses from your endpoint for a specified time to live (TTL) period, in seconds
-* API Gateway then responds to the request by looking up the endpoint response from the cache instead of making request to you endpoint
+  * Can enable API caching in Amazon API Gateway to cache your endpoint's response. With caching, you can reduce the number of calls made to your endpoint and also improve the latency of the requests to your API.
+  * When you enable caching for a stage, API Gateway caches responses from your endpoint for a specified time to live (TTL) period, in seconds
+  * API Gateway then responds to the request by looking up the endpoint response from the cache instead of making request to you endpoint
 
 * Cross origin resource sharing (CORS)
   * If you are using Javascript/AJAX that uses multiple domains with API Gateway, ensure that you have enabled CORS on API Gateway
   * CORS is enforced by the client
+
+* Version control with Lambda
+  * Can have multiple versions of lambda functions
+  * Latest version will use $latest
+  * Qualified version will use $latest, unqualified will not have it
+  * Versions are cannot be changed
+  * Can split traffic using aliases to different versions
+    * Cannot split traffic with $latest, instread create an alias to latest
