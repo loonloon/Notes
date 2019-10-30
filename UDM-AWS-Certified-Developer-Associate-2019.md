@@ -41,11 +41,10 @@
 #### EC2 ####
 * Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud
 * Allowing users to rent virtual computers on which to run their own computer applications in the cloud
-* EC2 Options
 <table>
     <tbody>
         <tr>
-            <th>Option</th>
+            <th>EC2 Option</th>
             <th>Description</th>
         </tr>
         <tr>
@@ -70,7 +69,7 @@
 <table>
     <tbody>
         <tr>
-            <th>Option</th>
+            <th>EC2 Option</th>
             <th>Good for</th>
         </tr>
         <tr>
@@ -259,9 +258,8 @@
   * use puTTY Key Generator generate new .ppk file
   * ec2-user@x.x.x.x as hostname
 
-#### Elastic Load Balancers ####
-* Helps us balance our load across multiple different servers
-* Types Of Load Balancers
+* Elastic Load Balancers
+  * Helps us balance our load across multiple different servers
 <table>
     <tbody>
         <tr>
@@ -308,21 +306,21 @@
    * S3 Buckets
 * Prefer roles than secret access key id's and secret access keys
 
-#### RDS ####
-* Relational Database Types
-  * SQL Server
-  * Oracle
-  * MySQL Server
-  * PostgreSQL
-  * Aurora
-  * MariaDB
-
+* Amazon Relational Database Service (RDS)
+  * Relational Database Types
+    * SQL Server
+    * Oracle
+    * MySQL Server
+    * PostgreSQL
+    * Aurora
+    * MariaDB
+    
 * Non Relational Databases
   * Database
   * Collection = Table
   * Document = Row
   * Key Value Pairs = Fields
-
+  
 * What is Data Warehousing
   * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver
   * Used to pull in very large and complex data sets. Usually used by management to do queries on data
