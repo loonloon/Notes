@@ -1,6 +1,5 @@
-#### Episode 2 ####
-* Identity Access Management (IAM)
-  * Allows you to manage users and their level of access to the AWS console.
+#### Identity Access Management (IAM) ####
+* Allows you to manage users and their level of access to the AWS console.
 * What does IAM give you?
   * Centralized control of your AWS account
   * Shared Access to your AWS account
@@ -37,10 +36,11 @@
     </tbody>
 </table>
 
-#### Episode 3 ####
-* What is EC2?
-  * Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud
-  * Allowing users to rent virtual computers on which to run their own computer applications in the cloud
+---
+
+#### EC2 ####
+* Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud
+* Allowing users to rent virtual computers on which to run their own computer applications in the cloud
 * EC2 Options
 <table>
     <tbody>
@@ -469,9 +469,10 @@
     </tbody>
 </table>
 
-#### Episode 4 ####
-* What is S3?
-  * Provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web
+---
+
+#### S3 ####
+* Provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web
   * Is a safe place to store your files (Can be from 0 bytes to 5TB)
   * It is object-based storage (E.g. allows you to upload files)
   * The data is spread across multiple devices and facilities
