@@ -707,3 +707,8 @@
   * Versions are cannot be changed
   * Can split traffic using aliases to different versions
     * Cannot split traffic with $latest, instread create an alias to latest
+
+* Step Functions
+  * Great way to visualize your serverless application
+  * Automatically triggers and tracks each step
+  * Logs the state of each step so if something goes wrong you can track what went wrong and where
