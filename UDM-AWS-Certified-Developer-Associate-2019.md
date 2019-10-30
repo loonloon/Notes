@@ -708,7 +708,23 @@
   * Can split traffic using aliases to different versions
     * Cannot split traffic with $latest, instread create an alias to latest
 
-* Step Functions
+* Step Functions (Workflows)
   * Great way to visualize your serverless application
   * Automatically triggers and tracks each step
   * Logs the state of each step so if something goes wrong you can track what went wrong and where
+
+* What is X-Ray?
+  * Is a service that collects data about requests that your application serves, and provides tools you can use to view, filter, and gain insights into that data to identify issues and opportunities for optimization
+  * Integrates with the following AWS services:
+    * Elastic Load Balancing
+    * AWS Lambda
+    * Amazon API Gateway
+    * Amazon Elastic Compute Cloud
+    * AWS Elastic Beanstalk
+  * Integrates with the following languages:
+    * Java
+    * Go
+    * Node.js
+    * Python
+    * Ruby
+    * .Net
