@@ -315,18 +315,18 @@
     * Aurora
     * MariaDB
     
-* Non Relational Databases
-  * Database
-  * Collection = Table
-  * Document = Row
-  * Key Value Pairs = Fields
+  * Non Relational Databases
+    * Database
+    * Collection = Table
+    * Document = Row
+    * Key Value Pairs = Fields
   
-* What is Data Warehousing
-  * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver
-  * Used to pull in very large and complex data sets. Usually used by management to do queries on data
+  * What is Data Warehousing
+    * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver
+    * Used to pull in very large and complex data sets. Usually used by management to do queries on data
 
-* OLTP VS OLAP
-  * https://techdifferences.com/difference-between-oltp-and-olap.html
+  * OLTP VS OLAP
+    * https://techdifferences.com/difference-between-oltp-and-olap.html
 
 * What is Elasticache
   * The service improves the performance of web applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slower disk-based databases.
@@ -334,9 +334,7 @@
     * Memcached
     * Redis
 
-#### RDS - Back Ups, Multi-AZ & Read Replicas ####
-* Two different types of Backups for AWS
-  * Automated Backups and Database Snapshots
+* RDS - Back Ups, Multi-AZ & Read Replicas
 <table>
     <tbody>
         <tr>
@@ -410,16 +408,16 @@
     </tbody>
 </table>
 
-#### What is Elasticache? ####
-* Is a web service that makes it easy to deploy, operate, and scale an in-memory cache in the cloud. The service improves the performance of web applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slower disk-based databases
-  * E.g. Always querying the top 10 for sale items
-* Can be used to significantly improve latency and throughput for many read-heavy application workloads
-  * social networking
-  * gaming
-  * media sharing
-  * Q & A portals
-  * compute intensive workloads (recommendation engine)
-* Caching improves application performance by storing critical pieces of data in memory for low-latency access. Cached information may include the results of I/O-intensive database quries or theresults of computationally intensive calculations
+* What is Elasticache?
+  * Is a web service that makes it easy to deploy, operate, and scale an in-memory cache in the cloud. The service improves the performance of web applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slower disk-based databases
+    * E.g. Always querying the top 10 for sale items
+  * Can be used to significantly improve latency and throughput for many read-heavy application workloads
+    * social networking
+    * gaming
+    * media sharing
+    * Q & A portals
+    * compute intensive workloads (recommendation engine)
+  * Caching improves application performance by storing critical pieces of data in memory for low-latency access. Cached information may include the results of I/O-intensive database quries or theresults of computationally intensive calculations
 
 <table>
     <tbody>
@@ -522,15 +520,15 @@
     </tbody>
 </table>
 
-#### S3 Security ####
-* By default, all newly created buckets are PRIVATE
-* You can set up access control to your buckets using:
-  * Bucket polices - Applied at a bucket level
-  * Access control lists - Applied at an object level
-* S3 buckets can be configured to create access logs, which log all requests made to the S3 bucket. These logs can be written to another bucket
+* S3 Security
+  * By default, all newly created buckets are PRIVATE
+  * You can set up access control to your buckets using:
+    * Bucket polices - Applied at a bucket level
+    * Access control lists - Applied at an object level
+  * S3 buckets can be configured to create access logs, which log all requests made to the S3 bucket. These logs can be written to another bucket
 
-#### S3 Encryption ####
-* If you want to enfore the use of encryption for your files stored in S3, use an S3 Bucket Policy to deny all PUT requests that don't include the x-amz-server-side-encryption.parameter in thr request header
+* S3 Encryption
+  * If you want to enfore the use of encryption for your files stored in S3, use an S3 Bucket Policy to deny all PUT requests that don't include the x-amz-server-side-encryption.parameter in thr request header
 
 <table>
     <tbody>
@@ -564,9 +562,9 @@
 * Use S3 to host static website
   * Need to configure CORS in order to load the page in another bucket
 
-#### CloudFront (CDN) ####
-* A content devliery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based on the geographic locations of the user, the origin of the webpage, and content delivery server
-  * Can be used into S3 (S3 transfer acceleration)
+* CloudFront (CDN)
+  * A content devliery network (CDN) is a system of distributed servers (network) that deliver webpages and other web content to a user based on the geographic locations of the user, the origin of the webpage, and content delivery server
+    * Can be used into S3 (S3 transfer acceleration)
 
 ![edge-location](https://user-images.githubusercontent.com/5309726/67011357-ffd6e900-f121-11e9-82a1-36a29ad3b3a7.png)
 
@@ -600,9 +598,9 @@
 * Restrict Viewer Access (Use Signed URLs or Signed Cookies)
   * E.g. restricting that only to users who have paid for the content
 
-#### S3 Performance Optimization ####
-* Is designed to support very high request rates.
-* However, if your S3 buckets are routinely receiving > 100 PUT/LIST/DELETE or > 300 GET requests per second, then there are some best pratice guidlines that will help optimize S3 performance
+* S3 Performance Optimization
+  * Is designed to support very high request rates.
+  * However, if your S3 buckets are routinely receiving > 100 PUT/LIST/DELETE or > 300 GET requests per second, then there are some best pratice guidlines that will help optimize S3 performance
 
 <table>
     <tbody>
@@ -632,6 +630,8 @@
   * 3500 put requests per second
   * 5500 get requests
 * This means logical and sequential naming patterns can now be used without any performance implication
+
+---
 
 #### What is Lambda? ####
 * Is a compute service where you can upload your code and create a Lambda function.
