@@ -314,13 +314,13 @@
     * PostgreSQL
     * Aurora
     * MariaDB
-    
+
   * Non Relational Databases
     * Database
     * Collection = Table
     * Document = Row
     * Key Value Pairs = Fields
-  
+
   * What is Data Warehousing
     * Used for business intelligence. Tools like Cognos, Jaspersoft, SQL Server Reporting Services, Oracle Hyperion and SAP NetWeaver
     * Used to pull in very large and complex data sets. Usually used by management to do queries on data
@@ -727,3 +727,34 @@
     * Python
     * Ruby
     * .Net
+
+* Advanced API Gateway
+  * Can import Swagger v2.0 definition files
+
+* API Throttling
+  * By default, API Gateway limites the steady state request rate to 10,000 requests per second (rps)
+  * The maximum concurrent requests is 5000 requests across all APIs within an AWS account
+  * If you go over 10,000 reuqests per second or 5000 concurrent requests you will receive a 429 Too Many Request error response
+
+<table>
+    <tbody>
+        <tr>
+            <th>No</th>
+            <th>Scenario</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>If a caller submits 10,000 requests in a one second period evenly (for example 10 requests every millisecond), API Gateway processes all requests without dropping any</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>If the caller sends 10,000 requests in the first millisecond, API Gateway serves 5,000 of those requests and throttles the rest in the one-second period</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>if the caller submits 5,000 requests in the first millisecond and then evenly spreads another 5,000 requests through the remaining 999 milliseconds (for example, about 5 requests in the one-second period without returning 429 Too Many Requests error responses)</td>
+        </tr>
+    </tbody>
+</table>
+
+  * Can confiture API Gateway as a SOAP web service passthrough
