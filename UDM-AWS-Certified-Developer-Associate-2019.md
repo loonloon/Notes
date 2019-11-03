@@ -757,4 +757,58 @@
     </tbody>
 </table>
 
-  * Can confiture API Gateway as a SOAP web service passthrough
+  * Can configure API Gateway as a SOAP web service passthrough
+
+---
+
+#### Dynamo DB ####
+* Is a low latency NoSQL database
+  * Consists of tables items and attributes
+  * Supports both document and key value data models
+  * Supported document formats are JSON, HTML, XML
+  * Stored on SSD storage
+  * Spread across 3 geographically distinct data centers
+
+<table>
+    <tbody>
+        <tr>
+            <th>Consistency Model</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Eventually (Best Read Performance)</td>
+            <td>Consistency across all copies of data is usually reached within a second. Repeating a read after a short time should return the updated data</td>
+        </tr>
+        <tr>
+            <td>Strongly</td>
+            <td>Read returns a result that reflects all writes that received a successful response prior to the read</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Types of primary key</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Partition</td>
+            <td>Value of the partition key ins input to an internal hash function which determines the partition or physical location on which the data is stored</td>
+        </tr>
+        <tr>
+            <td>Composite</td>
+            <td>Partition key + Sort Key in combination. Allows you to store multiple items with the same Partition Key. E.g. Same user (Partition Key) posting multiple items to a forum (Sort Key will be timestamp of the post)</td>
+        </tr>
+    </tbody>
+</table>
+
+![dynamo-table](https://user-images.githubusercontent.com/5309726/68082308-e9d16400-fe55-11e9-97bb-0417b6835cfd.png)
+
+* DynamoDB access control
+  * Is managed using AWS IAM
+  * Can create an IAM user within your AWS account which has specific permissions to access and create DynomoDB tables
+  * Can create an IAM role which enables you to obtain temporary access keys which can be used to access DynomoDB
+  * Can also use a special <strong>IAM Condition</strong> to restrict user access to only their own records
+  
+![iam-condition](https://user-images.githubusercontent.com/5309726/68082283-bc84b600-fe55-11e9-82d1-77492900ea09.png)
