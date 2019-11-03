@@ -810,5 +810,139 @@
   * Can create an IAM user within your AWS account which has specific permissions to access and create DynomoDB tables
   * Can create an IAM role which enables you to obtain temporary access keys which can be used to access DynomoDB
   * Can also use a special <strong>IAM Condition</strong> to restrict user access to only their own records
-  
+
 ![iam-condition](https://user-images.githubusercontent.com/5309726/68082283-bc84b600-fe55-11e9-82d1-77492900ea09.png)
+
+* Indexes Deepdive
+  * Enable fast queries on specific data columns
+  * Give you a different view of your data, based on alternative Partition / Sort Keys
+
+<table>
+    <tbody>
+        <tr>
+            <th>Types of index</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Local Secondary</td>
+            <td>
+                <ul>
+                    <li>Must be created at when you create your table</li>
+                    <li>Same Partition Key as your table but different Sort Key</li>
+                    <li>Gives you a different view of your data, organized according to an alternative Sort Key</li>
+                    <li>E.g. Partition Key: User ID, Sort Key: Account Creation Date</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Global Secondary</td>
+            <td>
+                <ul>
+                    <li>Can create any time at, at table creation or after</li>
+                    <li>Different Partition Key and Sort Key</li>
+                    <li>E.g. Partition Key: Email Address, Sort Key: Last Log-In Date</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* Scan vs Query API Call
+  * Reduce the impact of a query or scan by setting a smaller page size which uses fewer read operations
+  * Avoid using scan operations if you can, design tables in a way that you can use the Query, Get, or BatchGetItem APIs
+
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Query</td>
+            <td>
+                <ul>
+                    <li>Find items in a table using only the Primary Key attribute</li>
+                    <li>Same Partition Key as your table but different Sort Key</li>
+                    <li>Gives you a different view of your data, organized according to an alternative Sort Key</li>
+                    <li>E.g. Partition Key: User ID, Sort Key: Account Creation Date</li>
+                    <li>Set ScanIndexForward parameter to false to reverse the order queries only</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Scan</td>
+            <td>
+                <ul>
+                    <li>Examines every item in the table</li>
+                    <li>By default returns all data attributes</li>
+                    <li>Use the ProjectionExpression parameter to refine the results</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* DynamoDB Provisioned Throughput
+  * DynamoDB Provisioned Throughput is measured in Capacity Units
+  * When you create your table, you specify your requirements in terms of Read and Write Capacity Units
+    * 1 x Write Capacity Unit = 1 x 1KB Write per second
+    * 1 x Read Capacity Unit = 1 x Strongly Consistent Read of 4KB per second / 2 x Eventually Consistent Reads of 4KB per second (Default)
+
+* Example Configuration
+  * Table with 5 x Read and Write Capacity Units
+  * This configuration will be able to perform
+    * 5 x 4KB Strongly Consistent reads = 20KB per second
+    * Twice as many Eventually Consistent = 40KB
+    * 5 x 1KB Writes = 5KB per second
+  * If your application reads / writes larger items it will consume more Capacity Units and will cost you more as well
+
+<table>
+    <tbody>
+        <tr>
+            <th>Calculation</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Strongly Consistent Reads Calculation</td>
+            <td>
+                <ul>
+                    <li>Your application needs to read 80 items (table rows) per second</li>
+                    <li>Each item 3KB in size</li>
+                </ul>
+                <ul>
+                    <li>You need Strongly Consistent Reads</li>
+                    <li>First, calculate how many Read Capacity Units needed for each read:</li>
+                    <li>Size of reach item / 4KB</li>
+                    <li>3KB / 4KB = 0.75</li>
+                    <li>Rounded-up to the nearest whole number, reach read will need 1 x Read Capacity Unit per read operation</li>
+                    <li>Multiplied by the number of reads per second = 80 Read Capacity</li>
+                </ul>
+                <ul>
+                    <li>You need Eventually Consistent Reads</li>
+                    <li>First, calculate how many Read Capacity Units needed for each read:</li>
+                    <li>Size of reach item / 4KB</li>
+                    <li>3KB / 4KB = 0.75</li>
+                    <li>Rounded-up to the nearest whole number, reach read will need 1 x Read Capacity Unit per read operation</li>
+                    <li>Multiplied by the number of reads per second = 80 Read Capacity</li>
+                    <li>Divide 80 by 2 = 40 Read Capacity Units</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Write Capacity Units Calculation</td>
+            <td>
+                <ul>
+                    <li>You want to write 100 items per second</li>
+                    <li>Each item 512 bytes in size</li>
+                </ul>
+                <ul>
+                    <li>First, calculate how many Capacity Units needed for each write:</li>
+                    <li>Size of reach item / 1KB (for Write Capacity Units)</li>
+                    <li>512 bytes / 1KB = 0.5</li>
+                    <li>Rounded-up to the nearest whole number, reach read will need 1 x Write Capacity Unit per write operation</li>
+                    <li>Multiplied by the number of writes per second = 100 Write Capacity Units required</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
