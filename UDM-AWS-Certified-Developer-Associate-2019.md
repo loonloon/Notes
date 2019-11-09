@@ -1018,6 +1018,9 @@
   * Avoid stale data by implementing TTL
   * Lazy Loading treats an expired key as a cache miss and causes the application to retrieve the data from the database and subsequently write the data into the cache with a new TTL
   * Does not eliminate stale data, but helps to avoid it
+  * Stale state is information in an object that does not reflect reality.
+
+* Stale state, E.g. an object's members are filled with information from a database, but the underlying data in the database has changed since the object was filled
 
 <table>
     <tbody>
