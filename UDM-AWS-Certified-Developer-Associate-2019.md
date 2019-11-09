@@ -774,14 +774,17 @@
         <tr>
             <th>Consistency Model</th>
             <th>Description</th>
+            <th>Example</th>
         </tr>
         <tr>
             <td>Eventually (Best Read Performance)</td>
-            <td>Consistency across all copies of data is usually reached within a second. Repeating a read after a short time should return the updated data</td>
+            <td>When you read data from a DynamoDB table, the response might not reflect the results of a recently completed write operation. The response might include some stale data. If you repeat your read request after a short time, the response should return the latest data</td>
+            <td>If you are saving high score, if you use it fetch picture for caching website or if you are running any scenario where getting the former record value instead of the latest (remember we are speaking about 1 second delay) then eventual consistency will grant you scalability and better performance</td>
         </tr>
         <tr>
             <td>Strongly</td>
-            <td>Read returns a result that reflects all writes that received a successful response prior to the read</td>
+            <td>When you request a strongly consistent read, DynamoDB returns a response with the most up-to-date data, reflecting the updates from all prior write operations that were successful. A strongly consistent read might not be available if there is a network delay or outage</td>
+            <td>If you run financial algorithm of life critical systems or booking system you should favor string consistency. </td>
         </tr>
     </tbody>
 </table>
@@ -946,3 +949,53 @@
         </tr>
     </tbody>
 </table>
+
+* DynamoDB on-demand capacity option
+  * Charges apply for: reading, writing and storing data
+  * With On-Demand, you don't need to specify your requirements
+  * DynamoDB instantly scales up and down based on the activity of your application
+
+<table>
+    <tbody>
+        <tr>
+            <th>On-Demand Capacity</th>
+            <th>Provisioned Capacity</th>
+        </tr>
+        <tr>
+            <td>Unknown workloads</td>
+            <td>You can forecast read and write capacity requirements</td>
+        </tr>
+        <tr>
+            <td>Unpredictable application traffic</td>
+            <td>Predictable application traffic</td>
+        </tr>
+        <tr>
+            <td>You want a Pay-per-use model</td>
+            <td>Application traffic is consistent or increases gradually</td>
+        </tr>
+        <tr>
+            <td>Spiky, short lived peaks</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+* DynamoDB Accellorator - DAX
+  * Is a fully managed, clustered in-memory cache for DynamoDB
+  * Delivers up to a 10x read performance improvement
+  * Microsecond performance for millions of requests per second
+  * Ideal for Read-Heavy and bursty workloads
+  * E.g. Auction applications, gaming and retail sites during block Friday promotions
+
+* How does it works?
+  * DAX is a write-through caching service - this means data is written to the cache as well as the back end store at the same time
+  * Allows you point your DynamoDB API calls at the DAX cluster
+  * If the item you are querying is in the cache (cache hit), DAX returns the result to the application
+  * If the item is not available (cache miss), then DAX performans an Eventually Consistent GetItem operation against DynamoDB
+  * Retrieval of data from DAX reduces the read load on DynamoDB tables
+
+* NOT suitable for?
+  * Caters for Eventually Consistent reads only,so not suitable for applications that require Strongly Consistent reads
+  * Write intensive applications
+  * Applications that do not perform many read operations
+  * Application sthat do not required microsecond response times
