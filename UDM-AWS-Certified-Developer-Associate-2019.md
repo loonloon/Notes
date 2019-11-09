@@ -999,3 +999,75 @@
   * Write intensive applications
   * Applications that do not perform many read operations
   * Application sthat do not required microsecond response times
+
+* Elasticache
+  * Sits between your application and the database
+  * E.g. an application frequently requesting specific product information for your best selling products
+  * Takes the load off your database
+  * Good if your database is particularly <strong>read-heavy</strong> and the data is not changing frequently
+
+* Benefits and use cases
+  * Improves performance for read-heavy workloads
+    * E.g. Social networking, gaming media sharing, Q&A portals
+  * Frequently accessed data is stored in memory for low latency access, improving the overall performance of your application
+  * Also good for compute heavy worklaods
+  * E.g. Recommendation engines
+  * Can be used to store results of I/O intensive database quries or output of compute-ivensive calculations
+
+* Caching strategies
+  * Avoid stale data by implementing TTL
+  * Lazy Loading treats an expired key as a cache miss and causes the application to retrieve the data from the database and subsequently write the data into the cache with a new TTL
+  * Does not eliminate stale data, but helps to avoid it
+
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Lazy Loading</th>
+            <th>Write Through</th>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>
+                <ul>
+                    <li>Loads the data into the cache only when necessary</li>
+                    <li>If requested data is in the cache, Elasticache returns the data to the application</li>
+                    <li>If the data is not in the cache or has expired, Elasticache returns a null</li>
+                    <li>Your application then fetches the data from the database and writes the data received into the cache so that it is available next time</li>
+                </ul>
+            </td>
+            <td>Adds or updates data to the cache whenever data is written to the database</td>
+        </tr>
+        <tr>
+            <td>Advantages</td>
+            <td>
+                <ul>
+                    <li>Only requested data cache, avoids filling up cache with useless data</li>
+                    <li>Node failures are not fatal, a new empty node will just have</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Data in the cache never stale</li>
+                    <li>Users are generally more tolerant of additional latency when updating data than when retrieving it</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Disadvantages</td>
+            <td>
+                <ul>
+                    <li>Cache miss penalty, initial request-> query to DB -> writing of data to the cache</li>
+                    <li>Stale data, if data is only updated when there is a cache miss, it can become stale. Doesn't automatically update if the data in the database changes</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Write penalty, every write involves a write to the cache as well as a write to the database</li>
+                    <li>If a node fails and a new one is spun up, data is missing until added or updated in the database. (Mitigate by implementing Lazy Loading in conjunction with write-through)</li>
+                    <li>Wasted resources if most of the data is never read</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
