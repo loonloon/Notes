@@ -67,3 +67,14 @@ https://www.myintervals.com/emogrifier.php
 * https://blogs.msdn.microsoft.com/benjaminperkins/2017/12/21/must-use-must-know-windbg-commands-my-most-used/
 * https://blogs.msdn.microsoft.com/luisdem/2016/07/19/mex-debugging-extension-for-windbg-2/
 * http://windbg.info/doc/1-common-cmds.html
+
+#### Garbage Collector ####
+* https://adamsitnik.com/Array-Pool/
+* https://www.codingame.com/playgrounds/6179/garbage-collection-and-c
+* https://docs.microsoft.com/en-us/dotnet/api/system.object.finalize?view=netframework-4.8
+* https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms973837(v=msdn.10)?redirectedfrom=MSDN
+
+#### XML ####
+* https://blogs.msdn.microsoft.com/xmlteam/2011/09/14/effective-xml-part-1-choose-the-right-api/
+* https://blogs.msdn.microsoft.com/xmlteam/2011/09/26/effective-xml-part-2-how-to-kill-the-performance-of-an-app-with-xpath/
+* https://blogs.msdn.microsoft.com/xmlteam/2011/09/26/effective-xml-part-3-didnt-you-say-xslcompiledtransform-was-fast/
