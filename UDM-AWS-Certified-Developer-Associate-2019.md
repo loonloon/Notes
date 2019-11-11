@@ -1074,3 +1074,7 @@
         </tr>
     </tbody>
 </table>
+
+* DynamoDB Transactions
+  * Provide developers atomicity, consistency, isolation, and durability (ACID) across one or more tables within a single AWS account and region
+  * Check for a pre-requisite condition before writing to a table
