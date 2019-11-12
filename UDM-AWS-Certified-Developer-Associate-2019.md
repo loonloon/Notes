@@ -1078,3 +1078,14 @@
 * DynamoDB Transactions
   * Provide developers atomicity, consistency, isolation, and durability (ACID) across one or more tables within a single AWS account and region
   * Check for a pre-requisite condition before writing to a table
+
+* DynamoDB TTL
+ * Time To Live attribute defines an expiry time for your data
+ * Expired items marked for deletion
+ * Great for removing irrelevant or old data:
+   * Session data
+   * Event logs
+   * Temporary data
+* Reduces cost by automatically removing data which is no longer relevant
+
+![ttl-table](https://user-images.githubusercontent.com/5309726/68684170-ffa3ff00-05a2-11ea-82b8-1d7785ce2508.png)
