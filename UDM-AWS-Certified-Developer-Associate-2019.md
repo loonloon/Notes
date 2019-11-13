@@ -1119,7 +1119,22 @@
   * In addition to simple retries <strong>all AWS SDKs</strong> use Exponential Backoff
   * Progressively longer waits bettwen consecutive retries e.g. 50ms, 100ms, 200ms... for improved flow control
   * If after 1 minute this doesn't work, your request size may be exceeding the throughput for your read/write capacity
-  
+
   ---
-  
-  
+
+* Aws Key Management Service (KMS)
+  * Is a managed service that makes it easy for you to create and control the encryption keys used to encryp your data.
+
+* KMS API Calls
+  * aws kms encrypt
+  * aws kms decrypt
+  * aws kms re-encrypt
+  * aws kms enable-key-rotation
+
+* Envelope Encryption
+![kms-encrypt](https://user-images.githubusercontent.com/5309726/68776622-5ecd4680-066b-11ea-8674-3ba5445b8136.png)
+
+![kms-decrypt](https://user-images.githubusercontent.com/5309726/68776644-67be1800-066b-11ea-88cc-55b8ed3e7d1c.png)
+
+  ---
+
