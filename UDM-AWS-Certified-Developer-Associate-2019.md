@@ -1105,3 +1105,21 @@
   * Event source for Lambda
   * Lambda pools the DynamoDB stream
   * Executes Lambda code based on a DynamoDB Streams event
+
+* Provisioned Throughput Exceeded Exception
+  * `ProvisionedThroughputExceededException`
+  * Your request rate is too high for thr read / write capacity provisioned on your DynamoDB table
+  * SDK will automatically retries the requests until successful
+  * If you are not using the SDK you can,
+    * Reduce request frequency
+    * Use Exponential Backoff
+
+* What is Exponential Backoff
+  * Many components in a network can generate errors due to being overloaded
+  * In addition to simple retries <strong>all AWS SDKs</strong> use Exponential Backoff
+  * Progressively longer waits bettwen consecutive retries e.g. 50ms, 100ms, 200ms... for improved flow control
+  * If after 1 minute this doesn't work, your request size may be exceeding the throughput for your read/write capacity
+  
+  ---
+  
+  
