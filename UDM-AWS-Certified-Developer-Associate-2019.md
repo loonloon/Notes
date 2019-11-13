@@ -1089,3 +1089,19 @@
 * Reduces cost by automatically removing data which is no longer relevant
 
 ![ttl-table](https://user-images.githubusercontent.com/5309726/68684170-ffa3ff00-05a2-11ea-82b8-1d7785ce2508.png)
+
+* DynamoDB Streams
+  * Capture time ordered sequence of item level modifications (insert, update, delete)
+  * Logs are encrypted at rest and stored for 24 hours
+  * Accessed using a dedicated endpoint (Endpoints for DynamoDB Streams AWS maintains separate endpoints for DynamoDB and DynamoDB Streams)
+  * By default the Primary Key is recorded
+  * Before and After images can be captured
+
+![dynamodb-streams](https://user-images.githubusercontent.com/5309726/68770526-435d3e00-0661-11ea-83aa-775b4a9661cd.png)
+
+* Processing DynamoDB Streams
+  * Events are recorded in near real time
+  * Applications can take actions based on contents
+  * Event source for Lambda
+  * Lambda pools the DynamoDB stream
+  * Executes Lambda code based on a DynamoDB Streams event
