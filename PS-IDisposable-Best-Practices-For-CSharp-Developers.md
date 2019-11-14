@@ -110,7 +110,7 @@ protected override void Dispose(bool disposing)
     }
   }
   
-  //managed resources...
+  //unmanaged resources...
   if(_unmanagedPointer != IntPtr.Zero)
   {
     Marshal.FreeHGlobal(_unmanagedPointer);
