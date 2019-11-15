@@ -1213,5 +1213,38 @@ What is SQS?
   * It is a push mecahnism
 
 * SNS Topics
-  * Is a logical access point and communication channel for allowigng receipients to dynamically subscribe for identical copues of the same notification
+  * Is a logical access point and communication channel for allowing receipients to dynamically subscribe for identical copies of the same notification
   * Create a topic and control access to it by defining policies that determine which publishers and subscribers can communicate with the topic
+
+* Simple Email Service (SES) vs SNS
+<table>
+    <tbody>
+        <tr>
+            <th>SES</th>
+            <th>SNS</th>
+        </tr>
+        <tr>
+            <td>Email messaging service</td>
+            <td>Pub/sub messaging service, formats include SMS, HTTP, SQS, email</td>
+        </tr>
+        <tr>
+            <td>Can trigger Lambda function or SNS notification</td>
+            <td>Can be used to trigger Lambda function</td>
+        </tr>
+        <tr>
+            <td>Can be used for both incoming and outgoing email</td>
+            <td>Can fan out messages to large number of recipients (replicate and push messages to multiple endpoints and formats)</td>
+        </tr>
+        <tr>
+            <td>An email address is all that is required to start sending messages to a user</td>
+            <td>Comsumers must subscribe to a topic to receive the notifications</td>
+        </tr>
+    </tbody>
+</table>
+
+* SES use cases
+  * Automated emails
+  * Purchase confirmations, shipping notifcations, order status updates
+    * E.g. a mobile phone company that needs to send automated confirmation email every time a customer purchases pre-paid mobile phone minutes
+  * Marketing communications, advertisements, newsletters, special offers
+    * E.g. an online retail business that needs to let customers know about sales promotions and discounts
