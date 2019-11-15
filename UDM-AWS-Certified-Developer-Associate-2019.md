@@ -1205,3 +1205,13 @@ What is SQS?
         </tr>
     </tbody>
 </table>
+
+* Simple Notification Service (SNS)
+  * Is a scalable and highly available notification service which allows you to send push notifications (to Apple, Google, as well as Android devices) from the cloud
+  * Variety of message formats supported, SMS text message, email Amazon Simple Queue Service (SQS) queues, any HTTP endpoint
+  * Pub-sub model whereby users subscribe to topics
+  * It is a push mecahnism
+
+* SNS Topics
+  * Is a logical access point and communication channel for allowigng receipients to dynamically subscribe for identical copues of the same notification
+  * Create a topic and control access to it by defining policies that determine which publishers and subscribers can communicate with the topic
