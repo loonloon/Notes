@@ -1237,7 +1237,7 @@ What is SQS?
         </tr>
         <tr>
             <td>An email address is all that is required to start sending messages to a user</td>
-            <td>Comsumers must subscribe to a topic to receive the notifications</td>
+            <td>Consumers must subscribe to a topic to receive the notifications</td>
         </tr>
     </tbody>
 </table>
