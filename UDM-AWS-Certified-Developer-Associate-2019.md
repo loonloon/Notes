@@ -1138,3 +1138,70 @@
 
   ---
 
+What is SQS?
+  * Is a distributed message queueing system
+  * Allows you to decouple the components of an application so that they are independent
+  * Pull-based, not pushed-based
+  * Messages are 256KB in size
+  * Messages can be kept in the queue from 1 minute to 14 days
+  * Default retention period is 4 days
+  * Guarantees that your messages will be processed at least once
+
+<table>
+    <tbody>
+        <tr>
+            <th>Queue types</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Standard</td>
+            <td>
+                <ul>
+                    <li>As the default queue type</li>
+                    <li>Nearly unlimited number of transactions per second</li>
+                    <li>Guarantee that a message is delivered at least once</li>
+                    <li>Occasionally (because of the highly distributed architecture that allows high throughput), more that 1 copy of a message might be delivered out of order</li>
+                    <li>Provide <strong>best-effort (not guarantee)</strong> ordering which ensures that messages are generally delivered in the same order as they are sent</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>FIFO</td>
+            <td>
+                <ul>
+                    <li>FIFO delivery and exactly once processing</li>
+                    <li>The order in which messages are sent and received is strictly preserved and a message is delivered once and remains available until a consumer processes and deletes it</li>
+                    <li>Duplicates are not introduced into the queue</li>
+                    <li>Support message groups that allow multiple ordered message groups within a single queue</li>
+                    <li>Limited to 300 transactions per second (TPS), but have all the capabilities of standard queues</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* Visibility timeout
+  * Is the amount of time that the message is invisible in the SQS queue after a reader picks up that message
+  * default is 30 seconds, increase if your task tasks > 30 seconds to complete
+  * Max 12 hours
+
+<table>
+    <tbody>
+        <tr>
+            <th>Polling</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Short</td>
+            <td>
+                Returned immediately even if not messages are in the queue
+            </td>
+        </tr>
+        <tr>
+            <td>Long</td>
+            <td>
+                Polls the queue periodically and only returns a response when a message is in the queue or the timeout is reached (can save your money)
+            </td>
+        </tr>
+    </tbody>
+</table>
