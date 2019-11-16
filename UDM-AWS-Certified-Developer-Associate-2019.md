@@ -1132,6 +1132,7 @@
   * aws kms enable-key-rotation
 
 * Envelope Encryption
+
 ![kms-encrypt](https://user-images.githubusercontent.com/5309726/68776622-5ecd4680-066b-11ea-8674-3ba5445b8136.png)
 
 ![kms-decrypt](https://user-images.githubusercontent.com/5309726/68776644-67be1800-066b-11ea-88cc-55b8ed3e7d1c.png)
@@ -1306,3 +1307,33 @@ What is SQS?
   * Files have a .config extension
   * The .config files are saved to the .ebextensions folder
   * You .ebextensions folder must be located in the top level directory of your application source code bundle
+
+* RDS & Elastic Beanstalk
+<table>
+    <tbody>
+        <tr>
+            <th>Different options for launching RDS instance</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Launch within Elastic Beanstalk</td>
+            <td>
+                <ul>
+                    <li>When you terminate the Elastic Beanstalk environment, the database will also be terminated</li>
+                    <li>Quick and easy to add your database and get started</li>
+                    <li>Suitable for Dev and Test environments only</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Launch outside of Elastic Beanstalk</td>
+            <td>
+                <ul>
+                    <li>Additional configuration steps required, Security Group and Connection information</li>
+                    <li>Suitable for Production environments, more flexibility</li>
+                    <li>Allows connection from multiple environments, you can tear down the application stack without impacting the database</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
