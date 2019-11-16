@@ -1252,3 +1252,57 @@ What is SQS?
 * Elastic Beanstalk
   * Platform as service
   * Brings together AWS services like EC2, Auto Scaling, and S3 for the purpose of deploying the elastic cloud applications
+
+* Updating Easltic Beanstalk
+<table>
+    <tbody>
+        <tr>
+            <th>Deployment approaches</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>All at Once</td>
+            <td>
+                <ul>
+                    <li>Service interruption while you update the entire environment at once</li>
+                    <li>To roll back, perform a further all at All at Once upgrade</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Rolling</td>
+            <td>
+                <ul>
+                    <li>Reduced capacity during deployment</li>
+                    <li>To roll back, perform a further rolling update</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Rolling with Additional Batch</td>
+            <td>
+                <ul>
+                    <li>Maintains full capacity</li>
+                    <li>To rollback, perform a further rolling update</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Immutable</td>
+            <td>
+                <ul>
+                    <li>Preferred option for mission critical production systems</li>
+                    <li>Maintains full capacity</li>
+                    <li>To roll back, just delete the new instances and autoscaling group</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+* Advanced Elastic Beanstalk
+  * Can customize your Elastic Beanstalk envrionment by adding configuration files
+  * The files are written in YAML or JASON
+  * Files have a .config extension
+  * The .config files are saved to the .ebextensions folder
+  * You .ebextensions folder must be located in the top level directory of your application source code bundle
