@@ -1248,3 +1248,7 @@ What is SQS?
     * E.g. a mobile phone company that needs to send automated confirmation email every time a customer purchases pre-paid mobile phone minutes
   * Marketing communications, advertisements, newsletters, special offers
     * E.g. an online retail business that needs to let customers know about sales promotions and discounts
+
+* Elastic Beanstalk
+  * Platform as service
+  * Brings together AWS services like EC2, Auto Scaling, and S3 for the purpose of deploying the elastic cloud applications
