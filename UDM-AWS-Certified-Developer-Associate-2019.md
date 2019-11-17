@@ -1337,3 +1337,51 @@ What is SQS?
         </tr>
     </tbody>
 </table>
+
+* Kinesis
+  * To collect and process large streams of data records in real time
+
+* What is stream data?
+  * Is data that is generated continuosly by thousdands of data sources, which typically send in the data records simultaneously, and in small sizes (order of Kilobytes)
+
+<table>
+    <tbody>
+        <tr>
+            <th>Kinesis services</th>
+            <th>Description</th>
+            <th>Diagram</th>
+        </tr>
+        <tr>
+            <td>Kinesis Streams</td>
+            <td>
+                <ul>
+                    <li>Scale manually</li>
+                    <li>5 transactions per second for reads, maximum total data read rate of 2 MB per second</li>
+                    <li>1000 records per second for writes, maximum total data write rate of 1 MB per second (including partition keys)</li>
+                </ul>
+            </td>
+            <td><img src="https://user-images.githubusercontent.com/5309726/69002482-35dad900-092b-11ea-9b4e-03a5b957a2fb.png" /></td>
+        </tr>
+        <tr>
+            <td>Kinesis Firehose</td>
+            <td>
+                <ul>
+                    <li>Scale automatically</li>
+                    <li>Only goes to S3 or RedShift</li>
+                </ul>
+            </td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/69002483-3ecbaa80-092b-11ea-9926-9b6df935d737.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>Kinesis Analytics</td>
+            <td>
+                Allow running of standard SQL queries against data streams and send that data to analytics (S3 / Redshift/ Elasticsearch cluster) for monitoring and alerting
+            </td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/69002485-468b4f00-092b-11ea-9451-eda620cce92b.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
