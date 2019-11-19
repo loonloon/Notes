@@ -1385,3 +1385,18 @@ What is SQS?
         </tr>
     </tbody>
 </table>
+
+---
+
+#### CI/CD ####
+* Continuous Delivery is all about automating the build, test, and deployment functions
+* Continuous Deployment fully automates the entire release process, code is deployed into Production as soon as it has successfully passed through the release pipeline
+
+![ci-cd](https://user-images.githubusercontent.com/5309726/69150326-75641980-0b13-11ea-82d5-fcee1b49ebe0.png)
+
+#### AWS CodeCommit ####
+* Based on Git
+* Centralized repository for all your code, binaries, images and libraries
+* Tracks and manages code changes
+* Maintains version history
+* Manages updates from multiple sources and enable collaborations
