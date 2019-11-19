@@ -1400,3 +1400,42 @@ What is SQS?
 * Tracks and manages code changes
 * Maintains version history
 * Manages updates from multiple sources and enable collaborations
+
+#### AWS Deploy #####
+
+<table>
+    <tbody>
+        <tr>
+            <th>Deployment options</th>
+            <th>Description</th>
+            <th>Diagram</th>
+        </tr>
+        <tr>
+            <td>In Place (Rolling Update)</td>
+            <td>
+                <ul>
+                    <li>The application is stopped on each instance and the latest revision installed</li>
+                    <li>The instance is out of service during this time and your capacity will be reduced</li>
+                    <li>If the instances are behind a load balancer, you can configure the load balancer to stop sending requests to the instance which being upgraded</li>
+                    <li>EC2 and on-premise systems - it is not supported for Lambda</li>
+                    <li>If you need to roll back your changes, the previous version of the application will need to re-deployed</li>
+                </ul>
+            </td>
+            <td><img src="https://user-images.githubusercontent.com/5309726/69152773-06d58a80-0b18-11ea-99f9-1897ef534532.png" /></td>
+        </tr>
+        <tr>
+            <td>Blue/Green Deployment</td>
+            <td>
+                <ul>
+                    <li>New instances are provisioned and the latest revision is installed on the new instances. Blue represents the active deployment, green is the new release</li>
+                    <li>The new instances are registered with an Elastic Load Balancer, traffic is then routed to the new instances and the original instances are eventually terminated</li>
+                    <li>Advantages of a Blue/Green deployment are that the new instances can be created ahead of time and code released to production by simply switching all traffic to the new servers</li>
+                    <li>Roll back is easy, just route the traffic back to the originak instances</li>
+                </ul>
+            </td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/69152669-cece4780-0b17-11ea-992d-15402749b4d7.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
