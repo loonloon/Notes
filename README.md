@@ -73,6 +73,7 @@ https://www.myintervals.com/emogrifier.php
 * https://www.codingame.com/playgrounds/6179/garbage-collection-and-c
 * https://docs.microsoft.com/en-us/dotnet/api/system.object.finalize?view=netframework-4.8
 * https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms973837(v=msdn.10)?redirectedfrom=MSDN
+* https://devblogs.microsoft.com/premier-developer/understanding-different-gc-modes-with-concurrency-visualizer/
 
 #### XML ####
 * https://blogs.msdn.microsoft.com/xmlteam/2011/09/14/effective-xml-part-1-choose-the-right-api/
