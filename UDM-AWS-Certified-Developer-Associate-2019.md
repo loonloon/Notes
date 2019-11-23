@@ -1439,3 +1439,14 @@ What is SQS?
         </tr>
     </tbody>
 </table>
+
+#### CodePipepline ####
+* CI/ CD service
+* Automates your end to end software release process based on a user defined workflow
+* Can be configured to automatically trigger your pipeline as soon as a change is detected in your source code repository
+* Integrates with other services from AWS like CodeBuild and CodeDeploy, as well as third party and custom plug-ins
+
+![image](https://user-images.githubusercontent.com/5309726/69471178-90ff4680-0dd7-11ea-9000-18b1e00abc6e.png)
+
+![image](https://user-images.githubusercontent.com/5309726/69471259-5053fd00-0dd8-11ea-97d2-8292a09ee979.png)
+
