@@ -1450,3 +1450,25 @@ What is SQS?
 
 ![image](https://user-images.githubusercontent.com/5309726/69471259-5053fd00-0dd8-11ea-97d2-8292a09ee979.png)
 
+#### CodeDeplay Advanced Settings ####
+* AppSec file defines all the parameters needed for the deployment, E.g. location of application files and pre/post deployment validation tests to run
+* For EC2 / On Premises systems, the `appspec.yml` file must be placed in the root directory of your revision.
+* Lambda supports YAML or JSON
+
+* appspec.yml File - Lambda Example
+```
+version: 0.0
+resources:
+ -MyLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+     Name: "myLambdaFunction"
+     Alias: "myLambdaFunctionAlias"
+     CurrentVersion: "1"
+     TargetVersion: "2"
+ hooks:
+  -BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
+  -AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"
+````
+
+![order-hooks](https://user-images.githubusercontent.com/5309726/69471735-b3945e00-0ddd-11ea-8514-33f20864966a.png)
