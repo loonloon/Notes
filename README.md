@@ -74,6 +74,7 @@ https://www.myintervals.com/emogrifier.php
 * https://docs.microsoft.com/en-us/dotnet/api/system.object.finalize?view=netframework-4.8
 * https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms973837(v=msdn.10)?redirectedfrom=MSDN
 * https://devblogs.microsoft.com/premier-developer/understanding-different-gc-modes-with-concurrency-visualizer/
+* https://chodounsky.net/2017/05/03/garbage-collection-in-c-sharp/
 
 #### XML ####
 * https://blogs.msdn.microsoft.com/xmlteam/2011/09/14/effective-xml-part-1-choose-the-right-api/
