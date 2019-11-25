@@ -1504,3 +1504,23 @@ resources:
         </tr>
     </tbody>
 </table>
+
+#### Serverless Application Model (SAM) ####
+* Allows you to define and provision serverless applications using CloudFormation
+* Uses the SAM CLI commands to package and deploy:
+<table>
+    <tbody>
+        <tr>
+            <th>Commands</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>sam package</td>
+            <td>packages your application and uploads to S3</td>
+        </tr>
+        <tr>
+            <td>sam deploy</td>
+            <td>deploys your serverless app using CloudFormation</td>
+        </tr>
+    </tbody>
+</table>
