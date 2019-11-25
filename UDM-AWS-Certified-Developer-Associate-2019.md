@@ -1472,3 +1472,35 @@ resources:
 ````
 
 ![order-hooks](https://user-images.githubusercontent.com/5309726/69471735-b3945e00-0ddd-11ea-8514-33f20864966a.png)
+
+#### CloudFormation ####
+* Allows you to manage, configure and provision AWS infrastructure as code. (YAML / JSON)
+* Cloud Formation template:
+<table>
+    <tbody>
+        <tr>
+            <th>Sections</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Parameters</td>
+            <td>Input custom values</td>
+        </tr>
+        <tr>
+            <td>Conditions</td>
+            <td>E.g. Provision resources based on environment</td>
+        </tr>
+        <tr>
+            <td>Resources (Mandatory)</td>
+            <td>The AWS resources (S3 bucket, EC2 and etc) to create</td>
+        </tr>
+        <tr>
+            <td>Mapping</td>
+            <td>Create custom mappings like Region: AMI</td>
+        </tr>
+        <tr>
+            <td>Transforms</td>
+            <td>Reference code located in S3 E.g. Lambda code or reusable snippets of CloudFormation code</td>
+        </tr>
+    </tbody>
+</table>
