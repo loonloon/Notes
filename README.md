@@ -52,6 +52,10 @@
             <td>Async/Await Best Practices</td>
             <td>https://msdn.microsoft.com/en-us/magazine/jj991977.aspx?f=255&MSPPError=-2147217396</td>
         </tr>
+        <tr>
+            <td>ConfigureAwait FAQ</td>
+            <td>https://devblogs.microsoft.com/dotnet/configureawait-faq/</td>
+        </tr>    
     </tbody>
 </table>
 
