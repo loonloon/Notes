@@ -31,7 +31,7 @@
                     <br />
                     For an array of structs that total space usage:
                     <br />
-                    (8 bytes array overhead) + (16 bytes data * 1000000) = 28MB
+                    (8 bytes array overhead) + (16 bytes data * 1000000) = 16MB
                 </td>
             </tr>
         </table>
