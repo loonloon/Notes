@@ -245,3 +245,90 @@ if (pipe.check()) {
 
 ```
 
+#### Nested Conditionals ####
+
+```
+//Bad
+let result = null;
+
+if (!order.wasCancelled()) {
+    if (order.isPaid()) {
+        result = order.sendToShipping();
+    } else {
+        if (order.isFraudulent()) {
+            result = order.sendToFraudDept();
+        } else {
+            result = order.tryAgainLater();
+        }
+    }
+}
+
+return result;
+
+//Good
+//Guard Clauses
+if (order.wasCancelled()) {
+    return;
+}
+
+if (order.wasPaid()) {
+    return order.sendToShipping();
+}
+
+if (order.isFraudulent()) {
+    return order.sendToFraudDept();
+}
+
+return order.tryAgainLater();
+
+```
+
+#### Gate Classes ####
+
+```
+//Bad
+//Example 1
+if (!order.wasCancelled()) {
+    // A bunch of code that does stuff.
+    if (!order.isFraudlent()) {
+        // Some more code.
+    }
+}
+
+//Example 2
+const accountIsVerified = await accountRepo.accountIsVerified(userAccount);
+const canPlaceOrder = await orderRepo.userCanPlaceOrder(user);
+
+if (accountIsVerified) {
+    if (canPlaceOrder) {
+        await orderRepo.placeOrder(order);
+    }
+}
+
+//Good
+class AccountIsVerifiedGate {
+    private _accountRepo: AccountRepo;
+
+    constructor(accountRepo: AccountRepo) {
+        this._accountRepo = accountRepo;
+    }
+
+    async invoke(account: UserAccount) {
+        const isVerified = await this._accountRepo.accountIsVerified(account);
+        
+        //This pattern is useful in Web APIs, for example. When a gate class fails and throws a
+        //special type of exception, a middleware will send back a specific HTTP status, such as
+        //401 or 403, automatically for you
+        if (!isVerified) {
+            throw "Gate exception";
+        }
+    }
+}
+
+await accountIsVerifiedGate.invoke(userAccount);
+await userCanPlaceOrderGate.invoke(user);
+await orderRepo.placeOrder(order);
+
+```
+
+#### Primitive Overuse ####
