@@ -332,3 +332,101 @@ await orderRepo.placeOrder(order);
 ```
 
 #### Primitive Overuse ####
+```
+//Bad
+//Example 1
+//That logic is not sharable and therefore will be duplicated all over the place.
+
+//In more complex scenarios, it's hard to see what the 
+//underlying business concept represents (which leads to code that's hard to understand).
+
+//If there is an underlying business concept, it's implicit, not explicit.
+
+const email: string = user.email;
+
+if(email !== null && email !== "") {
+// Do something with the email.
+}
+
+const firstname = user.firstname || "";
+const lastname = user.lastname || "";
+const fullName: string = firstname + " " + lastname;
+
+//Example 2
+const domain: string = email.replace(/.*@/, '');
+const userName = email.replace(domain, '');
+const sendInternal: boolean = domain === 'internal-company.com';
+
+if (sendInternal) {
+  if (userName === 'info') {
+    mailer.sendToCustomerServiceTeam(email, message);
+  } else {
+    mailer.mailToInternalServer(email, message);
+  }
+} else {
+  throw 'Cannot email externally.';
+}
+
+//Initial refactor
+const domain: string = email.replace(/.*@/, '');
+const userName = email.replace(domain, '');
+const sendExternal: boolean = domain !== 'internal-company.com';
+
+if (sendExternal) {
+  throw 'Cannot email externally.';
+}
+
+if (userName === 'info') {
+  mailer.sendToCustomerServiceTeam(email, message);
+  return;
+}
+
+mailer.mailToInternalServer(email, message);
+
+//Good
+//Value objects is that they cannot be modified once instantiated
+
+//Example 1
+class EmailAddress {
+    private _value: string;
+    private _domain: string;
+    private _userName: string
+
+    constructor(value: string) {
+        if (this.isExternal(value)) {
+            throw "Cannot email externally.";
+        }
+
+        // Other code when this object is valid.
+        this._value = value;
+        this._domain: string = value.replace(/.*@/, "");
+        this._userName = value.replace(domain, "");
+    }
+
+    isExternal(): boolean {
+        return this._domain !== "internal-company.com";
+    }
+
+    isInfoUser(): boolean {
+        Value Objects | 45
+        return this._userName === "info";
+    }
+
+    value() {
+        return this._value;
+    }
+}
+
+const emailAddress: EmailAddress = new EmailAddress(email);
+
+if (emailAddress.isExternal()) {
+    throw "Cannot email externally.";
+}
+if (emailAddress.isInfoUser()) {
+    mailer.sendToCustomerServiceTeam(emailAddress.value(), message);
+    return;
+}
+
+mailer.mailToInternalServer(emailAddress.value(), message);
+
+```
