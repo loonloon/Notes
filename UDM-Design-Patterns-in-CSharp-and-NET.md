@@ -281,3 +281,109 @@ public class Demo
     }
 }
 ```
+
+* Liskov Substitution Principle
+  * Should be always be up cast and the operation should be stil generally OK
+  
+```
+//wrong
+public class Rectangle
+{
+    public int Width { get; set; }
+    public int Height { get; set; }
+
+    public Rectangle()
+    {
+    }
+
+    public Rectangle(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Width)}: {Width}, {nameof(Height)}: {Height}";
+    }
+}
+
+public class Square : Rectangle
+{
+    public new int Width
+    {
+        set
+        {
+            base.Width = base.Height = value;
+        }
+    }
+
+    public new int Height
+    {
+        set
+        {
+            base.Width = base.Height = value;
+        }
+    }
+}
+
+public class Demo
+{
+    static public int Area(Rectangle r) => r.Width * r.Height;
+
+    static void Main(string[] args)
+    {
+        Rectangle rc = new Rectangle(2, 3);
+        WriteLine($"{rc} has area {Area(rc)}");
+
+        Rectangle sq = new Square();
+        sq.Width = 4;
+        WriteLine($"{sq} has area {Area(sq)}");
+    }
+}
+
+//good
+public class Rectangle
+{
+    /*
+     * In simple you can imagine a base class with a virtual methodA will have a vtable that contains methodA.
+     *
+     * When derived class override methodA,
+     * the vtable for methodA inherits from the parent class but
+     * will now points to the methodA in the derived class rather than parent class.
+     */
+    public virtual int Width { get; set; }
+    public virtual int Height { get; set; }
+
+    public Rectangle()
+    {
+
+    }
+
+    public Rectangle(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Width)}: {Width}, {nameof(Height)}: {Height}";
+    }
+}
+
+public class Square : Rectangle
+{
+    public override int Width
+    {
+        set { base.Width = base.Height = value; }
+    }
+
+    public override int Height
+    {
+        set { base.Width = base.Height = value; }
+    }
+}
+```
+
+* Interface Segregation Principle
