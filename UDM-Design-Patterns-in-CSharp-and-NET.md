@@ -387,3 +387,204 @@ public class Square : Rectangle
 ```
 
 * Interface Segregation Principle
+
+```
+public class Document
+{
+}
+
+//bad
+public interface IMachine
+{
+    void Print(Document d);
+    void Fax(Document d);
+    void Scan(Document d);
+}
+
+public class MultiFunctionPrinter : IMachine
+{
+    public void Print(Document d)
+    {
+    }
+
+    public void Fax(Document d)
+    {
+    }
+
+    public void Scan(Document d)
+    {
+    }
+}
+
+public class OldFashionedPrinter : IMachine
+{
+    public void Print(Document d)
+    {
+    }
+
+    public void Fax(Document d)
+    {
+        //unncessary
+        throw new System.NotImplementedException();
+    }
+
+    public void Scan(Document d)
+    {
+        //unncessary
+        throw new System.NotImplementedException();
+    }
+}
+
+//good
+public interface IPrinter
+{
+    void Print(Document d);
+}
+
+public interface IScanner
+{
+    void Scan(Document d);
+}
+
+public class Printer : IPrinter
+{
+    public void Print(Document d)
+    {
+    }
+}
+
+public class Photocopier : IPrinter, IScanner
+{
+    public void Print(Document d)
+    {
+    }
+
+    public void Scan(Document d)
+    {
+    }
+}
+
+public interface IMultiFunctionDevice : IPrinter, IScanner
+{
+}
+
+public struct MultiFunctionMachine : IMultiFunctionDevice
+{
+    //compose this out of several modules
+    private IPrinter printer;
+    private IScanner scanner;
+
+    public MultiFunctionMachine(IPrinter printer, IScanner scanner)
+    {
+        if (printer == null)
+        {
+            throw new ArgumentNullException(paramName: nameof(printer));
+        }
+
+        if (scanner == null)
+        {
+            throw new ArgumentNullException(paramName: nameof(scanner));
+        }
+
+        this.printer = printer;
+        this.scanner = scanner;
+    }
+
+    public void Print(Document d)
+    {
+        //decorator pattern
+        printer.Print(d);
+    }
+
+    public void Scan(Document d)
+    {
+        scanner.Scan(d);
+    }
+}
+```
+
+* Dependency Inversion Principle
+  * High-level modules should not depend on low-level; both should depend on abstractions
+  * Abstractions should not depend on details; details should depend on abstractions
+  
+```
+public enum Relationship
+{
+    Parent,
+    Child,
+    Sibling
+}
+
+public class Person
+{
+    public string Name;
+    public DateTime DateOfBirth;
+}
+
+public class Relationships
+{
+    private List<(Person, Relationship, Person)> relations
+        = new List<(Person, Relationship, Person)>();
+
+    public void AddParentAndChild(Person parent, Person child)
+    {
+        relations.Add((parent, Relationship.Parent, child));
+        relations.Add((child, Relationship.Child, parent));
+    }
+
+    public List<(Person, Relationship, Person)> Relations => relations;
+}
+
+//bad
+public class Research
+{
+    public Research(Relationships relationships)
+    {
+        // high-level: find all of john's children
+        var relations = relationships.Relations;
+
+        foreach (var r in relations.Where(x => x.Item1.Name == "John" &&
+                                               x.Item2 == Relationship.Parent))
+        {
+            WriteLine($"John has a child called {r.Item3.Name}");
+        }
+    }
+}
+
+//good
+public interface IRelationshipBrowser
+{
+    IEnumerable<Person> FindAllChildrenOf(string name);
+}
+
+// low-level module (e.g. client accesses DB)
+public class Relationships : IRelationshipBrowser
+{
+    private List<(Person, Relationship, Person)> relations
+        = new List<(Person, Relationship, Person)>();
+
+    public void AddParentAndChild(Person parent, Person child)
+    {
+        relations.Add((parent, Relationship.Parent, child));
+        relations.Add((child, Relationship.Child, parent));
+    }
+    
+    public IEnumerable<Person> FindAllChildrenOf(string name)
+    {
+        return relations
+            .Where(x => x.Item1.Name == name && x.Item2 == Relationship.Parent)
+            .Select(r => r.Item3);
+    }
+}
+
+public class Research
+{
+    public Research(IRelationshipBrowser browser)
+    {
+        foreach (var p in browser.FindAllChildrenOf("John"))
+        {
+            WriteLine($"John has a child called {p.Name}");
+        }
+    }
+}
+```
