@@ -85,6 +85,8 @@ public class Persistence
 }
 ```
 
+---
+
 * Open Closed Principle
 
 ```
@@ -282,6 +284,8 @@ public class Demo
 }
 ```
 
+---
+
 * Liskov Substitution Principle
   * Should be always be up cast and the operation should be stil generally OK
   
@@ -385,6 +389,8 @@ public class Square : Rectangle
     }
 }
 ```
+
+---
 
 * Interface Segregation Principle
 
@@ -503,6 +509,8 @@ public struct MultiFunctionMachine : IMultiFunctionDevice
 }
 ```
 
+---
+
 * Dependency Inversion Principle
   * High-level modules should not depend on low-level; both should depend on abstractions
   * Abstractions should not depend on details; details should depend on abstractions
@@ -589,8 +597,10 @@ public class Research
 }
 ```
 
+---
+
 #### Builder ####
-* When piecewise object construction is complicated, provide an API for doing it succinctly
+When piecewise object construction is complicated, provide an API for doing it succinctly
 
 ```
 //bad
@@ -714,6 +724,8 @@ public class Demo
 }
 ```
 
+---
+
 * Fluent Builder Inheritance with Recursive Generics
 
 ```
@@ -777,6 +789,8 @@ public class BuilderInheritanceDemo
     }
 }
 ```
+
+---
 
 * Faceted Builder
 
@@ -880,3 +894,300 @@ public class Demo
     }
 }
 ```
+
+---
+
+#### Factories ####
+A component responsible solely for the wholesale (not piecewise) creation of objects
+
+* Factory method
+  * overload with the same sets of arguments with different descriptive names
+  * Violate Single Responsibility Principle since all methods in 1 class
+  
+```
+//bad
+public enum CoordinateSystem
+{
+    Cartesian,
+    Polar
+}
+
+public class Point
+{
+    private double x, y;
+
+    public Point(double a, double b, CoordinateSystem cs = CoordinateSystem.Cartesian)
+    {
+        switch (cs)
+        {
+            case CoordinateSystem.Polar:
+                x = a * Math.Cos(b);
+                y = a * Math.Sin(b);
+                break;
+            default:
+                x = a;
+                y = b;
+                break;
+        }
+    }
+}
+
+//good
+public class Point
+{
+    private double x, y;
+
+    private Point(double x, double y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static Point NewCartesianPoint(double x, double y)
+    {
+        return new Point(x, y);
+    }
+
+    public static Point NewPolarPoint(double rho, double theta)
+    {
+        return new Point(rho * Math.Cos(theta), rho * Math.Sin(theta));
+    }
+}
+```
+
+---
+
+* Factory
+  
+```
+public class Point
+{
+    private double x, y;
+    
+    // user still able to create point object
+    public Point(double x, double y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+public static class PointFactory
+{
+    public static Point NewCartesianPoint(double x, double y)
+    {
+        return new Point(x, y);
+    }
+
+    public static Point NewPolarPoint(double rho, double theta)
+    {
+        return new Point(rho * Math.Cos(theta), rho * Math.Sin(theta));
+    }
+}
+```
+
+---
+
+* Inner Factory
+  * Only allows user create object through factory
+  * E.g. Task.Factory.x
+
+```
+public class Point
+{
+    private double x, y;
+
+    // factory property
+    public static Point Origin => new Point(0, 0);
+
+    // singleton field
+    public static Point Origin2 = new Point(0, 0);
+
+    private Point(double x, double y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static class Factory
+    {
+        public static Point NewCartesianPoint(double x, double y)
+        {
+            return new Point(x, y);
+        }
+
+        public static Point NewPolarPoint(double rho, double theta)
+        {
+            return new Point(rho * Math.Cos(theta), rho * Math.Sin(theta));
+        }
+    }
+}
+```
+
+---
+
+* Abstract Factory
+
+```
+public interface IHotDrink
+{
+    void Consume();
+}
+
+internal class Tea : IHotDrink
+{
+    public void Consume()
+    {
+        Console.WriteLine("This tea is nice but I'd prefer it with milk.");
+    }
+}
+
+internal class Coffee : IHotDrink
+{
+    public void Consume()
+    {
+        Console.WriteLine("This coffee is delicious!");
+    }
+}
+
+public interface IHotDrinkFactory
+{
+    IHotDrink Prepare(int amount);
+}
+
+internal class TeaFactory : IHotDrinkFactory
+{
+    public IHotDrink Prepare(int amount)
+    {
+        Console.WriteLine($"Put in tea bag, boil water, pour {amount} ml, add lemon, enjoy!");
+        return new Tea();
+    }
+}
+
+internal class CoffeeFactory : IHotDrinkFactory
+{
+    public IHotDrink Prepare(int amount)
+    {
+        Console.WriteLine($"Grind some beans, boil water, pour {amount} ml, add cream and sugar, enjoy!");
+        return new Coffee();
+    }
+}
+
+//bad
+public class HotDrinkMachine
+{
+    // violates open-closed
+    public enum AvailableDrink
+    {
+        Coffee,
+        Tea
+    }
+
+    private Dictionary<AvailableDrink, IHotDrinkFactory> factories =
+      new Dictionary<AvailableDrink, IHotDrinkFactory>();
+
+    public HotDrinkMachine()
+    {
+        foreach (AvailableDrink drink in Enum.GetValues(typeof(AvailableDrink)))
+        {
+            var factory = (IHotDrinkFactory)Activator.CreateInstance(
+              Type.GetType("DotNetDesignPatternDemos.Creational.AbstractFactory." + 
+                           Enum.GetName(typeof(AvailableDrink), drink) + "Factory"));
+            factories.Add(drink, factory);
+        }
+    }
+
+    public IHotDrink MakeDrink(AvailableDrink drink, int amount)
+    {
+        return factories[drink].Prepare(amount);
+    }
+}
+
+//good (with OOP)
+public class HotDrinkMachine
+{
+    private List<Tuple<string, IHotDrinkFactory>> namedFactories =
+        new List<Tuple<string, IHotDrinkFactory>>();
+
+    public HotDrinkMachine()
+    {
+        foreach (var t in typeof(HotDrinkMachine).Assembly.GetTypes())
+        {
+            if (typeof(IHotDrinkFactory).IsAssignableFrom(t) && !t.IsInterface)
+            {
+                namedFactories.Add(Tuple.Create(
+                    t.Name.Replace("Factory", string.Empty), (IHotDrinkFactory)Activator.CreateInstance(t)));
+            }
+        }
+    }
+
+    public IHotDrink MakeDrink()
+    {
+        Console.WriteLine("Available drinks");
+
+        // index with name string for UI display 
+        for (var index = 0; index < namedFactories.Count; index++)
+        {
+            var tuple = namedFactories[index];
+            Console.WriteLine($"{index}: {tuple.Item1}");
+        }
+    }
+}
+```
+
+---
+
+#### Prototype ####
+We make a copy (clone) the prototype and customize it (Requires "deep copy" support)
+
+* ICloneable (Should not use for deep copy)
+  * If check with Clone() in array, it will returns shallow copy of the object
+  
+```
+public class Person : ICloneable
+{
+    public readonly string[] Names;
+    public readonly Address Address;
+
+    public Person(string[] names, Address address)
+    {
+        Names = names;
+        Address = address;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Names)}: {string.Join(",", Names)}, {nameof(Address)}: {Address}";
+    }
+    
+    // bad return object type
+    public object Clone()
+    {
+        return new Person(Names, (Address)Address.Clone());
+    }
+}
+
+public class Address : ICloneable
+{
+    public readonly string StreetName;
+    public int HouseNumber;
+
+    public Address(string streetName, int houseNumber)
+    {
+        StreetName = streetName;
+        HouseNumber = houseNumber;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(StreetName)}: {StreetName}, {nameof(HouseNumber)}: {HouseNumber}";
+    }
+
+    public object Clone()
+    {
+        return new Address(StreetName, HouseNumber);
+    }
+}
+```
+
+---
