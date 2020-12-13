@@ -1091,8 +1091,7 @@ public class HotDrinkMachine
         foreach (AvailableDrink drink in Enum.GetValues(typeof(AvailableDrink)))
         {
             var factory = (IHotDrinkFactory)Activator.CreateInstance(
-              Type.GetType("DotNetDesignPatternDemos.Creational.AbstractFactory." + 
-                           Enum.GetName(typeof(AvailableDrink), drink) + "Factory"));
+              Type.GetType(Enum.GetName(typeof(AvailableDrink), drink) + "Factory"));
             factories.Add(drink, factory);
         }
     }
@@ -1116,7 +1115,8 @@ public class HotDrinkMachine
             if (typeof(IHotDrinkFactory).IsAssignableFrom(t) && !t.IsInterface)
             {
                 namedFactories.Add(Tuple.Create(
-                    t.Name.Replace("Factory", string.Empty), (IHotDrinkFactory)Activator.CreateInstance(t)));
+                    t.Name.Replace("Factory", string.Empty), 
+                    (IHotDrinkFactory)Activator.CreateInstance(t)));
             }
         }
     }
@@ -1188,6 +1188,151 @@ public class Address : ICloneable
         return new Address(StreetName, HouseNumber);
     }
 }
+```
+
+---
+
+* Copy Constructor
+  * Tedious when have a deep hierarchy of objects (10 different classes)
+  
+```
+public class Person
+{
+    public readonly string[] Names;
+    public readonly Address Address;
+
+    public Person(string[] names, Address address)
+    {
+        Names = names;
+        Address = address;
+    }
+
+    public Person(Person other)
+    {
+        Names = other.Names;
+        Address = new Address(other.Address);
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Names)}: {string.Join(",", Names)}, {nameof(Address)}: {Address}";
+    }
+}
+
+public class Address
+{
+    public readonly string StreetName;
+    public int HouseNumber;
+
+    public Address(string streetName, int houseNumber)
+    {
+        StreetName = streetName;
+        HouseNumber = houseNumber;
+    }
+
+    public Address(Address other)
+    {
+        StreetName = other.streetName;
+        HouseNumber = other.houseNumber;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(StreetName)}: {StreetName}, {nameof(HouseNumber)}: {HouseNumber}";
+    }
+}
+```
+
+---
+
+* Explicit Deep Copy Interface
+  * Tedious when have a deep hierarchy of objects (10 different classes)
+  
+```
+ublic interface IPrototype<T>
+{
+    T DeepCopy();
+}
+
+public class Person : IPrototype<Person>
+{
+    public readonly string[] Names;
+    public readonly Address Address;
+
+    public Person(string[] names, Address address)
+    {
+        Names = names;
+        Address = address;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Names)}: {string.Join(",", Names)}, {nameof(Address)}: {Address}";
+    }
+
+    public Person DeepCopy()
+    {
+        return new Person(Names, Address.DeepCopy());
+    }
+}
+
+public class Address : IPrototype<Address>
+{
+    public readonly string StreetName;
+    public int HouseNumber;
+
+    public Address(string streetName, int houseNumber)
+    {
+        StreetName = streetName;
+        HouseNumber = houseNumber;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(StreetName)}: {StreetName}, {nameof(HouseNumber)}: {HouseNumber}";
+    }
+
+    public Address DeepCopy()
+    {
+        return new Address(StreetName, HouseNumber);
+    }
+}
+```
+
+* Copy Through Serialization
+
+```
+public static class ExtensionMethods
+{
+    public static T DeepCopy<T>(this T self)
+    {
+        MemoryStream stream = new MemoryStream();
+        BinaryFormatter formatter = new BinaryFormatter();
+        formatter.Serialize(stream, self);
+        stream.Seek(0, SeekOrigin.Begin);
+        object copy = formatter.Deserialize(stream);
+        stream.Close();
+        return (T)copy;
+    }
+
+    public static T DeepCopyXml<T>(this T self)
+    {
+        using (var ms = new MemoryStream())
+        {
+            XmlSerializer s = new XmlSerializer(typeof(T));
+            s.Serialize(ms, self);
+            ms.Position = 0;
+            return (T)s.Deserialize(ms);
+        }
+    }
+}
+```
+
+---
+
+* Singleton
+
+```
 ```
 
 ---
