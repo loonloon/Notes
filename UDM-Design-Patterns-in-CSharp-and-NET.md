@@ -1333,6 +1333,140 @@ public static class ExtensionMethods
 * Singleton
 
 ```
+public interface IDatabase
+{
+    int GetPopulation(string name);
+}
+
+public class SingletonDatabase : IDatabase
+{
+    private Dictionary<string, int> capitals;
+    private static int instanceCount;
+    // laziness + thread safety
+    private static Lazy<SingletonDatabase> instance = new Lazy<SingletonDatabase>(() =>
+    {
+        instanceCount++;
+        return new SingletonDatabase();
+    });
+    public static int Count => instanceCount;
+    public static IDatabase Instance => instance.Value;
+
+    private SingletonDatabase()
+    {
+        Console.WriteLine("Initializing database");
+
+        capitals = File.ReadAllLines(
+                Path.Combine(
+                    new FileInfo(typeof(IDatabase).Assembly.Location).DirectoryName, "capitals.txt")
+            )
+            .Batch(2)
+            .ToDictionary(
+                list => list.ElementAt(0).Trim(),
+                list => int.Parse(list.ElementAt(1)));
+    }
+
+    public int GetPopulation(string name)
+    {
+        return capitals[name];
+    }
+}
 ```
+
+---
+
+* Testability Issues
+
+```
+public class SingletonRecordFinder
+{
+    public int TotalPopulation(IEnumerable<string> names)
+    {
+        int result = 0;
+
+        foreach (var name in names)
+        {
+            // hardcoded reference, unable to subsitute something
+            result += SingletonDatabase.Instance.GetPopulation(name);
+        }
+
+        return result;
+    }
+}
+```
+
+---
+
+* Singleton in Dependency Injection
+
+```
+public class ConfigurableRecordFinder
+{
+    private IDatabase database;
+
+    public ConfigurableRecordFinder(IDatabase database)
+    {
+        this.database = database;
+    }
+
+    public int GetTotalPopulation(IEnumerable<string> names)
+    {
+        int result = 0;
+
+        foreach (var name in names)
+        {
+            result += database.GetPopulation(name);
+        }
+
+        return result;
+    }
+}
+```
+
+----
+
+* Monostate
+  * Allows create many objects with shared state
+
+```
+public class ChiefExecutiveOfficer
+{
+    private static string name;
+    private static int age;
+
+    public string Name
+    {
+        get => name;
+        set => name = value;
+    }
+
+    public int Age
+    {
+        get => age;
+        set => age = value;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Name)}: {Name}, {nameof(Age)}: {Age}";
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var ceo = new ChiefExecutiveOfficer();
+        ceo.Name = "Adam Smith";
+        ceo.Age = 55;
+
+        var ceo2 = new ChiefExecutiveOfficer();
+        WriteLine(ceo2);
+    }
+}
+```
+
+---
+
+* Adapter
 
 ---
