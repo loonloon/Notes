@@ -1758,4 +1758,97 @@ public class Demo
 
 ---
 
+* Bridge
+  * A mechanism that decouples an interface (hierarchy) from an implementation (hierarchy)
+  * Prevents a 'Cartesian product' complexity explosion
+    * Base class ThreadScheduler, can be preemptive / cooperative, can run on Windows / Unix. End up with a 2 x 2 scenario
+    
+Before
 
+![image](https://user-images.githubusercontent.com/5309726/102063349-e2d69c80-3e30-11eb-9959-74bf0f4d837f.png)
+
+After
+
+![image](https://user-images.githubusercontent.com/5309726/102063762-66908900-3e31-11eb-9339-4f10e822a2ea.png)
+
+```
+public interface IRenderer
+{
+    void RenderCircle(float radius);
+}
+
+public class VectorRenderer : IRenderer
+{
+    public void RenderCircle(float radius)
+    {
+        Console.WriteLine($@"Drawing a circle of radius {radius}");
+    }
+}
+
+public class RasterRenderer : IRenderer
+{
+    public void RenderCircle(float radius)
+    {
+        Console.WriteLine($@"Drawing pixels for circle of radius {radius}");
+    }
+}
+
+public abstract class Shape
+{
+    protected IRenderer renderer;
+
+    // a bridge between the shape that's being drawn an
+    // the component which actually draws it
+    protected Shape(IRenderer renderer)
+    {
+        this.renderer = renderer;
+    }
+
+    public abstract void Draw();
+    public abstract void Resize(float factor);
+}
+
+public class Circle : Shape
+{
+    private float radius;
+
+    public Circle(IRenderer renderer, float radius) : base(renderer)
+    {
+        this.radius = radius;
+    }
+
+    public override void Draw()
+    {
+        renderer.RenderCircle(radius);
+    }
+
+    public override void Resize(float factor)
+    {
+        radius *= factor;
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var raster = new RasterRenderer();
+        var vector = new VectorRenderer();
+        var circle = new Circle(vector, 5, 5, 5);
+
+        circle.Draw();
+        circle.Resize(2);
+        circle.Draw();
+    }
+}
+```
+
+---
+
+* Composite
+
+```
+
+```
+
+---
