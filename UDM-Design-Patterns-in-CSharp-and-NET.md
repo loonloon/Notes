@@ -1845,7 +1845,7 @@ public class Demo
 
 ---
 
-* Composite
+* Decorator
 
 ```
 
