@@ -9,12 +9,12 @@
 public class Journal
 {
     private readonly List<string> entries = new List<string>();
-    private static int count = 0;
+    private static int _count;
 
     public int AddEntry(string text)
     {
-        entries.Add($"{++count}: {text}");
-        return count; // memento pattern!
+        entries.Add($"{++_count}: {text}");
+        return _count; // memento pattern!
     }
 
     public void RemoveEntry(int index)
@@ -46,12 +46,12 @@ public class Journal
 public class Journal
 {
     private readonly List<string> entries = new List<string>();
-    private static int count = 0;
+    private static int _count;
 
     public int AddEntry(string text)
     {
-        entries.Add($"{++count}: {text}");
-        return count; // memento pattern!
+        entries.Add($"{++_count}: {text}");
+        return _count; // memento pattern!
     }
 
     public void RemoveEntry(int index)
@@ -107,9 +107,9 @@ public enum Size
 
 public class Product
 {
-    public string Name;
-    public Color Color;
-    public Size Size;
+    public string Name { get; }
+    public Color Color { get; }
+    public Size Size { get; }
 
     public Product(string name, Color color, Size size)
     {
@@ -189,7 +189,7 @@ public interface IFilter<T>
 
 public class ColorSpecification : ISpecification<Product>
 {
-    private Color color;
+    private readonly Color color;
 
     public ColorSpecification(Color color)
     {
@@ -204,7 +204,7 @@ public class ColorSpecification : ISpecification<Product>
 
 public class SizeSpecification : ISpecification<Product>
 {
-    private Size size;
+    private readonly Size size;
 
     public SizeSpecification(Size size)
     {
@@ -219,7 +219,8 @@ public class SizeSpecification : ISpecification<Product>
 
 public class AndSpecification<T> : ISpecification<T>
 {
-    private ISpecification<T> first, second;
+    private readonly ISpecification<T> first;
+    private readonly ISpecification<T> second;
 
     public AndSpecification(ISpecification<T> first, ISpecification<T> second)
     {
@@ -275,7 +276,7 @@ public class Demo
 
         System.Console.WriteLine("Large blue items");
 
-        foreach (var p in bf.Filter(products, 
+        foreach (var p in bf.Filter(products,
             new AndSpecification<Product>(new ColorSpecification(Color.Blue), new SizeSpecification(Size.Large))))
         {
             Console.WriteLine($" - {p.Name} is big and blue");
@@ -316,24 +317,18 @@ public class Square : Rectangle
 {
     public new int Width
     {
-        set
-        {
-            base.Width = base.Height = value;
-        }
+        set => base.Width = base.Height = value;
     }
 
     public new int Height
     {
-        set
-        {
-            base.Width = base.Height = value;
-        }
+        set => base.Width = base.Height = value;
     }
 }
 
 public class Demo
 {
-    static public int Area(Rectangle r) => r.Width * r.Height;
+    public static int Area(Rectangle r) => r.Width * r.Height;
 
     static void Main(string[] args)
     {
@@ -380,12 +375,12 @@ public class Square : Rectangle
 {
     public override int Width
     {
-        set { base.Width = base.Height = value; }
+        set => base.Width = base.Height = value;
     }
 
     public override int Height
     {
-        set { base.Width = base.Height = value; }
+        set => base.Width = base.Height = value;
     }
 }
 ```
@@ -914,7 +909,8 @@ public enum CoordinateSystem
 
 public class Point
 {
-    private double x, y;
+    private readonly double x;
+    private readonly double y;
 
     public Point(double a, double b, CoordinateSystem cs = CoordinateSystem.Cartesian)
     {
@@ -935,7 +931,8 @@ public class Point
 //good
 public class Point
 {
-    private double x, y;
+    private readonly double x;
+    private readonly double y;
 
     private Point(double x, double y)
     {
@@ -962,8 +959,9 @@ public class Point
 ```
 public class Point
 {
-    private double x, y;
-    
+    private readonly double x;
+    private readonly double y;
+
     // user still able to create point object
     public Point(double x, double y)
     {
@@ -995,13 +993,14 @@ public static class PointFactory
 ```
 public class Point
 {
-    private double x, y;
+    private readonly double x;
+    private readonly double y;
 
     // factory property
-    public static Point Origin => new Point(0, 0);
+    public static Point Origin { get; } = new Point(0, 0);
 
     // singleton field
-    public static Point Origin2 = new Point(0, 0);
+    public static Point Origin2 { get; } = new Point(0, 0);
 
     private Point(double x, double y)
     {
@@ -1083,15 +1082,15 @@ public class HotDrinkMachine
         Tea
     }
 
-    private Dictionary<AvailableDrink, IHotDrinkFactory> factories =
-      new Dictionary<AvailableDrink, IHotDrinkFactory>();
+    private readonly Dictionary<AvailableDrink, IHotDrinkFactory> factories =
+        new Dictionary<AvailableDrink, IHotDrinkFactory>();
 
     public HotDrinkMachine()
     {
         foreach (AvailableDrink drink in Enum.GetValues(typeof(AvailableDrink)))
         {
             var factory = (IHotDrinkFactory)Activator.CreateInstance(
-              Type.GetType(Enum.GetName(typeof(AvailableDrink), drink) + "Factory"));
+                Type.GetType(Enum.GetName(typeof(AvailableDrink), drink) + "Factory"));
             factories.Add(drink, factory);
         }
     }
@@ -1105,7 +1104,7 @@ public class HotDrinkMachine
 //good (with OOP)
 public class HotDrinkMachine
 {
-    private List<Tuple<string, IHotDrinkFactory>> namedFactories =
+    private readonly List<Tuple<string, IHotDrinkFactory>> namedFactories =
         new List<Tuple<string, IHotDrinkFactory>>();
 
     public HotDrinkMachine()
@@ -1115,7 +1114,7 @@ public class HotDrinkMachine
             if (typeof(IHotDrinkFactory).IsAssignableFrom(t) && !t.IsInterface)
             {
                 namedFactories.Add(Tuple.Create(
-                    t.Name.Replace("Factory", string.Empty), 
+                    t.Name.Replace("Factory", string.Empty),
                     (IHotDrinkFactory)Activator.CreateInstance(t)));
             }
         }
@@ -1129,7 +1128,7 @@ public class HotDrinkMachine
         for (var index = 0; index < namedFactories.Count; index++)
         {
             var tuple = namedFactories[index];
-            Console.WriteLine($"{index}: {tuple.Item1}");
+            Console.WriteLine($@"{index}: {tuple.Item1}");
         }
     }
 }
@@ -1198,8 +1197,8 @@ public class Address : ICloneable
 ```
 public class Person
 {
-    public readonly string[] Names;
-    public readonly Address Address;
+    public string[] Names { get; }
+    public Address Address { get; }
 
     public Person(string[] names, Address address)
     {
@@ -1221,8 +1220,8 @@ public class Person
 
 public class Address
 {
-    public readonly string StreetName;
-    public int HouseNumber;
+    public string StreetName { get; }
+    public int HouseNumber { get; }
 
     public Address(string streetName, int houseNumber)
     {
@@ -1232,8 +1231,8 @@ public class Address
 
     public Address(Address other)
     {
-        StreetName = other.streetName;
-        HouseNumber = other.houseNumber;
+        StreetName = other.StreetName;
+        HouseNumber = other.HouseNumber;
     }
 
     public override string ToString()
@@ -1249,15 +1248,15 @@ public class Address
   * Tedious when have a deep hierarchy of objects (10 different classes)
   
 ```
-ublic interface IPrototype<T>
+public interface IPrototype<T>
 {
     T DeepCopy();
 }
 
 public class Person : IPrototype<Person>
 {
-    public readonly string[] Names;
-    public readonly Address Address;
+    public string[] Names { get; }
+    public Address Address { get; }
 
     public Person(string[] names, Address address)
     {
@@ -1278,8 +1277,8 @@ public class Person : IPrototype<Person>
 
 public class Address : IPrototype<Address>
 {
-    public readonly string StreetName;
-    public int HouseNumber;
+    public string StreetName { get; }
+    public int HouseNumber { get; }
 
     public Address(string streetName, int houseNumber)
     {
@@ -1306,20 +1305,20 @@ public static class ExtensionMethods
 {
     public static T DeepCopy<T>(this T self)
     {
-        MemoryStream stream = new MemoryStream();
-        BinaryFormatter formatter = new BinaryFormatter();
+        var stream = new MemoryStream();
+        var formatter = new BinaryFormatter();
         formatter.Serialize(stream, self);
         stream.Seek(0, SeekOrigin.Begin);
-        object copy = formatter.Deserialize(stream);
+        var copy = formatter.Deserialize(stream);
         stream.Close();
         return (T)copy;
     }
 
     public static T DeepCopyXml<T>(this T self)
     {
+        XmlSerializer s = new XmlSerializer(typeof(T));
         using (var ms = new MemoryStream())
         {
-            XmlSerializer s = new XmlSerializer(typeof(T));
             s.Serialize(ms, self);
             ms.Position = 0;
             return (T)s.Deserialize(ms);
@@ -1340,29 +1339,24 @@ public interface IDatabase
 
 public class SingletonDatabase : IDatabase
 {
-    private Dictionary<string, int> capitals;
-    private static int instanceCount;
+    private readonly Dictionary<string, int> capitals;
     // laziness + thread safety
-    private static Lazy<SingletonDatabase> instance = new Lazy<SingletonDatabase>(() =>
+    private static Lazy<SingletonDatabase> _instance = new Lazy<SingletonDatabase>(() =>
     {
-        instanceCount++;
+        Count++;
         return new SingletonDatabase();
     });
-    public static int Count => instanceCount;
-    public static IDatabase Instance => instance.Value;
+
+    public static int Count { get; private set; }
+    public static IDatabase Instance => _instance.Value;
 
     private SingletonDatabase()
     {
         Console.WriteLine("Initializing database");
 
-        capitals = File.ReadAllLines(
-                Path.Combine(
-                    new FileInfo(typeof(IDatabase).Assembly.Location).DirectoryName, "capitals.txt")
-            )
+        capitals = File.ReadAllLines(Path.Combine(new FileInfo(typeof(IDatabase).Assembly.Location).DirectoryName, "capitals.txt"))
             .Batch(2)
-            .ToDictionary(
-                list => list.ElementAt(0).Trim(),
-                list => int.Parse(list.ElementAt(1)));
+            .ToDictionary(list => list.ElementAt(0).Trim(), list => int.Parse(list.ElementAt(1)));
     }
 
     public int GetPopulation(string name)
@@ -1381,15 +1375,8 @@ public class SingletonRecordFinder
 {
     public int TotalPopulation(IEnumerable<string> names)
     {
-        int result = 0;
-
-        foreach (var name in names)
-        {
-            // hardcoded reference, unable to subsitute something
-            result += SingletonDatabase.Instance.GetPopulation(name);
-        }
-
-        return result;
+        // hardcoded reference, unable to subsitute something
+        return names.Aggregate(0, (current, name) => current + SingletonDatabase.Instance.GetPopulation(name));
     }
 }
 ```
@@ -1410,14 +1397,7 @@ public class ConfigurableRecordFinder
 
     public int GetTotalPopulation(IEnumerable<string> names)
     {
-        int result = 0;
-
-        foreach (var name in names)
-        {
-            result += database.GetPopulation(name);
-        }
-
-        return result;
+        return names.Aggregate(0, (current, name) => current + database.GetPopulation(name));
     }
 }
 ```
@@ -1430,19 +1410,19 @@ public class ConfigurableRecordFinder
 ```
 public class ChiefExecutiveOfficer
 {
-    private static string name;
-    private static int age;
+    private static string _name;
+    private static int _age;
 
     public string Name
     {
-        get => name;
-        set => name = value;
+        get => _name;
+        set => _name = value;
     }
 
     public int Age
     {
-        get => age;
-        set => age = value;
+        get => _age;
+        set => _age = value;
     }
 
     public override string ToString()
@@ -1455,12 +1435,10 @@ public class Demo
 {
     static void Main(string[] args)
     {
-        var ceo = new ChiefExecutiveOfficer();
-        ceo.Name = "Adam Smith";
-        ceo.Age = 55;
+        var ceo = new ChiefExecutiveOfficer { Name = "Adam Smith", Age = 55 };
 
         var ceo2 = new ChiefExecutiveOfficer();
-        WriteLine(ceo2);
+        Console.WriteLine(ceo2);
     }
 }
 ```
@@ -1468,5 +1446,316 @@ public class Demo
 ---
 
 * Adapter
+A construct which adapts an existing interface X to conform (符合) to the required interface Y
+
+```
+//problem
+public class Point
+{
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public Point(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(X)}: {X}, {nameof(Y)}: {Y}";
+    }
+}
+
+public class Line
+{
+    public Point Start { get; set; }
+    public Point End { get; set; }
+
+    public Line(Point start, Point end)
+    {
+        Start = start;
+        End = end;
+    }
+}
+
+public class VectorObject : Collection<Line>
+{
+}
+
+public class VectorRectangle : VectorObject
+{
+    public VectorRectangle(int x, int y, int width, int height)
+    {
+        Add(new Line(new Point(x, y), new Point(x + width, y)));
+        Add(new Line(new Point(x + width, y), new Point(x + width, y + height)));
+        Add(new Line(new Point(x, y), new Point(x, y + height)));
+        Add(new Line(new Point(x, y + height), new Point(x + width, y + height)));
+    }
+}
+
+public class Demo
+{
+    private static readonly List<VectorObject> vectorObjects = new List<VectorObject>
+    {
+        new VectorRectangle(1, 1, 10, 10),
+        new VectorRectangle(3, 3, 6, 6)
+    };
+
+    // the interface we have
+    public static void DrawPoint(Point p)
+    {
+        Console.Write("...");
+    }
+
+    static void Main(string[] args)
+    {
+        // if called twice, will regenerate again
+        Draw();
+        Draw();
+    }
+}
+
+//fix
+public class LineToPointAdapter : Collection<Point>
+{
+    private static int _count;
+
+    public LineToPointAdapter(Line line)
+    {
+        Console.WriteLine($@"{++_count}: Generating points for line [{line.Start.X},{line.Start.Y}]-[{line.End.X},{line.End.Y}] (no caching)");
+
+        var left = Math.Min(line.Start.X, line.End.X);
+        var right = Math.Max(line.Start.X, line.End.X);
+        var top = Math.Min(line.Start.Y, line.End.Y);
+        var bottom = Math.Max(line.Start.Y, line.End.Y);
+        var dx = right - left;
+        var dy = line.End.Y - line.Start.Y;
+
+        if (dx == 0)
+        {
+            for (var y = top; y <= bottom; ++y)
+            {
+                Add(new Point(left, y));
+            }
+        }
+        else if (dy == 0)
+        {
+            for (var x = left; x <= right; ++x)
+            {
+                Add(new Point(x, top));
+            }
+        }
+    }
+}
+
+private static void Draw()
+{
+    foreach (var vo in vectorObjects)
+    {
+        foreach (var line in vo)
+        {
+            var adapter = new LineToPointAdapter(line);
+            adapter.ForEach(DrawPoint);
+        }
+    }
+}
+```
 
 ---
+
+* Adapter Caching
+
+```
+public class Point
+{
+    public int X { get; }
+    public int Y { get; }
+
+    public Point(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    protected bool Equals(Point other)
+    {
+        return X == other.X && Y == other.Y;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is null)
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        return obj.GetType() == GetType() && Equals((Point)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            return (X * 397) ^ Y;
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"({X}, {Y})";
+    }
+}
+
+public class Line
+{
+    public Point Start { get; }
+    public Point End { get; }
+
+    public Line(Point start, Point end)
+    {
+        Start = start;
+        End = end;
+    }
+
+    protected bool Equals(Line other)
+    {
+        return Equals(Start, other.Start) && Equals(End, other.End);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is null)
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        return obj.GetType() == GetType() && Equals((Line)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            return ((Start != null ? Start.GetHashCode() : 0) * 397) ^ (End != null ? End.GetHashCode() : 0);
+        }
+    }
+}
+
+public abstract class VectorObject : Collection<Line>
+{
+}
+
+public class VectorRectangle : VectorObject
+{
+    public VectorRectangle(int x, int y, int width, int height)
+    {
+        Add(new Line(new Point(x, y), new Point(x + width, y)));
+        Add(new Line(new Point(x + width, y), new Point(x + width, y + height)));
+        Add(new Line(new Point(x, y), new Point(x, y + height)));
+        Add(new Line(new Point(x, y + height), new Point(x + width, y + height)));
+    }
+}
+
+public class LineToPointAdapter : IEnumerable<Point>
+{
+    private static int _count;
+    private static readonly Dictionary<int, List<Point>> cache = new Dictionary<int, List<Point>>();
+    private readonly int hash;
+
+    public LineToPointAdapter(Line line)
+    {
+        hash = line.GetHashCode();
+
+        if (cache.ContainsKey(hash))
+        {
+            return;
+        }
+
+        Console.WriteLine($@"{++_count}: Generating points for line [{line.Start.X},{line.Start.Y}]-[{line.End.X},{line.End.Y}] (with caching)");
+
+        var points = new List<Point>();
+        var left = Math.Min(line.Start.X, line.End.X);
+        var right = Math.Max(line.Start.X, line.End.X);
+        var top = Math.Min(line.Start.Y, line.End.Y);
+        var bottom = Math.Max(line.Start.Y, line.End.Y);
+        var dx = right - left;
+        var dy = line.End.Y - line.Start.Y;
+
+        if (dx == 0)
+        {
+            for (var y = top; y <= bottom; ++y)
+            {
+                points.Add(new Point(left, y));
+            }
+        }
+        else if (dy == 0)
+        {
+            for (var x = left; x <= right; ++x)
+            {
+                points.Add(new Point(x, top));
+            }
+        }
+
+        cache.Add(hash, points);
+    }
+
+    public IEnumerator<Point> GetEnumerator()
+    {
+        return cache[hash].GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+}
+
+
+public class Demo
+{
+    private static readonly List<VectorObject> VectorObjects = new List<VectorObject>
+    {
+      new VectorRectangle(1, 1, 10, 10),
+      new VectorRectangle(3, 3, 6, 6)
+    };
+
+    // the interface we have
+    public static void DrawPoint(Point p)
+    {
+        Console.Write(".");
+    }
+
+    static void Main(string[] args)
+    {
+        Draw();
+        Draw();
+    }
+
+    private static void Draw()
+    {
+        foreach (var vo in VectorObjects)
+        {
+            foreach (var line in vo)
+            {
+                var adapter = new LineToPointAdapter(line);
+                adapter.ForEach(DrawPoint);
+            }
+        }
+    }
+}
+```
+
+---
+
+
