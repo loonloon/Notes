@@ -2342,6 +2342,390 @@ Console.WriteLine(bft);
 
 ---
 
+#### Chain of Responsibility  ####
+A chain of components who all get a chance to process a command or a query, optionally having default processing implementation and an ability to terminate the processing chain
 
+```
+//example 1
+public class Creature
+{
+    public string Name;
+    public int Attack, Defense;
+
+    public Creature(string name, int attack, int defense)
+    {
+        Name = name ?? throw new ArgumentNullException(paramName: nameof(name));
+        Attack = attack;
+        Defense = defense;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Name)}: {Name}, {nameof(Attack)}: {Attack}, {nameof(Defense)}: {Defense}";
+    }
+}
+
+public class CreatureModifier
+{
+    protected Creature Creature;
+    protected CreatureModifier Next;
+
+    public CreatureModifier(Creature creature)
+    {
+        Creature = creature ?? throw new ArgumentNullException(paramName: nameof(creature));
+    }
+
+    public void Add(CreatureModifier cm)
+    {
+        if (Next != null)
+        {
+            Next.Add(cm);
+        }
+        else
+        {
+            Next = cm;
+        }
+    }
+
+    public virtual void Handle() => Next?.Handle();
+}
+
+public class NoBonusesModifier : CreatureModifier
+{
+    public NoBonusesModifier(Creature creature) : base(creature)
+    {
+    }
+
+    public override void Handle()
+    {
+        // nothing
+        Console.WriteLine("No bonuses for you!");
+    }
+}
+
+public class DoubleAttackModifier : CreatureModifier
+{
+    public DoubleAttackModifier(Creature creature) : base(creature)
+    {
+    }
+
+    public override void Handle()
+    {
+        Console.WriteLine($"Doubling {Creature.Name}'s attack");
+        Creature.Attack *= 2;
+        base.Handle();
+    }
+}
+
+public class IncreaseDefenseModifier : CreatureModifier
+{
+    public IncreaseDefenseModifier(Creature creature) : base(creature)
+    {
+    }
+
+    public override void Handle()
+    {
+        Console.WriteLine("Increasing goblin's defense");
+        Creature.Defense += 3;
+        base.Handle();
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var goblin = new Creature("Goblin", 2, 2);
+        Console.WriteLine(goblin);
+
+        var root = new CreatureModifier(goblin);
+
+        root.Add(new NoBonusesModifier(goblin));
+
+        Console.WriteLine("Let's double goblin's attack...");
+        root.Add(new DoubleAttackModifier(goblin));
+
+        Console.WriteLine("Let's increase goblin's defense");
+        root.Add(new IncreaseDefenseModifier(goblin));
+
+        // eventually...
+        root.Handle();
+        Console.WriteLine(goblin);
+    }
+}
+
+//example 2
+// command query separation is being used here
+public class Query
+{
+    public string CreatureName;
+    public Argument WhatToQuery;
+    public int Value;
+
+    public enum Argument
+    {
+        Attack, Defense
+    }
+
+    public Query(string creatureName, Argument whatToQuery, int value)
+    {
+        CreatureName = creatureName ?? throw new ArgumentNullException(nameof(creatureName));
+        WhatToQuery = whatToQuery;
+        Value = value;
+    }
+}
+
+// mediator pattern
+public class Game
+{
+    // effectively a chain
+    public event EventHandler<Query> Queries;
+
+    public void PerformQuery(object sender, Query q)
+    {
+        Queries?.Invoke(sender, q);
+    }
+}
+
+public class Creature
+{
+    private readonly Game game;
+    public string Name;
+    private int attack, defense;
+
+    public Creature(Game game, string name, int attack, int defense)
+    {
+        this.game = game ?? throw new ArgumentNullException(nameof(game));
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        this.attack = attack;
+        this.defense = defense;
+    }
+
+    public int Attack
+    {
+        get
+        {
+            var q = new Query(Name, Query.Argument.Attack, attack);
+            game.PerformQuery(this, q);
+            return q.Value;
+        }
+    }
+
+    public int Defense
+    {
+        get
+        {
+            var q = new Query(Name, Query.Argument.Defense, defense);
+            game.PerformQuery(this, q);
+            return q.Value;
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Name)}: {Name}, {nameof(attack)}: {Attack}, {nameof(defense)}: {Defense}";
+    }
+}
+
+public abstract class CreatureModifier : IDisposable
+{
+    protected Game Game;
+    protected Creature Creature;
+
+    protected CreatureModifier(Game game, Creature creature)
+    {
+        Game = game;
+        Creature = creature;
+        game.Queries += Handle;
+    }
+
+    protected abstract void Handle(object sender, Query q);
+
+    public void Dispose()
+    {
+        Game.Queries -= Handle;
+    }
+}
+
+public class DoubleAttackModifier : CreatureModifier
+{
+    public DoubleAttackModifier(Game game, Creature creature)
+        : base(game, creature)
+    {
+    }
+
+    protected override void Handle(object sender, Query q)
+    {
+        if (q.CreatureName == Creature.Name && q.WhatToQuery == Query.Argument.Attack)
+        {
+            q.Value *= 2;
+        }
+    }
+}
+
+public class IncreaseDefenseModifier : CreatureModifier
+{
+    public IncreaseDefenseModifier(Game game, Creature creature)
+        : base(game, creature)
+    {
+    }
+
+    protected override void Handle(object sender, Query q)
+    {
+        if (q.CreatureName == Creature.Name && q.WhatToQuery == Query.Argument.Defense)
+        {
+            q.Value += 2;
+        }
+    }
+}
+
+public class Demo
+{
+    public static void Main()
+    {
+        var game = new Game();
+        var goblin = new Creature(game, "Strong Goblin", 3, 3);
+        Console.WriteLine(goblin);
+
+        using (new DoubleAttackModifier(game, goblin))
+        {
+            Console.WriteLine(goblin);
+            using (new IncreaseDefenseModifier(game, goblin))
+            {
+                Console.WriteLine(goblin);
+            }
+        }
+
+        Console.WriteLine(goblin);
+    }
+}
+```
+
+---
+
+#### Command ####
+An object which represents an instruction to perform a particular action. Contains all the information necessary for the action to be taken
+
+```
+public class BankAccount
+{
+    private int balance;
+    private const int OverdraftLimit = -500;
+
+    public void Deposit(int amount)
+    {
+        balance += amount;
+        Console.WriteLine($"Deposited ${amount}, balance is now {balance}");
+    }
+
+    public bool Withdraw(int amount)
+    {
+        if (balance - amount >= OverdraftLimit)
+        {
+            balance -= amount;
+            Console.WriteLine($"Withdrew ${amount}, balance is now {balance}");
+            return true;
+        }
+
+        return false;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(balance)}: {balance}";
+    }
+}
+
+public interface ICommand
+{
+    void Call();
+    void Undo();
+}
+
+public class BankAccountCommand : ICommand
+{
+    private readonly BankAccount account;
+    private readonly Action action;
+    private readonly int amount;
+    private bool succeeded;
+
+    public enum Action
+    {
+        Deposit, Withdraw
+    }
+
+    public BankAccountCommand(BankAccount account, Action action, int amount)
+    {
+        this.account = account ?? throw new ArgumentNullException(nameof(account));
+        this.action = action;
+        this.amount = amount;
+    }
+
+    public void Call()
+    {
+        switch (action)
+        {
+            case Action.Deposit:
+                account.Deposit(amount);
+                succeeded = true;
+                break;
+            case Action.Withdraw:
+                succeeded = account.Withdraw(amount);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public void Undo()
+    {
+        if (!succeeded)
+        {
+            return;
+        }
+
+        switch (action)
+        {
+            case Action.Deposit:
+                account.Withdraw(amount);
+                break;
+            case Action.Withdraw:
+                account.Deposit(amount);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+}
+
+class Demo
+{
+    static void Main(string[] args)
+    {
+        var ba = new BankAccount();
+        var commands = new List<BankAccountCommand> 
+        {
+            new BankAccountCommand(ba, BankAccountCommand.Action.Deposit, 100), 
+            new BankAccountCommand(ba, BankAccountCommand.Action.Withdraw, 1000)
+        };
+
+        Console.WriteLine(ba);
+
+        foreach (var c in commands)
+        {
+            c.Call();
+        }
+
+        Console.WriteLine(ba);
+
+        foreach (var c in Enumerable.Reverse(commands))
+        {
+            c.Undo();
+        }
+
+        Console.WriteLine(ba);
+    }
+}
+```
 
 ---
