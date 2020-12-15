@@ -2342,7 +2342,186 @@ Console.WriteLine(bft);
 
 ---
 
-#### Chain of Responsibility  ####
+#### Proxy ####
+A class that functions as an interface to particular resource. That resource may be remote, expensive to construct, or maybe require logging or some other added functionality
+
+```
+public interface ICar
+{
+    void Drive();
+}
+
+public class Car : ICar
+{
+    public void Drive()
+    {
+        Console.WriteLine("Car being driven");
+    }
+}
+
+public class CarProxy : ICar
+{
+    private readonly Car car = new Car();
+    private readonly Driver driver;
+
+    public CarProxy(Driver driver)
+    {
+        this.driver = driver;
+    }
+
+    public void Drive()
+    {
+        if (driver.Age >= 16)
+        {
+            car.Drive();
+        }
+        else
+        {
+            Console.WriteLine("Driver too young");
+        }
+    }
+}
+
+public class Driver
+{
+    public int Age { get; set; }
+
+    public Driver(int age)
+    {
+        Age = age;
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        ICar car = new CarProxy(new Driver(12)); // 22
+        car.Drive();
+    }
+}
+```
+
+---
+
+* Property Proxy
+  * Use object as property instead of value
+  
+```
+public class Property<T> : IEquatable<Property<T>> where T : new()
+{
+    private T value;
+
+    public T Value
+    {
+        get => value;
+        set
+        {
+            if (Equals(this.value, value))
+            {
+                return;
+            }
+
+            Console.WriteLine($"Assigning value to {value}");
+            this.value = value;
+        }
+    }
+
+    public Property() : this(default(T))
+    {
+
+    }
+
+    public Property(T value)
+    {
+        this.value = value;
+    }
+
+    public static implicit operator T(Property<T> property)
+    {
+        return property.value; // int n = p_int;
+    }
+
+    public static implicit operator Property<T>(T value)
+    {
+        return new Property<T>(value); // Property<int> p = 123;
+    }
+
+    public bool Equals(Property<T> other)
+    {
+        if (ReferenceEquals(null, other))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+
+        return EqualityComparer<T>.Default.Equals(value, other.value);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        if (obj.GetType() != GetType())
+        {
+            return false;
+        }
+
+        return Equals((Property<T>)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return value.GetHashCode();
+    }
+
+    public static bool operator ==(Property<T> left, Property<T> right)
+    {
+        return Equals(left, right);
+    }
+
+    public static bool operator !=(Property<T> left, Property<T> right)
+    {
+        return !Equals(left, right);
+    }
+}
+
+public class Creature
+{
+    private readonly Property<int> agility = new Property<int>();
+
+    public int Agility
+    {
+        get => agility.Value;
+        set => agility.Value = value;
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var c = new Creature();
+        c.Agility = 10;
+    }
+}
+```
+
+---
+
+#### Chain of Responsibility ####
 A chain of components who all get a chance to process a command or a query, optionally having default processing implementation and an ability to terminate the processing chain
 
 ```
