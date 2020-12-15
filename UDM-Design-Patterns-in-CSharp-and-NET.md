@@ -2202,5 +2202,146 @@ Provides a simple, easy to understand / user interface over a large and sophisti
 ---
 
 #### Flyweight ####
+A space optimization technique that lets us use less memory by storing externally the data associated with similar objects (avoid duplication)
+
+```
+//example 1
+public class User
+{
+    private string fullName;
+
+    public User(string fullName)
+    {
+        this.fullName = fullName;
+    }
+}
+
+public class User2
+{
+   // sharing
+    private static readonly List<string> Strings = new List<string>();
+    private readonly int[] names;
+
+    public User2(string fullName)
+    {
+        int GetOrAdd(string s)
+        {
+            var idx = Strings.IndexOf(s);
+
+            if (idx != -1)
+            {
+                return idx;
+            }
+
+            Strings.Add(s);
+            return Strings.Count - 1;
+        }
+
+        names = fullName.Split(' ').Select(GetOrAdd).ToArray();
+    }
+
+    public string FullName => string.Join(" ", names);
+}
+
+//example 2
+//bad
+public class FormattedText
+{
+    private readonly string plainText;
+    private readonly bool[] capitalize;
+
+    public FormattedText(string plainText)
+    {
+        this.plainText = plainText;
+        capitalize = new bool[plainText.Length];
+    }
+
+    public void Capitalize(int start, int end)
+    {
+        for (var i = start; i <= end; ++i)
+        {
+            capitalize[i] = true;
+        }
+    }
+
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+
+        for (var i = 0; i < plainText.Length; i++)
+        {
+            var c = plainText[i];
+            sb.Append(capitalize[i] ? char.ToUpper(c) : c);
+        }
+
+        return sb.ToString();
+    }
+}
+
+var ft = new FormattedText("This is a brave new world");
+ft.Capitalize(10, 15);
+Console.WriteLine(ft);
+
+//good
+public class BetterFormattedText
+{
+    private readonly string plainText;
+    private readonly List<TextRange> formatting = new List<TextRange>();
+
+    public BetterFormattedText(string plainText)
+    {
+        this.plainText = plainText;
+    }
+
+    public TextRange GetRange(int start, int end)
+    {
+        var range = new TextRange { Start = start, End = end };
+        formatting.Add(range);
+        return range;
+    }
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+
+        for (var i = 0; i < plainText.Length; i++)
+        {
+            var c = plainText[i];
+
+            foreach (var range in formatting)
+            {
+                if (range.Covers(i) && range.Capitalize)
+                {
+                    c = char.ToUpperInvariant(c);
+                }
+            }
+
+            sb.Append(c);
+        }
+
+        return sb.ToString();
+    }
+
+    public class TextRange
+    {
+        public int Start, End;
+        public bool Capitalize, Bold, Italic;
+
+        public bool Covers(int position)
+        {
+            return position >= Start && position <= End;
+        }
+    }
+}
+
+var bft = new BetterFormattedText("This is a brave new world");
+bft.GetRange(10, 15).Capitalize = true;
+Console.WriteLine(bft);
+```
+
+---
+
+
 
 ---
