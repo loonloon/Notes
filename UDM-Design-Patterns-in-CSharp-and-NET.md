@@ -3104,6 +3104,431 @@ public class Demo
 ---
 
 #### Interator ####
+An object that facilitates the traversal of a data structure
+
+```
+public class Node<T>
+{
+    public T Value;
+    public Node<T> Left, Right;
+    public Node<T> Parent;
+
+    public Node(T value)
+    {
+        Value = value;
+    }
+
+    public Node(T value, Node<T> left, Node<T> right)
+    {
+        Value = value;
+        Left = left;
+        Right = right;
+        left.Parent = right.Parent = this;
+    }
+}
+
+public class InOrderIterator<T>
+{
+    public Node<T> Current { get; set; }
+    private readonly Node<T> root;
+    private bool yieldedStart;
+
+    public InOrderIterator(Node<T> root)
+    {
+        this.root = Current = root;
+
+        while (Current.Left != null)
+        {
+            Current = Current.Left;
+        }
+    }
+
+    public void Reset()
+    {
+        Current = root;
+        yieldedStart = true;
+    }
+    
+    // not easy to understand
+    public bool MoveNext()
+    {
+        if (!yieldedStart)
+        {
+            yieldedStart = true;
+            return true;
+        }
+
+        if (Current.Right != null)
+        {
+            Current = Current.Right;
+
+            while (Current.Left != null)
+            {
+                Current = Current.Left;
+            }
+
+            return true;
+        }
+
+        var p = Current.Parent;
+
+        while (p != null && Current == p.Right)
+        {
+            Current = p;
+            p = p.Parent;
+        }
+
+        Current = p;
+        return Current != null;
+    }
+}
+
+
+public class BinaryTree<T>
+{
+    private readonly Node<T> root;
+
+    public BinaryTree(Node<T> root)
+    {
+        this.root = root;
+    }
+
+    public InOrderIterator<T> GetEnumerator()
+    {
+        return new InOrderIterator<T>(root);
+    }
+
+    public IEnumerable<Node<T>> NaturalInOrder
+    {
+        get
+        {
+            IEnumerable<Node<T>> TraverseInOrder(Node<T> current)
+            {
+                if (current.Left != null)
+                {
+                    foreach (var left in TraverseInOrder(current.Left))
+                    {
+                        yield return left;
+                    }
+                }
+
+                yield return current;
+
+                if (current.Right != null)
+                {
+                    foreach (var right in TraverseInOrder(current.Right))
+                    {
+                        yield return right;
+                    }
+                }
+            }
+
+            foreach (var node in TraverseInOrder(root))
+            {
+                yield return node;
+            }
+        }
+    }
+}
+
+public class Demo
+{
+    public static void Main()
+    {
+        //   1
+        //  / \
+        // 2   3
+
+        // in-order:  213
+        // preorder:  123
+        // postorder: 231
+
+        var root = new Node<int>(1, new Node<int>(2), new Node<int>(3));
+
+        // C# style
+        var tree = new BinaryTree<int>(root);
+
+        Console.WriteLine(string.Join(",", tree.NaturalInOrder.Select(x => x.Value)));
+
+        // duck typing!, looking for GetEnumerator() and etc
+        foreach (var node in tree)
+        {
+            Console.WriteLine(node.Value);
+        }
+    }
+}
+```
+
+---
+
+#### Mediator ####
+A component that facilitates communication between other components without them necessarily being aware of each other or having direct (reference) access to each other
+
+```
+public class Person
+{
+    public string Name;
+    public ChatRoom Room;
+    private readonly List<string> chatLog = new List<string>();
+
+    public Person(string name)
+    {
+        Name = name;
+    }
+
+    public void Receive(string sender, string message)
+    {
+        var s = $"{sender}: '{message}'";
+        Console.WriteLine($"[{Name}'s chat session] {s}");
+        chatLog.Add(s);
+    }
+
+    public void Say(string message)
+    {
+        Room.Broadcast(Name, message);
+    }
+
+    public void PrivateMessage(string who, string message)
+    {
+        Room.Message(Name, who, message);
+    }
+}
+
+public class ChatRoom
+{
+    private readonly List<Person> people = new List<Person>();
+
+    public void Broadcast(string source, string message)
+    {
+        foreach (var p in people.Where(p => p.Name != source))
+        {
+            p.Receive(source, message);
+        }
+    }
+
+    public void Join(Person p)
+    {
+        var joinMsg = $"{p.Name} joins the chat";
+        Broadcast("room", joinMsg);
+
+        p.Room = this;
+        people.Add(p);
+    }
+
+    public void Message(string source, string destination, string message)
+    {
+        people.FirstOrDefault(p => p.Name == destination)?.Receive(source, message);
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var room = new ChatRoom();
+
+        var john = new Person("John");
+        var jane = new Person("Jane");
+
+        room.Join(john);
+        room.Join(jane);
+
+        john.Say("hi room");
+        jane.Say("oh, hey john");
+
+        var simon = new Person("Simon");
+        room.Join(simon);
+        simon.Say("hi everyone!");
+
+        jane.PrivateMessage("Simon", "glad you could join us!");
+    }
+}
+```
+
+---
+
+#### Memento ####
+A token / handle representing the system state. Lets us roll back to the state when the token generated. May or may not directly expose state information
+
+```
+public class Memento
+{
+    public int Balance { get; }
+
+    public Memento(int balance)
+    {
+        Balance = balance;
+    }
+}
+
+public class BankAccount
+{
+    private int balance;
+    private readonly List<Memento> changes = new List<Memento>();
+    private int current;
+
+    public BankAccount(int balance)
+    {
+        this.balance = balance;
+        changes.Add(new Memento(balance));
+    }
+
+    public Memento Deposit(int amount)
+    {
+        balance += amount;
+        var m = new Memento(balance);
+        changes.Add(m);
+        ++current;
+        return m;
+    }
+
+    public void Restore(Memento m)
+    {
+        if (m != null)
+        {
+            balance = m.Balance;
+            changes.Add(m);
+            current = changes.Count - 1;
+        }
+    }
+
+    public Memento Undo()
+    {
+        if (current > 0)
+        {
+            var m = changes[--current];
+            balance = m.Balance;
+            return m;
+        }
+
+        return null;
+    }
+
+    public Memento Redo()
+    {
+        if (current + 1 < changes.Count)
+        {
+            var m = changes[++current];
+            balance = m.Balance;
+            return m;
+        }
+
+        return null;
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(balance)}: {balance}";
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var ba = new BankAccount(100);
+        ba.Deposit(50);
+        ba.Deposit(25);
+        Console.WriteLine(ba);
+
+        ba.Undo();
+        Console.WriteLine($"Undo 1: {ba}");
+
+        ba.Undo();
+        Console.WriteLine($"Undo 2: {ba}");
+
+        ba.Redo();
+        Console.WriteLine($"Redo 2: {ba}");
+    }
+}
+```
+
+---
+
+#### Null Object ####
+A no operation object that conforms to the required interface, satisfying a dependency requirement of some other object
+
+```
+public interface ILog
+{
+    void Info(string msg);
+    void Warn(string msg);
+}
+
+public class BankAccount
+{
+    private readonly ILog log;
+    private int balance;
+
+    public BankAccount(ILog log)
+    {
+        this.log = log;
+    }
+
+    public void Deposit(int amount)
+    {
+        balance += amount;
+        // check for null everywhere
+        log?.Info($"Deposited ${amount}, balance is now {balance}");
+    }
+
+    public void Withdraw(int amount)
+    {
+        if (balance >= amount)
+        {
+            balance -= amount;
+            log?.Info($"Withdrew ${amount}, we have ${balance} left");
+        }
+        else
+        {
+            log?.Warn($"Could not withdraw ${amount} because balance is only ${balance}");
+        }
+    }
+}
+
+public class ConsoleLog : ILog
+{
+    public void Info(string msg)
+    {
+        WriteLine(msg);
+    }
+
+    public void Warn(string msg)
+    {
+        Console.WriteLine("WARNING: " + msg);
+    }
+}
+
+public sealed class NullLog : ILog
+{
+    public void Info(string msg)
+    {
+
+    }
+
+    public void Warn(string msg)
+    {
+
+    }
+}
+
+public class Demo
+{
+    static void Main()
+    {
+        var consoleLog = new ConsoleLog();
+        var nullLog = new NullLog();
+        var ba = new BankAccount(consoleLog);
+
+        ba.Deposit(100);
+        ba.Withdraw(200);
+    }
+}
+```
+
+---
+
+#### Observer  ####
 
 
 ```
