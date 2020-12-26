@@ -50,6 +50,8 @@ class NullBoss implements IBoss {
 }
 ```
 
+---
+
 #### Special Case Pattern ####
 
 Since we've exposed all our orders via an interface, there's no need to figure out what
@@ -115,6 +117,8 @@ for (const order of ordersCollection) {
 }
 
 ```
+
+---
 
 #### Wordy Conditionals ####
 
@@ -245,6 +249,8 @@ if (pipe.check()) {
 
 ```
 
+---
+
 #### Nested Conditionals ####
 
 ```
@@ -282,6 +288,8 @@ if (order.isFraudulent()) {
 return order.tryAgainLater();
 
 ```
+
+---
 
 #### Gate Classes ####
 
@@ -330,6 +338,8 @@ await userCanPlaceOrderGate.invoke(user);
 await orderRepo.placeOrder(order);
 
 ```
+
+---
 
 #### Primitive Overuse ####
 ```
@@ -430,3 +440,192 @@ if (emailAddress.isInfoUser()) {
 mailer.mailToInternalServer(emailAddress.value(), message);
 
 ```
+
+---
+
+#### Descriptive Booleans ####
+```
+//Bad
+//Example 1
+
+const user: User = await userIsAuthenticated(username, password);
+const isAuthenticated: boolean = user !== null;
+
+if (isAuthenticated) {
+    if (user.isActive) {
+        redirectToUserDashboard();
+    } else {
+        returnErrorOnLoginPage("User is not active.");
+    }
+} else {
+    returnErrorOnLoginPage("Credentials are not valid.");
+}
+
+//Example 2
+if (!user.isAuthenticated()) {
+    returnErrorOnLoginPage("Credentials are not valid.");
+}
+
+if (!user.isActive()) {
+    returnErrorOnLoginPage("User is not active.");
+}
+
+redirectToUserDashboard();
+
+//Good
+enum AuthenticationResult {
+    InvalidCredentials,
+    UserIsNotActive,
+    HasExistingSession,
+    IsLockedOut,
+    IsFirstLogin,
+    Successful
+}
+
+const strategies: any = [];
+strategies[AuthenticationResult.InvalidCredentials] = () => returnErrorOnLoginPage("Credentials are not valid.");
+strategies[AuthenticationResult.UserIsNotActive] = () => returnErrorOnLoginPage("User is not active.");
+strategies[AuthenticationResult.HasExistingSession] = () => redirectToHomePage();
+strategies[AuthenticationResult.IsLockedOut] = () => redirectToUserLockedOutPage();
+strategies[AuthenticationResult.IsFirstLogin] = () => redirectToWelcomePage();
+strategies[AuthenticationResult.Successful] = () => redirectToUserDashboard();
+
+strategies[result]();
+
+```
+
+---
+
+#### Lengthy Method Signatures ####
+```
+//Bad
+//Example 1
+public getUsers(
+    includeInactive: boolean = false,
+    filterText: string = null,
+    orderByName: boolean = false,
+    forHireDate: Date = null) : User[] {
+}
+
+//Good
+private getUsers(
+    includeInactive: boolean = false,
+    filterText: string = null,
+    orderByName: boolean = false,
+    forHireDate: Date = null) : User[] {
+}
+
+public getActiveUsers() : User[] {
+    return getUsers(false);
+}
+
+public getInactiveUsers() : User[] {
+    return getUsers(true);
+}
+
+public getActiveUsersByName(filter: string) : User[] {
+    return getUsers(false, filter);
+}
+
+public getActiveUsersOrderedAndFilteredByName(filter: string) : User[] {
+    return getUsers(false, filter, true);
+}
+
+public getActiveUsersForHireDate(hireDate: Date) : User[] {
+    return getUsers(false, null, false, hireDate);
+}
+
+```
+
+---
+
+#### Methods That Never End ####
+```
+//Bad
+public async processOrder(orderId: string): Promise<ValidationMessage> {
+    const user = await this.getUserFromSession();
+    const userId = user.id;
+    const userRole = user.role;
+    const userAllowed: boolean = await this.userCanModifyOrder(userId, userRole);
+
+    if (!userAllowed) {
+        return new ValidationMessage("Permission denied.");
+    }
+
+    let saveAttempts = 1;
+    while (saveAttempts > 3) {
+        const order = await this.getOrderById(orderId);
+
+        if (order.isActive()) {
+            const status: OrderStatus = order.getStatus();
+
+            if (status == OrderStatus.Pending) {
+                // do some more stuff
+            } else if (status == OrderStatus.Shipped) {
+                // do some more stuff
+            } else if (status == OrderStatus.Cancelled) {
+                // do some stuff
+            } else if (status == OrderStatus.Returned) {
+                // do more stuff
+            }
+        } else {
+            const archiveOnDate: Date = await this.getOrderArchiveOnDate(orderId);
+
+            if (order.getOrderedOnDate() > archiveOnDate) {
+                // Do some stuff
+            }
+        }
+
+        const result: OrderUpdateResult = await this.tryUpdateOrder(order);
+
+        if (result == OrderUpdateResult.Successful) {
+            return new ValidationMessage("Order updated successfully.");
+        } else if (result == OrderUpdateResult.OrderVersionOutOfSync) {
+            return new ValidationMessage("Order is outdated. Try again.");
+        } else if (result == OrderUpdateResult.NetworkError) {
+            saveAttempts++;
+            // The while loop will try to process the order again.
+        }
+    }
+}
+
+//Good
+const userAllowed: boolean = await this.sessionUserCanModifyOrder();
+
+if (!userAllowed) {
+    return new ValidationMessage("User not allowed.");
+}
+
+const threeTimes = 3;
+return this.retry(threeTimes, () => this.processOrder(orderId));
+
+public async processOrder(orderId: string): Promise<void> {
+    const order = await this.getOrderById(this.orderId);
+
+    if (order.isActive()) {
+        this.processActiveOrder(order);
+    } else {
+        this.tryArchivingOrder(order);
+    }
+
+    return await tryUpdateOrder(order);
+}
+
+enum OrderStatus {
+    Pending = 0,
+    Shipped = 1,
+    Cancelled = 2,
+    Returned = 3
+}
+
+const strategies: Function[] = [];
+strategies[OrderStatus.Pending] = this.processPendingOrder;
+strategies[OrderStatus.Shipped] = this.processShippedOrder;
+strategies[OrderStatus.Cancelled] = this.processCancelledOrder;
+strategies[OrderStatus.Returned] = this.processReturnedOrder;
+
+// Execute the appropriate strategy.
+strategies[order.getStatus()]();
+```
+
+--- 
