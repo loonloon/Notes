@@ -1445,7 +1445,7 @@ public class Demo
 
 ---
 
-* Adapter
+#### Adapter ####
 A construct which adapts an existing interface X to conform (符合) to the required interface Y
 
 ```
