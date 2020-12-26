@@ -288,7 +288,7 @@ public class Demo
 ---
 
 * Liskov Substitution Principle
-  * Should be always be up cast and the operation should be stil generally OK
+  * Should be always be up cast and the operation should be still generally OK
   
 ```
 //wrong
