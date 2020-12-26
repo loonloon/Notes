@@ -3683,9 +3683,408 @@ public class Demo
 ---
 
 #### State ####
-
+A pattern in which the object's behavior is determined by its state. An object transitions from one state to another (something needs to trigger a transition)
 
 ```
+public enum State
+{
+    OffHook,
+    Connecting,
+    Connected,
+    OnHold
+}
+
+public enum Trigger
+{
+    CallDialed,
+    HungUp,
+    CallConnected,
+    PlacedOnHold,
+    TakenOffHold,
+    LeftMessage
+}
+
+class Demo
+{
+    private static readonly Dictionary<State, List<(Trigger, State)>> rules
+        = new Dictionary<State, List<(Trigger, State)>>
+        {
+            [State.OffHook] = new List<(Trigger, State)>
+            {
+                    (Trigger.CallDialed, State.Connecting)
+            },
+            [State.Connecting] = new List<(Trigger, State)>
+            {
+                    (Trigger.HungUp, State.OffHook),
+                    (Trigger.CallConnected, State.Connected)
+            },
+            [State.Connected] = new List<(Trigger, State)>
+            {
+                    (Trigger.LeftMessage, State.OffHook),
+                    (Trigger.HungUp, State.OffHook),
+                    (Trigger.PlacedOnHold, State.OnHold)
+            },
+            [State.OnHold] = new List<(Trigger, State)>
+            {
+                    (Trigger.TakenOffHold, State.Connected),
+                    (Trigger.HungUp, State.OffHook)
+            }
+        };
+
+    static void Main(string[] args)
+    {
+        var state = State.OffHook;
+
+        while (true)
+        {
+            Console.WriteLine($"The phone is currently {state}");
+            Console.WriteLine("Select a trigger:");
+
+            // foreach to for
+            for (var i = 0; i < rules[state].Count; i++)
+            {
+                var (t, _) = rules[state][i];
+                Console.WriteLine($"{i}. {t}");
+            }
+
+            var input = int.Parse(Console.ReadLine());
+            var (_, s) = rules[state][input];
+            state = s;
+        }
+    }
+}
 ```
 
 ---
+
+#### Strategy ####
+Enables the exact behavior of a system to be selected either at run-time (dynamic) or compile-time (static)
+
+```
+public enum OutputFormat
+{
+    Markdown,
+    Html
+}
+
+public interface IListStrategy
+{
+    void Start(StringBuilder sb);
+    void End(StringBuilder sb);
+    void AddListItem(StringBuilder sb, string item);
+}
+
+public class MarkdownListStrategy : IListStrategy
+{
+    public void Start(StringBuilder sb)
+    {
+        // markdown doesn't require a list preamble
+    }
+
+    public void End(StringBuilder sb)
+    {
+    }
+
+    public void AddListItem(StringBuilder sb, string item)
+    {
+        sb.AppendLine($" * {item}");
+    }
+}
+
+public class HtmlListStrategy : IListStrategy
+{
+    public void Start(StringBuilder sb)
+    {
+        sb.AppendLine("<ul>");
+    }
+
+    public void End(StringBuilder sb)
+    {
+        sb.AppendLine("</ul>");
+    }
+
+    public void AddListItem(StringBuilder sb, string item)
+    {
+        sb.AppendLine($"  <li>{item}</li>");
+    }
+}
+
+// dynamic
+public class TextProcessor
+{
+    private readonly StringBuilder _sb = new StringBuilder();
+    private IListStrategy _listStrategy;
+
+    public void SetOutputFormat(OutputFormat format)
+    {
+        switch (format)
+        {
+            case OutputFormat.Markdown:
+                _listStrategy = new MarkdownListStrategy();
+                break;
+            case OutputFormat.Html:
+                _listStrategy = new HtmlListStrategy();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(format), format, null);
+        }
+    }
+
+    public void AppendList(IEnumerable<string> items)
+    {
+        _listStrategy.Start(_sb);
+
+        foreach (var item in items)
+        {
+            _listStrategy.AddListItem(_sb, item);
+        }
+
+        _listStrategy.End(_sb);
+    }
+
+    public StringBuilder Clear()
+    {
+        return _sb.Clear();
+    }
+
+    public override string ToString()
+    {
+        return _sb.ToString();
+    }
+}
+
+class Demo
+{
+    static void Main(string[] args)
+    {
+        var tp = new TextProcessor();
+        tp.SetOutputFormat(OutputFormat.Markdown);
+        tp.AppendList(new[] { "foo", "bar", "baz" });
+        Console.WriteLine(tp);
+
+        tp.Clear();
+        tp.SetOutputFormat(OutputFormat.Html);
+        tp.AppendList(new[] { "foo", "bar", "baz" });
+        Console.WriteLine(tp);
+    }
+}
+
+// static
+public class TextProcessor<T> where T : IListStrategy, new()
+{
+    private readonly StringBuilder _sb = new StringBuilder();
+    private readonly IListStrategy _listStrategy = new T();
+
+    public void AppendList(IEnumerable<string> items)
+    {
+        _listStrategy.Start(_sb);
+
+        foreach (var item in items)
+        {
+            _listStrategy.AddListItem(_sb, item);
+        }
+
+        _listStrategy.End(_sb);
+    }
+
+    public override string ToString()
+    {
+        return _sb.ToString();
+    }
+}
+
+class Demo
+{
+    static void Main(string[] args)
+    {
+        var tp = new TextProcessor<MarkdownListStrategy>();
+        tp.AppendList(new[] { "foo", "bar", "baz" });
+        Console.WriteLine(tp);
+
+        var tp2 = new TextProcessor<HtmlListStrategy>();
+        tp2.AppendList(new[] { "foo", "bar", "baz" });
+        Console.WriteLine(tp2);
+    }
+}
+
+```
+
+---
+
+#### Template Method ####
+Allows us to define the 'skeleton' of the algorithm, with concrete implementations defined in subclasses (inheritance). Something similar as Strategy pattern (Through composition (interface))
+
+```
+public abstract class Game
+{
+    protected int CurrentPlayer;
+    protected readonly int NumberOfPlayers;
+    protected abstract bool HaveWinner { get; }
+    protected abstract int WinningPlayer { get; }
+
+    protected Game(int numberOfPlayers)
+    {
+        NumberOfPlayers = numberOfPlayers;
+    }
+
+    public void Run()
+    {
+        Start();
+
+        while (!HaveWinner)
+        {
+            TakeTurn();
+        }
+
+        Console.WriteLine($@"Player {WinningPlayer} wins.");
+    }
+
+    protected abstract void Start();
+    protected abstract void TakeTurn();
+}
+
+// simulate a game of chess
+public class Chess : Game
+{
+    private int _turn = 1;
+    private readonly int _maxTurns = 10;
+    protected override int WinningPlayer => CurrentPlayer;
+    protected override bool HaveWinner => _turn == _maxTurns;
+
+    public Chess() : base(2)
+    {
+    }
+
+    protected override void Start()
+    {
+        Console.WriteLine($@"Starting a game of chess with {NumberOfPlayers} players.");
+    }
+
+    protected override void TakeTurn()
+    {
+        Console.WriteLine($@"Turn {_turn++} taken by player {CurrentPlayer}.");
+        CurrentPlayer = (CurrentPlayer + 1) % NumberOfPlayers;
+    }
+}
+
+public class Demo
+{
+    static void Main(string[] args)
+    {
+        var chess = new Chess();
+        chess.Run();
+    }
+}
+```
+
+---
+
+
+#### Visitor ####
+A pattern where a component (visitor) is allowed to traverse the entire inheritance hierarchy. Implemented by propagating a single visit() method throughout the entire hierarchy
+
+```
+public abstract class Expression
+{
+    public abstract void Accept(IExpressionVisitor visitor);
+}
+
+public class DoubleExpression : Expression
+{
+    public double Value;
+
+    public DoubleExpression(double value)
+    {
+        Value = value;
+    }
+
+    public override void Accept(IExpressionVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
+}
+
+public class AdditionExpression : Expression
+{
+    public Expression Left;
+    public Expression Right;
+
+    public AdditionExpression(Expression left, Expression right)
+    {
+        Left = left ?? throw new ArgumentNullException(nameof(left));
+        Right = right ?? throw new ArgumentNullException(nameof(right));
+    }
+
+    public override void Accept(IExpressionVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
+}
+
+public interface IExpressionVisitor
+{
+    void Visit(DoubleExpression de);
+    void Visit(AdditionExpression ae);
+}
+
+public class ExpressionPrinter : IExpressionVisitor
+{
+    private readonly StringBuilder _sb = new StringBuilder();
+
+    public void Visit(DoubleExpression de)
+    {
+        _sb.Append(de.Value);
+    }
+
+    public void Visit(AdditionExpression ae)
+    {
+        _sb.Append("(");
+        ae.Left.Accept(this);
+        _sb.Append("+");
+        ae.Right.Accept(this);
+        _sb.Append(")");
+    }
+
+    public override string ToString() => _sb.ToString();
+}
+
+public class ExpressionCalculator : IExpressionVisitor
+{
+    public double Result;
+
+    // what you really want is int Visit(...)
+
+    public void Visit(DoubleExpression de)
+    {
+        Result = de.Value;
+    }
+
+    public void Visit(AdditionExpression ae)
+    {
+        ae.Left.Accept(this);
+        var a = Result;
+        ae.Right.Accept(this);
+        var b = Result;
+        Result = a + b;
+    }
+}
+
+public class Demo
+{
+    public static void Main()
+    {
+        var e = new AdditionExpression(
+          left: new DoubleExpression(1),
+          right: new AdditionExpression(
+            left: new DoubleExpression(2),
+            right: new DoubleExpression(3)));
+        var ep = new ExpressionPrinter();
+        ep.Visit(e);
+        Console.WriteLine(ep.ToString());
+
+        var calc = new ExpressionCalculator();
+        calc.Visit(e);
+        Console.WriteLine($@"{ep} = {calc.Result}");
+    }
+}
+```
