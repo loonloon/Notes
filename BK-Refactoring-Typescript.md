@@ -629,3 +629,115 @@ strategies[order.getStatus()]();
 ```
 
 --- 
+
+#### Dumping Grounds ####
+What you'll also find in many code bases are very generic classes such as User, Customer, and Order. Is that bad? Well, yes.
+
+Let me ask you a question: Is User used in many different unrelated places in your application? For example, is your User class used in the billing part of your code, the user profile parts, the shipping parts, and so on? Most systems do something like that.
+
+What will end up happening is that, because these classes are so generic, they'll become dumping grounds for code that we don't know where it belongs.
+
+Instead of taking the time to think about the business need for this new code we've written, often, we feel that it's easier to put it into our generic classes. It's all sharable, right? And we're all about code reuse, right?
+
+##### Coupling #####
+So... what if I changed the User class to conform to some billing logic? What are the chances that I've also broken the shipping feature by changing this class? I don't know, but it's higher than 0%
+
+We want to be able to change the shipping feature, for example, and not have to test our entire application again. But if we're sharing our User class everywhere, to have confidence that we didn't break stuff, we need to re-test everything
+
+##### Warning Sign #####
+Here's a basic technique that might help you get started on analyzing your classes. Take your class name and answer these questions:
+1. Is there a subject (user, client, order, and so on)?
+2. Is there a context for that subject (shipping, orders, dashboard, and so on)?
+3. Is there even perhaps an action being performed on the subject (as we'll see in more detail soon)?
+
+```
+class User {
+    firstName: string;
+    lastName: string;
+    id: number;
+    jwtToken: string;
+    homeAddress: string;
+    creditCardNo: string;
+
+    getFullName(): string {
+        return this.firstName + " " + this.lastName;
+    }
+
+    decodeJwtToken(): string {
+        return decode(this.jwtToken);
+    }
+}
+```
+
+##### You Have Mail #####
+You've been tasked with adding a new business requirement. We need users to be able to pay for their products using PayPal.
+
+This User class is already used in multiple places, such as the user profile, shipping, and payment features.
+
+All we need to do is add the user's PayPal email address to the user. Right?
+
+##### Breaking It Up #####
+If we start changing this User class so that it works with the payment feature, then we risk affecting the user profile or the shipping feature (since they use this class too).
+
+* What should we do?
+
+The best thing to do here is to create a different User class that's used within each specific context.
+
+Out of this should come classes such as UserForAuthentication, UserProfileUser, ShippingUser, and PaymentUser.
+
+Are those models/classes going to contain similar pieces of data that all of them will need? Sure.
+
+Will they also have pieces of data that are only used in one context? Sure. For example, the user's id is needed everywhere. But the user's home address is only ever needed for shipping. Why, then, does the payment feature need access to that data? It doesn't.
+
+```
+class UserProfileUser {
+    firstName: string;
+    lastName: string;
+    id: number;
+    homeAddress: string;
+
+    getFullName(): string {
+        return this.firstName + " " + this.lastName;
+    }
+}
+
+class ShippingUser {
+    id: number;
+    homeAddress: string;
+}
+
+class UserForAuthentication {
+    id: number;
+    jwtToken: string;
+
+    decodeJwtToken(): string {
+        return decode(this.jwtToken);
+    }
+}
+
+class PaymentUser {
+    id: number;
+    creditCardNo: string;
+}
+```
+
+##### Keep Separate Things Separate #####
+Sometimes, it's better to duplicate code and/or data if they are within different contexts. Again, we want to avoid coupling our features and classes together.
+
+Let me ask you a question: Is it probable that the behavior for the home address within the user's profile will be different than the behavior for it in the shipping feature?
+The answer: yes.
+
+So, we are talking about two different things. It's the same raw data but not the same business function or concept. Shipping needs the home address so that it knows where to send products. The user profile needs the home address so the user can update its values from a UI.
+
+Not the same thing.
+
+Also, consider that it might also make sense to add an address to the PaymentUser class. But should this context share the same address as shipping? Well, is it possible that
+your shipping address wouldn't be the same address you want to bill to? Sure! This happens all the time!
+
+Using the SRP, we see that these two concepts/responsibilities should be kept separate.
+
+##### CQRS #####
+
+
+--- 
+
