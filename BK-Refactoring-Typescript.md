@@ -838,4 +838,128 @@ class UserProfileQuery {
 #### Messy Object Creation ####
 
 ```
+//Bad
+const plane = new Airplane();
+plane.type = PlaneType.Passenger;
+plane.engine = new PassengerPlaneEngine();
+plane.hasFirstClass = true;
+plane.hasBathroom = false;
+plane.numberOfSeats = 100;
+
+//Good
+//Example 1 factory function
+const createPassengerPlane = (numberOfSeats: number): Airplane => {
+    const plane = new Airplane();
+    plane.type = PlaneType.Passenger;
+    plane.engine = new PassengerPlaneEngine();
+    plane.hasFirstClass = true;
+    plane.hasBathroom = false;
+    plane.numberOfSeats = numberOfSeats;
+    return plane;
+}
+
+//Example 2
+class AirplaneFactory {
+    public static createPassengerPlane = (numberOfSeats: number): Airplane => {
+        const plane = new Airplane();
+        plane.type = PlaneType.Passenger;
+
+        plane.engine = new PassengerPlaneEngine();
+        plane.hasFirstClass = true;
+        plane.hasBathroom = false;
+        plane.numberOfSeats = numberOfSeats;
+        return plane;
+    }
+}
+```
+
+In the previous section, we created a factory function. Given these new requirements, our function might look like this now:
+
+```
+//Bad
+//Example 1
+const createPlane =
+    (
+        type: PlaneType,
+        engine: IPlaneEngine,
+        hasFirstClass: boolean,
+        hasBathroom: boolean,
+        numberOfSeats: number
+    ): Airplane => {
+        const plane = new Airplane();
+  
+        plane.type = type;
+        plane.engine = engine;
+        plane.hasFirstClass = hasFirstClass;
+        plane.hasBathroom = hasBathroom;
+        plane.numberOfSeats = numberOfSeats;
+        return plane;
+    }
+    
+//When used, it might look like this:
+const plane = createPlane(PlaneType.Passenger, new PassengerPlaneEngine(), true, true, 100);
+
+//Example 2
+class PlaneCreationOptions {
+    type: PlaneType;
+    engine: IPlaneEngine;
+    hasFirstClass: boolean;
+    hasBathroom: boolean;
+    numberOfSeats: number;
+}
+
+//The only param now is the data object we created.
+const createPlane = (options: PlaneCreationOptions): Airplane => {
+    const plane = new Airplane();
+    plane.type = options.type;
+    plane.engine = options.engine;
+    plane.hasFirstClass = options.hasFirstClass;
+    plane.hasBathroom = options.hasBathroom;
+    plane.numberOfSeats = options.numberOfSeats;
+    return plane;
+}
+
+//It would look something like this in use:
+const options = new PlaneCreationOptions();
+options.type = PlaneType.Passenger;
+options.engine = new PassengerPlaneEngine();
+options.hasFirstClass = true;
+options.hasBathroom = true;
+options.numberOfSeats = 100;
+
+const plane = createPlane(options);
+
+//Good
+const fullyLoadedPassengerOptions = () => {
+    const options = new PlaneCreationOptions();
+    options.type = PlaneType.Passenger;
+    options.engine = new PassengerPlaneEngine();
+    options.hasFirstClass = true;
+    options.hasBathroom = true;
+    options.numberOfSeats = 100;
+    return options;
+}
+
+const bareBonesPassengerOptions = () => {
+    const options = new PlaneCreationOptions();
+    options.type = PlaneType.Passenger;
+    options.engine = new PassengerPlaneEngine();
+    options.hasFirstClass = false;
+    options.hasBathroom = false;
+    options.numberOfSeats = 10;
+    return options;
+}
+
+class PlaneCreationOptions {
+    //All the public properties...
+    withSeats(numberOfSeats: number) {
+        this.numberOfSeats = numberOfSeats;
+        return this;
+    }
+
+    //Etc.
+}
+
+const plane1 = createPlane(fullyLoadedPassengerOptions());
+const plane2 = createPlane(bareBonesPassengerOptions().withSeats(50));
 ```
