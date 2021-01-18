@@ -737,7 +737,105 @@ your shipping address wouldn't be the same address you want to bill to? Sure! Th
 Using the SRP, we see that these two concepts/responsibilities should be kept separate.
 
 ##### CQRS #####
+CQRS stands for Command Query Responsibility Segregation. It's a pattern that can be
+helpful when dealing with more complex business logic.
 
+Usually, when we create classes, they are used in both write and read scenarios. So, for example, a PaymentUser class will have methods for modifying its data or applying business rules, and also methods or properties that are used in scenarios where we are displaying data to a user.
+```
+class PaymentUser {
+    id: number;
+    firstName: string;
+    lastName: string;
+    creditCardNo: string;
+
+    changeCreditCard(newNumber: string) {
+        if (this.validCreditCard(newNumber)) {
+            this.creditCardNo = newNumber;
+        } else {
+            throw 'Invalid credit card number.';
+
+        }
+    }
+
+    displayName() {
+        return this.lastName + ", " + this.firstName;
+    }
+}
+
+
+```
+
+Notice that the changeCreditCard method is a write method. It changes the state of our object and applies a certain business rule (that only a valid credit card can be used/
+stored).
+
+However, the displayName method is used to show data on a UI. Here's my question: Why are both of these different concerns in the same place?
+
+These kinds of classes can quickly become confusing. We also tend to start loading them up with tons of display logic or tons of business rules. This makes them hard to understand and reason about.
+
+So, instead, why don't we separate our model/class into two?
+
+```
+class PaymentUserForDisplay {
+    id: number;
+    firstName: string;
+    lastName: string;
+    creditCardNo: string;
+
+    displayName() {
+        return this.lastName + ", " + this.firstName;
+    }
+}
+
+class PaymentUserForWrite {
+    id: number;
+    creditCardNo: string;
+
+    changeCreditCard(newNumber: string) {
+        if (this.validCreditCard(newNumber)) {
+            this.creditCardNo = newNumber;
+        } else {
+            throw 'Invalid credit card number.';
+        }
+    }
+}
+```
+
+Well, we'll take each business scenario and create a class to model that exact scenario! Each of these classes will either be read-only or write-only
+* Commands: These are scenarios that change our system but don't return data to the user to display.
+* Queries: Scenarios where we display data to a user so that they can decide on something.
+
+```
+class UpdateUserCreditCardInfoCommand {
+    id: number;
+    creditCardNo: string;
+
+    handle(newNumber: string) {
+        if (this.validCreditCard(newNumber)) {
+            this.creditCardNo = newNumber;
+        } else {
+            throw 'Invalid credit card number.';
+        }
+    }
+}
+
+class UserProfileView {
+    id: number;
+    firstName: string;
+    lastName: string;
+    creditCardNo: string;
+}
+
+class UserProfileQuery {
+    async handle(forUserId: number): UserProfileView {
+        const view: UserProfileView = await this.fetch(forUserId);
+        return view;
+    }
+}
+```
 
 --- 
 
+#### Messy Object Creation ####
+
+```
+```
