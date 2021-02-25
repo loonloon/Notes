@@ -1,20 +1,21 @@
 #### Section 1 ####
-* .NET Core History - Performance
+##### Section 1.2 .NET Core History - Performance #####
 
 ![image](https://user-images.githubusercontent.com/5309726/107108457-e73c9600-6872-11eb-8c41-905d86558a65.png)
 
-* .NET Core Concepts and Definitions
-   * Why .NET Standard?
-     * Code sharing
-   * .NET Standard 2.0 doubles the APIs than 1.0
-   * Deployment Options
-     * Self Contained
-     * Shared Framework
+##### Section 1.3 .NET Core Concepts and Definitions #####
+* Why .NET Standard?
+  * Code sharing
+* .NET Standard 2.0 doubles the APIs than 1.0
+  * Deployment Options
+    * Self Contained
+    * Shared Framework
 
 ---
 
 #### Section 2 ####
-* Measuring CPU
+##### Section 2.1 Measuring CPU #####
+* Types of profiles
   * Sampling
   * Instrumentation
 
@@ -59,5 +60,8 @@
 </table>
 
 ![image](https://user-images.githubusercontent.com/5309726/109122903-385dec80-7784-11eb-9896-961da3218b66.png)
+
+##### Section 2.2 #####
+
 
 ---
