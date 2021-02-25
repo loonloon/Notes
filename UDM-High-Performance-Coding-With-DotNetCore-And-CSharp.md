@@ -14,6 +14,50 @@
 ---
 
 #### Section 2 ####
+* Measuring CPU
+  * Sampling
+  * Instrumentation
 
+<table>
+  <tr>
+      <th>Sampling</th>
+  </tr>
+  <tr>
+      <td>Huge number of snapshots with callstacks (Aggrerates this data)</td>
+  </tr>
+  <tr>
+    <td>Can be done on a running process without restart</td>
+  </tr>
+  <tr>
+    <td>Minimal overhead</td>
+  </tr>
+  <tr>
+    <td>Non CPU work is not visible (E.g. Thread.Sleep(), I/O operation)</td>
+  </tr>
+</table>
+ 
+![image](https://user-images.githubusercontent.com/5309726/109120781-59710e00-7781-11eb-86f1-0ed294b4fb40.png)
+
+![image](https://user-images.githubusercontent.com/5309726/109122806-1b291e00-7784-11eb-84f7-7373323a2fc2.png)
+
+<table>
+    <tr>
+        <th>Instrumentation</th>
+    </tr>
+    <tr>
+        <td>Injects code to measure methods</td>
+    </tr>
+    <tr>
+      <td>Measures also non CPU work</td>
+    </tr>
+    <tr>
+      <td>Can pontentiallu have more overhead</td>
+    </tr>
+    <tr>
+      <td>No attach / detach</td>
+    </tr>
+</table>
+
+![image](https://user-images.githubusercontent.com/5309726/109122903-385dec80-7784-11eb-9896-961da3218b66.png)
 
 ---
