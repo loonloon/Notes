@@ -80,3 +80,8 @@
 * Concurrent
 
 ---
+
+#### Section 5 ####
+##### Section 5.2 Avoid Heap Allocations with Local Functions #####
+
+---
