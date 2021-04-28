@@ -83,5 +83,71 @@
 
 #### Section 5 ####
 ##### Section 5.2 Avoid Heap Allocations with Local Functions #####
+* Use local function instead of delegates
+  * Reduce pressure on GC
+  * It uses the "Call" IL instruction instead of "CallVirt"
+
+##### Section 5.3 Make ValueTypes Faster with ref return #####
+* New storage created when passing parameter into method
+
+```
+public static void Increment(int number)
+{
+    number++;
+}
+
+static void Main(string[] args)
+{
+    int i = 0;
+    Increment(i);
+    Console.WriteLine(i);
+}
+
+```
+
+* ref method parameter (Before C# 7)
+```
+public static void Increment(ref MyBigStruct s)
+{
+    s.Value1++;
+    s.Value2++;
+}
+
+static void Main(string[] args)
+{
+    MyBigStruct s;
+    Increment(ref s);
+}
+```
+
+* ref return (After C# 7)
+* Indeal for unsafe code (returning array item)
+* Improve performance (returning referenace to a big ValueType)
+```
+public struct Matrix
+{
+    int item00, item01, item02;
+    int item10, item11, item12;
+    ...
+}
+
+public static ref Matrix SelectMatrix(ref Matrix left, ref Matrix right, Func<bool> selectionLogic)
+{
+    return selectionLogic() ? ref left : ref right;
+}
+```
+
+* ref local (After C# 7)
+```
+int x = 1;
+ref int y = ref x;
+y = 42;
+
+// output: 42
+Console.WriteLine($"Value of x: {x}");
+
+```
+
+##### Section 5.4 The Performance Characteristics of the C# 7 Tuple Feature #####
 
 ---
