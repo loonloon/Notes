@@ -81,6 +81,10 @@
 
 ---
 
+#### Section 4 ####
+
+---
+
 #### Section 5 ####
 ##### Section 5.2 Avoid Heap Allocations with Local Functions #####
 * Use local function instead of delegates
@@ -149,5 +153,32 @@ Console.WriteLine($"Value of x: {x}");
 ```
 
 ##### Section 5.4 The Performance Characteristics of the C# 7 Tuple Feature #####
+* System.Type is a reference type (Before C# 7) 
+
+```
+public static Tuple<int, int> GetMinMax(List<int> values)
+{
+    ...
+    return Tuple.Create<int, int>(min, max);
+}
+```
+
+* System.ValueType is a value type (C# 7)
+
+```
+public static (int min, int max) GetMinMax(List<int> values)
+{
+    ...
+    return (min, max);
+}
+```
+
+##### Section 5.5 Optimization of async-methods with ValueTask #####
+* By default, still use `Task` and `Task<T>`
+* `Task.WhenAll` and similar methods may have to convert `ValueTask<T>` to `Task<T>` (WARNING)
+* Use it if you have numbers showing that `ValueTask` (struct) is faster than `Task` (heap allocation)
+
+##### Section 5.6 Pattern matching and Performance #####
+* `is pattern` is better than `is - as`
 
 ---
