@@ -81,7 +81,23 @@
 
 ---
 
-#### Section 4 ####
+#### Section 4 Make your Code Faster – General Tips for .NET Developers ####
+##### Section 4.1 Value Types vs. Reference Types and Reducing Pressure on the GC #####
+* Local variable: stored on the stack
+* Value type: completely on the stack
+* Reference type: the reference itself is on the stack, but the object itself lives on the heap
+
+![image](https://user-images.githubusercontent.com/5309726/116373449-edbe2680-a83f-11eb-89b9-e0a0bfb82a7a.png)
+
+* Instance variables (class property)
+
+![image](https://user-images.githubusercontent.com/5309726/116374312-c1ef7080-a840-11eb-9dbb-806673da621e.png)
+
+* Object header in Reference types
+  * Per object overhead
+  * Benefits for Polymorphism, Inheritance and locking
+
+![image](https://user-images.githubusercontent.com/5309726/116374769-30ccc980-a841-11eb-84f9-6eaa3c9e0cc8.png)
 
 ---
 
