@@ -99,6 +99,12 @@
 
 ![image](https://user-images.githubusercontent.com/5309726/116374769-30ccc980-a841-11eb-84f9-6eaa3c9e0cc8.png)
 
+##### Section 4.2 #####
+* Implement `IEqualable<T>` interface for Value Type and override the `Equals` function (Avoid boxing)
+* Value type can be allocated on the stack
+
+##### Section 4.3 Saving Threads with async/await #####
+
 ---
 
 #### Section 5 ####
