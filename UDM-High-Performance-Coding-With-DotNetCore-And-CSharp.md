@@ -83,9 +83,20 @@
 
 #### Section 4 Make your Code Faster – General Tips for .NET Developers ####
 ##### Section 4.1 Value Types vs. Reference Types and Reducing Pressure on the GC #####
-* Local variable: stored on the stack
-* Value type: completely on the stack
-* Reference type: the reference itself is on the stack, but the object itself lives on the heap
+<table>
+    <tr>
+        <th>Local variable</th>
+        <td>Stored on the stack</td>
+    </tr>
+    <tr>
+        <th>Value type</th>
+        <td>Completely on the stack</td>
+    </tr>
+    <tr>
+        <th>Reference type</th>
+        <td>The reference itself is on the stack, but the object itself lives on the heap</td>
+    </tr>
+</table>
 
 ![image](https://user-images.githubusercontent.com/5309726/116373449-edbe2680-a83f-11eb-89b9-e0a0bfb82a7a.png)
 
@@ -104,6 +115,24 @@
 * Value type can be allocated on the stack
 
 ##### Section 4.3 Saving Threads with async/await #####
+In both cases threads and calculations can be started either in a synchronous or in an asynchoronous way
+
+<table>
+    <tr>
+        <th>Multi Threading (Thread)</th>
+        <th>Parallel Computing (Process)</th>
+    </tr>
+    <tr>
+        <td>Multiple execution contexts exist in the application, but doesn't say anything about synchronicity</td>
+        <td>Multiple calculations are carried out simultaneously</td>
+    </tr>
+</table>
+
+* By using the `await` keyword the thread which starts the operation does not sit and wait until the result is there
+* In ASP.NET core applications: with parallel requests you can save threads from the threadpool
+* In GUI applications: no heavy work on the UI thread
+
+##### Section 4.5 Choosing the Right Collection #####
 
 ---
 
