@@ -233,3 +233,67 @@ public static (int min, int max) GetMinMax(List<int> values)
 * `is pattern` is better than `is - as`
 
 ---
+
+#### Section 5 ####
+##### Section 5.1 Reusing Arrays with `ArrayPool<T>` #####
+* Prevent LOH and GC Gen2 collection
+* Threadsafe
+* Default size in the shared pool: 2 ^ 20
+* Calling `Rent(n)` where n > 2 ^ 20, NO POOLING
+* Use `ArrayPool<T>.Create(maxArrayLength, maxArraysPerBucket)` where size bigger than 2 ^ 20
+
+```
+public void MethodCalledOften()
+{
+    var arrayPool = new ArrayPool<int>.Shared.Rent(256 * 1024);
+    Console.WriteLine(arrayPool[0].ToString());
+    ArrayPool<int>.Shared.Return(arr);
+}
+```
+
+##### Section 5.2 Accessing all Types of Memory Safely and Efficiently with `Span<T>` #####
+* Can avoid creating different function parameters
+* `ReadOnlySpan` can be used in tring slicing to improve performance
+
+```
+//Before
+//Managed memory
+byte[] myArray = new byte[100];
+
+//Unmanaged memory
+IntPtr myArray = Marshal.AllocHGlobal(100);
+...
+Marshal.FreeHGlobal(myArray);
+
+//Stack memory
+byte* myArray = new stackalloc byte[100]
+
+//After
+//Managed memory
+byte[] myArray = new byte[100];
+var myArraySpan = new Span<byte>(myArray);
+
+//Unmanaged memory
+IntPtr myArray = Marshal.AllocHGlobal(100);
+Span<byte> nativeSpan;
+
+unsafe
+{
+    nativeSpan = new Span<byte>(myArray.ToPointer(), 100);
+}
+
+...
+
+Marshal.FreeHGlobal(myArray);
+
+//Stack memory
+Span<byte> stackSpan;
+
+unsafe
+{
+    byte* myArray = new stackalloc byte[100]
+    nativeSpan = new Span<byte>(myArray, 100);
+}
+```
+
+---
