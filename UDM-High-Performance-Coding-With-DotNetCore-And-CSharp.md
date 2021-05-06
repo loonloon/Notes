@@ -136,7 +136,7 @@ In both cases threads and calculations can be started either in a synchronous or
 
 ---
 
-#### Section 5 ####
+#### Section 5 C# 7 Performance ####
 ##### Section 5.2 Avoid Heap Allocations with Local Functions #####
 * Use local function instead of delegates
   * Reduce pressure on GC
@@ -234,8 +234,8 @@ public static (int min, int max) GetMinMax(List<int> values)
 
 ---
 
-#### Section 5 ####
-##### Section 5.1 Reusing Arrays with `ArrayPool<T>` #####
+#### Section 6 New Performance Related APIs ####
+##### Section 6.1 Reusing Arrays with `ArrayPool<T>` #####
 * Prevent LOH and GC Gen2 collection
 * Threadsafe
 * Default size in the shared pool: 2 ^ 20
@@ -251,7 +251,7 @@ public void MethodCalledOften()
 }
 ```
 
-##### Section 5.2 Accessing all Types of Memory Safely and Efficiently with `Span<T>` #####
+##### Section 6.2 Accessing all Types of Memory Safely and Efficiently with `Span<T>` #####
 * Can avoid creating different function parameters
 * `ReadOnlySpan` can be used in tring slicing to improve performance
 
@@ -293,6 +293,103 @@ unsafe
 {
     byte* myArray = new stackalloc byte[100]
     nativeSpan = new Span<byte>(myArray, 100);
+}
+```
+
+---
+
+#### Section 7 ####
+* Use EF mini profiler
+
+##### Section 7.1 Data Access Performance: Entity Framework Core #####
+* Limit the number of columns and rows
+* Give as much into to the EF context (Do queries on the DB), not in application
+* Consider using async queries:
+  * `ToListAsync()`
+  * `ToArrayAsync()`
+  * `SingleAsync()`
+
+```
+//Bad
+var d1980 = new DateTime(1980, 1, 1);
+var dbUsers = SampleDataContext.Users;
+
+foreach (var item in dbUsers)
+{
+    if (item.BirthDate < d1980)
+    {
+        users.Add(item.UserName);
+    }
+}
+
+//Good
+var d1980 = new DateTime(1980, 1, 1);
+var users = SampleDataContext.Users.Where(n => x.BirthDate < d1980)
+            .Select(n => x.UserName).Skip(pageNumber * 10).Take(10).ToListAsync();
+```
+
+##### Section 7.2 Loading Dependent Entities Efficiently #####
+* Eager Loading
+* Explicit Loading
+* Lazy Loading (EF Core 2.0)
+
+```
+//Bad
+var d1980 = new DateTime(1980, 1, 1);
+var users = SampleDataContext.Users.Where(n => x.BirthDate < d1980)
+            .Select(n => x.UserName).Skip(pageNumber * 10).Take(10).ToListAsync();
+
+foreach (var item in users)
+{
+    //sending more than 1 SQL query
+    var comments = SampleDataContext.Comments
+                   .Where(n => n.Author.UserName == item)
+                   .Select(n => n.Text).ToList();
+
+    usersWithComments.Add(new UserWithComments
+    {
+        UserName = item,
+        Comments = comments
+    });
+}
+
+//Good (Eager loading)
+//All users with comment
+var d1980 = new DateTime(1980, 1, 1);
+var users = SampleDataContext.Users.Include(n => n.Comments)
+            .Where(n => x.BirthDate < d1980).Skip(pageNumber * 10).Take(10)
+            .SelectMany(n => n.Comments).Select(n => new { n.Author.UserName, n.Text })
+            .GroupBy(n => n.UserName).ToListAsync();
+            
+foreach (var item in users)
+{
+    usersWithComments.Add(new UserWithComments
+    {
+        UserName = item.Key,
+        Comments = item.Select(n => n.Text).ToList()
+    });
+}
+
+//Good (Explicit loading)
+//Only first user with comment
+var d1980 = new DateTime(1980, 1, 1);
+var users = SampleDataContext.Users.Where(n => x.BirthDate < d1980).Skip(pageNumber * 10).Take(10)
+            .ToListAsync();
+            
+SampleDataContext.Entry(users.First()).Collection(n => n.Comments).Load();
+
+usersWithComments.Add(new UserWithComments
+{
+    UserName = users.First().UserName
+    Comments = users.First().Comments.Select(n => n.Text).ToList()
+});
+    
+for (var i = 1; i < 10; i++)
+{
+    usersWithComments.Add(new UserWithComments
+    {
+        UserName = users.ElementAt(i).UserName
+    });
 }
 ```
 
