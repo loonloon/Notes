@@ -298,10 +298,10 @@ unsafe
 
 ---
 
-#### Section 7 ####
+#### Section 7 Data Access Performance: Entity Framework Core ####
 * Use EF mini profiler
 
-##### Section 7.1 Data Access Performance: Entity Framework Core #####
+##### Section 7.1 Make faster Queries with Entity Framework Core #####
 * Limit the number of columns and rows
 * Give as much into to the EF context (Do queries on the DB), not in application
 * Consider using async queries:
@@ -392,5 +392,118 @@ for (var i = 1; i < 10; i++)
     });
 }
 ```
+
+##### Section 7.2 EF Core Performance: Maximum Length, Client Side Execution, Change Tracking #####
+* Maximum Length
+  * If not specified, it will use the maximum length during table creation
+  
+```
+//Option 1
+public class UserData
+{
+    public int Id { get; set; }
+
+    [MaxLength(250)]
+    public string FirstName { get; set; }
+
+    [MaxLength(250)]
+    public string LastName { get; set; }
+}
+
+//Option 2
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<UserData>().Property(b => b.UserName).HasMaxLength(350);
+}
+```
+
+* Client side evalution
+
+```
+//issue, will get all the records from DB without filter
+public async Task<IActionResul> CommentsWithDotNetCore()
+{
+    var comments = await SampleDataContext.Comments
+        .Where(x => ContainsDotNetCore(x.Text))
+        .Select(x => x.Text)
+        .ToListAsync();
+    return View(comments);
+}
+
+public bool ContainsDotNetCore(string text)
+{
+    return text.ToLower().Contains(".net core");
+}
+
+//solution, to notify and refactor the problem in the code
+public override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    optionsBuilder.ConfigureWarning(warnings => warnings.Throw(RelationalEventId.QueryClientEvalutionWarning));
+}
+```
+
+* Change Tracking
+  * Turn it off when it does not required
+  
+```
+//Option 1 per query
+var comment = await SampleDataContext.Comments
+    .Where(x => x.Id == 123)
+    .AsNoTracking()
+    .SingleAsync();
+    
+//Option 2 global on the data context
+using (var dbContext = new SampleDataContext())
+{
+    dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+    var comment = await SampleDataContext.Comments
+        .Where(x => x.Id == 123).SingleAsync();
+}
+```
+
+---
+
+#### Section 8 .NET Core Specific Performance Tools and Configurations ####
+* CrossGen
+* Mono Linker
+* ASP.NET Core precompiled views
+
+##### Section 8.1 Pre-JIT .NET Core Applications with CrossGen #####
+* Ahead of time (AOT compilation)
+  * ngen.exe
+  * CrossGen
+
+* CrossGen
+  * Generate native code, no JIT at runtime
+
+* Use PerfView to collect CPU Sampling
+
+##### Section 8.2 Make your .NET Core Application Smaller with Mono’s Linker #####
+* Reduce the size of applications by removing unused IL code
+* Smaller deployment package (Faster deployment, e.g. microservices)
+* ONLY WORKS with self contained applications
+
+##### Section 8.3 Faster Startup with ASP.NET Core Precompiled Views #####
+* Performance boost for the first request by compiling the Views when you publish the application instead of compiling them at runtime
+* [ApplicationName].PrecompiledViews.dll
+
+---
+
+#### Section 9: Performance Monitoring in Production for .NET Core ####
+* Application Insights
+* Dynatrace
+
+##### Section 9.1 Enabling Application Insights for ASP.NET Core Applications #####
+* The analyze data store in Azure
+
+##### Section 9.2 Tracking Slow Requests and Performance Testing with Application Insights #####
+* Total of Server Requests by Request Performance
+* Performance Testing
+ 
+##### Section 9.3 Tracking Custom Dependencies with Application Insights #####
+* `Microsoft.ApplicationInsights.TelemetryClient` class
+  * `TrackPageView`
+  * `TrackEvent`
+  * etc
 
 ---
