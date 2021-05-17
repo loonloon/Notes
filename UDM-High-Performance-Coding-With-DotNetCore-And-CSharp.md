@@ -506,4 +506,6 @@ using (var dbContext = new SampleDataContext())
   * `TrackEvent`
   * etc
 
+##### Section 9.4 Monitoring .NET Core Applications with Dynatrace #####
+
 ---
