@@ -119,6 +119,18 @@
     </tr>
 </table>
 
+##### Section 3.2 Micro Benchmarking with BenchmarkDotNet #####
+* Install nuget package
+* Attributes
+  * `[Benchmark]`
+  * `[MemoryDiagnoser]`
+
+##### Section 3.3 Performance Monitoring on the Developer Machine with Stackify Prefix #####
+* Marco benchmarking
+  * Waiting time (DB, REST Api calls)
+
+##### Section 3.4 Performance Monitoring on the Developer Machine with MiniProfiler #####
+
 ---
 
 #### Section 4 Make your Code Faster – General Tips for .NET Developers ####
