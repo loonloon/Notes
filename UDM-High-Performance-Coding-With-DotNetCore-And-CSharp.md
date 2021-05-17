@@ -81,6 +81,46 @@
 
 ---
 
+#### Section 3 Measure Performance During Development Part 2 ####
+##### Section 3.1 Event Tracing: ETW and PerfView #####
+* Event Tracing for Windows (ETW)
+  * High frequency logging framework built into Windows to diagnose performance issues
+  * Designed for huge number of messages
+  * Windows ONLY
+  * `System.Diagnostics.Tracing`
+
+* PerfView
+  * Free and just a small executable
+  * Collects and visualizes ETW events
+
+<table>
+    <tr>
+        <th>SOH</th>
+        <th>LOH</th>
+    </tr>
+    <tr>
+        <td>Small Object Heap, smaller than 85,000 bytes</td>
+        <td>Large Object Heap, bigger than 85,000 bytes</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th>Gen 0</th>
+        <td>Collected very frequently</td>
+    </tr>
+     <tr>
+        <th>Gen 1</th>
+        <td>Collected less frequently</td>
+    </tr>
+     <tr>
+        <th>Gen 2</th>
+        <td>Collected rarely (SLOW, because FULL GC (Gen 0, 1, 2)</td>
+    </tr>
+</table>
+
+---
+
 #### Section 4 Make your Code Faster – General Tips for .NET Developers ####
 ##### Section 4.1 Value Types vs. Reference Types and Reducing Pressure on the GC #####
 <table>
