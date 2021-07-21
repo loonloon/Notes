@@ -785,7 +785,7 @@ partial class Class1
 #### What is the Constructor Chaining? #####
 Child class constructor is mapped to parent class Constructor implicitly by base keyword so when you create an instance of child class to it’ll call parent’s class Constructor.
 
-#### What is thed difference between ```is``` and ```as``` operator? ####
+#### What is the difference between ```is``` and ```as``` operator? ####
 <table>
     <tbody>
         <tr>
