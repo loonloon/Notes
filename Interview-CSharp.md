@@ -1,5 +1,5 @@
 #### Compilation and Execution ####
-Code is compiled into a language-agnostic Common Intermediate Language (CIL). Compiled code is stored in assemblies—files with a .dll or .exe file extension.
+Code is compiled to a Common Intermediate Language (CIL) and stored in assemblies—files with a .dll or .exe file extension.
 
 When an app runs, the CLR takes the assembly and uses a just-in-time compiler (JIT) to turn it into machine code that can execute on the computer.
 
