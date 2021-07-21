@@ -1,9 +1,12 @@
-#### C# Versioning ####
+#### Compilation and Execution ####
 Code is compiled into a language-agnostic Common Intermediate Language (CIL). Compiled code is stored in assemblies—files with a .dll or .exe file extension.
 
 When an app runs, the CLR takes the assembly and uses a just-in-time compiler (JIT) to turn it into machine code that can execute on the computer.
 
 ![image](https://user-images.githubusercontent.com/5309726/126500787-61f92521-4daa-49c8-bdf7-6f8a5715abd9.png)
+
+#### What is .NET framework? ####
+it’s a virtual machine that assists with the compilation, conversion and execution of code within a development framework.
 
 #### C# Versioning ####
 <table>
