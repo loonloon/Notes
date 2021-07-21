@@ -7,7 +7,7 @@
 #### Avoiding Boxing on Value Types with the `Equals` Method ####
 
 ```
-public struct Point2D : IEquatable<Point2D>
+public 'struct' Point2D : IEquatable<Point2D>
 {
     public int X;
     public int Y;
