@@ -1219,27 +1219,17 @@ public class Query
 }
 
 //After
-
 //Client code
 public void LoginToDatabase(string db, string user, string password)
 {
-    IQuery query = null;
+    IQuery query = UsingSDVersion52() ? new QuerySD52(GetSD52ConfigFileName()) : new QuerySD51();
 
-    if (UsingSDVersion52())
+    try
     {
-        query = new QuerySD52(GetSD52ConfigFileName());
+        query.Login(db, user, password)
     }
-    else
+    catch (QueryException qe)
     {
-        query = new QuerySD51();
-
-        try
-        {
-            query.Login(db, user, password)
-        }
-        catch (QueryException qe)
-        {
-        }
     }
 }
 
