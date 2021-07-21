@@ -1235,12 +1235,10 @@ public void LoginToDatabase(string db, string user, string password)
 
         try
         {
-            query.Login(db, user, password);
-
+            query.Login(db, user, password)
         }
         catch (QueryException qe)
         {
-
         }
     }
 }
