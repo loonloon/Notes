@@ -145,7 +145,7 @@ for(var i = 0; i < 10; i++)
 MathOp op = Add;
 for(var i = 0; i < 10; i++)
 {
-    DoOperation(Add, 1, 2);
+    DoOperation(op, 1, 2);
 }
 <br />
 //Equivalent to option 2:
