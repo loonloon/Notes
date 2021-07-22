@@ -126,7 +126,7 @@ it’s a virtual machine that assists with the compilation, conversion and execu
 An anonymous type is a temporary data type that is inferred based on the data that you include in an object initializer. Properties of anonymous types will be read-only properties so you cannot change their values.
 
 #### What is Indexer? #### 
-An Indexer is a special type of property that allows a class or structure to be accessed the same way as array for its internal collection. It is same as property except that it defined with this keyword with square bracket and parameters.
+Allow instances of a class or struct to be indexed just like arrays by defined with this keyword with square bracket and parameters.
 
 #### Basic concepts of OOPs ####
 <table>
