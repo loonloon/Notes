@@ -1,7 +1,7 @@
 #### Compilation and Execution ####
 Code is compiled to a Common Intermediate Language (CIL) and stored in assemblies—files with a .dll or .exe file extension.
 
-When an app runs, the CLR takes the assembly and uses a just-in-time compiler (JIT) to turn it into machine code that can execute on the computer.
+When an app runs, the CLR (virtual machine component) takes the assembly and uses a just-in-time compiler (JIT) to turn it into machine code that can execute on the computer.
 
 ![image](https://user-images.githubusercontent.com/5309726/126500787-61f92521-4daa-49c8-bdf7-6f8a5715abd9.png)
 
