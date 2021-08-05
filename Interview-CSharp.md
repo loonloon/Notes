@@ -500,6 +500,27 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
+#### What is the difference between override and abstract override? ####
+<table>
+    <tbody>
+        <tr>
+            <th>Virtual methods</th>
+            <th>Abstract methods</th>
+        </tr>
+        <tr>
+            <td>Usually have a default implementation, and any subclasses CAN override the method using the override modifier and provide a custom implementation.</td>
+            <td>Have no actual code in them, and subclasses HAVE TO override the method.</td>
+        </tr>
+    </tbody>
+</table>
+
+#### Different Types of Constructor  ####
+* Default constructor
+* Parameterized constructor
+* Copy constructor
+* Static constructor
+* Private constructor
+
 #### What is the difference between ```constant``` and ```readonly```? ####
 <table>
     <tbody>
