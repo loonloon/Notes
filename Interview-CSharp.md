@@ -762,6 +762,9 @@ The ```using``` block is used to obtain a resource and use it and then automatic
 #### What is ```sealed```class? ####
 Restrict the inheritance feature, once a class is defined as a sealed class, the class cannot be inherited.
 
+#### What is ```sealed```method? ####
+Prevent overriding a method of a class.
+    
 #### What are ```partial``` classes? ####
 * Create a class definition in multiple files but it will be compiled as one class at run time.
 * Doesn’t allowed to create a partial class in different namespace.
@@ -814,7 +817,7 @@ partial class Class1
 </table>
 
 #### What is the Constructor Chaining? #####
-Child class constructor is mapped to parent class Constructor implicitly by base keyword so when you create an instance of child class to it’ll call parent’s class Constructor.
+This is done by using the keyword ```this```. Child class constructor is mapped to parent class Constructor implicitly by base keyword so when you create an instance of child class to it’ll call parent’s class Constructor.
 
 #### What is the difference between ```is``` and ```as``` operator? ####
 <table>
