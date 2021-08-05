@@ -539,6 +539,20 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
+#### What is the difference between ```IEnumerable``` and ```IComparable``` keywords? ####
+<table>
+    <tbody>
+        <tr>
+            <th>IEnumerable</th>
+            <th>IComparable</th>
+        </tr>
+        <tr>
+            <td>Is an interface that defines one method GetEnumerator which returns an IEnumerable interface, this in turn allows readonly access to a collection.</td>
+            <td>Is implemented by types that you wish to give them the ability to compare themselves to other instances of the same type, when sorting.</td>
+        </tr>
+    </tbody>
+</table>
+
 #### What is the difference between ```ref```, ```out``` and ```in``` keywords? ####
 <table>
     <tbody>
