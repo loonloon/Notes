@@ -68,6 +68,160 @@ public class WeatherData
 ![image](https://user-images.githubusercontent.com/5309726/128589395-a804e9c8-bcea-477c-a701-ec25f25c71f0.png)
 
 ```
+class Program
+{
+    static void Main(string[] args)
+    {
+        var weatherData = new WeatherData();
+
+        var currentConditions = new CurrentConditionsDisplay();
+        currentConditions.Subscribe(weatherData);
+
+        var forecastDisplay = new ForecastDisplay();
+        forecastDisplay.Subscribe(weatherData);
+
+        weatherData.SetMeasurements(80, 65, 30.4f);
+        weatherData.SetMeasurements(82, 70, 29.2f);
+        weatherData.SetMeasurements(78, 90, 29.2f);
+    }
+}
+
+public interface IDisplayElement
+{
+    void Display();
+}
+
+public class CurrentConditionsDisplay : IDisplayElement, IObserver<WeatherData>
+{
+    private float _temperature;
+    private float _humidity;
+    private IDisposable _cancellation;
+    public void Subscribe(WeatherData provider)
+    {
+        _cancellation = provider.Subscribe(this);
+    }
+
+    public void Display()
+    {
+        Console.WriteLine($"Current conditions: {_temperature}F degrees and {_humidity}% humidity");
+    }
+
+    public void OnCompleted()
+    {
+    }
+
+    public void OnError(Exception error)
+    {
+    }
+
+    public void OnNext(WeatherData value)
+    {
+        _temperature = value.Temperature;
+        _humidity = value.Humidity;
+        Display();
+    }
+}
+
+public class ForecastDisplay : IDisplayElement, IObserver<WeatherData>
+{
+    private float _currentPressure = 29.92f;
+    private float _lastPressure; 
+    private IDisposable _cancellation;
+
+    public void Subscribe(WeatherData provider)
+    {
+        _cancellation = provider.Subscribe(this);
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("Forecast: ");
+
+        if (_currentPressure > _lastPressure)
+        {
+            Console.WriteLine("Improving weather on the way!");
+        }
+        else if (_currentPressure == _lastPressure)
+        {
+            Console.WriteLine("More of the same");
+        }
+        else if (_currentPressure < _lastPressure)
+        {
+            Console.WriteLine("Watch out for cooler, rainy weather");
+        }
+    }
+
+    public void OnCompleted()
+    {
+    }
+
+    public void OnError(Exception error)
+    {
+    }
+
+    public void OnNext(WeatherData value)
+    {
+        _lastPressure = _currentPressure;
+        _currentPressure = value.Pressure;
+        Display();
+    }
+}
+
+public class WeatherData : IObservable<WeatherData>
+{
+    private readonly List<IObserver<WeatherData>> _observers;
+    public float Temperature { private set; get; }
+    public float Humidity { private set; get; }
+    public float Pressure { private set; get; }
+
+    public WeatherData()
+    {
+        _observers = new List<IObserver<WeatherData>>();
+    }
+
+    public IDisposable Subscribe(IObserver<WeatherData> observer)
+    {
+        _observers.Add(observer);
+        observer.OnNext(this);
+        return new Unsubscriber<WeatherData>(_observers, observer);
+    }
+
+    public void SetMeasurements(float temperature, float humidity, float pressure)
+    {
+        Temperature = temperature;
+        Humidity = humidity;
+        Pressure = pressure;
+        MeasurementsChanged();
+    }
+
+    public void MeasurementsChanged()
+    {
+        foreach (var observer in _observers)
+        {
+            observer.OnNext(this);
+        }
+    }
+}
+
+public class Unsubscriber<WeatherData> : IDisposable
+{
+    private readonly List<IObserver<WeatherData>> _observers;
+    private readonly IObserver<WeatherData> _observer;
+
+    internal Unsubscriber(List<IObserver<WeatherData>> observers, IObserver<WeatherData> observer)
+    {
+        _observers = observers;
+        _observer = observer;
+    }
+
+    public void Dispose()
+    {
+        if (_observers.Contains(_observer))
+        {
+            _observers.Remove(_observer);
+        }
+    }
+}
 ```
 
 ---
