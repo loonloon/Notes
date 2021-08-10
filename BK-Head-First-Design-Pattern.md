@@ -65,7 +65,7 @@ public class WeatherData
 ##### Final Design #####
 * Define 1 to many relationship between a set of objects
 
-![image](https://user-images.githubusercontent.com/5309726/128589395-a804e9c8-bcea-477c-a701-ec25f25c71f0.png)
+![image](https://user-images.githubusercontent.com/5309726/128801048-4c880fce-da3e-4668-a96d-0a51a8f7ed5c.png)
 
 ```
 class Program
@@ -223,5 +223,32 @@ public class Unsubscriber<WeatherData> : IDisposable
     }
 }
 ```
+
+---
+
+#### Decorator Pattern ####
+
+##### Initial Design #####
+* New requiments: In addition to your coffee, you can also ask for several condiments like steamed milk, soy and etc.
+
+![image](https://user-images.githubusercontent.com/5309726/128802668-29a50c29-efac-4da5-9800-aa664896ca00.png)
+
+##### 1st Design #####
+
+![image](https://user-images.githubusercontent.com/5309726/128803249-843e39e0-363d-4c63-80c3-1040e7a1a54a.png)
+
+* Problems:
+  * Class explosion
+
+##### 2nd Design #####
+
+![image](https://user-images.githubusercontent.com/5309726/128803380-8ddd6753-4471-4a61-b813-0e28e9444ede.png)
+
+* Problems:
+  * New condiments will force to add new methods and alter the cost method in the superclass
+  * May have new beverage. For some of these beverage (Iced Tea), the condiments may not be appropriate, yet the Tea subclass will still inherit methods like `hasWhip()`
+
+##### Final Design #####
+* Open Closed Princple
 
 ---
