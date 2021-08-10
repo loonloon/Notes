@@ -334,4 +334,12 @@ public class Soy : CondimentDecorator
 
 #### Factory Pattern ####
 
+##### Initial Design #####
+
+![image](https://user-images.githubusercontent.com/5309726/128848857-9dd62714-9103-4acb-8951-bb4a46f7321b.png)
+
+##### 1st Design #####
+
+![image](https://user-images.githubusercontent.com/5309726/128848314-7bd21671-ac88-43dc-9cf8-56b0a4c0a404.png)
+
 ---
