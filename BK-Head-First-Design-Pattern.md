@@ -250,5 +250,88 @@ public class Unsubscriber<WeatherData> : IDisposable
 
 ##### Final Design #####
 * Open Closed Princple
+* Attach additional responsibilities to an object dynamically
+
+![image](https://user-images.githubusercontent.com/5309726/128821342-856cafb6-a247-4d9a-beca-2c95ed2564bd.png)
+
+![image](https://user-images.githubusercontent.com/5309726/128821609-235c30f2-c997-4111-bf25-22dca15dce82.png)
+
+```
+static void Main(string[] args)
+{
+    Beverage beverage = new Espresso();
+    Console.WriteLine($"{beverage} ${beverage.Cost()}");
+
+    beverage = new Mocha(beverage);
+    Console.WriteLine($"{beverage} ${beverage.Cost()}");
+}
+
+public enum Size
+{
+    Tall,
+    Grande,
+    Venti
+}
+
+public abstract class Beverage
+{
+    public abstract double Cost();
+    public override string ToString() => "Unknown Beverage";
+}
+
+public abstract class CondimentDecorator : Beverage
+{
+    protected Beverage Beverage;
+}
+
+public class Espresso : Beverage
+{
+    public override double Cost() => 1.99;
+    public override string ToString() => "Espresso";
+}
+
+public class HouseBlend : Beverage
+{
+    public override double Cost() => 0.89;
+    public override string ToString() => "House Blend Coffee";
+}
+
+public class Mocha : CondimentDecorator
+{
+    public Mocha(Beverage beverage)
+    {
+        Beverage = beverage;
+    }
+
+    public override double Cost() => Beverage.Cost() + 0.2;
+    public override string ToString() => $"{Beverage}, Mocha";
+}
+
+public class Soy : CondimentDecorator
+{
+    public Soy(Beverage beverage)
+    {
+        Beverage = beverage;
+    }
+
+    public override double Cost()
+    {
+        var cost = Beverage.Cost();
+
+        cost += Beverage.Size switch
+        {
+            Size.Tall => 0.1,
+            Size.Grande => 0.15,
+            _ => 0.2
+        };
+
+        return cost;
+    }
+}
+```
+
+---
+
+#### Factory Pattern ####
 
 ---
