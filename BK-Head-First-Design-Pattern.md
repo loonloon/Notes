@@ -52,7 +52,7 @@ public class WeatherData
         var pressure = GetPressure();
 
         /*
-         * //By coding to concrete implementations, we have no way to add or remove other display elements
+         * By coding to concrete implementations, we have no way to add or remove other display elements
          * without making changes to the program
          */
         currentConditionsDisplay.Update(temp, humidity, pressure);
