@@ -338,8 +338,18 @@ public class Soy : CondimentDecorator
 
 ![image](https://user-images.githubusercontent.com/5309726/128848857-9dd62714-9103-4acb-8951-bb4a46f7321b.png)
 
-##### 1st Design #####
+##### 1st Design (Simple Factory) #####
 
 ![image](https://user-images.githubusercontent.com/5309726/128848314-7bd21671-ac88-43dc-9cf8-56b0a4c0a404.png)
+
+##### 2nd Design (Factory Method) #####
+* Defines an interface for creating an object, but lets subclasses decide which class to instantiate (through inheritance)
+
+![image](https://user-images.githubusercontent.com/5309726/129320702-cd6314d5-91a5-4a08-a28e-81fd6680a113.png)
+
+![image](https://user-images.githubusercontent.com/5309726/129322173-3d2e64eb-ae28-4b8f-98d7-5132dbe37a8e.png)
+
+##### Final Design (Abstract Factory) #####
+* (through composition)
 
 ---
