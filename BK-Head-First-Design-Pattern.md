@@ -62,6 +62,8 @@ public class WeatherData
 }
 ```
 
+---
+
 ##### Final Design #####
 * Define 1 to many relationship between a set of objects
 
@@ -233,12 +235,16 @@ public class Unsubscriber<WeatherData> : IDisposable
 
 ![image](https://user-images.githubusercontent.com/5309726/128802668-29a50c29-efac-4da5-9800-aa664896ca00.png)
 
+---
+
 ##### 1st Design #####
 
 ![image](https://user-images.githubusercontent.com/5309726/128803249-843e39e0-363d-4c63-80c3-1040e7a1a54a.png)
 
 * Problems:
   * Class explosion
+
+---
 
 ##### 2nd Design #####
 
@@ -247,6 +253,8 @@ public class Unsubscriber<WeatherData> : IDisposable
 * Problems:
   * New condiments will force to add new methods and alter the cost method in the superclass
   * May have new beverage. For some of these beverage (Iced Tea), the condiments may not be appropriate, yet the Tea subclass will still inherit methods like `hasWhip()`
+
+---
 
 ##### Final Design #####
 * Open Closed Princple
@@ -338,9 +346,15 @@ public class Soy : CondimentDecorator
 
 ![image](https://user-images.githubusercontent.com/5309726/128848857-9dd62714-9103-4acb-8951-bb4a46f7321b.png)
 
+![image](https://user-images.githubusercontent.com/5309726/129537798-bdeebe5b-b7cf-4739-8e92-24d821b9f253.png)
+
+---
+
 ##### 1st Design (Simple Factory) #####
 
 ![image](https://user-images.githubusercontent.com/5309726/128848314-7bd21671-ac88-43dc-9cf8-56b0a4c0a404.png)
+
+---
 
 ##### 2nd Design (Factory Method) #####
 * Defines an interface for creating an object, but lets subclasses decide which class to instantiate (through inheritance)
@@ -349,7 +363,19 @@ public class Soy : CondimentDecorator
 
 ![image](https://user-images.githubusercontent.com/5309726/129322173-3d2e64eb-ae28-4b8f-98d7-5132dbe37a8e.png)
 
+![image](https://user-images.githubusercontent.com/5309726/129537321-b9979bcb-54a9-4e9b-b53c-87fb9d495438.png)
+
+---
+
 ##### Final Design (Abstract Factory) #####
-* (through composition)
+* Dependency Inversion Principle
+  * No variable should hold a reference to a concrete class
+  * No class should derive from a concrete class
+  * No method should override an implemented method of any of its base classes
+* Provides an interface for creating families of related or dependent objects without specifying their concrete classes (through composition)
+
+![image](https://user-images.githubusercontent.com/5309726/129539149-202df6ca-7e5d-4a11-9fdf-bfd8a99f4afe.png)
+
+![image](https://user-images.githubusercontent.com/5309726/129538550-5cf9cc61-341a-4730-a28c-401b11d58730.png)
 
 ---
