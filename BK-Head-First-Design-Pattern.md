@@ -379,3 +379,7 @@ public class Soy : CondimentDecorator
 ![image](https://user-images.githubusercontent.com/5309726/129538550-5cf9cc61-341a-4730-a28c-401b11d58730.png)
 
 ---
+
+#### Command Pattern ####
+
+---
