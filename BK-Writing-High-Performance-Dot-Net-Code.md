@@ -389,7 +389,7 @@ for(var i = 0; i < 10; i++)
     <dd>
         * If you are doing a lot of disk I/O, then you need to pay attention to the type of disk access you are doing, whether it is random, sequential, and etc.
         <br />
-        * Need to use the FileStream amd a constructor aoverload that accepts that FileOptions enumeration. Provide hints to the operating system or file system on how to optimize file access.
+        * Need to use the FileStream and a constructor overload that accepts that FileOptions enumeration. Provide hints to the operating system or file system on how to optimize file access.
     </dd>
     <dt>Optimizing HTTP Settings and Network Communication</dt>
     <dd></dd>
