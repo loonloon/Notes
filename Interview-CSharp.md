@@ -81,7 +81,7 @@ it’s a virtual machine that assists with the compilation, conversion and execu
         </tr>
         <tr>
             <td>enum</td>
-            <td></td>
+            <td>array</td>
         </tr>
         <tr>
             <td>float</td>
