@@ -631,6 +631,8 @@ A delegate is an object that knows how to call a method
 
 A delegate can be seen as a placeholder for a/some method(s). By defining a delegate, you are saying to the user of your class, "Please feel free to **assign, any method that matches this signature**, to the delegate and it will be called each time my delegate is called"
 
+A delegate instance literally acts as a delegate for the caller: the caller invokes the delegate, and then the delegate calls the target method. This indirection decouples the caller from the target method.
+
 #### What is multicast delegate? #### 
 * Also called as combined delegate, multiple delegate objects can be assigned to one delegate instance by using the + operator (same type in return or argument). 
 * The multicast delegate contains a list of the assigned delegates. When the multicast delegate is called, it invokes the delegates in the list, in order. 
