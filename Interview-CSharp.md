@@ -627,6 +627,8 @@ void InArgExample(in int number)
 </table>
 
 #### What is delegates and usages? ####
+A delegate is an object that knows how to call a method
+
 A delegate can be seen as a placeholder for a/some method(s). By defining a delegate, you are saying to the user of your class, "Please feel free to **assign, any method that matches this signature**, to the delegate and it will be called each time my delegate is called"
 
 #### What is multicast delegate? #### 
