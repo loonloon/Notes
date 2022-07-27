@@ -1429,3 +1429,6 @@ A Mutex is like a lock, but it can work across multiple processes.
         </tr>
     </tbody>
 </table>
+
+ #### What is DML, DDL and DCL? ####
+ ![image](https://user-images.githubusercontent.com/5309726/181177211-4389534c-62b2-4c1e-b611-61b693dcee93.png)
