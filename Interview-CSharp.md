@@ -16,11 +16,36 @@ it’s a virtual machine that assists with the compilation, conversion and execu
             <th>Features</th>
         </tr>
         <tr>
+            <td>11</td>
+            <td>
+                <ul>
+                    <li>Generic attributes</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>
+                <ul>
+                    <li>Record structs</li>
+                    <li>Deconstruction</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>
+                <ul>
+                    <li>Record types</li>
+                    <li>init only setters</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
             <td>8</td>
             <td>
                 <ul>
                     <li>Async Streams</li>
-                    <li>Nullable reference type (Compiler warning)</li>
                     <li>Default interface implementation</li>
                 </ul>
             </td>
@@ -1370,3 +1395,37 @@ A Mutex is like a lock, but it can work across multiple processes.
 #### What is SynchronizedCollection? ####
 * It was introduced first in .NET 2.0 to provide a thread-safe collection class.
 * It does this via locking so that you essentially have a ```List<T>``` where every access is wrapped in a ```lock``` statement.
+    
+#### Right-BICEP and CORRECT in unit testing ####
+<table>
+    <tbody>
+        <tr>
+            <th></th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Right</td>
+            <td>Are the results <b>right</b> ? Are the results correct?</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>are all the <b>boundary conditions</b> correct? Are all the boundary conditions correct?</td>
+        </tr>
+        <tr>
+            <td>I</td>
+            <td>can you check the <b>inverse</b> relationships? Can you check the inverse relationships?</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>can you <b>cross-check</b> results using other means? Can you cross-check results using other means?</td>
+        </tr>
+        <tr>
+            <td>E</td>
+            <td>can you force <b>error conditions</b> to happen? Can you force error conditions to happen?</td>
+        </tr>
+        <tr>
+            <td>P</td>
+            <td>are <b>performance</b> characteristics within bounds?</td>
+        </tr>
+    </tbody>
+</table>
