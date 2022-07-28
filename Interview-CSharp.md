@@ -1431,4 +1431,8 @@ A Mutex is like a lock, but it can work across multiple processes.
 </table>
 
  #### What is DML, DDL and DCL? ####
+ * Data Manipulate Language
+ * Data Definition Language
+ * Data Control Language
+ 
  ![image](https://user-images.githubusercontent.com/5309726/181177211-4389534c-62b2-4c1e-b611-61b693dcee93.png)
