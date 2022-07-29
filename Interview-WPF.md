@@ -92,9 +92,20 @@ When the data is flown from a source to a target, we can change the value or typ
     </tbody>
 </table>
 
+#### What is ICommand? ####
+used for the view to update the model in the MVVM architecture
+
+```
+bool CanExecute(object parameter);  
+void Execute(object parameter);  
+event EventHandler CanExecuteChanged;  
+```
+
 #### What is the Control Template in WPF? ####
-The ControlTemplate contains the tree of elements that define the desired look. After you define a ControlTemplate you can attach it to any Control or Page by setting it's TemplateProperty.
- 
+Specifies the visual structure and behavioral aspects of a Control that can be shared across multiple instances of the control.
+
+![image](https://user-images.githubusercontent.com/5309726/181733120-4f057355-4399-4240-a70e-0200bdab7e20.png)
+
 #### What is a Routed event? ####
 <table>
     <tbody>
@@ -130,15 +141,15 @@ It is intended to be used as a type of global property that is settable on any o
 </DockPanel>
 
 public static readonly DependencyProperty IsBubbleSourceProperty = DependencyProperty.RegisterAttached(
-  "IsBubbleSource",
-  typeof(Boolean),
-  typeof(AquariumObject),
+  "IsBubbleSource", typeof(Boolean), typeof(AquariumObject),
   new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender)
 );
+
 public static void SetIsBubbleSource(UIElement element, Boolean value)
 {
   element.SetValue(IsBubbleSourceProperty, value);
 }
+
 public static Boolean GetIsBubbleSource(UIElement element)
 {
   return (Boolean)element.GetValue(IsBubbleSourceProperty);
