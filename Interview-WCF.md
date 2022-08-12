@@ -187,19 +187,19 @@ In WCF, all services are exposed as contracts. Contract is a platform-neutral an
         </tr>
         <tr>
             <td>Service Contract</td>
-            <td></td>
+            <td>Service contract describes the operation that service provide</td>
         </tr>
         <tr>
             <td>Data Contract</td>
-            <td></td>
+            <td>A data contract is a formal agreement between a service and a client that abstractly describes the data to be exchanged</td>
         </tr>
         <tr>
             <td>Message Contract</td>
-            <td></td>
+            <td>Message is the packet of data which contains important information. WCF uses these messages to transfer information from Source to destination</td>
         </tr>
         <tr>
             <td>Fault Contract</td>
-            <td></td>
+            <td>WCF provides the option to handle and convey the error message to client from service using SOAP Fault contract.</td>
         </tr>
     </tbody>
 </table>
@@ -260,4 +260,16 @@ Channels are the core abstraction for sending message to and receiving message f
     </tbody>
 </table>
 
+#### Bindings and Channel Stacks ####
+In WCF all the communication details are handled by channel, it is a stack of channel components that all messages pass through during runtime processing. The bottom-most component is the transport channel. This implements the given transport protocol and reads incoming messages off the wire. 
 
+The transport channel uses a message encoder to read the incoming bytes into a logical Message object for further processing.
+
+![image](https://user-images.githubusercontent.com/5309726/184315744-27e7bc9c-77be-400c-a913-6b6d110e82c6.png)
+
+After that, the message bubbles up through the rest of the channel stack, giving each protocol channel an opportunity to do its processing, until it eventually reaches the top and WCF dispatches the final message to your service implementation. Messages undergo significant transformation along the way.
+
+So WCF provides easy way of achieving this using end point. In end point we will specify address, binding and contract. To know more about end point.
+
+#### Metadata Exchange ####
+WCF services use metadata to describe how to interact with the service's endpoints so that tools, such as Svcutil.exe, can automatically generate client code for accessing the service
