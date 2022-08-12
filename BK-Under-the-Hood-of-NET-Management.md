@@ -8,11 +8,11 @@ When a .NET application runs, four sections of memory (heaps) are created to be 
     </tr>
     <tr>
         <td>Small Object Heap (SOH)</td>
-        <td>Stores allocated objects that are less than 85k in size</td>
+        <td>Stores allocated objects that are less than 85,000 bytes in size</td>
     </tr>
     <tr>
         <td>Large Object Heap (LOH)</td>
-        <td>Stores allocated objects greater than 85k (although there are some exceptions)</td>
+        <td>Stores allocated objects greater than 85,000 bytes (although there are some exceptions)</td>
     </tr>
     <tr>
         <td>Process Heap</td>
