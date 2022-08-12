@@ -273,3 +273,105 @@ So WCF provides easy way of achieving this using end point. In end point we will
 
 #### Metadata Exchange ####
 WCF services use metadata to describe how to interact with the service's endpoints so that tools, such as Svcutil.exe, can automatically generate client code for accessing the service
+
+#### Instance Management ####
+
+<table>
+    <tbody>
+        <tr>
+            <th>Service</th>
+            <th>Description</th>
+            <th</th>
+        </tr>
+        <tr>
+            <td>Per-Call</td>
+            <td>Service instance will be created for each client request. This Service instance will be disposed after response is sent back to client. 
+</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184319202-8e03c3d0-8a8d-435f-8103-2f631f3001d2.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>Per-Session</td>
+            <td>Logical session between client and service will be maintained. When the client creates new proxy to particular service instance, a dedicated service instance will be provided to the client. It is independent of all other instance.</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184320086-c04298dd-5690-4ecb-931f-b9b10ad10f22.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>Singleton</td>
+            <td>All clients are independently connected to the same single instance. This singleton instance will be created when service is hosted and, it is disposed when host shuts down.</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184320380-456da500-4cc9-4c1b-baeb-d53c7c226c58.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+#### Instance Deactivation ####
+
+<table>
+    <tbody>
+        <tr>
+            <th>RealeaseInstanceMode</th>
+            <th>Description</th>
+            <th</th>
+        </tr>
+        <tr>
+            <td>RealeaseInstanceMode.None</td>
+            <td>This property means that it will not affect the instance lifetime. By default ReleaseInstanceMode property is set to 'None'</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184324310-f4d10229-5645-48a3-a2c4-ef35285bcf56.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>RealeaseInstanceMode.BeforeCall</td>
+            <td>
+                This property means that it will create new instance before a call is made to the operation. <br /><br /> If the instance is already exist,WCF deactivates the instance and calls Dispose() before the call is done. This is designed to optimize a method such as Create()
+            </td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184324378-670007b5-95d5-4d73-bfcc-0b070f6bad3f.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>RealeaseInstanceMode.AfterCall</td>
+            <td>This property means that it will deactivate the instance after call is made to the method. <br /><br /> This is designed to optimize a method such a Cleanup()</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184324532-a95703db-a9d2-4ffa-96f5-97097ec5c032.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>RealeaseInstanceMode.BeforeAndAfterCall</td>
+            <td>This is means that it will create new instance of object before a call and deactivates the instance after call. This has combined effect of using ReleaseInstanceMode.BeforeCall and ReleaseInstanceMode.AfterCall</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184324600-31c514e9-df07-4f35-9007-f54a0d2b19f4.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+#### Throttling ####
+WCF throttling provides some properties that you can use to limit how many instances or sessions are created at the application level. Performance of the WCF service can be improved by creating proper instance.
+
+<table>
+    <tbody>
+        <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>maxConcurrentCalls</td>
+            <td>Limits the total number of calls that can currently be in progress across all service instances. The default is 16.</td>
+        </tr>
+        <tr>
+            <td>maxConcurrentInstances</td>
+            <td>The number of InstanceContext objects that execute at one time across a ServiceHost. The default is Int32.MaxValue.</td>
+        </tr>
+        <tr>
+            <td>maxConcurrentSessions</td>
+            <td>A positive integer that limits the number of sessions a ServiceHost object can accept. The default is 10.</td>
+        </tr>
+    </tbody>
+</table>
+
+#### Operations ####
