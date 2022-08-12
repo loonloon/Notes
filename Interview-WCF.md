@@ -285,8 +285,9 @@ WCF services use metadata to describe how to interact with the service's endpoin
         </tr>
         <tr>
             <td>Per-Call</td>
-            <td>Service instance will be created for each client request. This Service instance will be disposed after response is sent back to client. 
-</td>
+            <td>
+                Service instance will be created for each client request. This Service instance will be disposed after response is sent back to client.
+            </td>
             <td>
                 <img src="https://user-images.githubusercontent.com/5309726/184319202-8e03c3d0-8a8d-435f-8103-2f631f3001d2.png" />
             </td>
@@ -375,3 +376,42 @@ WCF throttling provides some properties that you can use to limit how many insta
 </table>
 
 #### Operations ####
+
+<table>
+    <tbody>
+        <tr>
+            <th>Communication Modes</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Request- Replay</td>
+            <td>By default all WCF will operated in the Request-Replay mode. It means that, when client make a request to the WCF service and client will wait to get response from service (till receiveTimeout). After getting the response it will start executing the rest of the statement. If service doesn't respond to the service within receiveTimeout, client will receive TimeOutException. <br /><br /> Apart from NetPeerTcpBinding and the NetMsmqBinding all other bindings will support request-reply operations.</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184327460-89af557c-1eec-4ba3-8f4c-00510676c705.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>One-Way</td>
+            <td>In One-Way operation mode, client will send a request to the server and does not care whether it is success or failure of service execution. There is no return from the server side, it is one-way communication. <br /><br /> Client will be blocked only for a moment till it dispatches its call to service. If any exception thrown by service will not reach the server. <br /><br />Client can continue to execute its statement, after making one-way call to server. There is no need to wait, till server execute. Sometime when one-way calls reach the service, they may not be dispatched all at once but may instead be queued up on the service side to be dispatched one at a time, according to the service's configured concurrency mode behavior. If the number of queued messages has exceeded the queue's capacity, the client will be blocked even if it's issued a one-way call. However, once the call is queued, the client will be unblocked and can continue executing, while the service processes the operation in the background.</td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184327553-78191932-614d-442f-984a-0abe7d27078a.png" />
+            </td>
+        </tr>
+        <tr>
+            <td>Callback</td>
+            <td>
+                <ul>
+                    <li>HTTP protocols are connectionless nature, so it is not supported for callback operation. So BasicHttpBinding and WSHttpBinding cannot be used for this operation.</li>
+                    <li>WCF support WSDualHttpBinding for call back operation. </li>
+                    <li>All TCP and IPC protocols support Duplex communication. So all these binding will be used for callback operation.</li>
+                </ul>
+            </td>
+            <td>
+                <img src="https://user-images.githubusercontent.com/5309726/184327643-5c4d01a8-9b31-42d5-9fa5-5b275c2bff86.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+#### Introduction to RESTful service ####
+RESTful service can be created by using `WebGetAttribute` and `WebInvokeAttribute` attribute
