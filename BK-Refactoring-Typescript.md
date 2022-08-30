@@ -91,6 +91,7 @@ class PendingOrder implements IOrder {
         // API call, etc.
     }
 }
+
 class PaymentRejectedOrder implements IOrder {
     constructor() {
     }
