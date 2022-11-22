@@ -148,35 +148,35 @@ public class Loan
         if (Rctl.Equals(type)) _maturity = maturity;
     }
 
-    private static Loan NewTermLoan(float notional, float outstanding, int customerRating, DateTime expiry)
+    public static Loan NewTermLoan(float notional, float outstanding, int customerRating, DateTime expiry)
     {
         return new Loan(TermLoan, new TermROC(), notional, outstanding, customerRating, expiry, null);
     }
 
-    private static Loan NewTermWithStrategy(CapitalStrategy strategy, float notional, float outstanding,
+    public static Loan NewTermWithStrategy(CapitalStrategy strategy, float notional, float outstanding,
         int customerRating, DateTime expiry)
     {
         return new Loan(TermLoan, strategy, notional, outstanding, customerRating, expiry, null);
     }
 
-    private static Loan NewRevolver(float notional, float outstanding, int customerRating, DateTime expiry)
+    public static Loan NewRevolver(float notional, float outstanding, int customerRating, DateTime expiry)
     {
         return new Loan(Revolver, new RevolverROC(), notional, outstanding, customerRating, expiry, null);
     }
 
-    private static Loan NewRevolverWithStrategy(CapitalStrategy strategy, float notional, float outstanding,
+    public static Loan NewRevolverWithStrategy(CapitalStrategy strategy, float notional, float outstanding,
         int customerRating, DateTime expiry)
     {
         return new Loan(Revolver, strategy, notional, outstanding, customerRating, expiry, null);
     }
 
-    private static Loan NewRctl(float notional, float outstanding, int customerRating, DateTime expiry,
+    public static Loan NewRctl(float notional, float outstanding, int customerRating, DateTime expiry,
         DateTime maturity)
     {
         return new Loan(Rctl, new RctlROC(), notional, outstanding, customerRating, expiry, maturity);
     }
 
-    private static Loan NewRctlWithStrategy(CapitalStrategy strategy, float notional, float outstanding,
+    public static Loan NewRctlWithStrategy(CapitalStrategy strategy, float notional, float outstanding,
         int customerRating, DateTime expiry, DateTime maturity)
     {
         return new Loan(Rctl, strategy, notional, outstanding, customerRating, expiry, maturity);
