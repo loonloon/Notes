@@ -135,6 +135,53 @@ export class CardComponent implements OnInit {
 ---
 
 #### Section 8 Routing and Navigation Between Pages ####
+* Adding Basic Routing
 
+```
+- app.component.html
+<router-outlet />
+
+- elements-routing.module.ts
+const routes: Routes = [{ path: 'elements', component: ElementsHomeComponent }]
+```
+
+![image](https://user-images.githubusercontent.com/5309726/226263770-01a67499-f1bd-4c08-9285-be1758b3d6c3.png)
+
+* Navigating with RouterLink
+
+```
+- app.component.html
+<a routerLink="/collections">Collections</a>
+```
+
+* Styling an Active Link
+
+```
+<a class="item" routerLink="/elements" routerLinkActive="active">Elements</a>
+```
+
+* Reordering Routing Rules
+
+```
+- app-routing.module.ts
+const routes = Routes = [
+  { path: '', component: HomeComponent },
+  { path: '**', component: NotFoundComponent }
+]
+
+- app.module.ts
+@NgModule({
+  imports: [
+    BrowserModule,
+    ElementsModule,
+    CollectionsModule,
+    AppRoutingModule
+  ]
+})
+```
+
+---
+
+#### Section 9 Lazy Loading with Modules ####
 
 ---
