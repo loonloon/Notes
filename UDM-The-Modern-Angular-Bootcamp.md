@@ -242,4 +242,8 @@ const routes = Routes = [
 - elements-routing.module.ts
 const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
 ```
+
+* Widget Modules
+  * Provide the ability for the user to create and export the component and to import it by other components for reusability
+
 ---
