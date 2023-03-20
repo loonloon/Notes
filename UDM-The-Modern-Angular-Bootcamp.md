@@ -115,6 +115,42 @@ export class CardComponent implements OnInit {
 ---
 
 #### Section 5 Mastering Pipes ####
+https://angular.io/guide/pipes-overview
+
+![image](https://user-images.githubusercontent.com/5309726/226287662-94358577-477a-479a-8ae9-d35cab0287b8.png)
+
+* Creating Custom Pipes
+  * ng generate pipe pipeName
+
+```
+- pipe-name.pipe.ts
+@Pipe({
+  name: 'pipeName'
+})
+
+export class PipeName implements PipeTransform {
+  transform(value: any, targetUnits: string): any {
+    if(!value) {
+      return '';
+    }
+    
+    switch(targetUnits) {
+      case 'km':
+        return value * 1.60934;
+      default:
+        return value;
+    }
+}
+```
+
+* Two Neat Things with Pipes
+
+```
+- app.component.html
+<div *ngIf="miles | convert: 'km' > 10">
+  {{ miles | convert: 'cm' | number: '1.0' }}
+</div>
+```
 
 ---
 
@@ -183,5 +219,27 @@ const routes = Routes = [
 ---
 
 #### Section 9 Lazy Loading with Modules ####
+* Eager Loading
 
+![image](https://user-images.githubusercontent.com/5309726/226278846-2f2f38a4-6aa4-4452-a389-2eac003e7b08.png)
+
+* Lazy Loading
+
+![image](https://user-images.githubusercontent.com/5309726/226278344-fe0ddcb3-932d-4682-b697-3259b7ca4414.png)
+
+* Implementing Lazy Loading
+
+![image](https://user-images.githubusercontent.com/5309726/226278896-d2fe576d-cbcf-4f6a-8346-3ef6d4cb8ce1.png)
+
+```
+- app-routing.module.ts
+const routes = Routes = [
+  { path: 'elements', loadChildren: () => import('./elements/elements.module').then(m => m.ElementsModule) },
+  { path: '', component: HomeComponent },
+  { path: '**', component: NotFoundComponent }
+]
+
+- elements-routing.module.ts
+const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
+```
 ---
