@@ -246,4 +246,40 @@ const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
 * Widget Modules
   * Provide the ability for the user to create and export the component and to import it by other components for reusability
 
+* Grabbing Content with NgContent
+
+![image](https://user-images.githubusercontent.com/5309726/226546159-6e617d3d-a473-4c20-90fb-83db1807e987.png)
+
+```
+- divider.component.html
+<h1><ng-content></ng-content></h1>
+
+- elements-home.component.html
+<app-divider>Placeholder Component</app-divider>
+```
+
+* NgContent with Select
+
+```
+- segment.component.html
+<div class="ui icon header">
+  <ng-content select="header"></ng-content>
+</div>
+
+  <ng-content></ng-content>
+
+- elements-home.component.html
+
+<app-segment>
+  <header>
+    <i class="pdf file outline icon"></i>
+      No documents are listed for this customer.
+  </header>
+  
+    <button class="ui primary button">Add Document</button>
+</app-segment>
+```
+
+![image](https://user-images.githubusercontent.com/5309726/226550410-6bcc59f4-d392-44d1-9a1e-185877929464.png)
+
 ---
