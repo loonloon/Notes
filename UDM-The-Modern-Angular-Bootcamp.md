@@ -283,3 +283,46 @@ const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
 ![image](https://user-images.githubusercontent.com/5309726/226550410-6bcc59f4-d392-44d1-9a1e-185877929464.png)
 
 ---
+
+#### Section 10 Advanced Component Routing ####
+![image](https://user-images.githubusercontent.com/5309726/226809705-ee517ce5-7fc0-42a8-b1e1-89cf58bcf096.png)
+
+* Adding Child Navigation Routes
+
+```
+- collection-routing.module.ts
+const routes: Routes = [
+  { path: '', component: CollectionsHomeComponent, children: [
+      { path: '', component: BiographyComponent }, //relative link
+      { path: 'companies', component: CompaniesComponent },
+      { path: 'partners', component: PartnersComponent }
+    ]
+]
+
+- collections-home.component.html
+<!-- Relative path -->
+<a class="item" routerLink="./">Biography</a> 
+<a class="item" routerLink="companies">Companies</a>
+<a class="item" routerLink="partners">Patners</a>
+
+<!-- Absolute path -->
+<a class="item" routerLink="/collections">Biography</a> 
+<a class="item" routerLink="/collections/companies">Companies</a>
+
+```
+
+![image](https://user-images.githubusercontent.com/5309726/226811264-38fa7d81-aa83-4fd2-93ab-205a4d1d971e.png)
+
+* Alternate RouterLink Syntax
+
+```
+<a class="item" [routerLink]="['collections', 'partners', linkPropertyFromClass]">Biography</a>
+```
+
+* Matching Exact Paths
+
+```
+<a class="item" routerLink="./" [routerLinkActiveOptions]="{ exact: true }">Biography</a>
+```
+
+---
