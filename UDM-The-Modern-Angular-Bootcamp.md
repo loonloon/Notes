@@ -326,3 +326,37 @@ const routes: Routes = [
 ```
 
 ---
+
+#### Section 11 Advanced Component Reusability + Hooks ####
+
+* Natural Issues with Modal Windows 
+  * The position property with a relative value in CSS applied to the parent affects the modal
+
+![image](https://user-images.githubusercontent.com/5309726/226856691-dbdf8bcf-8b41-436b-bfc8-9004257266b7.png)
+
+* Solving the Modal Issue
+
+![image](https://user-images.githubusercontent.com/5309726/226858146-3336f956-dcc4-4589-b95a-d740caf5bb21.png)
+
+* Lifecycle Hooks
+
+![image](https://user-images.githubusercontent.com/5309726/226859347-a6511b31-e3ab-47f2-ab20-ff72259ac3be.png)
+
+* Opening the Modal
+
+```
+- mods-home.component.html
+<button (click)="onClick()">Show Modal</button>
+<app-modal *ngIf="modalOpen"></app-modal>
+
+- mods-home.component.ts
+export class ModsHomeComponent {
+  modalOpen = false;
+
+  onClick() {
+    this.modalOpen = !this.modalOpen;
+  }
+}
+```
+
+---
