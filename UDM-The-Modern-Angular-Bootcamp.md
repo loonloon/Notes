@@ -359,4 +359,55 @@ export class ModsHomeComponent {
 }
 ```
 
+* Closing the Modal
+
+```
+- mods.home.component.html
+<app-modal (close)="onClick()" *ngIf="modalOpen"></app-modal>
+
+- mods.home.component.ts
+export class ModsHomeComponent {
+  modalOpen = false;
+
+  onClick() {
+    this.modalOpen = !this.modalOpen;
+  }
+}
+
+- modal.component.html
+<div class="ui dimmer visible active" (click)="onCloseClick()">
+</div>
+
+- modal.component.ts
+export class ModalComponent implements OnInit, OnDestroy {
+  @Output() close = new EventEmitter();
+
+  constructor(private el: ElementRef) {
+    console.log(el.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.el.nativeElement.remove();
+  }
+
+  ngOnInit(): void {
+    document.body.appendChild(this.el.nativeElement);
+  }
+
+  onCloseClick() {
+    this.close.emit();
+  }
+}
+```
+
+* Stopping Event Bubbling
+
+```
+- modal.component.ts
+<div class="ui dimmer visible active" (click)="onCloseClick()">
+    <div class="ui modal visible active" (click)="$event.stopPropagation()">
+    </div>
+</div>
+```
+
 ---
