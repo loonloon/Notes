@@ -411,3 +411,9 @@ export class ModalComponent implements OnInit, OnDestroy {
 ```
 
 ---
+
+#### Section 13 Handling Data and HTTP Requests ####
+
+![image](https://user-images.githubusercontent.com/5309726/227167842-10ba2a66-eb45-4426-a9d5-be3a3af57da2.png)
+
+---
