@@ -416,4 +416,56 @@ export class ModalComponent implements OnInit, OnDestroy {
 
 ![image](https://user-images.githubusercontent.com/5309726/227167842-10ba2a66-eb45-4426-a9d5-be3a3af57da2.png)
 
+* Handling Form Submission
+
+```
+- search-bar.components.html
+<form (submit)="onFormSubmit($event)">
+  <input (input)="term = $event.target.value" />
+</form>
+
+- search-bar.component.ts
+export class SearchBarComponent {
+  onFormSubmit(event: Event) {
+    event.preventDefault();
+    console.log(this.term);
+  }
+}
+```
+
+* Child to Parent Communication
+
+![image](https://user-images.githubusercontent.com/5309726/227398606-758a970f-cc85-401b-a2fc-8a24335b3748.png)
+
+```
+- search-bar.components.html
+<form (submit)="onFormSubmit($event)">
+  <input (input)="term = $event.target.value" />
+</form>
+
+- search-bar.component.ts
+export class SearchBarComponent {
+  @Output() submitted = new EventEmitter<string>();
+  
+  onFormSubmit(event: Event) {
+    event.preventDefault();
+    this.submitted.emit(this.term);
+  }
+}
+
+- app.component.html
+<app-search-bar (submitted)="onTerm($event)"></app-search-bar>
+<app-page-list><app-page-list>
+
+- app.component.ts
+export class AppComponent {
+  onTerm(term: string) {
+  }
+}
+```
+
+* Notes of Services
+
+![image](https://user-images.githubusercontent.com/5309726/227401434-5a27728c-39f9-4df2-856a-68caa7e68604.png)
+
 ---
