@@ -468,4 +468,27 @@ export class AppComponent {
 
 ![image](https://user-images.githubusercontent.com/5309726/227401434-5a27728c-39f9-4df2-856a-68caa7e68604.png)
 
+* Dependecy Injection
+
+![image](https://user-images.githubusercontent.com/5309726/228477505-a93d68f2-d5aa-4d2e-8d87-550cf1d17570.png)
+
 ---
+
+#### Section 14 App Security in Angular ####
+
+* Escaping HTML characters
+
+![image](https://user-images.githubusercontent.com/5309726/228481127-af06be21-709d-4d01-9311-7588a8c07040.png)
+
+```
+- page-list.component.html
+<td [innerHTML]="page.snippet"></td>
+```
+
+* Another CSS Gotcha
+  * It (page-list.component.css) will not style the CSS if it's not in the component (If the HTML contains CSS and it's assigned to an HTML element)
+  * It works when move to styles.css
+ 
+---
+
+#### Section 15  ####
