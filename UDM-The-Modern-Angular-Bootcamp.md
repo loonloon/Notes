@@ -491,4 +491,24 @@ export class AppComponent {
  
 ---
 
-#### Section 15  ####
+#### Section 15 RxJs From the Fundamentals  ####
+
+* Adding RxJs Terminology
+
+![image](https://user-images.githubusercontent.com/5309726/229417872-dc5cf413-5201-4b56-a66e-16d6c8bac3b3.png)
+
+* Creating an Observable, https://out.stegrider.now.sh/
+
+```
+const { fromEvent } = Rx;
+const input = document.createElement('input');
+const container = document.querySelector('.container');
+container.appendChild(input);
+
+const observable = fromEvent(input, 'input');
+
+//This is specific to this tool
+observable;
+```
+
+---
