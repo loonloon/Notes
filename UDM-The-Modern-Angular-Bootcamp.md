@@ -501,14 +501,48 @@ export class AppComponent {
 
 ```
 const { fromEvent } = Rx;
+const { map, pluck } = RxOperators;
+
 const input = document.createElement('input');
 const container = document.querySelector('.container');
 container.appendChild(input);
 
-const observable = fromEvent(input, 'input');
+const observable = fromEvent(input, 'input')
+                   .pipe(
+                      pluck('target', 'value'),
+                      map(value => parseInt(value)),
+                      map(value => {
+                          if (isNan(value)) {
+                              throw new Error('Enter a number!');
+                          }
+                          
+                          return value;
+                      });
+                   )
+
+observable.subscribe({
+  next(value) {
+    console.log(`Your value ${value}`);
+  },
+  error(err) {
+    console.error('BAD THING HAPPEN!!!', err.message)
+  }
+});
 
 //This is specific to this tool
 observable;
 ```
+
+* Implementing the Processing Pipeline
+
+![image](https://user-images.githubusercontent.com/5309726/229440204-99fc0682-05da-4c16-bbcd-08f37e758b97.png)
+
+![image](https://user-images.githubusercontent.com/5309726/229448321-44299f31-eded-4833-8e60-572dd3b90522.png)
+
+* Operator Groups
+
+![image](https://user-images.githubusercontent.com/5309726/229450194-d2a28a80-d522-465e-a3e4-0e7b59ffe32e.png)
+
+![image](https://user-images.githubusercontent.com/5309726/229451218-0e21aa4c-0379-4ebd-85d1-109f43db4f76.png)
 
 ---
