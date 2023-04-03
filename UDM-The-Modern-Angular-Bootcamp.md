@@ -545,4 +545,82 @@ observable;
 
 ![image](https://user-images.githubusercontent.com/5309726/229451218-0e21aa4c-0379-4ebd-85d1-109f43db4f76.png)
 
+* Low Level Observables
+
+```
+const { Observable } = Rx;
+const observable = new Observable((subscriber) => {
+  //Throw the value 1 into our pipneline
+  subscriber.next(1);
+  
+  //Marks the observable as complete, no more values will come out
+  subscriber.complete();
+  
+  //Emit an error, no more values will come out
+  subscriber.error(new Error('Hello Error'));
+});
+
+observable.subscribe({
+  next(value) {
+    console.log('Got a value', value);
+  },
+  complete() {
+    console.log('Observable is complete. Dont expect any more values');
+  },
+  error() {
+    console.log('BAD THING!!!', err.message);
+  }
+});
+
+//alternative Observer Syntax
+observable.subscribe(
+  (value) => console.log('Next value:', value),
+  (err) => console.error('BAD THING!!!', err.message),
+  () => console.log('COMPLETE')
+);
+
+observable;
+```
+
+* Unicase Observables
+
+![image](https://user-images.githubusercontent.com/5309726/229469829-d4ac4eca-731a-4ef7-9e25-bb2c292778f3.png)
+
+* Can easily lead bad behavior
+
+![image](https://user-images.githubusercontent.com/5309726/229469755-89fea4e9-f1c5-45e5-89f6-b498eb2b751e.png)
+
+* Multicase Observables
+
+![image](https://user-images.githubusercontent.com/5309726/229470631-5cc45e72-e45c-434b-bfe7-08157d47f8ee.png)
+
+* Take notes on point 3 & 4
+
+![image](https://user-images.githubusercontent.com/5309726/229470699-ca8564b7-8ef8-475f-9c15-fd79f8c445e8.png)
+
+```
+const { Observable } = Rx;
+const { tap, share } = RxOperators;
+
+const observable = new Observable((subscriber) => {
+  subscriber.next(1);
+  subscriber.next(2);
+  subscriber.next(3);
+}).pipe(
+  tap(valie => console.log('From tap:', value)),
+  share()
+);
+
+observable.subscribe(
+  (value) => console.log('Next value:', value),
+  (err) => console.error('BAD THING!!!', err.message),
+  () => console.log('COMPLETE')
+);
+
+//point 4
+observable.subscribe((value) => {
+  console.log('From second subscribe', value);
+});
+```
+
 ---
