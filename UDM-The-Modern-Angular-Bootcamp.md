@@ -582,7 +582,7 @@ observable.subscribe(
 observable;
 ```
 
-* Unicase Observables
+* Unicase Observables (Cold Observable)
 
 ![image](https://user-images.githubusercontent.com/5309726/229469829-d4ac4eca-731a-4ef7-9e25-bb2c292778f3.png)
 
@@ -590,7 +590,7 @@ observable;
 
 ![image](https://user-images.githubusercontent.com/5309726/229469755-89fea4e9-f1c5-45e5-89f6-b498eb2b751e.png)
 
-* Multicase Observables
+* Multicase Observables (Hot Observable)
 
 ![image](https://user-images.githubusercontent.com/5309726/229470631-5cc45e72-e45c-434b-bfe7-08157d47f8ee.png)
 
