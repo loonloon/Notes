@@ -491,7 +491,7 @@ export class AppComponent {
  
 ---
 
-#### Section 15 RxJs From the Fundamentals  ####
+#### Section 15 RxJs From the Fundamentals ####
 
 * Adding RxJs Terminology
 
@@ -624,3 +624,9 @@ observable.subscribe((value) => {
 ```
 
 ---
+
+#### Section 18 Credit Card Payments with Reactive Forms ####
+
+* Reactive Forms vs Template Forms
+
+![image](https://user-images.githubusercontent.com/5309726/231712964-c6309a86-c873-4038-a1d0-414b363a63c6.png)
