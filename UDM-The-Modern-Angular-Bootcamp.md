@@ -173,9 +173,95 @@ export class PipeName implements PipeTransform {
 * Changes Pages
 
 ```
-<li [ngClass]="{ active: i === currentPage }" *ngFor="let image of images; let i = index">
-  <a (click)="currentPage = i">{{ i + 1 }}</a>
-</li>
+<!-- 
+<ng-container *ngFor="let image of images; let i = index">
+  <li [ngClass]="{ active: i === currentPage }" >
+    <a (click)="currentPage = i">{{ i + 1 }}</a>
+  </li>
+</ng-container>
+```
+
+* NgSwitch
+
+```
+<div [ngSwitch]="currentPage">
+  <div *ngSwitchCase="0">Current Page is zero</div>
+  <div *ngSwitchCase="2">Current Page is two</div>
+  <div *ngSwitchCase="3">Current Page is three</div>
+  <div *ngSwitchDefault>Unknown current page!</div>
+</div>
+```
+
+* Generating Custom Directives
+  * ng generate directive directiveName
+
+```
+- class.directive.ts
+@Directive({
+  selector: '[appClass]'
+})
+
+export class ClassDirective {
+  //way 1
+  @Input() backgroundColor: string;
+  
+  constructor(private element: ElementRef) {
+    this.element.nativeElement.style.backgroundColor = this.backgroundColor;
+  }
+  
+  //way 2
+  @Input() set backgroundColor(color: string) {
+    this.element.nativeElement.style.backgroundColor = color;
+  }
+ 
+  <!-- Input Aliasing Way 1 -->
+  @Input() set appClass(color: string) {
+    this.element.nativeElement.style.backgroundColor = color;
+  }
+  
+   <!-- Input Aliasing Way 2 -->
+  @Input('appClass') set appClass(color: string) {
+    this.element.nativeElement.style.backgroundColor = color;
+  }
+}
+
+- app.component.html
+<h4 appClass [backgroundColor]="'red'"></h4>
+
+<!-- Input Aliasing -->
+<h4 [appClass]="'red'"></h4>
+```
+
+* Custom Structural Directives
+  * ng generate directive directiveName
+
+```
+- times.directive.ts
+@Directive({
+  selector: '[appTimes]'
+})
+
+export class TimeDirectives {
+  constructor(private viewContainer: ViewContainerRef, private templateRef: TemplateRef<any>) {
+  }
+  
+  @Input('appTimes') set render(times: number) {
+    this.viewContainer.clear();
+    
+    for (let i = 0; i < times; i++) {
+        this.viewContainer.createEmbeddedView(this.templateRef, {
+          //aliasing
+          index: i
+        });
+    }
+  }
+}
+
+- app.component.html
+<ul *appTimes="5">
+  <!-- will display li element 5 times -->
+  <li>Hi there!</li>
+</ul>
 ```
 
 ---
