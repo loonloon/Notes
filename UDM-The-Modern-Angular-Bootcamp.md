@@ -630,3 +630,24 @@ observable.subscribe((value) => {
 * Reactive Forms vs Template Forms
 
 ![image](https://user-images.githubusercontent.com/5309726/231712964-c6309a86-c873-4038-a1d0-414b363a63c6.png)
+
+*  Binding a FormGroup to a Form
+
+```
+- card-form.component.ts
+import { FormGroup, FormControl } from '@angular/forms';
+
+export class CardFormComponent {
+  cardForm = new FormGroup({
+    name: new FormControl('')
+  });
+}
+
+- card-form.component.html
+<form [formGroup]="cardForm">
+  <input formControlName="name" />
+</form>
+
+<div>Form Contents: {{ cardForm.value | json }}</div>
+<div>Form is valid: {{ cardForm.valid }}</div>
+```
