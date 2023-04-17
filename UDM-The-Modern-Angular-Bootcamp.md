@@ -156,6 +156,28 @@ export class PipeName implements PipeTransform {
 
 #### Section 6 Directives in Angular ####
 
+* The NgClass Directive
+  * If true, an 'active' will be applied as a class to that li element
+ 
+```
+<li [ngClass]="{ active: i === currentPage }">
+  <a>{{ i + 1 }}</a>
+</li>
+
+//another way
+<li [ngClass]="getClass()">
+  <a>{{ i + 1 }}</a>
+</li>
+```
+
+* Changes Pages
+
+```
+<li [ngClass]="{ active: i === currentPage }" *ngFor="let image of images; let i = index">
+  <a (click)="currentPage = i">{{ i + 1 }}</a>
+</li>
+```
+
 ---
 
 #### Section 7 The Module System ####
