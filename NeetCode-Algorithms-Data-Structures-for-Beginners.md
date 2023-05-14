@@ -1,3 +1,7 @@
+#### Graphs ####
+
+---
+
 #### Dynamic Programming ####
 1-Dimension - Fibonacci
 
@@ -8,7 +12,8 @@ F(n) = F(n - 1) + F(n - 2)
 ![image](https://user-images.githubusercontent.com/5309726/236654684-dc229eb9-59ea-47ac-a6bf-15316d57674b.png)
 
 ```python
-# Brute Force
+# Brute Force (Top-Down approach)
+
 def bruteForce(n):
     if n <= 1:
         return n
@@ -19,6 +24,8 @@ def bruteForce(n):
 
 ```python
 # Memoization (Top-Down approach)
+# Top-down approach because it starts with the original problem and breaks it down into subproblems
+
 def memoization(n, cache):
     # Base case: If n is 0 or 1, the Fibonacci number is equal to n itself
     if n <= 1:
@@ -39,7 +46,9 @@ def memoization(n, cache):
 
 ```python
 # Tabulation (Botton-Up approach)
-# Constant memory space O(1)
+# Constant memory O(1)
+# Bottom-up approach would start with the smallest subproblems and combine them to solve the larger ones, 
+# typically done in an iterative fashion rather than recursively
 
 def dp(n):
     # Base case: If n is 0 or 1, the Fibonacci number is equal to n itself
@@ -68,6 +77,80 @@ def dp(n):
     
     # Return the nth Fibonacci number
     return dp[1]
+```
+
+2-Dimension - Count paths
+
+![image](https://github.com/loonloon/Notes/assets/5309726/e3d77b90-9cdf-4220-8527-b8f0f13d6359)
+![image](https://github.com/loonloon/Notes/assets/5309726/c78ed465-603a-44a7-8c3c-a958eae200c6)
+
+```python
+# Brute Force (Top-Down approach)
+# Time and space O(2 ^ (n + m))
+
+def bruteForce(r, c, total_rows, total_cols):
+    # If the current row or column is out of grid bounds, return 0 (indicating no valid paths)
+    if r == total_rows or c == total_cols:
+        return 0
+
+    # If the current position is at the bottom right of the grid (goal), return 1 (indicating a valid path)
+    if r == total_rows - 1 and c == total_cols - 1:
+        return 1
+
+    # Recursively explore two possibilities: moving down (r+1) and moving right (c+1)
+    # The sum of these two recursive calls represents the total number of valid paths from the current position
+    return bruteForce(r + 1, c, total_rows, total_cols) + bruteForce(r, c + 1, total_rows, total_cols)
+```
+
+```python
+# Memoization (Top-Down approach)
+# Time and space O(n * m)
+def memoization(r, c, total_rows, total_cols, cache):
+    # If the current row or column is out of grid bounds, return 0 (indicating no valid paths).
+    if r == total_rows or c == total_cols:
+        return 0
+
+    # If we have already computed the value for this cell (r, c), return it from the cache.
+    if cache[r][c] > 0:
+        return cache[r][c]
+
+    # If the current position is at the bottom right of the grid (goal), return 1 (indicating a valid path).
+    if r == total_rows - 1 and c == total_cols - 1:
+        return 1
+
+    # If we have not computed the value for this cell, compute it by exploring two possibilities: 
+    # moving down (r+1) and moving right (c+1). Store this computed value in the cache for future reference.
+    cache[r][c] = memoization(r + 1, c, total_rows, total_cols, cache) + memoization(r, c + 1, total_rows, total_cols, cache)
+    
+    # Return the cached value for this cell.
+    return cache[r][c]
+```
+
+![image](https://github.com/loonloon/Notes/assets/5309726/11640ddc-7b5e-4344-ba60-e4f2f14903c0)
+
+```python
+def dp(total_rows, total_cols):
+    # Initialize the previous row with zeros
+    prev_row = [0] * total_cols
+
+    # Loop from the last row up to the first row (inclusive)
+    for r in range(total_rows - 1, -1, -1):
+        # Create a new current row with all zeros
+        cur_row = [0] * total_cols
+        
+        # Set the last element in the current row to 1
+        cur_row[- 1] = 1
+
+        # Loop from the second last column up to the first column (inclusive)
+        for c in range(total_cols - 2, -1, -1):
+            # For each cell, sum the cell to the right and the cell in the previous row (same column)
+            cur_row[c] = cur_row[c + 1] + prev_row[c]
+            
+        # Set the previous row to be the current row for the next iteration
+        prev_row = cur_row
+
+    # Return the first element in the last computed row
+    return prev_row[0]
 ```
 
 ---
