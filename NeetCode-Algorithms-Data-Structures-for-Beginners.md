@@ -1,5 +1,17 @@
 #### Graphs ####
 
+Matrix
+
+![image](https://github.com/loonloon/Notes/assets/5309726/41d2c520-9df9-4c97-8b5f-982751d9d494)
+
+Adjacency Matrix
+
+![image](https://github.com/loonloon/Notes/assets/5309726/06f454ce-57b4-4a40-9e70-be7037920e6a)
+
+Adjacency List
+
+![image](https://github.com/loonloon/Notes/assets/5309726/1a04727d-eff5-452b-b93c-3f4158c3e530)
+
 ---
 
 #### Dynamic Programming ####
