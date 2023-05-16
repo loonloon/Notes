@@ -334,7 +334,7 @@ Allow an existing type to be extended with new methods without altering the defi
 #### What is ```yield```? ####
 To return each element one at a time.
  
-```
+```csharp
 public class ContactListStore : IStore<ContactModel>
 {
     public IEnumerable<ContactModel> GetEnumerator()
@@ -372,7 +372,7 @@ Ready to iterate through the collection.
 Note: The entire collection was loaded into memory without even asking for a single item in the list
 ```
 
-```
+```csharp
 public class ContactYieldStore : IStore<ContactModel>
 {
     public IEnumerable<ContactModel> GetEnumerator()
@@ -403,7 +403,7 @@ Note: The collection wasn't executed at all. This is due to the "deferred execut
 Let's call the collection again and obverse the behaviour when we fetch the first contact in the collection.
 ```
 
-```
+```csharp
 static void Main(string[] args)
 {
     var store = new ContactYieldStore();
@@ -425,7 +425,7 @@ Nice! Only the first contact was constructed when the client "pulled" the item o
 #### Explicit Interface #### 
 Implementing multiple interfaces can sometimes result in a collision between member signatures.
 
-````
+````csharp
 interface I1 { void Foo(); }
 interface I2 { int Foo(); }
 
@@ -597,7 +597,7 @@ w.Foo(); // Widget's implementation of I1.Foo
     </tbody>
 </table>
 
-```
+```csharp
 //ref
 void Method(ref int refArgument)
 {
@@ -671,7 +671,7 @@ An Event declaration **adds a layer of abstraction and protection on the delegat
 * No one outside of your class can raise the event.
 * Events can be included in an interface declaration, whereas a field cannot
 
-```
+```csharp
 //Example with Delegates (in this case, an Action - that is a kind of delegate that doesn't return a value)
 public class Animal
 {
@@ -812,7 +812,7 @@ Prevent overriding a method of a class.
 * Create a class definition in multiple files but it will be compiled as one class at run time.
 * Doesn’t allowed to create a partial class in different namespace.
 
-```
+```csharp
 partial class Class1
 {
     public void Function1()
@@ -1200,7 +1200,7 @@ It restricts the critical region so that only one thread can enter a critical re
 #### What is Semaphore? ####
 Limits the number of threads that can access a resource or pool of resources concurrently.
 
-```
+```csharp
 private static readonly Semaphore semaphore = new Semaphore(5, 5);
 
 static void Main(string[] args)
