@@ -6,7 +6,7 @@
 
 ![image](https://user-images.githubusercontent.com/5309726/226254384-caf656c4-fac5-40fa-a4db-b4a5ea7e0e23.png)
 
-```
+```javascript
 - app.component.html
 <button (click)="onButtonClick()" />
 
@@ -23,7 +23,7 @@ export class AppComponent {
 
 ![image](https://user-images.githubusercontent.com/5309726/226254287-13e080ce-e1fb-47bb-b1eb-23940a8d3c99.png)
 
-```
+```javascript
 - app.component.html
 <input [value]="password" />
 
@@ -36,7 +36,7 @@ export class AppComponent {
 
 * Interpolation Syntax
 
-```
+```javascript
 - app.component.html
 {{ passoword }}}
 
@@ -48,13 +48,13 @@ export class AppComponent {
 
 * CSS Import Statements
 
-```
+```css
 @import ''
 ```
 
 * Structural Directive
 
-```
+```javascript
 <div *ngIf="">
   <label>Your Password</label>
 </div>
@@ -74,7 +74,7 @@ export class AppComponent {
 
 ![image](https://user-images.githubusercontent.com/5309726/226256637-c0991013-008a-43d7-8719-1f5ebf9d599f.png)
 
-```
+```javascript
 - app.component.html
 <app-card [title]="posts[0].title" [imageUrl]="posts[0].imageUrl" />
 
@@ -96,7 +96,7 @@ export class CardComponent implements OnInit {
 
 *ngFor
 
-```
+```javascript
 <app-card *ngFor="let post of posts" [title]="post.title" [imageUrl]="post.imageUrl" />
 
 //alternative
@@ -106,7 +106,7 @@ export class CardComponent implements OnInit {
 * Host Element Selectors
   * Used to apply styles to the host element of a component
 
-```
+```css
 :host {
   display: flex;
 }
@@ -122,7 +122,7 @@ https://angular.io/guide/pipes-overview
 * Creating Custom Pipes
   * ng generate pipe pipeName
 
-```
+```javascript
 - pipe-name.pipe.ts
 @Pipe({
   name: 'pipeName'
@@ -145,7 +145,7 @@ export class PipeName implements PipeTransform {
 
 * Two Neat Things with Pipes
 
-```
+```javascript
 - app.component.html
 <div *ngIf="miles | convert: 'km' > 10">
   {{ miles | convert: 'cm' | number: '1.0' }}
@@ -159,7 +159,7 @@ export class PipeName implements PipeTransform {
 * The NgClass Directive
   * If true, an 'active' will be applied as a class to that li element
  
-```
+```javascript
 <li [ngClass]="{ active: i === currentPage }">
   <a>{{ i + 1 }}</a>
 </li>
@@ -172,7 +172,7 @@ export class PipeName implements PipeTransform {
 
 * Changes Pages
 
-```
+```javascript
 <!-- 
 <ng-container *ngFor="let image of images; let i = index">
   <li [ngClass]="{ active: i === currentPage }" >
@@ -183,7 +183,7 @@ export class PipeName implements PipeTransform {
 
 * NgSwitch
 
-```
+```javascript
 <div [ngSwitch]="currentPage">
   <div *ngSwitchCase="0">Current Page is zero</div>
   <div *ngSwitchCase="2">Current Page is two</div>
@@ -195,7 +195,7 @@ export class PipeName implements PipeTransform {
 * Generating Custom Directives
   * ng generate directive directiveName
 
-```
+```javascript
 - class.directive.ts
 @Directive({
   selector: '[appClass]'
@@ -235,7 +235,7 @@ export class ClassDirective {
 * Custom Structural Directives
   * ng generate directive directiveName
 
-```
+```javascript
 - times.directive.ts
 @Directive({
   selector: '[appTimes]'
@@ -281,7 +281,7 @@ export class TimeDirectives {
 #### Section 8 Routing and Navigation Between Pages ####
 * Adding Basic Routing
 
-```
+```javascript
 - app.component.html
 <router-outlet />
 
@@ -293,20 +293,20 @@ const routes: Routes = [{ path: 'elements', component: ElementsHomeComponent }]
 
 * Navigating with RouterLink
 
-```
+```javascript
 - app.component.html
 <a routerLink="/collections">Collections</a>
 ```
 
 * Styling an Active Link
 
-```
+```javascript
 <a class="item" routerLink="/elements" routerLinkActive="active">Elements</a>
 ```
 
 * Reordering Routing Rules
 
-```
+```javascript
 - app-routing.module.ts
 const routes = Routes = [
   { path: '', component: HomeComponent },
@@ -339,7 +339,7 @@ const routes = Routes = [
 
 ![image](https://user-images.githubusercontent.com/5309726/226278896-d2fe576d-cbcf-4f6a-8346-3ef6d4cb8ce1.png)
 
-```
+```javascript
 - app-routing.module.ts
 const routes = Routes = [
   { path: 'elements', loadChildren: () => import('./elements/elements.module').then(m => m.ElementsModule) },
@@ -358,7 +358,7 @@ const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
 
 ![image](https://user-images.githubusercontent.com/5309726/226546159-6e617d3d-a473-4c20-90fb-83db1807e987.png)
 
-```
+```javascript
 - divider.component.html
 <h1><ng-content></ng-content></h1>
 
@@ -368,7 +368,7 @@ const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
 
 * NgContent with Select
 
-```
+```javascript
 - segment.component.html
 <div class="ui icon header">
   <ng-content select="header"></ng-content>
@@ -397,7 +397,7 @@ const routes: Routes = [{ path: '', component: ElementsHomeComponent }]
 
 * Adding Child Navigation Routes
 
-```
+```javascript
 - collection-routing.module.ts
 const routes: Routes = [
   { path: '', component: CollectionsHomeComponent, children: [
@@ -423,13 +423,13 @@ const routes: Routes = [
 
 * Alternate RouterLink Syntax
 
-```
+```javascript
 <a class="item" [routerLink]="['collections', 'partners', linkPropertyFromClass]">Biography</a>
 ```
 
 * Matching Exact Paths
 
-```
+```javascript
 <a class="item" routerLink="./" [routerLinkActiveOptions]="{ exact: true }">Biography</a>
 ```
 
@@ -452,7 +452,7 @@ const routes: Routes = [
 
 * Opening the Modal
 
-```
+```javascript
 - mods-home.component.html
 <button (click)="onClick()">Show Modal</button>
 <app-modal *ngIf="modalOpen"></app-modal>
@@ -469,7 +469,7 @@ export class ModsHomeComponent {
 
 * Closing the Modal
 
-```
+```javascript
 - mods.home.component.html
 <app-modal (close)="onClick()" *ngIf="modalOpen"></app-modal>
 
@@ -510,7 +510,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
 * Stopping Event Bubbling
 
-```
+```javascript
 - modal.component.ts
 <div class="ui dimmer visible active" (click)="onCloseClick()">
     <div class="ui modal visible active" (click)="$event.stopPropagation()">
@@ -526,7 +526,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
 * Handling Form Submission
 
-```
+```javascript
 - search-bar.components.html
 <form (submit)="onFormSubmit($event)">
   <input (input)="term = $event.target.value" />
@@ -545,7 +545,7 @@ export class SearchBarComponent {
 
 ![image](https://user-images.githubusercontent.com/5309726/227398606-758a970f-cc85-401b-a2fc-8a24335b3748.png)
 
-```
+```javascript
 - search-bar.components.html
 <form (submit)="onFormSubmit($event)">
   <input (input)="term = $event.target.value" />
@@ -588,7 +588,7 @@ export class AppComponent {
 
 ![image](https://user-images.githubusercontent.com/5309726/228481127-af06be21-709d-4d01-9311-7588a8c07040.png)
 
-```
+```javascript
 - page-list.component.html
 <td [innerHTML]="page.snippet"></td>
 ```
@@ -607,7 +607,7 @@ export class AppComponent {
 
 * Creating an Observable, https://out.stegrider.now.sh/
 
-```
+```javascript
 const { fromEvent } = Rx;
 const { map, pluck } = RxOperators;
 
@@ -655,7 +655,7 @@ observable;
 
 * Low Level Observables
 
-```
+```javascript
 const { Observable } = Rx;
 const observable = new Observable((subscriber) => {
   //Throw the value 1 into our pipneline
@@ -706,7 +706,7 @@ observable;
 
 ![image](https://user-images.githubusercontent.com/5309726/229470699-ca8564b7-8ef8-475f-9c15-fd79f8c445e8.png)
 
-```
+```javascript
 const { Observable } = Rx;
 const { tap, share } = RxOperators;
 
@@ -741,7 +741,7 @@ observable.subscribe((value) => {
 
 *  Binding a FormGroup to a Form
 
-```
+```javascript
 - card-form.component.ts
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -759,3 +759,17 @@ export class CardFormComponent {
 <div>Form Contents: {{ cardForm.value | json }}</div>
 <div>Form is valid: {{ cardForm.valid }}</div>
 ```
+
+* Two Way Binding Syntax
+
+```javascript
+<input name="email" [(ngModel)]="email" />
+```
+
+* Difference Between Template and Reactive Forms
+  * We have 100% direct and easy access (Reactive form)
+  * It's easy to access within the template, but retrieving access to them inside the class is more challenging (Template form)
+
+![image](https://github.com/loonloon/Notes/assets/5309726/43097716-2ac2-406a-b1d0-0d59cf3841bc)
+
+---
