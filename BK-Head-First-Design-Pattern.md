@@ -42,7 +42,7 @@
 
 ![image](https://user-images.githubusercontent.com/5309726/128588314-be17ca6f-ad67-4cce-906a-64214eb224a7.png)
 
-```
+```csharp
 public class WeatherData
 {
     public void MeasurementsChanged()
@@ -69,7 +69,7 @@ public class WeatherData
 
 ![image](https://user-images.githubusercontent.com/5309726/128801048-4c880fce-da3e-4668-a96d-0a51a8f7ed5c.png)
 
-```
+```csharp
 class Program
 {
     static void Main(string[] args)
@@ -264,7 +264,7 @@ public class Unsubscriber<WeatherData> : IDisposable
 
 ![image](https://user-images.githubusercontent.com/5309726/128821609-235c30f2-c997-4111-bf25-22dca15dce82.png)
 
-```
+```csharp
 static void Main(string[] args)
 {
     Beverage beverage = new Espresso();
