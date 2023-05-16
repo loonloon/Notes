@@ -6,8 +6,8 @@
 
 #### Avoiding Boxing on Value Types with the `Equals` Method ####
 
-```
-public 'struct' Point2D : IEquatable<Point2D>
+```csharp
+public struct Point2D : IEquatable<Point2D>
 {
     public int X;
     public int Y;
@@ -50,10 +50,10 @@ immutable value type.)
 The performance guarantees of hash tables rely strongly upon the hash function used by the hash table implementation, but require also several properties from the `GetHashCode` method
 1. If two objects are equal, their hash codes are equal
 2. If two objects are not equal, it should be unlikely that their hash codes are equal
-3. GetHashCode should be fast (although often it is linear in the size of the object)
+3. `GetHashCode` should be fast (although often it is linear in the size of the object)
 4. An object’s hash code should not change
 
-```
+```csharp
 public class Employee
 {
     public string Name { get; set; }
@@ -74,8 +74,8 @@ employees.Contains(kate); //returns false!
 #### Best Practices for Using Value Types ####
 * Use value types if your objects are small and you intend to create a great many of them.
 * Use value types if you require high-density memory collections.
-* Override Equals, overload Equals, implement IEquatable<T>, overload operator ==, and overload operator != on your value types.
-* Override GetHashCode on your value types.
+* Override `Equals`, overload `Equals`, implement `IEquatable<T>`, overload operator `==`, and overload operator `!=` on your value types.
+* Override `GetHashCode` on your value types.
 * Consider making your value types immutable.
 
 ---
