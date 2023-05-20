@@ -4,6 +4,45 @@ Matrix
 
 ![image](https://github.com/loonloon/Notes/assets/5309726/41d2c520-9df9-4c97-8b5f-982751d9d494)
 
+![image](https://github.com/loonloon/Notes/assets/5309726/00aa1992-eb4a-45d8-b0e7-78a13f785d3c)
+![image](https://github.com/loonloon/Notes/assets/5309726/f59b6604-5702-4726-95e6-15a37c8ca1b9)
+
+```python
+# Backtracking
+# Time complexity O(^r * c)
+# Memory space O(r * c)
+def dfs(g, row, col, visit):
+    # determine the number of rows and columns in the grid
+    rows, cols = len(g), len(g[0])
+
+    # check if the current position is out of bounds, visited or a wall(1)
+    if min(row, col) < 0 or row == rows or col == cols or (row, col) in visit or g[row][col] == 1:
+        return 0
+
+    # check if the current position is the destination, if so, a path is found
+    if row == rows - 1 and col == cols - 1:
+        return 1
+
+    # mark the current position as visited
+    visit.add((row, col))
+
+    # initialize the count of paths
+    count = 0
+
+    # explore in all four directions: down, up, right, left from the current cell
+    # increment the count for each valid path found
+    count += dfs(g, row + 1, col, visit)  # down
+    count += dfs(g, row - 1, col, visit)  # up
+    count += dfs(g, row, col + 1, visit)  # right
+    count += dfs(g, row, col - 1, visit)  # left
+
+    # backtracking step, remove the current cell from the visited set
+    visit.remove((row, col))
+
+    # return the total count of paths found from this cell
+    return count
+```
+
 Adjacency Matrix
 
 ![image](https://github.com/loonloon/Notes/assets/5309726/06f454ce-57b4-4a40-9e70-be7037920e6a)
