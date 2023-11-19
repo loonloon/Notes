@@ -773,3 +773,60 @@ export class CardFormComponent {
 ![image](https://github.com/loonloon/Notes/assets/5309726/43097716-2ac2-406a-b1d0-0d59cf3841bc)
 
 ---
+
+#### Section 21 Custom Validators ####
+
+![image](https://github.com/loonloon/Notes/assets/5309726/617d6481-8ed3-410c-9a4b-f45e9236e184)
+
+```javascript
+- signup.component.ts
+export class SignupComponent {
+  authForm = new FormGroup({
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
+Validators.pattern(/^[a-z9-9]+$/)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
+    passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
+  }, { validators: [this.matchPassword.validate] });
+
+  constructor(private matchPassword: MatchPassword) {
+  }
+}
+
+- match-password.ts
+@Injectable({ providedIn: 'root' })
+export class MatchPassword implements Validator {
+    validate(abstractControl: AbstractControl) {
+        const { password, passwordConfirmation } = abstractControl.value;
+        return password === passwordConfirmation ? null : {
+            passwordsDontMatch: true
+        };
+    }
+}
+
+- signup.component.html
+<h3>Create an Account</h3>
+<form class="ui form" [formGroup]="authForm">
+    <div class="field">
+        <div class="field">
+            <label>Username</label>
+            <input aria-label="username" formControlName="username" />
+        </div>
+        {{ authForm.get('username')?.errors | json }}
+        <div class="field">
+            <label>Password</label>
+            <input aria-label="password" formControlName="password" />
+        </div>
+        {{ authForm.get('password')?.errors | json }}
+        <div class="field">
+            <label>Password Confirmation</label>
+            <input aria-label="passwordConfirmation" formControlName="passwordConfirmation" />
+        </div>
+        {{ authForm.get('passwordConfirmation')?.errors | json }}
+        <button class="ui submit button primary" type="button">Submit</button>
+
+        {{ authForm.errors | json }}
+    </div>
+</form>
+```
+
+---
