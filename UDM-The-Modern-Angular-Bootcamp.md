@@ -832,7 +832,8 @@ export class UniqueUsername implements AsyncValidator {
     constructor(private authService: AuthService) {
     }
 
-    validate = (control: AbstractControl<any, any>): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+    validate = (control: AbstractControl<any, any>): Promise<ValidationErrors | null> |
+Observable<ValidationErrors | null> => {
         const { value } = control;
         return this.authService.usernameAvailable(value).pipe(map(() => {
             //only success can go into here
