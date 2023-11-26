@@ -782,13 +782,13 @@ export class CardFormComponent {
 - signup.component.ts
 export class SignupComponent {
   authForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
-Validators.pattern(/^[a-z9-9]+$/)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-z9-9]+$/)], [this.uniqueUsername.validate]),
     password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
     passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
   }, { validators: [this.matchPassword.validate] });
 
-  constructor(private matchPassword: MatchPassword) {
+  constructor(private matchPassword: MatchPassword, 
+    private uniqueUsername: UniqueUsername) {
   }
 }
 
@@ -807,26 +807,52 @@ export class MatchPassword implements Validator {
 <h3>Create an Account</h3>
 <form class="ui form" [formGroup]="authForm">
     <div class="field">
-        <div class="field">
-            <label>Username</label>
-            <input aria-label="username" formControlName="username" />
-        </div>
-        {{ authForm.get('username')?.errors | json }}
-        <div class="field">
-            <label>Password</label>
-            <input aria-label="password" formControlName="password" />
-        </div>
-        {{ authForm.get('password')?.errors | json }}
-        <div class="field">
-            <label>Password Confirmation</label>
-            <input aria-label="passwordConfirmation" formControlName="passwordConfirmation" />
-        </div>
-        {{ authForm.get('passwordConfirmation')?.errors | json }}
-        <button class="ui submit button primary" type="button">Submit</button>
+        <app-input label="Username" inputType="text" [control]="authForm.controls.username"></app-input>
+        <app-input label="Password" inputType="password" [control]="authForm.controls.password"></app-input>
+        <app-input label="Password Confirmation" inputType="password"
+            [control]="authForm.controls.passwordConfirmation"></app-input>
 
-        {{ authForm.errors | json }}
+        <div *ngIf="authForm.controls.password.touched && authForm.controls.passwordConfirmation.touched && authForm.errors"
+            class="ui red basic label">
+            <p *ngIf="authForm.errors?.['passwordsDontMatch']">
+                Password and Password Confirmation must match
+            </p>
+        </div>
+
+        <div>
+            <button class="ui submit button primary" type="button">Submit</button>
+            {{ authForm.errors | json }}
+        </div>
     </div>
 </form>
+
+- unique-username.ts
+@Injectable({ providedIn: 'root' })
+export class UniqueUsername implements AsyncValidator {
+    constructor(private authService: AuthService) {
+    }
+
+    validate = (control: AbstractControl<any, any>): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+        const { value } = control;
+        return this.authService.usernameAvailable(value).pipe(map(() => {
+            //only success can go into here
+            return null;
+        }), catchError((err => {
+            //of is same as Observable
+            console.log(err);
+
+            if (err.error.username) {
+                return of({ nonUniqueUsername: true });
+            }
+
+            return of({ noConnection: true });
+        })));
+    }
+
+    registerOnValidatorChange?(fn: () => void): void {
+        throw new Error("Method not implemented.");
+    }
+}
 ```
 
 ![image](https://github.com/loonloon/Notes/assets/5309726/bbbf389a-6dcf-4e17-9003-5f2aa490d3ee)
