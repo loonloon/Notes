@@ -784,8 +784,10 @@ export class SignupComponent {
   authForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
 Validators.pattern(/^[a-z9-9]+$/)], [this.uniqueUsername.validate]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
-    passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4),
+Validators.maxLength(20)]),
+    passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(4),
+Validators.maxLength(20)]),
   }, { validators: [this.matchPassword.validate] });
 
   constructor(private matchPassword: MatchPassword, 
@@ -813,7 +815,8 @@ export class MatchPassword implements Validator {
         <app-input label="Password Confirmation" inputType="password"
             [control]="authForm.controls.passwordConfirmation"></app-input>
 
-        <div *ngIf="authForm.controls.password.touched && authForm.controls.passwordConfirmation.touched && authForm.errors"
+        <div *ngIf="authForm.controls.password.touched &&
+authForm.controls.passwordConfirmation.touched && authForm.errors"
             class="ui red basic label">
             <p *ngIf="authForm.errors?.['passwordsDontMatch']">
                 Password and Password Confirmation must match
