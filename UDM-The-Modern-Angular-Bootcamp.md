@@ -863,3 +863,11 @@ Observable<ValidationErrors | null> => {
 ![image](https://github.com/loonloon/Notes/assets/5309726/bbbf389a-6dcf-4e17-9003-5f2aa490d3ee)
 
 ---
+
+#### Section 22 Handling Authentication ####
+
+![image](https://github.com/loonloon/Notes/assets/5309726/2eeb2b6e-6f45-428f-b107-e9b43c2db63b)
+
+![image](https://github.com/loonloon/Notes/assets/5309726/2bd98092-7451-4101-9617-a6e8113df876)
+
+---
