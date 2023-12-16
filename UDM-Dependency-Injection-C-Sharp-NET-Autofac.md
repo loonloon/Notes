@@ -1,20 +1,15 @@
 #### Section 2 Registration Concepts ####
 
 ```csharp
-namespace AutoFac
+namespace TestAutoFac
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            // Scenario (Without DI)
-            var log = new ConsoleLog();
-            var engine = new Engine(log);
-            var car = new Car(log, engine);
-            car.Go();
-
             var builder = new ContainerBuilder();
-            builder.RegisterType<ConsoleLog>().As<ILog>();
+            builder.RegisterType<ConsoleLog>().As<ILog>().As<IConsole>().AsSelf();
+            builder.RegisterType<EmailLog>().As<ILog>().PreserveExistingDefaults();
             builder.RegisterType<Engine>();
             builder.RegisterType<Car>();
 
@@ -29,7 +24,11 @@ namespace AutoFac
         void Write(string message);
     }
 
-    public class ConsoleLog : ILog
+    public interface IConsole
+    {
+    }
+
+    public class ConsoleLog : ILog, IConsole
     {
         public ConsoleLog()
         {
@@ -38,6 +37,20 @@ namespace AutoFac
         public void Write(string message)
         {
             Console.WriteLine(message);
+        }
+    }
+
+    public class EmailLog : ILog
+    {
+        private const string adminEmail = "admin@foo.com";
+
+        public EmailLog()
+        {
+        }
+
+        public void Write(string message)
+        {
+            Console.WriteLine($"Email sent to {adminEmail} : {message}");
         }
     }
 
@@ -64,6 +77,7 @@ namespace AutoFac
         }
     }
 }
+
 ```
 
 ---
