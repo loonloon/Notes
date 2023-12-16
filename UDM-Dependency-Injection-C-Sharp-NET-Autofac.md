@@ -1,16 +1,25 @@
 #### Section 2 Registration Concepts ####
 
 ```csharp
-// Scenario (Without DI)
 namespace AutoFac
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            // Scenario (Without DI)
             var log = new ConsoleLog();
             var engine = new Engine(log);
             var car = new Car(log, engine);
+            car.Go();
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<ConsoleLog>().As<ILog>();
+            builder.RegisterType<Engine>();
+            builder.RegisterType<Car>();
+
+            var container = builder.Build();
+            var car = container.Resolve<Car>();
             car.Go();
         }
     }
