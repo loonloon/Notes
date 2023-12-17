@@ -8,14 +8,29 @@ namespace TestAutoFac
         static void Main(string[] args)
         {
             var builder = new ContainerBuilder();
+
+            // Use it when dealing with singletons, integrating with external libraries, etc
+            var log = new ConsoleLog();
+            builder.RegisterInstance(log).As<ILog>();
+
             builder.RegisterType<ConsoleLog>().As<ILog>().As<IConsole>().AsSelf();
+
+            // Use PreserveExistingDefaults without overwriting the statements above.
             builder.RegisterType<EmailLog>().As<ILog>().PreserveExistingDefaults();
             builder.RegisterType<Engine>();
-            builder.RegisterType<Car>();
+
+            builder.Register((IComponentContext c) => new Engine(c.Resolve<ILog>()));
+            builder.RegisterGeneric(typeof(List<>)).As(typeof(IList<>));
+
+            // By default, it will select the constructor with the most parameters
+            builder.RegisterType<Car>().UsingConstructor(typeof(Engine));
 
             var container = builder.Build();
             var car = container.Resolve<Car>();
             car.Go();
+
+            var list = container.Resolve<IList<int>>();
+            Console.WriteLine(list.GetType());
         }
     }
 
@@ -65,10 +80,22 @@ namespace TestAutoFac
         }
     }
 
-    public class Car(ILog log, Engine engine)
+    public class Car
     {
-        private readonly ILog log = log;
-        private readonly Engine engine = engine;
+        private readonly ILog log;
+        private readonly Engine engine;
+
+        public Car(Engine engine)
+        {
+            this.engine = engine;
+            log = new EmailLog();
+        }
+
+        public Car(ILog log, Engine engine)
+        {
+            this.log = log;
+            this.engine = engine;
+        }
 
         public void Go()
         {
@@ -77,7 +104,6 @@ namespace TestAutoFac
         }
     }
 }
-
 ```
 
 ---
