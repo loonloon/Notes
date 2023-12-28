@@ -25,12 +25,28 @@ namespace TestAutoFac
             // By default, it will select the constructor with the most parameters
             builder.RegisterType<Car>().UsingConstructor(typeof(Engine));
 
+            // Named parameter
+            builder.RegisterType<SmsLog>().As<ILog>().WithParameter("phoneNumber", "12345678");
+
+            // Type Parameter
+            builder.RegisterType<SmsLog>().As<ILog>().WithParameter(new TypedParameter(typeof(string), "12345678"));
+
+            // Resolved Parameter
+            builder.RegisterType<SmsLog>().As<ILog>()
+                .WithParameter(new ResolvedParameter((pi, ctx) => 
+                pi.ParameterType == typeof(string) && pi.Name == "phoneNumber", (pi, ctx) => "12345678"));
+
+            builder.Register((c, p) => new SmsLog(p.Named<string>("phoneNumber")));
+
             var container = builder.Build();
             var car = container.Resolve<Car>();
             car.Go();
 
             var list = container.Resolve<IList<int>>();
             Console.WriteLine(list.GetType());
+
+            var smsLog = container.Resolve<ILog>(new NamedParameter("phoneNumber", "12345678"));
+            smsLog.Write("Testing");
         }
     }
 
