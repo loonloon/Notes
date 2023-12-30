@@ -123,3 +123,54 @@ namespace TestAutoFac
 ```
 
 ---
+
+```csharp
+namespace TestAutoFac
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<Service>();
+            containerBuilder.RegisterType<DomainObject>();
+
+            var c = containerBuilder.Build();
+
+            // Bad
+            c.Resolve<DomainObject>(new PositionalParameter(1, 42));
+
+            // Good
+            var factory = c.Resolve<DomainObject.Factory>();
+            Console.WriteLine(factory(42));
+        }
+    }
+
+    public class Service
+    {
+        public string DoSomething(int value)
+        {
+            return $"I have {value}";
+        }
+    }
+
+    public class DomainObject
+    {
+        private readonly Service service;
+        private readonly int value;
+        // Delegate Factories
+        public delegate DomainObject Factory(int value);
+
+        public DomainObject(Service service, int value)
+        {
+            this.service = service;
+            this.value = value;
+        }
+
+        public override string ToString()
+        {
+            return service.DoSomething(value);
+        }
+    }
+}
+```
