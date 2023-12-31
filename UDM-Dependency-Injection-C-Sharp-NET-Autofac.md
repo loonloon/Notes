@@ -124,6 +124,8 @@ namespace TestAutoFac
 
 ---
 
+#### Section 3: Advanced Registration Concepts ####
+
 ```csharp
 namespace TestAutoFac
 {
@@ -170,6 +172,63 @@ namespace TestAutoFac
         public override string ToString()
         {
             return service.DoSomething(value);
+        }
+    }
+}
+```
+
+```csharp
+namespace TestAutoFac
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<Entity>().InstancePerDependency();
+            containerBuilder.RegisterType<ViewModel>();
+
+            var c = containerBuilder.Build();
+            var vm = c.Resolve<ViewModel>();
+            vm.Method();
+        }
+    }
+
+    public class Entity
+    {
+        private static readonly Random random = new();
+        private readonly int number;
+        public delegate Entity Factory();
+
+        public Entity()
+        {
+            number = random.Next();
+        }
+
+        public override string ToString()
+        {
+            return $"test {number}";
+        }
+    }
+
+    public class ViewModel
+    {
+        private Entity.Factory entityFactory { get; }
+
+        public ViewModel(Entity.Factory entityFactory)
+        {
+            this.entityFactory = entityFactory;
+        }
+
+        // Bad
+        //public ViewModel(IContainer container)
+        //{
+        //}
+
+        public void Method()
+        {
+            // Objects on demand
+            Console.WriteLine(entityFactory());
         }
     }
 }
