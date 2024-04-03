@@ -870,4 +870,84 @@ Observable<ValidationErrors | null> => {
 
 ![image](https://github.com/loonloon/Notes/assets/5309726/2bd98092-7451-4101-9617-a6e8113df876)
 
+```javascript
+- auth.service.ts
+interface UserAvailableResponse {
+  available: boolean;
+}
+
+export interface SignUpCredentials {
+  username: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+interface SignUpResponse {
+  username: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class AuthService {
+  private url = 'https://api.angular-email.com';
+  signedIn$ = new BehaviorSubject(false);
+
+  constructor(private httpClient: HttpClient) {
+  }
+
+  signUp(values: SignUpCredentials) {
+    return this.httpClient
+      .post<SignUpResponse>(`${this.url}/auth/signup`, values)
+      .pipe(tap(() => this.signedIn$.next(true)));
+  }
+
+  usernameAvailable(username: string) {
+    return this.httpClient.post<UserAvailableResponse>(`${this.url}/auth/username`, {
+      username
+    });
+  }
+}
+
+- app.component.ts
+import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { BehaviorSubject } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+
+export class AppComponent {
+  signedIn$: BehaviorSubject<boolean>;
+
+  constructor(private authService: AuthService) {
+    this.signedIn$ = this.authService.signedIn$;
+  }
+}
+
+- app.component.html
+<div class="ui container">
+    <div class="ui secondary pointing menu">
+        <a routerLink="/" class="item">Angular Email</a>
+        <div class="right menu">
+            <!-- async pipe -->
+            <ng-container *ngIf="signedIn$ | async">
+                <a routerLink="/inbox" class="ui item" routerLinkActive="active">Inbox</a>
+                <a routerLink="/signout" class="ui item" routerLinkActive="active">Sign Out</a>
+            </ng-container>
+            <ng-container *ngIf="!(signedIn$ | async)">
+                <a routerLink="/" class="ui item" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">Sign In</a>
+                <a routerLink="/signup" class="ui item" routerLinkActive="active">Sign Up</a>
+            </ng-container>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>
+```
+
 ---
