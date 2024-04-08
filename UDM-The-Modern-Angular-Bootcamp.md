@@ -1002,3 +1002,12 @@ export class AppRoutingModule { }
 ```
 
 ---
+
+#### Section 24 Build a Real Email Client ####
+
+![image](https://github.com/loonloon/Notes/assets/5309726/5de09d63-996a-4d73-82fd-e8e95c2843d2)
+
+```javascript
+```
+
+---
