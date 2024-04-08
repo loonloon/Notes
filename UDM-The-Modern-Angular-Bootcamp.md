@@ -953,3 +953,52 @@ export class AppComponent {
 ![image](https://github.com/loonloon/Notes/assets/5309726/62efaf6c-21cb-43c2-a54f-399e1277fa74)
 
 ---
+
+#### Section 23 More on Angular App Security ####
+
+* Restricting Routing with Guards
+![image](https://github.com/loonloon/Notes/assets/5309726/047ed6e5-e76c-482a-8120-081adaacec06)
+
+* Guard Types
+
+![image](https://github.com/loonloon/Notes/assets/5309726/e551c263-0934-49ad-ba03-b529a13417d1)
+
+* To handle multiple values for a BehaviorSubject at different times
+
+![image](https://github.com/loonloon/Notes/assets/5309726/74113b11-a95b-4037-961a-f448b5d112bf)
+
+```javascript
+- auth.guard.ts
+export const authGuard: CanMatchFn = (route, segments) => {
+  return inject(AuthService).signedIn$.pipe(
+    skipWhile(value => value === null),
+    map((value) => !!value),
+    take(1),
+    tap((authenticated) => {
+      return authenticated
+    })
+  );
+};
+
+- app-routing.module.ts
+const routes: Routes = [
+  {
+    path: 'inbox',
+    canMatch: [authGuard],
+    loadChildren: () => import('./inbox/inbox.module').then(mod => mod.InboxModule)
+  },
+  {
+    path: 'inbox',
+    redirectTo: '/' //if auth guard is fail
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+
+export class AppRoutingModule { }
+```
+
+---
