@@ -1007,7 +1007,33 @@ export class AppRoutingModule { }
 
 ![image](https://github.com/loonloon/Notes/assets/5309726/5de09d63-996a-4d73-82fd-e8e95c2843d2)
 
+* Use switchMap to cancel previous request
+
 ```javascript
+@Component({
+  selector: 'app-email-show',
+  templateUrl: './email-show.component.html',
+  styleUrls: ['./email-show.component.css']
+})
+
+export class EmailShowComponent implements OnInit {
+  email: Email | undefined;
+
+  constructor(private activatedRoute: ActivatedRoute, private emailService: EmailService) {
+  }
+
+  ngOnInit() {
+    //Observable route
+    this.activatedRoute.params
+      //Cancel previous request if id has changed
+      .pipe(switchMap(({ id }) => {
+        return this.emailService.getEmail(id);
+      })).subscribe(email => {
+        this.email = email;
+      });
+  }
+}
+
 ```
 
 ---
