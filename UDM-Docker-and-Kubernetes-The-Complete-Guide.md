@@ -17,7 +17,10 @@ docker ps --all
 ```
 docker create hello-world
 
-//`-a` it attaches the container's standard output (stdout) and standard error (stderr) to your terminal, allowing you to view the container's output live
+/*
+`-a` it attaches the container's standard output (stdout) and standard error (stderr) to your terminal,
+allowing you to view the container's output live
+*/
 docker start -a xxxx
 
 docker run = docker create + docker start
