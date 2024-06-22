@@ -12,4 +12,17 @@ docker ps
 docker ps --all 
 ```
 
+* Container Lifecycle
+
+```
+docker create hello-world
+
+//`-a` it attaches the container's standard output (stdout) and standard error (stderr) to your terminal, allowing you to view the container's output live
+docker start -a xxxx
+
+docker run = docker create + docker start
+```
+
+* Restarting Stopped Container
+
 ---
