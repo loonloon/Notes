@@ -13,7 +13,6 @@ docker ps --all
 ```
 
 * Container Lifecycle
-
 ```
 docker create hello-world
 
@@ -26,6 +25,31 @@ docker start -a xxxx
 docker run = docker create + docker start
 ```
 
-* Restarting Stopped Container
+* Removing Stopped Container
+```
+docker system prune
+```
+
+* Retrieving Logs Outputs
+```
+docker logs xxxx
+```
+
+* Stopping Containers
+```
+docker stop xxx
+```
+
+![image](https://github.com/loonloon/Notes/assets/5309726/30b21822-4696-4eac-88f3-f1dc4b0c7b81)
+
+```
+docker kill xxx
+```
+
+![image](https://github.com/loonloon/Notes/assets/5309726/dd1a3339-891e-4494-896d-1ba8c185e874)
+
+* Executing Commands in Running Containers
+
+![image](https://github.com/loonloon/Notes/assets/5309726/54836f61-84f8-4b3a-a61b-e4d4a80835c3)
 
 ---
