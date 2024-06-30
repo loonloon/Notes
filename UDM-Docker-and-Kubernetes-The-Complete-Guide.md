@@ -49,7 +49,41 @@ docker kill xxx
 ![image](https://github.com/loonloon/Notes/assets/5309726/dd1a3339-891e-4494-896d-1ba8c185e874)
 
 * Executing Commands in Running Containers
-
+```
+docker exec -it xxx redis-cli
+```
 ![image](https://github.com/loonloon/Notes/assets/5309726/54836f61-84f8-4b3a-a61b-e4d4a80835c3)
+
+![image](https://github.com/loonloon/Notes/assets/5309726/67bc838a-cae8-4a83-a825-797b71d5281c)
+
+* Getting a Command Prompt in a Container
+```
+//works with an existing, running container
+docker exec -it xxx sh
+
+//creates and starts a new container
+docker run -it busybox sh
+```
+
+---
+
+#### Section 3 Building Custom Images Through Docker Server ####
+
+![image](https://github.com/loonloon/Notes/assets/5309726/67838788-daeb-48a2-bfde-6b20bddacd7c)
+
+* Building a Dockerfile
+```
+# Use an existing docker image as a base
+FROM alpine
+
+# Download and install a dependency
+RUN apk add --update redis
+
+# Tell the image what to do when it starts
+# as a container
+CMD ["redis-server"]
+```
+
+![image](https://github.com/loonloon/Notes/assets/5309726/461ed68a-9d79-4a0b-a5b1-0e7eeff88cc1)
 
 ---
