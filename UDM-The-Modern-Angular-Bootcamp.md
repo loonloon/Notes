@@ -1041,3 +1041,7 @@ export class EmailShowComponent implements OnInit {
 #### Section 26 A Multi-Feature Landing Page App ####
 
 ![image](https://github.com/user-attachments/assets/35289344-3299-479b-8884-0d0c4ef4b1dd)
+
+* Subject Variations
+
+![image](https://github.com/user-attachments/assets/69f1a067-b1fa-4acb-b6c5-c2aadbb33bf8)
