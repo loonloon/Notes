@@ -1045,3 +1045,8 @@ export class EmailShowComponent implements OnInit {
 * Subject Variations
 
 ![image](https://github.com/user-attachments/assets/69f1a067-b1fa-4acb-b6c5-c2aadbb33bf8)
+
+* Service Design
+
+![image](https://github.com/user-attachments/assets/65405026-21c3-4bd5-810a-a3c4adf45dff)
+
