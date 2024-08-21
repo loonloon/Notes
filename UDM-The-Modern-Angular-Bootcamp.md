@@ -1050,3 +1050,6 @@ export class EmailShowComponent implements OnInit {
 
 ![image](https://github.com/user-attachments/assets/65405026-21c3-4bd5-810a-a3c4adf45dff)
 
+* Paginator Strategy
+
+![image](https://github.com/user-attachments/assets/724ffe6d-d4ac-4db3-b43d-9843a1321946)
