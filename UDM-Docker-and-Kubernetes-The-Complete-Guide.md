@@ -135,3 +135,9 @@ docker run -p 5000:8080 loonloon/simpleweb
 ![image](https://github.com/user-attachments/assets/e5406a4e-abf0-4c1f-b049-75529a72102f)
 
 ---
+
+#### Section 5 Docker Compose with Multiple Local Containers ####
+
+![image](https://github.com/user-attachments/assets/aca292b6-f072-40c3-980d-9e0d8597640c)
+
+---
