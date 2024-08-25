@@ -96,3 +96,32 @@ docker build -t docker_id/project_name:latest .
 docker commit -c 'CMD ["redis-server"]' docker_id
 ```
 ---
+
+#### Section 4 Making Real Projects with Docker ####
+
+* Dockerfile
+```
+# Specify a base image
+FROM node:14-alpine
+
+# Install some dependencies
+COPY ./ ./
+RUN npm install
+
+# Default command
+CMD ["npm", "start"]
+```
+
+```
+docker build -t loonloon/simpleweb .
+```
+
+* Container Port Mapping
+```
+docker run -p 5000:8080 loonloon/simpleweb
+```
+![image](https://github.com/user-attachments/assets/7c28309d-3e48-408e-8477-13e729abceb6)
+
+![image](https://github.com/user-attachments/assets/e5406a4e-abf0-4c1f-b049-75529a72102f)
+
+---
