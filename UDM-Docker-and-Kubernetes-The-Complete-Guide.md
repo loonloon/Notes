@@ -148,5 +148,28 @@ docker run -p 5000:8080 loonloon/simpleweb
 
 ![image](https://github.com/user-attachments/assets/ddcd302c-adfc-42eb-bd8f-a3339ae04166)
 
+```
+version: '3'
+
+services:
+  redis-server:
+    image: 'redis'  # This service uses the official Redis image from Docker Hub
+
+  node-app:
+    build: .  # This service builds the Docker image for the Node.js app using the Dockerfile in the current directory
+    ports:
+      - "4001:8081"
+      # Maps port 4001 on the host to port 8081 inside the container, allowing access to the Node.js app from outside the container
+```
+
+![image](https://github.com/user-attachments/assets/cef7594a-babe-48b3-b64e-fd6e620e5eee)
+
+In Docker Compose, all containers defined within the same docker-compose.yml file are automatically placed in the same network, which Docker creates by default for that Compose project. This network allows containers to communicate with each other freely using the service names as hostnames.
+
+For example, in your Docker Compose setup:
+
+The node-app service can access the redis-server by using redis-server as the hostname.
+Similarly, the redis-server can access the node-app using node-app as the hostname.
+
 ---
 
