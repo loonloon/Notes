@@ -156,6 +156,7 @@ services:
     image: 'redis'  # This service uses the official Redis image from Docker Hub
 
   node-app:
+    restart: always  # This service restarts automatically if it stops for any reason
     build: .  # This service builds the Docker image for the Node.js app using the Dockerfile in the current directory
     ports:
       - "4001:8081"
@@ -181,6 +182,10 @@ Similarly, the redis-server can access the node-app using node-app as the hostna
 ```
 docker-compose down
 ```
+
+* Automatic Container Restarts
+
+![image](https://github.com/user-attachments/assets/cdfe23b8-8d9b-4785-a2cf-6720b8279ee6)
 
 ---
 
