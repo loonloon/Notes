@@ -177,5 +177,10 @@ Similarly, the redis-server can access the node-app using node-app as the hostna
 
 ![image](https://github.com/user-attachments/assets/5cbb7cec-4269-4107-8d21-c9811c24eded)
 
+* Stopping Docker Compose Containers
+```
+docker-compose down
+```
+
 ---
 
