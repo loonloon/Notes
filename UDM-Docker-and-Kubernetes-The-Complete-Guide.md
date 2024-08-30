@@ -173,5 +173,9 @@ For example, in your Docker Compose setup:
 The node-app service can access the redis-server by using redis-server as the hostname.
 Similarly, the redis-server can access the node-app using node-app as the hostname.
 
+* Docker Compose Commands
+
+![image](https://github.com/user-attachments/assets/5cbb7cec-4269-4107-8d21-c9811c24eded)
+
 ---
 
