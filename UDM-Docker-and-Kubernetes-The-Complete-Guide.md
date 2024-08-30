@@ -187,5 +187,14 @@ docker-compose down
 
 ![image](https://github.com/user-attachments/assets/cdfe23b8-8d9b-4785-a2cf-6720b8279ee6)
 
+* Containers Status with Docker Compose
+```
+docker-compose ps
+```
+
+---
+
+#### Section 6 Create a Production-Grade Workflow ####
+
 ---
 
