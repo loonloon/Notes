@@ -162,6 +162,8 @@ services:
       # Maps port 4001 on the host to port 8081 inside the container, allowing access to the Node.js app from outside the container
 ```
 
+* Networking with Docker Compose
+
 ![image](https://github.com/user-attachments/assets/cef7594a-babe-48b3-b64e-fd6e620e5eee)
 
 In Docker Compose, all containers defined within the same docker-compose.yml file are automatically placed in the same network, which Docker creates by default for that Compose project. This network allows containers to communicate with each other freely using the service names as hostnames.
