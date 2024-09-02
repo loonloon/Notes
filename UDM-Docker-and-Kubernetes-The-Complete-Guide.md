@@ -196,5 +196,9 @@ docker-compose ps
 
 #### Section 6 Create a Production-Grade Workflow ####
 
+* Creating the Dev Dockerfile
+```
+docker build -f Dockerfile.dev .
+```
 ---
 
