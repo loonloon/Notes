@@ -245,5 +245,11 @@ docker run -it docker_id npm run test
 # run the command in another prompt after docker-compose up
 docker exec -it docker_id npm run test
 ```
+
+* Multi-Step Docker Builds
+
+![image](https://github.com/user-attachments/assets/379f4702-a30b-4655-a3df-3da85e1a20db)
+
+
 ---
 
