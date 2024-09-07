@@ -200,5 +200,50 @@ docker-compose ps
 ```
 docker build -f Dockerfile.dev .
 ```
+
+* Docker Volumes
+
+![image](https://github.com/user-attachments/assets/f79d4443-3c4b-4d9b-a9da-6403a673b3f5)
+
+```
+# Bad option
+# -v /app/node_module (Preserve the folder before get overwrite by `-v $(pwd):/app`)
+docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app docker_id
+```
+
+* Shorthand with Docker Compose
+```
+# Good option
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
+```
+
+* Executing Tests
+```
+docker run -it docker_id npm run test
+```
+
+* Live Updating Tests
+```
+# run the command in another prompt after docker-compose up
+docker exec -it docker_id npm run test
+```
 ---
 
