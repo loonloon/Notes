@@ -267,4 +267,61 @@ docker exec -it docker_id npm run test
   
 ![image](https://github.com/user-attachments/assets/d09390e0-9b26-4e98-b87a-1967e9d15e5b)
 
+```
+version: '3'
+
+services:
+  # When Docker Compose creates a network, it automatically assigns DNS names / hostname to each service based on the service name
+  postgres: # The name of the service
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: postgres_password
+  redis:
+    image: redis:latest
+  nginx:
+    restart: always # Restart the container if it crashes
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80' # Forward traffic from port 3050 on your local machine to port 80 in the container
+    depends_on:
+      - api # Start the 'api' container before the 'nginx' container
+      - client # Start the 'client' container before the 'nginx' container
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server # Include all files from the 'server' directory on your local machine to build the container
+    volumes:
+      - /app/node_modules # Prevents overwriting the container's 'node_modules' directory, keeping it isolated
+      - ./server:/app # Syncs the 'server' directory from your local machine with the '/app' directory inside the container, allowing real-time updates during development
+    environment:
+      - REDIS_HOST=redis # The hostname of the Redis container
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=postgres # The hostname of the Postgres container
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    environment:
+      - WDS_SOCKET_PORT=0 # Prevents the client from trying to use WebSockets
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+```
+
 ---
