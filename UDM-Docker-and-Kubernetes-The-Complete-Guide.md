@@ -250,6 +250,21 @@ docker exec -it docker_id npm run test
 
 ![image](https://github.com/user-attachments/assets/379f4702-a30b-4655-a3df-3da85e1a20db)
 
-
 ---
 
+#### Section 8 Building a Multi Container Application ####
+
+* Application Architecture
+
+![image](https://github.com/user-attachments/assets/1dad917e-c7a6-4a8c-b4f3-743552abc332)
+
+
+#### Section 9 Dockerizing Multiple-Services ####
+
+* Nginx Path Routing
+  - Why not connect directly to the server without Nginx? Because we don't want the client to worry about the port number
+  - The port number may change frequently
+  
+![image](https://github.com/user-attachments/assets/d09390e0-9b26-4e98-b87a-1967e9d15e5b)
+
+---
