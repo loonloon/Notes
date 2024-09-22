@@ -75,7 +75,7 @@ When a .NET application runs, four sections of memory (heaps) are created to be 
 * When an instance of a reference type is created (usually involving the `new` keyword), <strong>only an object reference is stored on stack</strong>. The actual instance itself is created on the heap, and its address held on stack.
 
 Consider the following code:
-```
+```csharp
 void Method1()
 {
     MyClass myObj = new MyClass();
@@ -87,7 +87,7 @@ void Method1()
 .NET has to create the object on the memory heap, determine its address on the heap (or object reference), and place that object reference within the stack frame for `Method1`. As long as `Method1` is executing, the object allocated on the heap will have a reference held on the stack. When Method1 completes, the stack frame is removed (along with the object reference), leaving the object without a reference.
 
 * The way is which variable assignment works differs between reference and value types.
-```
+```csharp
 void ValueTest()
 {
     int v1 = 12;
@@ -101,7 +101,7 @@ void ValueTest()
 
 There are two separate integers on the stack, both with the same value. Notice there are two stack variables, v1 and v2, and all the assignment has done is assign the same value to both variables. 
 
-```
+```csharp
 void RefTest()
 {
     MyClass v1 = new MyClass(12);
@@ -122,7 +122,7 @@ Both object pointers are referencing only the one class instance after the assig
 * When you pass a value type as a parameter, all you actually pass to the calling method is <strong>a copy of the variable</strong>. Any changes that are made to the passed variable within the method call are isolated to the method.
 * Having multiple copies of the same struct created on the stack creates extra work in copying the struct each time. This might not seem like a big deal but, <strong>when magnified within a high iteration loop, it can cause a performance issuse</strong>.
 * One way around this problem is to <strong>pass specific value types by reference</strong>.
-```
+```csharp
 void Method1() {
     int v1 = 22;
     Method2(v1);
@@ -157,7 +157,7 @@ Method 1 = 12
 
 #### Boxing and unboxing ####
 * Allocating onto the heap requires more work, and is therefore less efficient.
-```
+```csharp
 // Integer is created on the Stack
 int stackVariable = 12;
 
@@ -167,9 +167,10 @@ object boxedObject = stackVariable;
 // Unboxing
 int unBoxed = (int)boxedObject;
 ```
+
 * An integer is declared and allocated on the stack because it's a value type. It's then assgined to a new object variable(boxed) which is a reference type, and so a new object is allocated on the heap for the integer. Finally, the integer is unboxed from the heap and assigned to an integer stack variable.
 
-```
+```csharp
 int i = 12;
 ArrayList lst = new ArrayList();
 
@@ -203,7 +204,7 @@ int p = (int) lst[0]; // Unboxing occurs
 
 #### Inspection and collection ####
 * GC simply gets a list of all root references and, for each one, moves along its reference tree "marking" each object found as being in use. Any objects not marked as being in used, or "live", are free to be "collected".
-```
+```csharp
 // Simplified GC collection in pseudo code
 void Collect() {
     List gcRoots = GetAllGCRoots();
@@ -250,7 +251,7 @@ void Mark(objectRef o)
 http://putridparrot.com/blog/using-threadstatic-and-threadlocal/
 
 ### Chapter 2: The Simple Heap Model ###
-```
+```csharp
 // 19 characters
 // 86,000 bytes
 class MyClass
@@ -359,7 +360,7 @@ class MyClass
 
 #### Improving finalization efficiency ####
 * A simply pattern you can follow to avoid the finalization problem, is by implementing the `IDisposable` interface on your class and applying the following `Dispose` pattern:
-```
+```csharp
 // Directly from code
 public void Dispose()
 {
@@ -387,7 +388,7 @@ public void Finalize()
 * `GC.SuppressFinalize(this)`, which deletes the reference in the finalization queue and gets around the problem.
 * The `Finalize` method also calls the `Cleanup` method but just passes `false`, so it can avoid executing any thread specific code.
 
-```
+```csharp
 // Explicitly calling Dispose
 FinObj myFinObj = new FinObj();
 myFinObj.DoSomething();
@@ -422,7 +423,7 @@ using (FinObj myFinObj = new FinObj())
 ### Chapter 3: A Little More Detail ###
 * Often, when objects are created, only some of their member variables are created immediately, with others only instantiating much later. This means that an object can contain references to objects from younger generations, for example a Gen 2 object referencing a gen 0 one.
 
-```
+```csharp
 class LivesInGen2ForAges
 {
     private SpannerInWorks _createLater;
@@ -529,7 +530,7 @@ class LivesInGen2ForAges
 #### Configuring the GC ####
 * All you need to do to configure the GC is alter your config file (ASP.NET applications use aspnet.config for your framework version).
   * To enable Server GC, just set `gcServer="true"` in the runtime section. Obviously, for Workstation, set it to `false`.
-  ```
+  ```xml
   <configuration>
     <runtime>
         <gcServer enabled="true | false"/>
@@ -537,7 +538,7 @@ class LivesInGen2ForAges
   </configuration>
   ```
   * if you have configured Workstation GC, then you can switch on concurrency by setting the `gcConcurrent enabled` flag to `true`.
-  ```
+  ```xml
   <configuration>
     <runtime>
     <gcConcurrent enabled="true | false"/>
@@ -569,7 +570,7 @@ class LivesInGen2ForAges
 
 * An obvious use of LatencyMode is to <strong>change it for a short period during execution of critical code that needs maximum UI or batch processing performance, and then change it back on completion</strong>.
 
-```
+```csharp
 using System.Runtime;
 …
 
@@ -605,7 +606,7 @@ finally
   * short weak references (which ignore finalization)
   * long weak references (which consider finalization)
 
-```
+```csharp
 //short
 WeakReference wr = WeakReference(floor23, false);
 
@@ -647,7 +648,7 @@ WeakReference wr = WeakReference(floor23, true);
 #### Object pinning ####
 * We can create GC Handles directly in code, and so can use them to create pinned references to objects we need to pass to unmanaged code.
 
-```
+```csharp
 byte[] buffer = new byte[512];
 GCHandle h = GCHandle.Alloc(buffer, GCHandleType.Pinned);
 IntPtr ptr = h.AddrOfPinnedObject();
@@ -662,7 +663,7 @@ if (h.IsAllocated)
 
 * Objects will also be pinned if you use a fixed block.
 
-```
+```csharp
 unsafe static void Main()
 {
     Person p = new Person();
@@ -729,7 +730,7 @@ unsafe static void Main()
   * nullable types are structs, and structs inherit from `System.ValueType`, which inherits from `System.Object`
 * Variables of these types maintain their own copies of their data so, when a value is assigned from one variable to another, the data stored in the memory at one location (i.e. the memory allocated to the initial variable) is copied into the memory allocated for the new variable.
 
-```
+```csharp
 int x = 8;
 int y = x;
 
@@ -740,7 +741,7 @@ Assert.AreNotSame(x, y);
 * The values may be equal, but modifying the value of `y` (e.g. with the ++ operator) will not affect the `x` variable. <strong>This is often the source of bugs when developers forget that changes to a value type parameter will not carry over to the calling method</strong>.
 * The exception to the One variable, one memory location rule is usage of the `ref` and `out` keywords,
 
-```
+```csharp
 private void Increment(int value)
 {
     value++;
@@ -788,7 +789,7 @@ public void OutRefTest()
 * Boxing is sometimes necessary, but it should be avoided if at all possible, because it will slow down performance and increase memory requirements.
 * Boxing can be avoided by using parameterized classes and methods, which is implemented using generics; in fact this was the motivation for adding generics.
 
-```
+```csharp
 public void BoxedCall(object value)
 {
     // Perform operation on value
@@ -803,7 +804,7 @@ public void NonboxedCall<T>(T value)
 #### Disposing of unmanaged resources ####
 * There are two ways to do so without an exception preventing the method's execution.
 
-```
+```csharp
 // Way 1
 FileStream stream = new FileStream("message.txt", FileMode.Open);
 
@@ -844,7 +845,7 @@ using (StreamReader reader = new StreamReader(stream))
 #### Concatenation ####
 * The compiler also converts concatenation with variables and non-string literals into a call to `String.Concat`.
 
-```
+```csharp
 string panda = "bear";
 panda += "cat";
 
@@ -863,7 +864,7 @@ panda = String.Concat(panda, "cat");
 * Type casting a struct to an interface implicitly boxes the struct, which incurs the overhead of boxing and unboxing, and also has an interesting side effect.
 * This struct can be made immutable by making its fields read-only and removing the property setters.
 
-```
+```csharp
 public partial struct GeographicPoint
 {
     private readonly float latitude;
@@ -907,7 +908,7 @@ public partial struct GeographicPoint
 * Although this struct is now immutable, it will still have an issue with Hashtables. When struct objects are used as Hashtable keys, the lookup operation for the Hashtable is slower because of the implementation of the GetHashCode method used to perform the lookup.
 * By implementing our own Equals() method we can optimize it and eliminate reflection and boxing.
 
-```
+```csharp
 public partial struct GeographicPoint
 {
     public static bool operator ==(GeographicPoint first, GeographicPoint second)
@@ -962,7 +963,7 @@ public partial struct GeographicPoint
 #### Debug ####
 * This is the default setting in the web.config, but it has an unfortunate side effect from a performance perspective. This setting will inject debug symbols into the compiled assemblies.
 
-```
+```xml
 <compilation debug="true">
 ```
 
@@ -977,7 +978,7 @@ public partial struct GeographicPoint
 * The SQL that is generated will actually exclude the filtering restrictions, which will not be interpreted until after the SQL is run and the results returned.
 * Instead of having the filter use indexes in the database and call up a small subset of the data, no indexes will be used, and the entire contents of the table will be retrieved.
 
-```
+```csharp
 // bad
 public bool PastDueAccount(Account account)
 {
@@ -994,7 +995,7 @@ using (var context = new Context())
 
 * This way, the lambda expression will be passed to the LINQ provider, and its logic will be incorporated into the final query.
 
-```
+```csharp
 // good
 public Expression<Func<Order, bool>> PastDueAccount
 {
@@ -1019,7 +1020,7 @@ BindingOperations.ClearAllBindings(this);
 * Avoid the `Using` statement with a service proxy. If you do try it, then the `Dispose()` method of a proxy will call the `Close()` method, which will cause an exception if a fault has occurred on a channel.
 * Relying on the `Using` construct may also result in orphaned service clients and unmanaged resources.
 
-```
+```csharp
 // best practice
 var clientproxy = new UnderTheHoodClient();
 
@@ -1067,7 +1068,7 @@ catch (TimeoutException)
 * Essentially, while Server GC is faster than Workstation GC on the same size heap, there can be problems if you're running hundreds of instances of an app because of excessive context switching between threads.
 * Concurrent GC is intended to minimize screen freezes during garbage collection and is best suited to application scenarios where a responsive UI is the most critical design goal.
 
-```
+```xml
 <configuration>
     <runtime>
         <gcConcurrent enabled="true" />
