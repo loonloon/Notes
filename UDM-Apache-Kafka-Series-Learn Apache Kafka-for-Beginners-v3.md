@@ -53,3 +53,24 @@
 ![image](https://github.com/user-attachments/assets/ddd1ad12-6b6b-4b0a-8965-587d6f101dcc)
 
 ---
+
+## Consumer Groups and Consumer Offsets
+
+![image](https://github.com/user-attachments/assets/a10900fc-d17d-4446-b941-04ddd004663e)
+
+---
+
+![image](https://github.com/user-attachments/assets/25a4db5d-9978-471e-acdf-5a4756f3baf7)
+
+---
+
+![image](https://github.com/user-attachments/assets/e6945bfd-4624-45bd-a6bf-1c7eba31e138)
+
+---
+
+## Brokers and Topics
+
+![image](https://github.com/user-attachments/assets/87df4833-ce47-4ff5-9624-c52042c4f5fc)
+
+---
+
