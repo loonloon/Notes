@@ -197,7 +197,7 @@ In both cases threads and calculations can be started either in a synchronous or
 ##### Section 5.3 Make ValueTypes Faster with ref return #####
 * New storage created when passing parameter into method
 
-```
+```csharp
 public static void Increment(int number)
 {
     number++;
@@ -213,7 +213,7 @@ static void Main(string[] args)
 ```
 
 * ref method parameter (Before C# 7)
-```
+```csharp
 public static void Increment(ref MyBigStruct s)
 {
     s.Value1++;
@@ -230,7 +230,7 @@ static void Main(string[] args)
 * ref return (After C# 7)
 * Indeal for unsafe code (returning array item)
 * Improve performance (returning referenace to a big ValueType)
-```
+```csharp
 public struct Matrix
 {
     int item00, item01, item02;
@@ -245,7 +245,7 @@ public static ref Matrix SelectMatrix(ref Matrix left, ref Matrix right, Func<bo
 ```
 
 * ref local (After C# 7)
-```
+```csharp
 int x = 1;
 ref int y = ref x;
 y = 42;
@@ -258,7 +258,7 @@ Console.WriteLine($"Value of x: {x}");
 ##### Section 5.4 The Performance Characteristics of the C# 7 Tuple Feature #####
 * System.Type is a reference type (Before C# 7) 
 
-```
+```csharp
 public static Tuple<int, int> GetMinMax(List<int> values)
 {
     ...
@@ -268,7 +268,7 @@ public static Tuple<int, int> GetMinMax(List<int> values)
 
 * System.ValueType is a value type (C# 7)
 
-```
+```csharp
 public static (int min, int max) GetMinMax(List<int> values)
 {
     ...
@@ -294,7 +294,7 @@ public static (int min, int max) GetMinMax(List<int> values)
 * Calling `Rent(n)` where n > 2 ^ 20, NO POOLING
 * Use `ArrayPool<T>.Create(maxArrayLength, maxArraysPerBucket)` where size bigger than 2 ^ 20
 
-```
+```csharp
 public void MethodCalledOften()
 {
     var arrayPool = new ArrayPool<int>.Shared.Rent(256 * 1024);
@@ -307,7 +307,7 @@ public void MethodCalledOften()
 * Can avoid creating different function parameters
 * `ReadOnlySpan` can be used in tring slicing to improve performance
 
-```
+```csharp
 //Before
 //Managed memory
 byte[] myArray = new byte[100];
@@ -361,7 +361,7 @@ unsafe
   * `ToArrayAsync()`
   * `SingleAsync()`
 
-```
+```csharp
 //Bad
 var d1980 = new DateTime(1980, 1, 1);
 var dbUsers = SampleDataContext.Users;
@@ -385,7 +385,7 @@ var users = SampleDataContext.Users.Where(n => x.BirthDate < d1980)
 * Explicit Loading
 * Lazy Loading (EF Core 2.0)
 
-```
+```csharp
 //Bad
 var d1980 = new DateTime(1980, 1, 1);
 var users = SampleDataContext.Users.Where(n => x.BirthDate < d1980)
@@ -449,7 +449,7 @@ for (var i = 1; i < 10; i++)
 * Maximum Length
   * If not specified, it will use the maximum length during table creation
   
-```
+```csharp
 //Option 1
 public class UserData
 {
@@ -471,7 +471,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 * Client side evalution
 
-```
+```csharp
 //issue, will get all the records from DB without filter
 public async Task<IActionResul> CommentsWithDotNetCore()
 {
@@ -497,7 +497,7 @@ public override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 * Change Tracking
   * Turn it off when it does not required
   
-```
+```csharp
 //Option 1 per query
 var comment = await SampleDataContext.Comments
     .Where(x => x.Id == 123)
