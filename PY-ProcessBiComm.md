@@ -1,4 +1,4 @@
-```
+```python
 # process_a.py
 
 import subprocess
@@ -42,7 +42,7 @@ receive_thread.join()
 
 ```
 
-```
+```python
 # process_b.py
 
 import sys
