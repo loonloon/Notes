@@ -84,5 +84,17 @@
 
 ## Topics Replication
 
+![image](https://github.com/user-attachments/assets/360ea0a8-38e9-4b10-aa1a-574b4eb0ae32)
 
+---
+
+![image](https://github.com/user-attachments/assets/2bd41ec3-894b-4597-830b-5012a669047e)
+
+---
+
+![image](https://github.com/user-attachments/assets/18783616-1f47-4526-b61e-44eeb94c0a9d)
+
+---
+
+![image](https://github.com/user-attachments/assets/dcc76548-f8ec-4fe1-a1ce-388739c26297)
 
