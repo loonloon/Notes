@@ -2,7 +2,7 @@
 
 * Null Object Pattern
 
-```
+```typescript
 //Bad
 const legalCases: LegalCase[] = await fetchCasesFromAPI();
 
@@ -38,7 +38,7 @@ const myEmptyArray: string[] = EmptyArray.create<string>();
 
 * What About Objects?
 
-```
+```typescript
 class NullBoss implements IBoss {
     fight(player: Player) {
         // Player always wins.
@@ -57,7 +57,7 @@ class NullBoss implements IBoss {
 Since we've exposed all our orders via an interface, there's no need to figure out what
 the status of the class is! Each individual class will just know what it needs to do
 
-```
+```typescript
 //Bad
 enum OrderStatus {
     Pending, FraudulentAccount, PaymentRejected
@@ -123,7 +123,7 @@ for (const order of ordersCollection) {
 
 #### Wordy Conditionals ####
 
-```
+```typescript
 //Bad
 if (user.role === "admin"
     && user.isActive
@@ -254,7 +254,7 @@ if (pipe.check()) {
 
 #### Nested Conditionals ####
 
-```
+```typescript
 //Bad
 let result = null;
 
@@ -294,7 +294,7 @@ return order.tryAgainLater();
 
 #### Gate Classes ####
 
-```
+```typescript
 //Bad
 //Example 1
 if (!order.wasCancelled()) {
@@ -343,7 +343,7 @@ await orderRepo.placeOrder(order);
 ---
 
 #### Primitive Overuse ####
-```
+```typescript
 //Bad
 //Example 1
 //That logic is not sharable and therefore will be duplicated all over the place.
@@ -445,7 +445,7 @@ mailer.mailToInternalServer(emailAddress.value(), message);
 ---
 
 #### Descriptive Booleans ####
-```
+```typescript
 //Bad
 //Example 1
 
@@ -498,7 +498,7 @@ strategies[result]();
 ---
 
 #### Lengthy Method Signatures ####
-```
+```typescript
 //Bad
 //Example 1
 public getUsers(
@@ -541,7 +541,7 @@ public getActiveUsersForHireDate(hireDate: Date) : User[] {
 ---
 
 #### Methods That Never End ####
-```
+```typescript
 //Bad
 public async processOrder(orderId: string): Promise<ValidationMessage> {
     const user = await this.getUserFromSession();
@@ -651,7 +651,7 @@ Here's a basic technique that might help you get started on analyzing your class
 2. Is there a context for that subject (shipping, orders, dashboard, and so on)?
 3. Is there even perhaps an action being performed on the subject (as we'll see in more detail soon)?
 
-```
+```typescript
 class User {
     firstName: string;
     lastName: string;
@@ -690,7 +690,7 @@ Are those models/classes going to contain similar pieces of data that all of the
 
 Will they also have pieces of data that are only used in one context? Sure. For example, the user's id is needed everywhere. But the user's home address is only ever needed for shipping. Why, then, does the payment feature need access to that data? It doesn't.
 
-```
+```typescript
 class UserProfileUser {
     firstName: string;
     lastName: string;
@@ -742,7 +742,7 @@ CQRS stands for Command Query Responsibility Segregation. It's a pattern that ca
 helpful when dealing with more complex business logic.
 
 Usually, when we create classes, they are used in both write and read scenarios. So, for example, a PaymentUser class will have methods for modifying its data or applying business rules, and also methods or properties that are used in scenarios where we are displaying data to a user.
-```
+```typescript
 class PaymentUser {
     id: number;
     firstName: string;
@@ -775,7 +775,7 @@ These kinds of classes can quickly become confusing. We also tend to start loadi
 
 So, instead, why don't we separate our model/class into two?
 
-```
+```typescript
 class PaymentUserForDisplay {
     id: number;
     firstName: string;
@@ -805,7 +805,7 @@ Well, we'll take each business scenario and create a class to model that exact s
 * Commands: These are scenarios that change our system but don't return data to the user to display.
 * Queries: Scenarios where we display data to a user so that they can decide on something.
 
-```
+```typescript
 class UpdateUserCreditCardInfoCommand {
     id: number;
     creditCardNo: string;
@@ -838,7 +838,7 @@ class UserProfileQuery {
 
 #### Messy Object Creation ####
 
-```
+```typescript
 //Bad
 const plane = new Airplane();
 plane.type = PlaneType.Passenger;
@@ -876,7 +876,7 @@ class AirplaneFactory {
 
 In the previous section, we created a factory function. Given these new requirements, our function might look like this now:
 
-```
+```typescript
 //Bad
 //Example 1
 const createPlane =
