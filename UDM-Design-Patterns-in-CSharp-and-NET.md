@@ -4,7 +4,7 @@
 #### The SOLID Design Principles ####
 * Single Responsibility Principle
 
-```
+```csharp
 //bad
 public class Journal
 {
@@ -89,7 +89,7 @@ public class Persistence
 
 * Open Closed Principle
 
-```
+```csharp
 public enum Color
 {
     Red,
@@ -290,7 +290,7 @@ public class Demo
 * Liskov Substitution Principle
   * Should be always be up cast and the operation should be still generally OK
   
-```
+```csharp
 //wrong
 public class Rectangle
 {
@@ -389,7 +389,7 @@ public class Square : Rectangle
 
 * Interface Segregation Principle
 
-```
+```csharp
 public class Document
 {
 }
@@ -510,7 +510,7 @@ public struct MultiFunctionMachine : IMultiFunctionDevice
   * High-level modules should not depend on low-level; both should depend on abstractions
   * Abstractions should not depend on details; details should depend on abstractions
   
-```
+```csharp
 public enum Relationship
 {
     Parent,
@@ -597,7 +597,7 @@ public class Research
 #### Builder ####
 When piecewise object construction is complicated, provide an API for doing it succinctly
 
-```
+```csharp
 //bad
 var hello = "hello";
 var sb = new StringBuilder();
@@ -723,7 +723,7 @@ public class Demo
 
 * Fluent Builder Inheritance with Recursive Generics
 
-```
+```csharp
 public class Person
 {
     public string Name;
@@ -789,7 +789,7 @@ public class BuilderInheritanceDemo
 
 * Faceted Builder
 
-```
+```csharp
 public class Person
 {
     public string StreetAddress, Postcode, City;
@@ -899,7 +899,7 @@ A component responsible solely for the wholesale (not piecewise) creation of obj
   * overload with the same sets of arguments with different descriptive names
   * Violate Single Responsibility Principle since all methods in 1 class
   
-```
+```csharp
 //bad
 public enum CoordinateSystem
 {
@@ -956,7 +956,7 @@ public class Point
 
 * Factory
   
-```
+```csharp
 public class Point
 {
     private readonly double x;
@@ -1027,7 +1027,7 @@ public class Point
 
 * Abstract Factory
 
-```
+```csharp
 public interface IHotDrink
 {
     void Consume();
@@ -1142,7 +1142,7 @@ We make a copy (clone) the prototype and customize it (Requires "deep copy" supp
 * ICloneable (Should not use for deep copy)
   * If check with Clone() in array, it will returns shallow copy of the object
   
-```
+```csharp
 public class Person : ICloneable
 {
     public readonly string[] Names;
@@ -1194,7 +1194,7 @@ public class Address : ICloneable
 * Copy Constructor
   * Tedious when have a deep hierarchy of objects (10 different classes)
   
-```
+```csharp
 public class Person
 {
     public string[] Names { get; }
@@ -1247,7 +1247,7 @@ public class Address
 * Explicit Deep Copy Interface
   * Tedious when have a deep hierarchy of objects (10 different classes)
   
-```
+```csharp
 public interface IPrototype<T>
 {
     T DeepCopy();
@@ -1300,7 +1300,7 @@ public class Address : IPrototype<Address>
 
 * Copy Through Serialization
 
-```
+```csharp
 public static class ExtensionMethods
 {
     public static T DeepCopy<T>(this T self)
@@ -1331,7 +1331,7 @@ public static class ExtensionMethods
 
 #### Singleton ####
 
-```
+```csharp
 public interface IDatabase
 {
     int GetPopulation(string name);
@@ -1370,7 +1370,7 @@ public class SingletonDatabase : IDatabase
 
 * Testability Issues
 
-```
+```csharp
 public class SingletonRecordFinder
 {
     public int TotalPopulation(IEnumerable<string> names)
@@ -1385,7 +1385,7 @@ public class SingletonRecordFinder
 
 * Singleton in Dependency Injection
 
-```
+```csharp
 public class ConfigurableRecordFinder
 {
     private IDatabase database;
@@ -1407,7 +1407,7 @@ public class ConfigurableRecordFinder
 * Monostate
   * Allows create many objects with shared state
 
-```
+```csharp
 public class ChiefExecutiveOfficer
 {
     private static string _name;
@@ -1448,7 +1448,7 @@ public class Demo
 #### Adapter ####
 A construct which adapts an existing interface X to conform (符合) to the required interface Y
 
-```
+```csharp
 //problem
 public class Point
 {
@@ -1566,7 +1566,7 @@ private static void Draw()
 
 * Adapter Caching
 
-```
+```csharp
 public class Point
 {
     public int X { get; }
@@ -1771,7 +1771,7 @@ After
 
 ![image](https://user-images.githubusercontent.com/5309726/102063762-66908900-3e31-11eb-9339-4f10e822a2ea.png)
 
-```
+```csharp
 public interface IRenderer
 {
     void RenderCircle(float radius);
@@ -1848,7 +1848,7 @@ public class Demo
 #### Decorator ####
 Facilitates the addition of behaviors to individual objects without inheriting from them
 
-```
+```csharp
 public class CodeBuilder
 {
     private readonly StringBuilder _builder = new StringBuilder();
@@ -1899,7 +1899,7 @@ public class Demo
 
 * Adapter Decorator
 
-```
+```csharp
 public class MyStringBuilder
 {
     private readonly StringBuilder _sb = new StringBuilder();
@@ -1965,7 +1965,7 @@ public class Demo
 
 * Multiple Inheritance
 
-```
+```csharp
 public class Bird
 {
     public void Fly()
@@ -2007,7 +2007,7 @@ public class Dragon // no multiple inheritance
 
 * Dynamic Decorator
 
-```
+```csharp
 public abstract class Shape
 {
     public virtual string AsString() => string.Empty;
@@ -2098,7 +2098,7 @@ public class Demo
 
 * Static Decorator Composition
 
-```
+```csharp
 public abstract class Shape
 {
     public virtual string AsString() => string.Empty;
@@ -2204,7 +2204,7 @@ Provides a simple, easy to understand / user interface over a large and sophisti
 #### Flyweight ####
 A space optimization technique that lets us use less memory by storing externally the data associated with similar objects (avoid duplication)
 
-```
+```csharp
 //example 1
 public class User
 {
@@ -2345,7 +2345,7 @@ Console.WriteLine(bft);
 #### Proxy ####
 A class that functions as an interface to particular resource. That resource may be remote, expensive to construct, or maybe require logging or some other added functionality
 
-```
+```csharp
 public interface ICar
 {
     void Drive();
@@ -2407,7 +2407,7 @@ public class Demo
 * Property Proxy
   * Use object as property instead of value
   
-```
+```csharp
 public class Property<T> : IEquatable<Property<T>> where T : new()
 {
     private T value;
@@ -2524,7 +2524,7 @@ public class Demo
 #### Chain of Responsibility ####
 A chain of components who all get a chance to process a command or a query, optionally having default processing implementation and an ability to terminate the processing chain
 
-```
+```csharp
 //example 1
 public class Creature
 {
@@ -2785,7 +2785,7 @@ public class Demo
 #### Command ####
 An object which represents an instruction to perform a particular action. Contains all the information necessary for the action to be taken
 
-```
+```csharp
 public class BankAccount
 {
     private int balance;
@@ -2912,7 +2912,7 @@ class Demo
 #### Interpreter ####
 A component that processes structured text data. Does so by turning it into separate lexical tokens (lexing) and then interpreting sequences of said tokens (parsing)
 
-```
+```csharp
 public interface IElement
 {
     int Value { get; }
@@ -3106,7 +3106,7 @@ public class Demo
 #### Interator ####
 An object that facilitates the traversal of a data structure
 
-```
+```csharp
 public class Node<T>
 {
     public T Value;
@@ -3264,7 +3264,7 @@ public class Demo
 #### Mediator ####
 A component that facilitates communication between other components without them necessarily being aware of each other or having direct (reference) access to each other
 
-```
+```csharp
 public class Person
 {
     public string Name;
@@ -3350,7 +3350,7 @@ public class Demo
 #### Memento ####
 A token / handle representing the system state. Lets us roll back to the state when the token generated. May or may not directly expose state information
 
-```
+```csharp
 public class Memento
 {
     public int Balance { get; }
@@ -3448,7 +3448,7 @@ public class Demo
 #### Null Object ####
 A no operation object that conforms to the required interface, satisfying a dependency requirement of some other object
 
-```
+```csharp
 public interface ILog
 {
     void Info(string msg);
@@ -3531,7 +3531,7 @@ public class Demo
 #### Observer  ####
 An observer is an object that wishes to be informed about events happening in the system. The entity generating the events is an observable
 
-```
+```csharp
 public class Game
 {
     public event EventHandler RatEnters, RatDies;
@@ -3685,7 +3685,7 @@ public class Demo
 #### State ####
 A pattern in which the object's behavior is determined by its state. An object transitions from one state to another (something needs to trigger a transition)
 
-```
+```csharp
 public enum State
 {
     OffHook,
@@ -3760,7 +3760,7 @@ class Demo
 #### Strategy ####
 Enables the exact behavior of a system to be selected either at run-time (dynamic) or compile-time (static)
 
-```
+```csharp
 public enum OutputFormat
 {
     Markdown,
@@ -3914,7 +3914,7 @@ class Demo
 #### Template Method ####
 Allows us to define the 'skeleton' of the algorithm, with concrete implementations defined in subclasses (inheritance). Something similar as Strategy pattern (Through composition (interface))
 
-```
+```csharp
 public abstract class Game
 {
     protected int CurrentPlayer;
@@ -3983,7 +3983,7 @@ public class Demo
 #### Visitor ####
 A pattern where a component (visitor) is allowed to traverse the entire inheritance hierarchy. Implemented by propagating a single visit() method throughout the entire hierarchy
 
-```
+```csharp
 public abstract class Expression
 {
     public abstract void Accept(IExpressionVisitor visitor);
