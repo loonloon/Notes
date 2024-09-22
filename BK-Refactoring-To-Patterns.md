@@ -6,7 +6,7 @@ https://industriallogic.com/xp/refactoring/chainConstructors.html
   * Code that’s duplicated across two or more of a class's constructors is an invitation for trouble.
 
 * Example
-```
+```csharp
 //Before
 public Loan(float notional, float outstanding, int rating, DateTime expiry)
 {
@@ -66,7 +66,7 @@ public Loan(CapitalStrategy strategy, float notional, float outstanding, int rat
   * If you have only one constructor, this isn’t a problem. But if you have multiple constructors, programmers will have to choose which constructor to call by studying which parameters are expected and/or poking around at the constructor code.
   
 * Example
-```
+```csharp
 //Before
 public class Loan
 {
@@ -190,7 +190,7 @@ public class Loan
   
   ![image-01](https://user-images.githubusercontent.com/5309726/66643442-496e9200-ec51-11e9-8db4-b361fd41385a.png)
 * Example
-```
+```csharp
 //Before
 public abstract class Loan
 {
@@ -250,7 +250,7 @@ var termLoan = Loan.NewTermLoan(1000f, 250f, getCustRating(), expiryDate);
   * There’s nothing wrong with a few Creation Methods on a class, but as the number of them grows, a class’s own primary responsibilities – it’s main purpose in life – can feel like it is obscured, outweighed by too much creational code. At such times, it’s best to restore the class’s identity by extracting all of its Creation Methods into their own home. We call such a home a Creation Class.
 
 * Example
-```
+```csharp
 //Before
 public class Loan
 {
@@ -415,7 +415,7 @@ var termLoan = LoanCreator.newTermLoan(…);
   * A lot of condition logic can obscure any calculation, even a simple one. When that happens, your calculation can be misunderstood by others and harder to maintain, debug and extend
   
 * Example
-```
+```csharp
 //Before
 public class Loan
 {
@@ -610,7 +610,7 @@ public class RCTLCapital : CapitalStrategy
   * One problem with implicit tree construction is the tight coupling between the code that builds the tree and how the tree is represented
   
 * Example
-```
+```csharp
 //Before
 var orders = "<orders>";
 orders += "<order number='123'>";
@@ -688,7 +688,7 @@ public class TagNode
   * I'm always interested in simplifying client code: I want it to read as clearly as English. So when it comes to creating really simple tree-construction code, I like the Builder pattern even better than the Composite pattern
   
 * Example
-```
+```csharp
 //Before
 var order = new TagNode("order");
 order.AddAttribute("number", "123");
@@ -764,7 +764,7 @@ owed is overdue or if a special discount must be applied because the customer is
   * But what happens when we add more special conditions to calcAmountOwed()? As more special conditions are added, the Invoice class gets more complex: it holds onto more instance variables, it supports more getter and setter methods for handling special conditions and its calculation logic gets longer and more involved
 
 * Example
-```
+```csharp
 //Before
 var m = new Model(10.0f, 50.0f, "Ford Taurus");
 
@@ -981,7 +981,7 @@ public class RefuelOnReturn : CarRentalDecorator
   * A Collecting Parameter is an object that you pass to methods in order to collect information from those methods
   
 * Example
-```
+```csharp
 //Before
 public class TagNode
 {
@@ -1085,7 +1085,7 @@ public class TagNode
   * Transform the logic into a small number of intention-revealing steps at the same level of detail
   
 * Example
-```
+```csharp
 //Before
 public bool Contains(Component c)
 {
@@ -1144,7 +1144,7 @@ private bool PartiallyWithin(Component c)
   * While software must often support multiple versions of a component, library or API, code that handles these versions doesn’t have to be a confusing mess
 
 * Example
-```
+```csharp
 //Before
 public class Query
 {
