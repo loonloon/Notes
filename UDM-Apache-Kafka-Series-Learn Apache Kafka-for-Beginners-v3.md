@@ -43,3 +43,13 @@
 ![image](https://github.com/user-attachments/assets/27e308a0-604d-4d6d-8e30-3c61b5fe8ad7)
 
 ---
+
+## Consumers and Deserialization
+
+![image](https://github.com/user-attachments/assets/02d61d58-247f-4964-b0db-cb87bf0a4bef)
+
+---
+
+![image](https://github.com/user-attachments/assets/ddd1ad12-6b6b-4b0a-8965-587d6f101dcc)
+
+---
