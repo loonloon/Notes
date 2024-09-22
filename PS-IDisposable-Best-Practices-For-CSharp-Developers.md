@@ -7,14 +7,14 @@ __IDisposable__ provides a mechanism for releasing unmanaged resouces.
 ![img1](https://user-images.githubusercontent.com/5309726/47963359-22cdd180-e066-11e8-8d37-832d07a898c3.png)
 
 #### Best Practice #1 Dispose of IDisposable objects as soon as you can ####
-```
+```csharp
 using(var state = new DatabaseState())
 {
   state.GetDate().Dump();
 }
 ```
 
-```
+```csharp
 varstate = new DatabaseState();
 
 try
@@ -33,7 +33,7 @@ Manages the allocation and release of memory for your application
 
 #### Best Practice #2 If you use IDisposable objects as instance fields, implement IDisposable ####
 
-```
+```csharp
 public class DatabaseState: IDisposable
 {
   private SqlConnection _connection;
@@ -60,7 +60,7 @@ public class DatabaseState: IDisposable
 
 #### Best Practice #3 Allow Dispose() to be called multiple times and don't throw exceptions ####
 
-```
+```csharp
 if(_connection != null)
 {
   _connection.Dispose();
@@ -70,13 +70,13 @@ if(_connection != null)
 
 #### Best Practice #4 Implement IDisposableto support disposing resources in a class hierarchy ####
 
-```
+```csharp
 public class xxx: IDisposable
 {
 }
 ```
 
-```
+```csharp
 public void Dispose()
 {
   Dispose(true);
@@ -84,7 +84,7 @@ public void Dispose()
 }
 ```
 
-```
+```csharp
 protected virtual void Dispose(bool disposing)
 {
 }
@@ -92,7 +92,7 @@ protected virtual void Dispose(bool disposing)
 
 #### Best Practice #5 If you use unmanaged resources, declare a finalizer which cleans them up ####
 
-```
+```csharp
 ~UnmanagedDatabaseState()
 {
   //only dispose unmanaged resources
@@ -126,7 +126,7 @@ protected override void Dispose(bool disposing)
 
 #### Best Practice #7 If you implement an interface and use IDisposable fields, extend your interface from IDisposable ####
 
-```
+```csharp
 public class BookFeedRepository: IBookFeedRepository
 {
   private BookFeedContext_context;
@@ -145,7 +145,7 @@ Shawn Farkas, a design engineer on the CLR security team writes in MSDN magazine
 
 Although the using block will work with classes that do have an explicit IDisposable implementation, I recommend that classes never implement the interface this way. If you explicitly implement IDisposable, ***developers who are exploring your object model using IntelliSense® in Visual Studio® will not notice that the object has a Dispose method.***
 
-```
+```csharp
 public class DifficultToDiscover: IDisposable
 {
   //Bad practice
