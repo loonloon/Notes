@@ -74,3 +74,15 @@
 
 ---
 
+![image](https://github.com/user-attachments/assets/a7b992df-e3e9-4a06-91ad-64a0498d389a)
+
+---
+
+![image](https://github.com/user-attachments/assets/f9aa27a8-18e0-4bbd-ac3f-f45fc2913687)
+
+---
+
+## Topics Replication
+
+
+
