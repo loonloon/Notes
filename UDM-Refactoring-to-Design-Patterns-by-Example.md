@@ -3,7 +3,7 @@
 
 #### Section 3 Decoupling Implementation with Strategies ####
 
-```
+```csharp
 //Initial
 
 class Subtitles
@@ -39,7 +39,7 @@ class Subtitles
 }
 ```
 
-```
+```csharp
 //Final (Strategy Pattern)
 
 class Subtitles
@@ -107,7 +107,7 @@ class LinesBreaker : ITextProcessor
 
 ![image](https://user-images.githubusercontent.com/5309726/163710620-21631d42-fb35-42d9-862a-c438df896baa.png)
 
-```
+```csharp
 //Initial
 
 class Subtitles
@@ -136,7 +136,7 @@ class Subtitles
 
 ![image](https://user-images.githubusercontent.com/5309726/163710588-583f1e97-b3d1-441a-b23a-f5e382bb7f54.png)
 
-```
+```csharp
 //Final (Composite Pattern)
 
 class Subtitles
@@ -188,7 +188,7 @@ Decorator Pattern
 
 ![image](https://user-images.githubusercontent.com/5309726/163711136-bb5dcfea-2bfa-4a1c-92bc-d7c678d3547e.png)
 
-```
+```csharp
 //Initial
 class Subtitles
 {
@@ -213,7 +213,7 @@ class Subtitles
 }
 ```
 
-```
+```csharp
 //Final
 
 class Subtitles
@@ -266,7 +266,7 @@ static class ChainConstruction
 
 #### Section 5 Constructing Complex Object Graphs with Builder ####
 
-```
+```csharp
 //Initial
 
 class Program
@@ -309,7 +309,7 @@ class Subtitles
 }
 ```
 
-```
+```csharp
 //Final
 
 static void Process(FileInfo source, FileInfo destination, TimeSpan clipDuration)
@@ -415,7 +415,7 @@ internal class TextDurationMeter
 
 ![image](https://user-images.githubusercontent.com/5309726/163712521-77249f5c-c058-4383-a1b0-7732c65db019.png)
 
-```
+```csharp
 //Initial
 
 public class SentencesBreaker : ITextProcessor
@@ -475,7 +475,7 @@ public class SentencesBreaker : ITextProcessor
 }
 ```
 
-```
+```csharp
 //Final
 
 public class SentencesBreaker : RuleBasedProcessor
