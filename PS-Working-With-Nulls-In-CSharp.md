@@ -4,14 +4,14 @@ A value type may sometimes need to additionally representa null value.
 
 Nullable types are instances of the ```System.Nullable<T>struct```. A nullable type can represent the correct range of values for its underlying value type, plus an additional null value.
 
-```
+```csharp
 public Nullable<int> DaysSinceLastLogin { get; set; }
 
 //shorthand
 public int? DaysSinceLastLogin { get; set; }
 ```
 
-```
+```csharp
 //bad
 if (player.IsNoob == null)
 {
@@ -27,7 +27,7 @@ if (player.IsNoob.HasValue)
 
 #### Null Object Pattern ####
 
-```
+```csharp
 public interface ISpecialDefence
 {
     int CalculateDamageReduction(int totalDamage);
@@ -59,7 +59,7 @@ public class IronBonesDefence : ISpecialDefence
 }
 ```
 
-```
+```csharp
 public abstract class SpecialDefence
 {
   public abstract int CalculateDamageReduction(int totalDamage);  
