@@ -98,3 +98,14 @@
 
 ![image](https://github.com/user-attachments/assets/dcc76548-f8ec-4fe1-a1ce-388739c26297)
 
+---
+
+## Producer Acknowledgement & Topic Durability
+
+![image](https://github.com/user-attachments/assets/817fb888-714f-4a4e-a8df-e2bf37fc7202)
+
+---
+
+![image](https://github.com/user-attachments/assets/771dd475-d6d0-4724-b893-035315ebef87)
+
+---
