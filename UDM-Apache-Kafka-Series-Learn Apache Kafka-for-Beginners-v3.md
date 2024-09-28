@@ -109,3 +109,28 @@
 ![image](https://github.com/user-attachments/assets/771dd475-d6d0-4724-b893-035315ebef87)
 
 ---
+
+## Zookeeper
+
+![image](https://github.com/user-attachments/assets/02dbdded-97f0-48cb-ad82-1f32bf30c46e)
+
+---
+
+![image](https://github.com/user-attachments/assets/5b0c4b6e-22b0-4b71-abb9-5ea7160ad91f)
+
+---
+
+![image](https://github.com/user-attachments/assets/b2b9a7bf-6ceb-4f30-8c16-d6bf0e544311)
+
+---
+
+## Kafka KRaft
+
+![image](https://github.com/user-attachments/assets/64b60902-7dc1-497f-b21c-eef881987180)
+
+---
+
+![image](https://github.com/user-attachments/assets/5284fed1-73d1-4589-b18a-7c967e8150a0)
+
+---
+
