@@ -136,3 +136,12 @@
 
 ![image](https://github.com/user-attachments/assets/7b47a5e6-f019-4f38-9ff3-21de3d3b273f)
 
+---
+
+#### Section 7 CLI (Command Line Interface) 101 ####
+
+## Kafka Topics CLI
+
+![image](https://github.com/user-attachments/assets/b2eb1887-b0c4-4450-a010-c7c3126288d7)
+
+---
