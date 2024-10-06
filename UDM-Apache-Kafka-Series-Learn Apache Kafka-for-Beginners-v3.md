@@ -144,4 +144,9 @@
 
 ![image](https://github.com/user-attachments/assets/b2eb1887-b0c4-4450-a010-c7c3126288d7)
 
+--- 
+## Kafka Producer CLI
+
+![image](https://github.com/user-attachments/assets/c69a50a3-4867-4b28-aecc-a26908fc3dbb)
+
 ---
