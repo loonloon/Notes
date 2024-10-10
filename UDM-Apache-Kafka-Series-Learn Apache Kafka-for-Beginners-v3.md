@@ -155,4 +155,5 @@
 
 ![image](https://github.com/user-attachments/assets/bfd41543-db44-412a-a39f-2372e9f67600)
 
+* Creating a Kafka topic with 1 partition ensures message order but limits scalability for both producers and consumers due to the lack of parallelism
 ---
