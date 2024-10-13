@@ -163,4 +163,12 @@
 
 ![image](https://github.com/user-attachments/assets/b3dcc1c4-d419-45ee-8730-c44fbb2eea47)
 
+* Same group id for all consumers
+---
+
+## Kafka Console Consumers Group CLI
+
+![image](https://github.com/user-attachments/assets/32ec0ff8-5a3d-4a8a-a3c7-e1734ad9a699)
+
+* Different group id for consumers
 ---
