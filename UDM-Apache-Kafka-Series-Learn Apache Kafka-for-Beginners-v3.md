@@ -158,3 +158,9 @@
 * Creating a Kafka topic with 1 partition ensures message order but limits scalability for both producers and consumers due to the lack of parallelism
 * In Kafka, messages are ordered within each partition, but there is no guaranteed order across different partitions
 ---
+
+## Kafka Console Consumers in Group
+
+![image](https://github.com/user-attachments/assets/b3dcc1c4-d419-45ee-8730-c44fbb2eea47)
+
+---
