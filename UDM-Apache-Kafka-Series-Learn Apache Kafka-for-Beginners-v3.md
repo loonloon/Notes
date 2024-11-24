@@ -172,3 +172,9 @@
 
 * Different group id for consumers
 ---
+
+#### Section 1 Kafka Wikimedia Producer & Advanced Producer Configurations ####
+
+## Producer Acknowledgements Deep Dive
+
+---
