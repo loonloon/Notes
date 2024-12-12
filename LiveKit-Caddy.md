@@ -1,5 +1,6 @@
 # LiveKit Caddy Configuration
 ```
+# This turns off automatic redirects from HTTP to HTTPS
 {
     auto_https disable_redirects
 }
